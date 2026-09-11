@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lists', function (Blueprint $table) {
+        Schema::create('army_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, '')->index();
             $table->string('uuid')->unique()->index();
             $table->string('display_name');
-            $table->timestamps('created_at');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('army_lists');
     }
 };
