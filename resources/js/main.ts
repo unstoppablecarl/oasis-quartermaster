@@ -9,7 +9,7 @@ import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
 import '../styles/main.scss';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = 'Oasis Quartermaster';
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
@@ -25,8 +25,9 @@ const bootstrap = createBootstrap({
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
+        console.log({name})
         switch (true) {
-            case name === 'Welcome':
+            case name === 'Home':
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
@@ -48,6 +49,7 @@ void createInertiaApp({
 
 if (typeof window !== 'undefined') {
     // Bootstrap's JS touches `document` on import, so it must stay out of SSR...
+    // @ts-ignore
     void import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
     // This will set light / dark mode on page load...

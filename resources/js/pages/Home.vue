@@ -4,7 +4,7 @@ import { dashboard, login, register } from '@/routes';
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Home" />
 
     <div class="min-vh-100 d-flex flex-column">
         <header class="border-bottom">

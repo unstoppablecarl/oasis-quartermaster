@@ -1,14 +1,19 @@
-import inertia from '@inertiajs/vite';
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
-import vue from '@vitejs/plugin-vue';
-import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
-import { defineConfig, lazyPlugins } from 'vite-plus';
+import inertia from '@inertiajs/vite'
+import { wayfinder } from '@laravel/vite-plugin-wayfinder'
+import vue from '@vitejs/plugin-vue'
+import laravel from 'laravel-vite-plugin'
+import { bunny } from 'laravel-vite-plugin/fonts'
+import { defineConfig, lazyPlugins } from 'vite-plus'
+import { staticDataPlugin } from './resources/js/lib/vite-static-data-plugin.ts'
 
 export default defineConfig({
     plugins: lazyPlugins(() => [
+        staticDataPlugin(),
         laravel({
-            input: ['resources/styles/main.scss', 'resources/js/app.ts'],
+            input: [
+                'resources/styles/main.scss',
+                'resources/js/main.ts',
+            ],
             refresh: true,
             fonts: [
                 bunny('Instrument Sans', {
@@ -49,6 +54,7 @@ export default defineConfig({
             'resources/js/actions/**',
             'resources/js/routes/**',
             'resources/js/wayfinder/**',
+            'resources/static-data/**',
         ],
         options: {
             denyWarnings: true,
@@ -71,7 +77,6 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                // api: 'modern-compiler',
                 // bootstrap still uses deprecated but supported sass features
                 silenceDeprecations: [
                     'color-functions',
@@ -82,4 +87,4 @@ export default defineConfig({
             },
         },
     },
-});
+})
