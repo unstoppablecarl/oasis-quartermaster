@@ -1,28 +1,14 @@
 <script setup lang="ts">
-import { Form, Head, setLayoutProps } from '@inertiajs/vue3';
-import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController';
-import Heading from '../../components/Heading.vue';
-import InputError from '../../components/InputError.vue';
-import Layout from '../../layouts/army-lists/Layout.vue';
-import { edit, index } from '../../routes/army-lists';
-import type { ArmyList } from '../../types/army-list';
+import { Form, Head } from '@inertiajs/vue3'
+import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
+import Heading from '../../components/Heading.vue'
+import InputError from '../../components/InputError.vue'
+import Layout from '../../layouts/army-lists/Layout.vue'
+import type { ArmyList } from '../../types/army-list'
 
 const { armyList } = defineProps<{
     armyList: ArmyList;
-}>();
-
-setLayoutProps({
-    breadcrumbs: [
-        {
-            title: 'Army Lists',
-            href: index(),
-        },
-        {
-            title: 'Edit',
-            href: edit(armyList.uuid),
-        },
-    ],
-});
+}>()
 </script>
 <template>
     <Layout>

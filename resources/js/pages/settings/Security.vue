@@ -12,17 +12,6 @@ type Props = {
 } ;
 
 const props = defineProps<Props>();
-
-defineOptions({
-    layout: {
-        breadcrumbs: [
-            {
-                title: 'Security settings',
-                href: edit(),
-            },
-        ],
-    },
-});
 </script>
 
 <template>

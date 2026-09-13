@@ -9,13 +9,6 @@ import type { BreadcrumbItem, NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
-type Props = {
-    breadcrumbs?: BreadcrumbItem[];
-};
-
-const props = withDefaults(defineProps<Props>(), {
-    breadcrumbs: () => [],
-})
 
 const page = usePage()
 const auth = computed(() => page.props.auth)
@@ -98,13 +91,4 @@ const mainNavItems: NavItem[] = [
             </div>
         </div>
     </nav>
-
-    <div
-        v-if="props.breadcrumbs.length > 1"
-        class="border-bottom bg-body-tertiary"
-    >
-        <div class="container-fluid py-2">
-            <Breadcrumbs :breadcrumbs="breadcrumbs" />
-        </div>
-    </div>
 </template>

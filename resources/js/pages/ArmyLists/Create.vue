@@ -1,26 +1,9 @@
 <script setup lang="ts">
-import Layout from '@/layouts/army-lists/Layout.vue';
-import { Form, Head } from '@inertiajs/vue3';
-import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController';
-import Heading from '../../components/Heading.vue';
-import InputError from '../../components/InputError.vue';
-import { create, index } from '../../routes/army-lists';
-
-defineProps<{}>();
-defineOptions({
-    layout: {
-        breadcrumbs: [
-            {
-                title: 'Army Lists',
-                href: index(),
-            },
-            {
-                title: 'Create',
-                href: create(),
-            },
-        ],
-    },
-});
+import Layout from '@/layouts/army-lists/Layout.vue'
+import { Form, Head } from '@inertiajs/vue3'
+import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
+import Heading from '../../components/Heading.vue'
+import InputError from '../../components/InputError.vue'
 </script>
 <template>
     <Layout>

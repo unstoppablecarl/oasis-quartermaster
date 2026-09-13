@@ -8,16 +8,6 @@ import type { ArmyList } from '@/types/army-list';
 const props = defineProps<{
     armyLists: ArmyList[];
 }>();
-defineOptions({
-    layout: {
-        breadcrumbs: [
-            {
-                title: 'Army Lists',
-                href: index(),
-            },
-        ],
-    },
-});
 </script>
 <template>
     <Layout>
