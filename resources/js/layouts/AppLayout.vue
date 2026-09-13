@@ -9,7 +9,7 @@ const { breadcrumbs = [] } = defineProps<{
 </script>
 
 <template>
-    <div class="min-vh-100 d-flex flex-column">
+    <div class="min-vh-100 container">
         <AppHeader :breadcrumbs="breadcrumbs" />
         <main class="container-fluid flex-grow-1 py-4">
             <slot />

@@ -36,6 +36,7 @@
 
         @fonts
 
+        <link rel="stylesheet" href="https://use.typekit.net/dzx7vtw.css">
         @vite(['resources/styles/main.scss', 'resources/js/main.ts', "resources/js/pages/{$page['component']}.vue"])
         <x-inertia::head>
             <title>{{ config('app.name', 'Laravel') }}</title>

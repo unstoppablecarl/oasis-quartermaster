@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
-import AppLogo from '@/components/AppLogo.vue';
-import Breadcrumbs from '@/components/Breadcrumbs.vue';
-import UserInfo from '@/components/UserInfo.vue';
-import UserMenuContent from '@/components/UserMenuContent.vue';
-import { useCurrentUrl } from '@/composables/useCurrentUrl';
-import { index as armyLists } from '@/routes/army-lists';
-import { dashboard } from '@/routes';
-import type { BreadcrumbItem, NavItem } from '@/types';
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import UserInfo from '@/components/UserInfo.vue'
+import UserMenuContent from '@/components/UserMenuContent.vue'
+import { useCurrentUrl } from '@/composables/useCurrentUrl'
+import { dashboard, diceRoller, rules } from '@/routes'
+import { index as armyLists } from '@/routes/army-lists'
+import type { BreadcrumbItem, NavItem } from '@/types'
+import { Link, usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 type Props = {
     breadcrumbs?: BreadcrumbItem[];
@@ -16,34 +15,56 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
-});
+})
 
-const page = usePage();
-const auth = computed(() => page.props.auth);
-const { isCurrentOrParentUrl } = useCurrentUrl();
+const page = usePage()
+const auth = computed(() => page.props.auth)
+const { isCurrentOrParentUrl } = useCurrentUrl()
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-    },
+
     {
         title: 'Army Lists',
         href: armyLists(),
     },
-];
+    {
+        title: 'Rules',
+        href: rules(),
+    },
+    {
+        title: 'Dice Roller',
+        href: diceRoller(),
+    },
+]
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg border-bottom bg-body">
-        <div class="container-fluid">
-            <Link
-                :href="dashboard()"
-                class="navbar-brand d-flex align-items-center"
-            >
-                <AppLogo />
-            </Link>
+    <div class="container d-flex app-header">
+        <Link
+            :href="dashboard()"
+            class="navbar-brand me-auto"
+        >
+            <img src="/images/logo.png" alt="Oasis Logo" height="24" class="d-inline-block align-text-top">
 
+            Quartermaster
+        </Link>
+
+        <div class="dropdown">
+            <button
+                class="btn d-flex align-items-center gap-2 border-0 shadow-none"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <UserInfo :user="auth.user" />
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-user-context">
+                <UserMenuContent :user="auth.user" />
+            </ul>
+        </div>
+    </div>
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container">
             <button
                 class="navbar-toggler"
                 type="button"
@@ -56,7 +77,7 @@ const mainNavItems: NavItem[] = [
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div id="app-navbar-collapse" class="collapse navbar-collapse">
+            <div id="app-navbar-collapse" class="collapse navbar-collapse border-bottom">
                 <ul class="navbar-nav me-auto">
                     <li
                         v-for="item in mainNavItems"
@@ -73,19 +94,7 @@ const mainNavItems: NavItem[] = [
                     </li>
                 </ul>
 
-                <div class="dropdown">
-                    <button
-                        class="btn d-flex align-items-center gap-2 border-0"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <UserInfo :user="auth.user" />
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <UserMenuContent :user="auth.user" />
-                    </ul>
-                </div>
+
             </div>
         </div>
     </nav>

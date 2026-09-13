@@ -1,21 +1,9 @@
 <script setup lang="ts">
-import { dashboard } from '@/routes'
 import { Head } from '@inertiajs/vue3'
-
-defineOptions({
-    layout: {
-        breadcrumbs: [
-            {
-                title: 'Dashboard',
-                href: dashboard(),
-            },
-        ],
-    },
-})
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Dice Roller" />
 
     <div class="card">
         <div class="card-header">

@@ -10,7 +10,7 @@
     }
 }
 
-@import "../../node_modules/bootstrap/scss/functions";
+@import '../../node_modules/bootstrap/scss/functions';
 
 $accordion-icon-color-dark: #fff;
 $accordion-icon-active-color-dark: #fff;
@@ -23,12 +23,8 @@ $border-color-translucent: rgba(#000, 0.25);
 $dropdown-header-padding-y: .2rem;
 $dropdown-divider-margin-y: .2rem;
 $table-bg: transparent;
-//$secondary: darken(#77524b, 5%);
-//$secondary: #77524b;
-//$danger: darken(#dc3545, 7%);
-//$secondary: desaturate(#983521, 20%);
 
-$spacer: 1rem;
+$spacer: 1.25rem;
 
 $card-spacer-y: $spacer;
 $card-spacer-x: $spacer;
@@ -40,57 +36,82 @@ $enable-shadows: true;
 
 $toast-background-color: rgba(var(--bs-body-bg-rgb), 1);
 
-$navbar-dark-color: #d14d27;
 
-@import "../../node_modules/bootstrap/scss/bootstrap";
-@import '../../node_modules/bootstrap-vue-next/src/styles/styles';
-@import "bootstrap/dropdown";
-@import "bootstrap/collapse";
-@import "bootstrap/buttons";
-@import "bootstrap/cards";
-@import "bootstrap/table";
-@import "bootstrap/navbar";
-@import "bootstrap/text";
+$panel2: #1B1B1B;
+$line: #3A3A3A;
+//--line-bright: #525252;
+$sand: #D0CDBC;
+$ink: #F2F2EF;
+$mute: #8F8F8B;
+$teal: #2f7d76;
+$teal2: #43a79c;
+$success: #6fae54;
+$danger: #d4612e;
+$anchor: #e6b800;
 
-@import "fonts/icons";
+$orange: #e2581f;
+$orange2: #f0843d;
 
-@import "print-page";
-@import "page-cards-print";
-@import "page-reference-print";
+$body-bg-color: #141414;
+$body-bg-dark: #141414;
+$body-color: $mute;
+
+$border-color: $line;
+$border-color-translucent: $line;
+$border-color-dark: $line;
+$border-color-translucent-dark: $line;
+
+$title-font: 'Microgramma-extended', 'Oswald', sans-serif;
+$font-family-base: 'Bahnschrift-Regular', sans-serif;
+$headings-font-family: $title-font;
+$headings-font-style: uppercase;
+
+$navbar-dark-color: $mute;
+$navbar-dark-hover-color: $sand;
+$navbar-dark-active-color: $orange2;
+$navbar-nav-link-padding-x: 1rem;
 
 :root {
-  --bs-popover-header-color: var(--bs-body-color);
+    --sand: #{$sand};
+    --orange: #{$orange};
+    --mute: #{$mute};
+    --teal: #{$teal};
+    --teal2: #{$teal2};
+    --ink: #{$ink};
+    --line: #{$line};
+}
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+@import '../../node_modules/bootstrap-vue-next/src/styles/styles';
+@import 'bootstrap/dropdown';
+//@import "bootstrap/collapse";
+@import 'bootstrap/buttons';
+@import 'bootstrap/cards';
+//@import "bootstrap/table";
+@import 'bootstrap/navbar';
+@import 'bootstrap/text';
+
+@import 'fonts/icons';
+
+@import 'print-page';
+@import 'page-cards-print';
+
+:root {
+    --bs-popover-header-color: var(--bs-body-color);
 }
 
 @include color-mode(dark) {
-  --bs-border-color-translucent: #{rgba($white, 0.3)};
-  --bs-popover-header-color: var(--bs-body-color);
+    //--bs-border-color-translucent: #{rgba($white, 0.3)};
+    --bs-popover-header-color: var(--bs-body-color);
 }
 
 body {
-  font-optical-sizing: auto;
-  font-style: normal;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+    background-color: #0A0A0A;
 }
 
-$body-bg-color: #333;
-$body-bg-color-dark: mix($body-bg-color, #000, 50%);
-
-body {
-  background-color: $body-bg-color;
-}
-
-body[data-bs-theme="dark"] {
-  background-color: $body-bg-color-dark;
-}
-
-.unit-display-name {
-  font-weight: bold;
-  color: var(--bs-body-color);
-}
-
-.popover-body {
-  .unit-display-name {
-    font-weight: bold;
-    color: var(--bs-primary-text-emphasis);
-  }
+.body-font {
+    font-family: $font-family-base !important;
 }

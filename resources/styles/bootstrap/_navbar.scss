@@ -1,35 +1,37 @@
 
-.navbar-toggler-icon {
-  height: 1em;
-}
-
-.navbar > .container,
-.navbar > .container-fluid,
-.navbar > .container-sm,
-.navbar > .container-md,
-.navbar > .container-lg,
-.navbar > .container-xl,
-.navbar > .container-xxl {
-  display: block;
-}
-
-.navbar-brand {
-  .logo {
-    display: inline-block;
-    vertical-align: text-top;
-  }
-  .logo-label {
-    opacity: 0.8;
-  }
-}
-
-.navbar-primary {
-  background: #000;
-  .nav-link {
-    font-weight: $font-weight-medium;
-  }
-}
-
 .app-header {
-  background: #202020;
+    padding-top: 10px;
+}
+
+.navbar-dark {
+
+    font-size: 13px;
+    letter-spacing: 1px;
+
+    font-family: 'microgramma-extended', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-transform: uppercase;
+
+    padding-bottom: 0;
+
+    .nav-link {
+        &.active {
+            border-bottom: 2px solid $orange;
+
+            &:hover {
+                color: $sand;
+            }
+        }
+    }
+
+
+    .navbar-brand {
+        display: block;
+    }
+
+    .dropdown-user-context {
+        font-family: $font-family-base;
+        text-transform: none;
+    }
 }
