@@ -65,6 +65,7 @@ $title-font: 'Microgramma-extended', 'Oswald', sans-serif;
 $font-family-base: 'Bahnschrift-Regular', sans-serif;
 $headings-font-family: $title-font;
 $headings-font-style: uppercase;
+$headings-font-weight: 500;
 
 $navbar-dark-color: $mute;
 $navbar-dark-hover-color: $sand;
@@ -79,6 +80,8 @@ $navbar-nav-link-padding-x: 1rem;
     --teal2: #{$teal2};
     --ink: #{$ink};
     --line: #{$line};
+    --body-font: #{$font-family-base};
+    --title-font: #{$title-font};
 }
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
