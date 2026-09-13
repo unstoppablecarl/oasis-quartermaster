@@ -1,0 +1,58 @@
+
+.text-tooltip {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.p-gap {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.number-cell {
+  text-align: right;
+}
+
+.number-zero {
+  opacity: 0.5;
+}
+
+.number-positive {
+  color: var(--bs-success-text-emphasis);
+}
+
+.number-negative {
+  color: var(--bs-danger);
+}
+
+@include color-mode(dark) {
+  .number-negative {
+    color: var(--bs-danger-text-emphasis);
+  }
+}
+
+.ws-nowrap {
+  white-space: nowrap;
+}
+
+.ws-pre-wrap {
+  white-space: pre-wrap;
+}
+
+@include color-mode(dark) {
+  $dark-colors: (
+          'danger': lighten($danger, 10%),
+          'success': lighten($success, 30%)
+  );
+
+  @each $name, $color in $dark-colors {
+    .text-#{$name} {
+      $newColor: lighten($color, 10%);
+      --bs-#{$name}: #{$newColor};
+      --bs-#{$name}-rgb: #{to-rgb($newColor)};
+    }
+  }
+}

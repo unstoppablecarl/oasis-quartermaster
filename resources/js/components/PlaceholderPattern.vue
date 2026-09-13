@@ -6,7 +6,8 @@ const patternId = `pattern-${useId()}`;
 
 <template>
     <svg
-        class="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20"
+        class="position-absolute top-0 start-0 w-100 h-100 text-secondary"
+        style="opacity: 0.2"
         fill="none"
     >
         <defs>
@@ -18,7 +19,11 @@ const patternId = `pattern-${useId()}`;
                 height="8"
                 patternUnits="userSpaceOnUse"
             >
-                <path d="M-1 5L5 -1M3 9L8.5 3.5" stroke-width="0.5"></path>
+                <path
+                    d="M-1 5L5 -1M3 9L8.5 3.5"
+                    stroke="currentColor"
+                    stroke-width="0.5"
+                ></path>
             </pattern>
         </defs>
         <rect

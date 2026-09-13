@@ -1,11 +1,26 @@
 import { createInertiaApp } from '@inertiajs/vue3';
+import { createBootstrap } from 'bootstrap-vue-next';
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { initializeTheme } from '@/composables/useAppearance';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
+import '../styles/main.scss';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+const bootstrap = createBootstrap({
+    components: {
+        BPopover: {
+            delay: { show: 100, hide: 0 },
+        },
+    },
+});
 
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -24,10 +39,20 @@ void createInertiaApp({
     progress: {
         color: '#4B5563',
     },
+    withApp(app) {
+        app.config.performance = true;
+        app.use(bootstrap);
+        app.use(pinia);
+    },
 });
 
-// This will set light / dark mode on page load...
-initializeTheme();
+if (typeof window !== 'undefined') {
+    // Bootstrap's JS touches `document` on import, so it must stay out of SSR...
+    void import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
-// This will listen for flash toast data from the server...
-initializeFlashToast();
+    // This will set light / dark mode on page load...
+    initializeTheme();
+
+    // This will listen for flash toast data from the server...
+    initializeFlashToast();
+}

@@ -1,0 +1,96 @@
+@import 'vue-sonner/style.css';
+
+.animate-spin {
+    animation: app-spin 1s linear infinite;
+}
+
+@keyframes app-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@import "../../node_modules/bootstrap/scss/functions";
+
+$accordion-icon-color-dark: #fff;
+$accordion-icon-active-color-dark: #fff;
+
+$font-size-base: 0.9rem;
+
+$dropdown-border-width: 1px;
+$border-color-translucent: rgba(#000, 0.25);
+
+$dropdown-header-padding-y: .2rem;
+$dropdown-divider-margin-y: .2rem;
+$table-bg: transparent;
+//$secondary: darken(#77524b, 5%);
+//$secondary: #77524b;
+//$danger: darken(#dc3545, 7%);
+//$secondary: desaturate(#983521, 20%);
+
+$spacer: 1rem;
+
+$card-spacer-y: $spacer;
+$card-spacer-x: $spacer;
+
+$card-cap-padding-x: $card-spacer-y * .5;
+$card-cap-padding-y: $card-spacer-y * .5;
+
+$enable-shadows: true;
+
+$toast-background-color: rgba(var(--bs-body-bg-rgb), 1);
+
+$navbar-dark-color: #d14d27;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import '../../node_modules/bootstrap-vue-next/src/styles/styles';
+@import "bootstrap/dropdown";
+@import "bootstrap/collapse";
+@import "bootstrap/buttons";
+@import "bootstrap/cards";
+@import "bootstrap/table";
+@import "bootstrap/navbar";
+@import "bootstrap/text";
+
+@import "fonts/icons";
+
+@import "print-page";
+@import "page-cards-print";
+@import "page-reference-print";
+
+:root {
+  --bs-popover-header-color: var(--bs-body-color);
+}
+
+@include color-mode(dark) {
+  --bs-border-color-translucent: #{rgba($white, 0.3)};
+  --bs-popover-header-color: var(--bs-body-color);
+}
+
+body {
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+$body-bg-color: #333;
+$body-bg-color-dark: mix($body-bg-color, #000, 50%);
+
+body {
+  background-color: $body-bg-color;
+}
+
+body[data-bs-theme="dark"] {
+  background-color: $body-bg-color-dark;
+}
+
+.unit-display-name {
+  font-weight: bold;
+  color: var(--bs-body-color);
+}
+
+.popover-body {
+  .unit-display-name {
+    font-weight: bold;
+    color: var(--bs-primary-text-emphasis);
+  }
+}

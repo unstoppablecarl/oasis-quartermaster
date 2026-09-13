@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
+import AppHeader from '@/components/AppHeader.vue';
+import Toaster from '@/components/Toaster.vue';
 import type { BreadcrumbItem } from '@/types';
 
 const { breadcrumbs = [] } = defineProps<{
@@ -8,7 +9,11 @@ const { breadcrumbs = [] } = defineProps<{
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <slot />
-    </AppLayout>
+    <div class="min-vh-100 d-flex flex-column">
+        <AppHeader :breadcrumbs="breadcrumbs" />
+        <main class="container-fluid flex-grow-1 py-4">
+            <slot />
+        </main>
+        <Toaster />
+    </div>
 </template>

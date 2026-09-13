@@ -4,8 +4,6 @@ import SecurityController from '@/actions/App/Http/Controllers/Settings/Security
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/security';
 
 // oxfmt-ignore
@@ -30,9 +28,9 @@ defineOptions({
 <template>
     <Head title="Security settings" />
 
-    <h1 class="sr-only">Security settings</h1>
+    <h1 class="visually-hidden">Security settings</h1>
 
-    <div class="space-y-6">
+    <div class="d-flex flex-column gap-4">
         <Heading
             variant="small"
             title="Update password"
@@ -50,27 +48,27 @@ defineOptions({
                 'password_confirmation',
                 'current_password',
             ]"
-            class="space-y-6"
+            class="d-flex flex-column gap-3"
             v-slot="{ errors, processing }"
         >
-            <div class="grid gap-2">
-                <Label for="current_password">Current password</Label>
+            <div>
+                <label for="current_password" class="form-label"
+                    >Current password</label
+                >
                 <PasswordInput
                     id="current_password"
                     name="current_password"
-                    class="mt-1 block w-full"
                     autocomplete="current-password"
                     placeholder="Current password"
                 />
                 <InputError :message="errors.current_password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password">New password</Label>
+            <div>
+                <label for="password" class="form-label">New password</label>
                 <PasswordInput
                     id="password"
                     name="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
                     placeholder="New password"
                     :passwordrules="props.passwordRules"
@@ -78,12 +76,13 @@ defineOptions({
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+            <div>
+                <label for="password_confirmation" class="form-label"
+                    >Confirm password</label
+                >
                 <PasswordInput
                     id="password_confirmation"
                     name="password_confirmation"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
                     placeholder="Confirm password"
                     :passwordrules="props.passwordRules"
@@ -91,13 +90,15 @@ defineOptions({
                 <InputError :message="errors.password_confirmation" />
             </div>
 
-            <div class="flex items-center gap-4">
-                <Button
+            <div class="d-flex align-items-center gap-3">
+                <button
+                    type="submit"
+                    class="btn btn-primary"
                     :disabled="processing"
                     data-test="update-password-button"
                 >
                     Save
-                </Button>
+                </button>
             </div>
         </Form>
     </div>

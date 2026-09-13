@@ -2,8 +2,6 @@
 import { Eye, EyeOff } from '@lucide/vue';
 import { ref, useTemplateRef } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
 
 defineOptions({ inheritAttrs: false });
 
@@ -16,31 +14,28 @@ const inputRef = useTemplateRef('inputRef');
 
 defineExpose({
     $el: inputRef,
-    focus: () => inputRef.value?.$el?.focus(),
+    focus: () => inputRef.value?.focus(),
 });
 </script>
 
 <template>
-    <div class="relative">
-        <Input
+    <div class="input-group">
+        <input
             ref="inputRef"
             :type="showPassword ? 'text' : 'password'"
-            :class="cn('pr-10', props.class)"
+            class="form-control"
+            :class="props.class"
             v-bind="$attrs"
         />
         <button
             type="button"
+            class="btn btn-outline-secondary"
             @click="showPassword = !showPassword"
-            :class="
-                cn(
-                    'text-muted-foreground hover:text-foreground focus-visible:ring-ring absolute inset-y-0 right-0 flex items-center rounded-r-md px-3 focus-visible:ring-[3px] focus-visible:outline-none',
-                )
-            "
             :aria-label="showPassword ? 'Hide password' : 'Show password'"
             :tabindex="-1"
         >
-            <EyeOff v-if="showPassword" class="size-4" />
-            <Eye v-else class="size-4" />
+            <EyeOff v-if="showPassword" :size="16" />
+            <Eye v-else :size="16" />
         </button>
     </div>
 </template>

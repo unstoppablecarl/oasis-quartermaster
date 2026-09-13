@@ -2,9 +2,7 @@
 import { Form, Head } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
+import Spinner from '@/components/Spinner.vue';
 import { store } from '@/routes/password/confirm';
 
 defineOptions({
@@ -24,13 +22,12 @@ defineOptions({
         reset-on-success
         v-slot="{ errors, processing }"
     >
-        <div class="space-y-6">
-            <div class="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+        <div class="d-flex flex-column gap-3">
+            <div>
+                <label for="password" class="form-label">Password</label>
                 <PasswordInput
                     id="password"
                     name="password"
-                    class="mt-1 block w-full"
                     required
                     autocomplete="current-password"
                     autofocus
@@ -39,15 +36,15 @@ defineOptions({
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center">
-                <Button
-                    class="w-full"
+            <div>
+                <button
+                    class="btn btn-primary w-100"
                     :disabled="processing"
                     data-test="confirm-password-button"
                 >
                     <Spinner v-if="processing" />
                     Confirm password
-                </Button>
+                </button>
             </div>
         </div>
     </Form>

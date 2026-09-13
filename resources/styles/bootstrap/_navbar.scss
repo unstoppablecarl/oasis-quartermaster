@@ -1,0 +1,35 @@
+
+.navbar-toggler-icon {
+  height: 1em;
+}
+
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-sm,
+.navbar > .container-md,
+.navbar > .container-lg,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+  display: block;
+}
+
+.navbar-brand {
+  .logo {
+    display: inline-block;
+    vertical-align: text-top;
+  }
+  .logo-label {
+    opacity: 0.8;
+  }
+}
+
+.navbar-primary {
+  background: #000;
+  .nav-link {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.app-header {
+  background: #202020;
+}

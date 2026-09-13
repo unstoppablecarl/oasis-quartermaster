@@ -5,45 +5,41 @@ import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileCo
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
-import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
 
 const passwordInput = useTemplateRef('passwordInput');
 </script>
 
 <template>
-    <div class="space-y-6">
+    <div>
         <Heading
             variant="small"
             title="Delete account"
             description="Delete your account and all of its resources"
         />
+        <div class="p-3 rounded border border-danger-subtle bg-danger-subtle">
+            <p class="fw-medium text-danger-emphasis mb-1">Warning</p>
+            <p class="small text-danger-emphasis mb-3">
+                Please proceed with caution, this cannot be undone.
+            </p>
+            <button
+                type="button"
+                class="btn btn-danger"
+                data-test="delete-user-button"
+                data-bs-toggle="modal"
+                data-bs-target="#delete-user-modal"
+            >
+                Delete account
+            </button>
+        </div>
+
         <div
-            class="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10"
+            id="delete-user-modal"
+            class="modal fade"
+            tabindex="-1"
+            aria-hidden="true"
         >
-            <div class="relative space-y-0.5 text-red-600 dark:text-red-100">
-                <p class="font-medium">Warning</p>
-                <p class="text-sm">
-                    Please proceed with caution, this cannot be undone.
-                </p>
-            </div>
-            <Dialog>
-                <DialogTrigger as-child>
-                    <Button variant="destructive" data-test="delete-user-button"
-                        >Delete account</Button
-                    >
-                </DialogTrigger>
-                <DialogContent>
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <Form
                         v-bind="ProfileController.destroy.form()"
                         reset-on-success
@@ -51,26 +47,36 @@ const passwordInput = useTemplateRef('passwordInput');
                         :options="{
                             preserveScroll: true,
                         }"
-                        class="space-y-6"
                         v-slot="{ errors, processing, reset, clearErrors }"
                     >
-                        <DialogHeader class="space-y-3">
-                            <DialogTitle
-                                >Are you sure you want to delete your
-                                account?</DialogTitle
-                            >
-                            <DialogDescription>
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                Are you sure you want to delete your account?
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                @click="
+                                    () => {
+                                        clearErrors();
+                                        reset();
+                                    }
+                                "
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-3">
                                 Once your account is deleted, all of its
                                 resources and data will also be permanently
                                 deleted. Please enter your password to confirm
                                 you would like to permanently delete your
                                 account.
-                            </DialogDescription>
-                        </DialogHeader>
+                            </p>
 
-                        <div class="grid gap-2">
-                            <Label for="password" class="sr-only"
-                                >Password</Label
+                            <label for="password" class="visually-hidden"
+                                >Password</label
                             >
                             <PasswordInput
                                 id="password"
@@ -81,33 +87,33 @@ const passwordInput = useTemplateRef('passwordInput');
                             <InputError :message="errors.password" />
                         </div>
 
-                        <DialogFooter class="gap-2">
-                            <DialogClose as-child>
-                                <Button
-                                    variant="secondary"
-                                    @click="
-                                        () => {
-                                            clearErrors();
-                                            reset();
-                                        }
-                                    "
-                                >
-                                    Cancel
-                                </Button>
-                            </DialogClose>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                                @click="
+                                    () => {
+                                        clearErrors();
+                                        reset();
+                                    }
+                                "
+                            >
+                                Cancel
+                            </button>
 
-                            <Button
+                            <button
                                 type="submit"
-                                variant="destructive"
+                                class="btn btn-danger"
                                 :disabled="processing"
                                 data-test="confirm-delete-user-button"
                             >
                                 Delete account
-                            </Button>
-                        </DialogFooter>
+                            </button>
+                        </div>
                     </Form>
-                </DialogContent>
-            </Dialog>
+                </div>
+            </div>
         </div>
     </div>
 </template>
