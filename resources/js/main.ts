@@ -25,7 +25,6 @@ const bootstrap = createBootstrap({
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
-        console.log({name})
         switch (true) {
             case name === 'Home':
                 return null;
