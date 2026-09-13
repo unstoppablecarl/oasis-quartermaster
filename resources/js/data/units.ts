@@ -12,7 +12,7 @@ export const UNITS: Record<string, Unit> = {
     },
     BAR: {
         id: 2,
-        display_name: 'Bar33',
+        display_name: 'Bar',
         cost: 4,
     },
 }
