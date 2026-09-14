@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue'
+import DeleteArmyListModal from '@/components/army-lists/DeleteArmyListModal.vue'
 import { edit, show } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
@@ -10,7 +11,6 @@ const props = defineProps<{
 </script>
 <template>
     <Head title="Army Lists" />
-    <h1 class="visually-hidden">Army Lists</h1>
     <div class="d-flex flex-column gap-4">
         <Heading variant="small" title="Army Lists" />
 
@@ -46,13 +46,10 @@ const props = defineProps<{
                         >Edit
                         </Link
                         >
-                        <button
+                        <DeleteArmyListModal
                             v-if="item.can.delete"
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                        >
-                            Delete
-                        </button>
+                            :army-list="item"
+                        />
                     </div>
                 </td>
             </tr>

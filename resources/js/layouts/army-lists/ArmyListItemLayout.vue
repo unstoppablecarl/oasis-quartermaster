@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3'
+import DeleteArmyListModal from '../../components/army-lists/DeleteArmyListModal.vue'
 import { useCurrentUrl } from '../../composables/useCurrentUrl'
-import { destroy, edit, show } from '../../routes/army-lists'
+import { edit, show } from '../../routes/army-lists'
 import type { ArmyList } from '../../types/army-list'
 
-const { isCurrentOrParentUrl, isCurrentUrl } = useCurrentUrl()
+const { isCurrentUrl } = useCurrentUrl()
 const { armyList } = defineProps<{
     armyList: ArmyList;
 }>()
-
 </script>
 <template>
     <div>
@@ -34,17 +34,15 @@ const { armyList } = defineProps<{
 
                 >Edit
                 </Link>
-                <button
-                    v-if="armyList.can.delete"
-                    type="button"
-                    class="btn btn-sm btn-outline-danger"
-                    :class="{active: isCurrentUrl(destroy(armyList))}"
-                >
-                    Delete
-                </button>
             </div>
-        </div>
-        <slot />
 
+            <DeleteArmyListModal
+                v-if="armyList.can.delete"
+                :army-list="armyList"
+                class="ms-2"
+            />
+        </div>
+        <div class="hazard-rule"></div>
+        <slot />
     </div>
 </template>

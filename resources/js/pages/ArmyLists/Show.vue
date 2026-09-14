@@ -10,8 +10,7 @@ const { armyList } = defineProps<{
 </script>
 <template>
     <ArmyListItemLayout :army-list="armyList">
-        <Head title="Show" />
-        <h1 class="visually-hidden">Show</h1>
+        <Head title="View" />
 
         <div class="d-flex flex-column gap-4">
             <Heading variant="small" :title="armyList.display_name" />
