@@ -11,9 +11,9 @@ Route::inertia('dice-roller', 'DiceRoller')->name('dice-roller');
 Route::get('army-lists/create', [ArmyListController::class, 'create'])->name('army-lists.create');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
 
     Route::resource('army-lists', ArmyListController::class)->except('create');
+
 });
 
 require __DIR__.'/settings.php';

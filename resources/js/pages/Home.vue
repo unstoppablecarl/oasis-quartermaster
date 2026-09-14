@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, usePage } from '@inertiajs/vue3';
-import { dashboard } from '@/routes';
-import { computed } from 'vue';
-
-const page = usePage();
-const auth = computed(() => page.props.auth);
+import { Head } from '@inertiajs/vue3'
 </script>
 
 <template>
