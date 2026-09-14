@@ -14,12 +14,13 @@ const { armyLists } = defineProps<{
     <Head title="Army Lists" />
     <Heading variant="small" title="Army Lists" />
 
-    <table class="table align-middle border-top">
+    <table class="table align-middle">
         <thead>
         <tr>
             <th>Name</th>
             <th>Type</th>
-            <th>Max Points</th>
+            <th class="number-cell">Max Points</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

@@ -56,7 +56,7 @@ $anchor: $warning;
 
 $body-bg-color: #141414;
 $body-bg-dark: #141414;
-$body-color: $mute;
+$body-color: $sand;
 
 $border-color: $line;
 $border-color-translucent: $line;
@@ -102,7 +102,7 @@ $save-bar-height: 3rem;
 //@import "bootstrap/collapse";
 @import 'bootstrap/buttons';
 @import 'bootstrap/cards';
-//@import "bootstrap/table";
+@import 'bootstrap/table';
 @import 'bootstrap/navbar';
 @import 'bootstrap/text';
 
