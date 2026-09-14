@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (App::environment('local')) {
-            $email = 'test@example.com';
+            $email = 'test@oasis-testing.com';
             User::query()->updateOrCreate([
                 'email' => $email,
             ], [
