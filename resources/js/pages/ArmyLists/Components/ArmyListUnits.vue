@@ -33,10 +33,11 @@ const { unitsInfo, totalCost } = useUnitsInfo(() => units)
                     <th class="number-cell">Defense</th>
                     <th class="number-cell">HP</th>
                     <th class="number-cell">Speed</th>
-                    <th class="number-cell">Traits</th>
-                    <th class="number-cell">Abilities</th>
-                    <th class="number-cell">PTS</th>
-                    <th class="number-cell px-0">QTY</th>
+                    <th>Weapons</th>
+                    <th>Traits</th>
+                    <th>Abilities</th>
+                    <th class="number-cell ws-nowrap">Pts <span class="text-muted">&times;</span></th>
+                    <th class="number-cell px-0 ws-nowrap">Qty <span class="text-muted">=</span></th>
                     <th class="number-cell ps-0">Cost</th>
                     <th class="px-0" v-if="showControls"></th>
                 </tr>
@@ -48,16 +49,17 @@ const { unitsInfo, totalCost } = useUnitsInfo(() => units)
                     <td class="number-cell">{{ unit.dodge }}</td>
                     <td class="number-cell">{{ unit.defense }}</td>
                     <td class="number-cell">{{ unit.hp }}</td>
-                    <td class="number-cell">{{ unit.speed }}</td>
+                    <td class="number-cell ws-nowrap">{{ unit.speed }}</td>
+                    <td></td>
                     <td class="text-teal">{{ unit.traits.join(', ') }}</td>
                     <td>{{ unit.abilities.join(', ') }}</td>
 
-                    <td class="number-cell pe-0">{{ unit.cost }} &times;</td>
-                    <td class="number-cell px-0">{{ unit.quantity }} =</td>
+                    <td class="number-cell pe-0 ws-nowrap">{{ unit.cost }} <span class="text-muted">&times;</span></td>
+                    <td class="number-cell px-0">{{ unit.quantity }} <span class="text-muted">=</span></td>
                     <td class="number-cell fw-bold">
                         {{ unit.quantity * unit.cost }}
                     </td>
-                    <td class="px-0 py-1" v-if="showControls">
+                    <td class="px-0 py-1 ws-nowrap" v-if="showControls">
                         <div class="btn-group btn-group-sm">
                             <button
                                 role="button"
