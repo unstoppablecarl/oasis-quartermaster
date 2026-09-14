@@ -1,22 +1,30 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import Spinner from '@/components/Spinner.vue';
-import TextLink from '@/components/TextLink.vue';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
+import { Form, Head, router } from '@inertiajs/vue3'
+import ArmyListController from '@/actions/App/Http/Controllers/ArmyListController'
+import InputError from '@/components/InputError.vue'
+import PasswordInput from '@/components/PasswordInput.vue'
+import Spinner from '@/components/Spinner.vue'
+import TextLink from '@/components/TextLink.vue'
+import { hasArmyListDraft } from '@/lib/armyListDraft'
+import { login } from '@/routes'
+import { store } from '@/routes/register'
 
 defineProps<{
-    passwordRules: string;
-}>();
+    passwordRules: string
+}>()
 
 defineOptions({
     layout: {
         title: 'Create an account',
         description: 'Enter your details below to create your account',
     },
-});
+})
+
+function redirectToArmyListDraft() {
+    if (hasArmyListDraft()) {
+        router.visit(ArmyListController.create.url())
+    }
+}
 </script>
 
 <template>
@@ -27,6 +35,7 @@ defineOptions({
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
         class="d-flex flex-column gap-3"
+        @success="redirectToArmyListDraft"
     >
         <div>
             <label for="name" class="form-label">Name</label>

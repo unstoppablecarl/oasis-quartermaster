@@ -59,7 +59,7 @@ watch(isCustomArmyListType, (isCustom) => {
                 :key="armyListType.id"
                 :value="armyListType.id"
             >
-                {{ armyListType.display_name }}
+                {{ armyListType.display_name }} - {{armyListType.max_points}} Points
             </option>
             <option :value="null">Custom</option>
         </select>

@@ -121,9 +121,9 @@ function save() {
     >
         <template v-if="!auth.user" #note>
             An account is required to save.
-            <Link :href="login()" class="link-light">Log in</Link>
+            <Link :href="login()" class="link-light">Login</Link>
             or
-            <Link :href="register()" class="link-light">register</Link>.
+            <Link :href="register()" class="link-light">Register</Link>.
         </template>
     </ArmyListSaveBar>
 </template>

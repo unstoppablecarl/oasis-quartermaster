@@ -67,7 +67,7 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
         </div>
         <div v-else class="d-flex align-items-center gap-2">
             <Link :href="login()" class="btn btn-outline-secondary">
-                Log in
+                Login
             </Link>
             <Link :href="register()" class="btn btn-primary">
                 Register

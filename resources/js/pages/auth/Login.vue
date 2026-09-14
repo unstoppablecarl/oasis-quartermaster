@@ -1,24 +1,32 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import Spinner from '@/components/Spinner.vue';
-import TextLink from '@/components/TextLink.vue';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
+import { Form, Head, router } from '@inertiajs/vue3'
+import ArmyListController from '@/actions/App/Http/Controllers/ArmyListController'
+import InputError from '@/components/InputError.vue'
+import PasswordInput from '@/components/PasswordInput.vue'
+import Spinner from '@/components/Spinner.vue'
+import TextLink from '@/components/TextLink.vue'
+import { hasArmyListDraft } from '@/lib/armyListDraft'
+import { register } from '@/routes'
+import { store } from '@/routes/login'
+import { request } from '@/routes/password'
 
 defineOptions({
     layout: {
         title: 'Log in to your account',
         description: 'Enter your email and password below to log in',
     },
-});
+})
 
 defineProps<{
-    status?: string;
-    canResetPassword: boolean;
-}>();
+    status?: string
+    canResetPassword: boolean
+}>()
+
+function redirectToArmyListDraft() {
+    if (hasArmyListDraft()) {
+        router.visit(ArmyListController.create.url())
+    }
+}
 </script>
 
 <template>
@@ -33,6 +41,7 @@ defineProps<{
         :reset-on-success="['password']"
         v-slot="{ errors, processing }"
         class="d-flex flex-column gap-3"
+        @success="redirectToArmyListDraft"
     >
         <div>
             <label for="email" class="form-label">Email address</label>

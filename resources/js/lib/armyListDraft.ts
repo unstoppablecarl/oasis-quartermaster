@@ -23,6 +23,13 @@ export function loadArmyListDraft(): ArmyListDraft | null {
     }
 }
 
+export function hasArmyListDraft(): boolean {
+    if (typeof window === 'undefined') {
+        return false
+    }
+    return !!window.localStorage.getItem(STORAGE_KEY)
+}
+
 export function saveArmyListDraft(draft: ArmyListDraft): void {
     if (typeof window === 'undefined') {
         return
