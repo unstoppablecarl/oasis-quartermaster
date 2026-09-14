@@ -34,4 +34,10 @@
         font-family: $font-family-base;
         text-transform: none;
     }
+
+    .dropdown-menu {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        //border-top-radius: 0;
+    }
 }

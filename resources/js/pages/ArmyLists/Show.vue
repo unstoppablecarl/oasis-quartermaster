@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
 import Heading from '../../components/Heading.vue'
-import Layout from '../../layouts/army-lists/Layout.vue'
+import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
 
 const { armyList } = defineProps<{
@@ -9,13 +9,13 @@ const { armyList } = defineProps<{
 }>()
 </script>
 <template>
-    <Layout>
+    <ArmyListItemLayout :army-list="armyList">
         <Head title="Show" />
         <h1 class="visually-hidden">Show</h1>
 
         <div class="d-flex flex-column gap-4">
             <Heading variant="small" :title="armyList.display_name" />
-            sadffadssfd
+
         </div>
-    </Layout>
+    </ArmyListItemLayout>
 </template>

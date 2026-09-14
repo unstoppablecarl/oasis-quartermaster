@@ -3,7 +3,7 @@ import { Form, Head } from '@inertiajs/vue3'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import Heading from '../../components/Heading.vue'
 import InputError from '../../components/InputError.vue'
-import Layout from '../../layouts/army-lists/Layout.vue'
+import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
 
 const { armyList } = defineProps<{
@@ -11,12 +11,11 @@ const { armyList } = defineProps<{
 }>()
 </script>
 <template>
-    <Layout>
+    <ArmyListItemLayout :army-list="armyList">
+
         <Head title="Edit" />
-        <h1 class="visually-hidden">Edit</h1>
 
         <div class="d-flex flex-column gap-4">
-            <Heading variant="small" title="Edit" />
 
             <Form
                 v-bind="ArmyListController.update.form(armyList)"
@@ -47,5 +46,5 @@ const { armyList } = defineProps<{
                 </div>
             </Form>
         </div>
-    </Layout>
+    </ArmyListItemLayout>
 </template>

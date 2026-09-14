@@ -1,24 +1,31 @@
 <script setup lang="ts">
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import UserInfo from '@/components/UserInfo.vue'
 import UserMenuContent from '@/components/UserMenuContent.vue'
 import { useCurrentUrl } from '@/composables/useCurrentUrl'
-import { dashboard, diceRoller, rules } from '@/routes'
-import { index as armyLists } from '@/routes/army-lists'
-import type { BreadcrumbItem, NavItem } from '@/types'
+import { diceRoller, home, rules } from '@/routes'
+import { create, index as armyLists } from '@/routes/army-lists'
+import type { NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
-
 const page = usePage()
 const auth = computed(() => page.props.auth)
-const { isCurrentOrParentUrl } = useCurrentUrl()
+const { isCurrentOrParentUrl, isCurrentUrl } = useCurrentUrl()
 
 const mainNavItems: NavItem[] = [
-
     {
         title: 'Army Lists',
         href: armyLists(),
+        children: [
+            {
+                title: 'Manage',
+                href: armyLists()
+            },
+            {
+                title: 'Create',
+                href: create()
+            }
+        ]
     },
     {
         title: 'Rules',
@@ -34,7 +41,7 @@ const mainNavItems: NavItem[] = [
 <template>
     <div class="container d-flex app-header">
         <Link
-            :href="dashboard()"
+            :href="home()"
             class="navbar-brand me-auto"
         >
             <img src="/images/logo.png" alt="Oasis Logo" height="24" class="d-inline-block align-text-top">
@@ -56,7 +63,7 @@ const mainNavItems: NavItem[] = [
             </ul>
         </div>
     </div>
-    <nav class="navbar navbar-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg border-bottom">
         <div class="container">
             <button
                 class="navbar-toggler"
@@ -70,24 +77,44 @@ const mainNavItems: NavItem[] = [
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div id="app-navbar-collapse" class="collapse navbar-collapse border-bottom">
+            <div id="app-navbar-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li
                         v-for="item in mainNavItems"
                         :key="item.title"
-                        class="nav-item"
+                        class="nav-item position-relative"
                     >
+                        <template v-if="item.children?.length">
+                            <a
+                                class="nav-link dropdown-toggle"
+
+                                :class="{'active': isCurrentOrParentUrl(item.href)}"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Army Lists
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li v-for="child in item.children">
+                                    <Link
+                                        :href="child.href"
+                                        class="dropdown-item"
+                                        :class="{ active: isCurrentUrl(child.href) }"
+                                    >
+                                        {{ child.title }}
+                                    </Link>
+                                </li>
+                            </ul>
+                        </template>
                         <Link
+                            v-else
                             :href="item.href"
                             class="nav-link"
-                            :class="{ active: isCurrentOrParentUrl(item.href) }"
+                            :class="{ active: isCurrentUrl(item.href) }"
                         >
                             {{ item.title }}
                         </Link>
                     </li>
                 </ul>
-
-
             </div>
         </div>
     </nav>

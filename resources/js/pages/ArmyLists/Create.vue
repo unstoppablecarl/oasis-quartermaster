@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import Layout from '@/layouts/army-lists/Layout.vue'
 import { Form, Head } from '@inertiajs/vue3'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import Heading from '../../components/Heading.vue'
 import InputError from '../../components/InputError.vue'
+import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
+import type { ArmyList } from '../../types/army-list'
+
+const { armyList } = defineProps<{
+    armyList: ArmyList;
+}>()
+
 </script>
 <template>
-    <Layout>
+    <ArmyListItemLayout :army-list="armyList">
         <Head title="Create" />
         <h1 class="visually-hidden">Create</h1>
 
@@ -41,5 +47,5 @@ import InputError from '../../components/InputError.vue'
                 </div>
             </Form>
         </div>
-    </Layout>
+    </ArmyListItemLayout>
 </template>
