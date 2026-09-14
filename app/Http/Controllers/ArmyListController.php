@@ -63,7 +63,7 @@ class ArmyListController
         Gate::authorize('update', $armyList);
 
         $data = [
-            'armyList' => $armyList->toResource(),
+            'armyList' => $armyList->load('units')->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Edit', $data);
@@ -73,11 +73,17 @@ class ArmyListController
     {
         Gate::authorize('update', $armyList);
 
-        $armyList->update($request->all());
+        $armyList->update($request->safe()->only('display_name'));
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Army List Updated']);
+        $units = collect($request->safe()->array('units'))
+            ->mapWithKeys(fn (array $unit) => [$unit['id'] => ['quantity' => $unit['quantity']]]);
 
-        return redirect()->route('army-lists.edit', $armyList);
+        $armyList->units()->sync($units);
+
+        return response()->json([
+            'armyList' => $armyList->load('units')->toResource(),
+            'message' => 'Army List Updated',
+        ]);
     }
 
     public function destroy(ArmyList $armyList)

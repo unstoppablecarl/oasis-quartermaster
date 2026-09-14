@@ -17,6 +17,11 @@ export const UNITS: Record<string, Unit> = {
     },
 }
 
+
+export const UNITS_BY_ID = Object.fromEntries(Object.values(UNITS).map(v => {
+    return [v.id, v]
+}))
+
 const ids: number[] = []
 for (const [key, unit] of Object.entries(UNITS)) {
 

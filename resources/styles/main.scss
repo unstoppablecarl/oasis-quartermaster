@@ -121,6 +121,11 @@ body {
     font-family: $font-family-base !important;
 }
 
+.title-font {
+    font-family: $headings-font-family !important;
+    text-transform: uppercase;
+}
+
 .hazard-rule {
     height: 6px;
     margin: 22px auto;

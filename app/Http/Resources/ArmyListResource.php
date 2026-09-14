@@ -16,6 +16,10 @@ class ArmyListResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'display_name' => $this->display_name,
+            'units' => $this->whenLoaded('units', fn () => $this->units->map(fn ($unit) => [
+                'id' => $unit->id,
+                'quantity' => $unit->pivot->quantity,
+            ])),
             'can' => [
                 'update' => $canUpdate,
                 'delete' => $canDelete,
