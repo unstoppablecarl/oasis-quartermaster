@@ -32,7 +32,7 @@ $card-spacer-x: $spacer;
 $card-cap-padding-x: $card-spacer-y * .5;
 $card-cap-padding-y: $card-spacer-y * .5;
 
-$enable-shadows: true;
+//$enable-shadows: true;
 
 $toast-background-color: rgba(var(--bs-body-bg-rgb), 1);
 
@@ -46,13 +46,13 @@ $mute: #8F8F8B;
 $teal: #2f7d76;
 $teal2: #43a79c;
 $success: #6fae54;
-$danger: #d4612e;
-$anchor: #e6b800;
-
 $orange: #e2581f;
 $orange2: #f0843d;
 
+$danger: #b03b27;
+$warning: #e0af44;
 $primary: $teal;
+$anchor: $warning;
 
 $body-bg-color: #141414;
 $body-bg-dark: #141414;

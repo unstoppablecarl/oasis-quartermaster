@@ -9,6 +9,7 @@ import Toaster from '@/components/Toaster.vue'
         <main class="container flex-grow-1 py-4">
             <slot />
         </main>
+        <div id="page-footer" />
         <Toaster />
     </div>
 </template>

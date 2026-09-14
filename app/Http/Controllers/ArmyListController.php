@@ -52,7 +52,7 @@ class ArmyListController
         Gate::authorize('view', $armyList);
 
         $data = [
-            'armyList' => $armyList->toResource(),
+            'armyList' => $armyList->load('units')->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Show', $data);

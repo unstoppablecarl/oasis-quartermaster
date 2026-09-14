@@ -13,7 +13,6 @@ const { armyList } = defineProps<{
 <template>
     <div>
         <div class="d-flex">
-
             <div class="me-auto">
                 {{ armyList.display_name }}
             </div>
