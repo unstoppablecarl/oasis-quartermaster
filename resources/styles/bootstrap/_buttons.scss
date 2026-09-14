@@ -127,7 +127,7 @@
 .btn-py {
   display: inline-block;
   padding: $btn-padding-y 0;
-  @include font-size(var(--#{$prefix}btn-font-size));
+  @include font-size(var(--#{$prefix}btn-font-size, $btn-font-size));
   line-height: $btn-line-height;
   vertical-align: middle;
 }
@@ -135,7 +135,7 @@
 .btn-sm-py {
   display: inline-block;
   padding: $btn-padding-y-sm 0;
-  @include font-size(var(--#{$prefix}btn-font-size));
+  @include font-size(var(--#{$prefix}btn-font-size, $btn-font-size));
   line-height: $btn-line-height;
   vertical-align: middle;
 }

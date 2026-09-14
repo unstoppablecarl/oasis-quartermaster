@@ -8,7 +8,7 @@ import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
-import ArmyListTable from './Components/ArmyListTable.vue'
+import ArmyListUnits from './Components/ArmyListUnits.vue'
 import UnitPicker from './Components/UnitPicker.vue'
 
 const { armyList } = defineProps<{
@@ -48,12 +48,12 @@ function update() {
 }
 </script>
 <template>
-    <ArmyListItemLayout :army-list="armyList">
+    <ArmyListItemLayout title="Edit" :army-list="armyList">
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
 
-        <ArmyListTable
+        <ArmyListUnits
             :units="http.units"
             :show-controls="true"
             :max-points="maxPoints"

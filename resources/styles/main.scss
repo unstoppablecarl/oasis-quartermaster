@@ -57,6 +57,9 @@ $anchor: $warning;
 $body-bg-color: #141414;
 $body-bg-dark: #141414;
 $body-color: $sand;
+$body-color-dark: $sand;
+$body-emphasis-color-dark: $ink;
+$body-emphasis-color: $ink;
 
 $border-color: $line;
 $border-color-translucent: $line;
@@ -66,8 +69,10 @@ $border-color-translucent-dark: $line;
 $title-font: 'Microgramma-extended', 'Oswald', sans-serif;
 $font-family-base: 'Bahnschrift-Regular', sans-serif;
 $headings-font-family: $title-font;
-$headings-font-style: uppercase;
 $headings-font-weight: 500;
+$headings-color-dark: $ink;
+
+$form-label-color: $ink;
 
 $navbar-dark-color: $mute;
 $navbar-dark-hover-color: $sand;
@@ -75,6 +80,8 @@ $navbar-dark-active-color: $orange2;
 $navbar-nav-link-padding-x: 1rem;
 
 $save-bar-height: 3rem;
+
+$table-color: $sand;
 
 .app-footer {
     padding-bottom: $save-bar-height;
@@ -94,6 +101,10 @@ $save-bar-height: 3rem;
     --line: #{$line};
     --body-font: #{$font-family-base};
     --title-font: #{$title-font};
+}
+
+.text-teal {
+    color: var(--teal2) !important;
 }
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
@@ -134,6 +145,12 @@ body {
 .title-font {
     font-family: $headings-font-family !important;
     text-transform: uppercase;
+}
+
+.title {
+    font-family: $headings-font-family !important;
+    text-transform: uppercase;
+    color: $ink
 }
 
 .hazard-rule {

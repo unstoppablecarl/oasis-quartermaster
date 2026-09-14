@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/vue3'
 import { useArmyList } from '../../composables/useArmyList'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
-import ArmyListTable from './Components/ArmyListTable.vue'
+import ArmyListUnits from './Components/ArmyListUnits.vue'
 
 const { armyList } = defineProps<{
     armyList: ArmyList
@@ -11,10 +11,10 @@ const { armyList } = defineProps<{
 const { maxPoints } = useArmyList(armyList)
 </script>
 <template>
-    <ArmyListItemLayout :army-list="armyList">
+    <ArmyListItemLayout title="View" :army-list="armyList">
         <Head title="View" />
 
-        <ArmyListTable
+        <ArmyListUnits
             :units="armyList.units"
             :max-points="maxPoints"
             :show-controls="false"

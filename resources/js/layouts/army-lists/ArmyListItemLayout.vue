@@ -2,22 +2,21 @@
 import { Link } from '@inertiajs/vue3'
 import DeleteArmyListModal from '../../components/army-lists/DeleteArmyListModal.vue'
 import { useCurrentUrl } from '../../composables/useCurrentUrl'
+import ArmyListItemHeader from '../../pages/ArmyLists/Components/ArmyListItemHeader.vue'
 import { edit, show } from '../../routes/army-lists'
 import type { ArmyList } from '../../types/army-list'
 
 const { isCurrentUrl } = useCurrentUrl()
-const { armyList } = defineProps<{
-    armyList: ArmyList;
+const { armyList, title } = defineProps<{
+    armyList: ArmyList
+    title: string
+    subTitle?: string
 }>()
 </script>
 <template>
     <div>
-        <div class="d-flex">
-            <div class="me-auto">
-                {{ armyList.display_name }}
-            </div>
-
-            <div class="btn-group">
+        <ArmyListItemHeader :title="title" :sub-title="subTitle" :description="armyList.display_name">
+            <div class="btn-group btn-group-sm">
                 <Link
                     :href="show(armyList.uuid)"
                     class="btn btn-sm btn-outline-secondary"
@@ -40,8 +39,8 @@ const { armyList } = defineProps<{
                 :army-list="armyList"
                 class="ms-2"
             />
-        </div>
-        <div class="hazard-rule"></div>
+        </ArmyListItemHeader>
+
         <slot />
     </div>
 </template>

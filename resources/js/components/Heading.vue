@@ -14,12 +14,14 @@ withDefaults(defineProps<Props>(), {
     <header :class="variant === 'small' ? '' : 'mb-4'">
         <component
             :is="variant === 'small' ? 'h5' : 'h3'"
-            :class="variant === 'small' ? 'mb-1' : 'mb-1'"
+            :class="variant === 'small' ? 'mb-2' : 'mb-2'"
         >
             {{ title }}
         </component>
         <p v-if="description" class="text-secondary small mb-0">
             {{ description }}
         </p>
+        <div class="hazard-rule"></div>
+
     </header>
 </template>

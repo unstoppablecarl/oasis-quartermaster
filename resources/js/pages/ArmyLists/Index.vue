@@ -5,6 +5,7 @@ import { edit, show } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
+import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 
 const { armyLists } = defineProps<{
     armyLists: ArmyList[];
@@ -12,7 +13,7 @@ const { armyLists } = defineProps<{
 </script>
 <template>
     <Head title="Army Lists" />
-    <Heading variant="small" title="Army Lists" />
+    <ArmyListItemHeader title="All" description="Army Lists" />
 
     <table class="table align-middle">
         <thead>

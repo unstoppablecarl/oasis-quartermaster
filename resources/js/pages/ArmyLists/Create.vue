@@ -2,13 +2,13 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 import { computed, watch } from 'vue'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
-import Heading from '../../components/Heading.vue'
 import { useArmyList } from '../../composables/useArmyList'
 import { clearArmyListDraft, loadArmyListDraft, saveArmyListDraft } from '../../lib/armyListDraft'
 import { login, register } from '../../routes'
 import ArmyListFields from './Components/ArmyListFields.vue'
+import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
-import ArmyListTable from './Components/ArmyListTable.vue'
+import ArmyListUnits from './Components/ArmyListUnits.vue'
 import UnitPicker from './Components/UnitPicker.vue'
 
 const page = usePage()
@@ -51,11 +51,11 @@ function save() {
 <template>
     <Head title="Create" />
 
-    <Heading variant="small" title="Create Army List" />
+    <ArmyListItemHeader title="Create" description="Army List" />
 
     <ArmyListFields :army-list="form" :errors="form.errors" />
 
-    <ArmyListTable
+    <ArmyListUnits
         :units="form.units"
         :show-controls="true"
         :max-points="maxPoints"

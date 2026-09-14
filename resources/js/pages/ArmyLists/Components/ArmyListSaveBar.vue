@@ -29,7 +29,9 @@ const emit = defineEmits<{
                     <div class="me-auto"></div>
                     <div class="btn-py px-3">
                         <strong> Unit Count: </strong>
-                        {{ unitCount }}
+                        <span class="text-body-emphasis">
+                            {{ unitCount }}
+                        </span>
                     </div>
                     <div class="btn-py px-3">
                         <strong> Total Points: </strong>

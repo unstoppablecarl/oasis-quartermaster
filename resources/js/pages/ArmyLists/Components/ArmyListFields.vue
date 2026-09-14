@@ -27,7 +27,8 @@ watch(isCustomArmyListType, (isCustom) => {
 })
 </script>
 <template>
-    <div class="mb-3">
+    <div class="row mb-3">
+    <div class="col">
         <label for="display_name" class="form-label title-font">Name</label>
         <input
             id="display_name"
@@ -41,7 +42,7 @@ watch(isCustomArmyListType, (isCustom) => {
         <InputError class="mt-2" :message="errors?.display_name" />
     </div>
 
-    <div class="mb-3">
+    <div class="col">
         <label for="army_list_type_id" class="form-label title-font"
             >Type</label
         >
@@ -63,7 +64,7 @@ watch(isCustomArmyListType, (isCustom) => {
         </select>
         <InputError class="mt-2" :message="errors?.army_list_type_id" />
     </div>
-
+    </div>
     <div class="mb-3" v-if="isCustomArmyListType">
         <label for="custom_max_points" class="form-label title-font"
             >Custom Max Points</label
