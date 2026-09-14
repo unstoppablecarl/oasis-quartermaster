@@ -11,15 +11,29 @@ const allUnits = Object.values(UNITS)
     <table class="table w-auto">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
+                <th>Init.</th>
+                <th>Dodge</th>
+                <th>Defense</th>
+                <th>HP</th>
+                <th>Speed</th>
+                <th>Traits</th>
+                <th>Abilities</th>
+                <th>Cost</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="unit in allUnits" :key="unit.id">
-                <td>{{ unit.id }}</td>
                 <td>{{ unit.display_name }}</td>
+                <td>{{ unit.init }}</td>
+                <td>{{ unit.dodge }}</td>
+                <td>{{ unit.defense }}</td>
+                <td>{{ unit.hp }}</td>
+                <td>{{ unit.speed }}</td>
+                <td>{{ unit.traits.join(', ') }}</td>
+                <td>{{ unit.abilities.join(', ') }}</td>
+                <td>{{ unit.cost }}</td>
                 <td>
                     <button
                         type="button"

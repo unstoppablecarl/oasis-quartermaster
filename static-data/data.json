@@ -3,14 +3,109 @@
     "ARMORED": {
       "display_name": "Armored"
     },
-    "ACTIVE_COUNTERMEASURES": {
-      "display_name": "Active Countermeasures"
+    "COUNTERMEASURES": {
+      "display_name": "Countermeasures"
     },
     "EMBARK_DISEMBARK": {
-      "display_name": "Embark/Disembark"
+      "display_name": "Embark / Disembark"
     },
     "ESCORT": {
-      "display_name": "Escort [X\"]"
+      "display_name": "Escort [X\"]",
+      "matcher": {}
+    },
+    "HITCHHIKER": {
+      "display_name": "Hitchhiker"
+    },
+    "JUMP_PACKS": {
+      "display_name": "Jump Packs"
+    },
+    "MODULAR_PAYLOAD": {
+      "display_name": "Modular Payload"
+    },
+    "PRECISION": {
+      "display_name": "Precision [Air / Ground / Squad]",
+      "matcher": {}
+    },
+    "REMOTE_SURVEYOR": {
+      "display_name": "Remote Surveyor"
+    },
+    "REPAIR_SYSTEMS": {
+      "display_name": "Repair Systems"
+    },
+    "REPOSITION": {
+      "display_name": "Reposition [X\"]",
+      "matcher": {}
+    },
+    "REPOSITION_FIXED_WING": {
+      "display_name": "Reposition: Fixed Wing [X\"]",
+      "matcher": {}
+    },
+    "SMOKE_GRENADES": {
+      "display_name": "Smoke Grenades [X]",
+      "matcher": {}
+    },
+    "SURGICAL_PRECISION": {
+      "display_name": "Surgical Precision [Air / Ground / Squad]",
+      "matcher": {}
+    },
+    "SURVEYOR": {
+      "display_name": "Surveyor"
+    },
+    "TARGET_DESIGNATOR": {
+      "display_name": "Target Designator"
+    },
+    "TRANSPORT_SALVAGE": {
+      "display_name": "Transport [Salvage]",
+      "matcher": {}
+    },
+    "TRANSPORT": {
+      "display_name": "Transport [X]",
+      "matcher": {}
+    },
+    "WEAPON_CYCLING": {
+      "display_name": "Weapon Cycling"
+    },
+    "FLEXIBLE_DEPLOYMENT": {
+      "display_name": "Flexible Deployment"
+    },
+    "DUAL_CORE": {
+      "display_name": "Dual Core"
+    },
+    "MOMENTUM": {
+      "display_name": "Momentum"
+    },
+    "UPARMORED_GLACIS": {
+      "display_name": "Uparmored Glacis"
+    },
+    "NETWORKED_AUTOMATION": {
+      "display_name": "Networked Automation"
+    },
+    "AP": {
+      "display_name": "AP"
+    },
+    "SPLASH": {
+      "display_name": "Splash"
+    },
+    "AIR": {
+      "display_name": "Air"
+    },
+    "GND": {
+      "display_name": "GND"
+    },
+    "INDIRECT_FIRE": {
+      "display_name": "Indirect Fire"
+    },
+    "CLUMSY": {
+      "display_name": "Clumsy"
+    },
+    "INDEPENDENT": {
+      "display_name": "Independent"
+    },
+    "CLOSE_QUARTERS": {
+      "display_name": "Close Quarters"
+    },
+    "CQC_SPECIALIST": {
+      "display_name": "CQC Specialist"
     }
   },
   "TRAITS": {
@@ -18,7 +113,7 @@
       "display_name": "Aircraft"
     },
     "AIRCRAFT_FIXED_WING": {
-      "display_name": "Aircraft [Fixed Wing]"
+      "display_name": "Aircraft - Fixed Wing"
     },
     "SQUAD": {
       "display_name": "Squad"
@@ -56,7 +151,7 @@
       "flight_stand_diameter": "4mm",
       "flight_stand_length": "90mm",
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 190,
       "init": 2,
       "dodge": 2,
       "defense": 9,
@@ -100,7 +195,6 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Escort",
         "Armored",
@@ -108,6 +202,9 @@
         "Countermeasures",
         "Modular Payload",
         "Clumsy"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "TYPE_92": {
@@ -132,9 +229,11 @@
       "speed": "10",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Armored",
         "Clumsy"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "GORGON": {
@@ -177,10 +276,12 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Escort",
         "Armored"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "CONDOR": {
@@ -205,9 +306,11 @@
       "speed": "10 + R6",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "ROC": {
@@ -224,7 +327,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 82,
       "init": 3,
       "dodge": 7,
       "defense": 6,
@@ -250,10 +353,12 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport (2)",
         "Armored"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "ALBATROSS": {
@@ -293,10 +398,12 @@
         }
       ],
       "abilities": [
-        "Aircraft - Fixed Wing",
         "Reposition",
         "Precision Support",
         "Weapon Cycling"
+      ],
+      "traits": [
+        "Aircraft - Fixed Wing"
       ]
     },
     "COBRA": {
@@ -336,8 +443,10 @@
         }
       ],
       "abilities": [
-        "Aircraft - Fixed Wing",
         "Reposition"
+      ],
+      "traits": [
+        "Aircraft - Fixed Wing"
       ]
     },
     "RAVEN": {
@@ -354,7 +463,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 38,
       "init": 5,
       "dodge": 8,
       "defense": 5,
@@ -377,9 +486,11 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Precision (Ground)"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "BANDIT": {
@@ -396,7 +507,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 50,
       "init": 5,
       "dodge": 8,
       "defense": 4,
@@ -404,10 +515,12 @@
       "speed": "14 + R8",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport",
         "Target Designator"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "MAMMOTH": {
@@ -424,7 +537,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 69,
       "init": 2,
       "dodge": 5,
       "defense": 7,
@@ -435,7 +548,8 @@
         "Transport (2)",
         "Armored",
         "Smoke Grenades (2)"
-      ]
+      ],
+      "traits": []
     },
     "ZEUS": {
       "id": 11,
@@ -451,7 +565,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 77,
       "init": 2,
       "dodge": 3,
       "defense": 8,
@@ -459,9 +573,11 @@
       "speed": "6",
       "weapons": [],
       "abilities": [
-        "Grav Drive",
         "Armored",
         "Smoke Grenades"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "NYX": {
@@ -478,7 +594,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 34,
       "init": 2,
       "dodge": 4,
       "defense": 7,
@@ -503,9 +619,11 @@
         }
       ],
       "abilities": [
-        "Grav Drive",
         "Armored",
         "Smoke Grenades"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "BRIGAND": {
@@ -530,8 +648,10 @@
       "speed": "12 + R8",
       "weapons": [],
       "abilities": [
-        "Grav Drive",
         "Reposition"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "BUFFALO": {
@@ -548,7 +668,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 30,
       "init": 3,
       "dodge": 4,
       "defense": 3,
@@ -559,7 +679,8 @@
         "Transport (2)",
         "Surveyor",
         "Independent"
-      ]
+      ],
+      "traits": []
     },
     "DRAKE": {
       "id": 15,
@@ -584,7 +705,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "HERCULES": {
       "id": 16,
@@ -610,7 +732,8 @@
       "abilities": [
         "Reposition",
         "Transport (2)"
-      ]
+      ],
+      "traits": []
     },
     "CHARIOT": {
       "id": 17,
@@ -626,7 +749,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 25,
       "init": 4,
       "dodge": 6,
       "defense": 4,
@@ -644,7 +767,8 @@
       ],
       "abilities": [
         "Escort 8\""
-      ]
+      ],
+      "traits": []
     },
     "RHINO": {
       "id": 18,
@@ -660,7 +784,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 20,
       "init": 3,
       "dodge": 5,
       "defense": 6,
@@ -678,7 +802,8 @@
       ],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "WEASEL": {
       "id": 19,
@@ -703,7 +828,8 @@
       "weapons": [],
       "abilities": [
         "Escort"
-      ]
+      ],
+      "traits": []
     },
     "SCARAB": {
       "id": 20,
@@ -728,7 +854,8 @@
       "weapons": [],
       "abilities": [
         "Transport"
-      ]
+      ],
+      "traits": []
     },
     "COYOTE": {
       "id": 21,
@@ -744,7 +871,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 14,
       "init": 5,
       "dodge": 6,
       "defense": 3,
@@ -762,7 +889,8 @@
       ],
       "abilities": [
         "Reposition"
-      ]
+      ],
+      "traits": []
     },
     "FOX": {
       "id": 22,
@@ -778,7 +906,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 17,
       "init": 5,
       "dodge": 6,
       "defense": 3,
@@ -797,7 +925,8 @@
       "abilities": [
         "Reposition",
         "Escort"
-      ]
+      ],
+      "traits": []
     },
     "HOUND": {
       "id": 23,
@@ -824,7 +953,8 @@
         "Reposition",
         "Surveyor",
         "Target Designator"
-      ]
+      ],
+      "traits": []
     },
     "MANTIS": {
       "id": 24,
@@ -840,7 +970,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 13,
       "init": 3,
       "dodge": 6,
       "defense": 2,
@@ -850,7 +980,9 @@
       "abilities": [
         "Embark / Disembark",
         "Close Quarters",
-        "Networked Automation",
+        "Networked Automation"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -868,7 +1000,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 22,
       "init": 3,
       "dodge": 8,
       "defense": 3,
@@ -885,7 +1017,9 @@
       "abilities": [
         "Jump Packs",
         "Embark / Disembark",
-        "CQC Specialist",
+        "CQC Specialist"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -914,7 +1048,9 @@
         "Jump Packs",
         "Embark / Disembark",
         "CQC Specialist",
-        "Surveyor",
+        "Surveyor"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -942,7 +1078,9 @@
       "abilities": [
         "Jump Packs",
         "Embark / Disembark",
-        "CQC Specialist",
+        "CQC Specialist"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -969,7 +1107,9 @@
       "weapons": [],
       "abilities": [
         "Embark / Disembark",
-        "Close Quarters",
+        "Close Quarters"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -994,7 +1134,8 @@
       "hp": null,
       "speed": null,
       "weapons": [],
-      "abilities": []
+      "abilities": [],
+      "traits": []
     },
     "MOLE": {
       "id": 30,
@@ -1019,7 +1160,8 @@
       "weapons": [],
       "abilities": [
         "Surveyor"
-      ]
+      ],
+      "traits": []
     },
     "HAWKMOTH": {
       "id": 31,
@@ -1046,7 +1188,8 @@
         "Reposition",
         "CQC Specialist",
         "Networked Automation"
-      ]
+      ],
+      "traits": []
     },
     "T_174": {
       "id": 32,
@@ -1071,7 +1214,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "ORCA": {
       "id": 33,
@@ -1096,7 +1240,8 @@
       "weapons": [],
       "abilities": [
         "Reposition"
-      ]
+      ],
+      "traits": []
     },
     "HAMMERHEAD": {
       "id": 34,
@@ -1121,7 +1266,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "YOKAI": {
       "id": 35,
@@ -1144,7 +1290,8 @@
       "hp": null,
       "speed": null,
       "weapons": [],
-      "abilities": []
+      "abilities": [],
+      "traits": []
     }
   },
   "UNITS_BY_ID": {
@@ -1162,7 +1309,7 @@
       "flight_stand_diameter": "4mm",
       "flight_stand_length": "90mm",
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 190,
       "init": 2,
       "dodge": 2,
       "defense": 9,
@@ -1206,7 +1353,6 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Escort",
         "Armored",
@@ -1214,6 +1360,9 @@
         "Countermeasures",
         "Modular Payload",
         "Clumsy"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "2": {
@@ -1238,9 +1387,11 @@
       "speed": "10",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Armored",
         "Clumsy"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "3": {
@@ -1283,10 +1434,12 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Escort",
         "Armored"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "4": {
@@ -1311,9 +1464,11 @@
       "speed": "10 + R6",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "5": {
@@ -1330,7 +1485,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 82,
       "init": 3,
       "dodge": 7,
       "defense": 6,
@@ -1356,10 +1511,12 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport (2)",
         "Armored"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "6": {
@@ -1399,10 +1556,12 @@
         }
       ],
       "abilities": [
-        "Aircraft - Fixed Wing",
         "Reposition",
         "Precision Support",
         "Weapon Cycling"
+      ],
+      "traits": [
+        "Aircraft - Fixed Wing"
       ]
     },
     "7": {
@@ -1442,8 +1601,10 @@
         }
       ],
       "abilities": [
-        "Aircraft - Fixed Wing",
         "Reposition"
+      ],
+      "traits": [
+        "Aircraft - Fixed Wing"
       ]
     },
     "8": {
@@ -1460,7 +1621,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 38,
       "init": 5,
       "dodge": 8,
       "defense": 5,
@@ -1483,9 +1644,11 @@
         }
       ],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Precision (Ground)"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "9": {
@@ -1502,7 +1665,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "73mm",
       "flight_stand_connector": "Angled",
-      "cost": 0,
+      "cost": 50,
       "init": 5,
       "dodge": 8,
       "defense": 4,
@@ -1510,10 +1673,12 @@
       "speed": "14 + R8",
       "weapons": [],
       "abilities": [
-        "Aircraft",
         "Reposition",
         "Transport",
         "Target Designator"
+      ],
+      "traits": [
+        "Aircraft"
       ]
     },
     "10": {
@@ -1530,7 +1695,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 69,
       "init": 2,
       "dodge": 5,
       "defense": 7,
@@ -1541,7 +1706,8 @@
         "Transport (2)",
         "Armored",
         "Smoke Grenades (2)"
-      ]
+      ],
+      "traits": []
     },
     "11": {
       "id": 11,
@@ -1557,7 +1723,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 77,
       "init": 2,
       "dodge": 3,
       "defense": 8,
@@ -1565,9 +1731,11 @@
       "speed": "6",
       "weapons": [],
       "abilities": [
-        "Grav Drive",
         "Armored",
         "Smoke Grenades"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "12": {
@@ -1584,7 +1752,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 34,
       "init": 2,
       "dodge": 4,
       "defense": 7,
@@ -1609,9 +1777,11 @@
         }
       ],
       "abilities": [
-        "Grav Drive",
         "Armored",
         "Smoke Grenades"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "13": {
@@ -1636,8 +1806,10 @@
       "speed": "12 + R8",
       "weapons": [],
       "abilities": [
-        "Grav Drive",
         "Reposition"
+      ],
+      "traits": [
+        "Grav Drive"
       ]
     },
     "14": {
@@ -1654,7 +1826,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 30,
       "init": 3,
       "dodge": 4,
       "defense": 3,
@@ -1665,7 +1837,8 @@
         "Transport (2)",
         "Surveyor",
         "Independent"
-      ]
+      ],
+      "traits": []
     },
     "15": {
       "id": 15,
@@ -1690,7 +1863,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "16": {
       "id": 16,
@@ -1716,7 +1890,8 @@
       "abilities": [
         "Reposition",
         "Transport (2)"
-      ]
+      ],
+      "traits": []
     },
     "17": {
       "id": 17,
@@ -1732,7 +1907,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 25,
       "init": 4,
       "dodge": 6,
       "defense": 4,
@@ -1750,7 +1925,8 @@
       ],
       "abilities": [
         "Escort 8\""
-      ]
+      ],
+      "traits": []
     },
     "18": {
       "id": 18,
@@ -1766,7 +1942,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 20,
       "init": 3,
       "dodge": 5,
       "defense": 6,
@@ -1784,7 +1960,8 @@
       ],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "19": {
       "id": 19,
@@ -1809,7 +1986,8 @@
       "weapons": [],
       "abilities": [
         "Escort"
-      ]
+      ],
+      "traits": []
     },
     "20": {
       "id": 20,
@@ -1834,7 +2012,8 @@
       "weapons": [],
       "abilities": [
         "Transport"
-      ]
+      ],
+      "traits": []
     },
     "21": {
       "id": 21,
@@ -1850,7 +2029,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 14,
       "init": 5,
       "dodge": 6,
       "defense": 3,
@@ -1868,7 +2047,8 @@
       ],
       "abilities": [
         "Reposition"
-      ]
+      ],
+      "traits": []
     },
     "22": {
       "id": 22,
@@ -1884,7 +2064,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 17,
       "init": 5,
       "dodge": 6,
       "defense": 3,
@@ -1903,7 +2083,8 @@
       "abilities": [
         "Reposition",
         "Escort"
-      ]
+      ],
+      "traits": []
     },
     "23": {
       "id": 23,
@@ -1930,7 +2111,8 @@
         "Reposition",
         "Surveyor",
         "Target Designator"
-      ]
+      ],
+      "traits": []
     },
     "24": {
       "id": 24,
@@ -1946,7 +2128,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 13,
       "init": 3,
       "dodge": 6,
       "defense": 2,
@@ -1956,7 +2138,9 @@
       "abilities": [
         "Embark / Disembark",
         "Close Quarters",
-        "Networked Automation",
+        "Networked Automation"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -1974,7 +2158,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 22,
       "init": 3,
       "dodge": 8,
       "defense": 3,
@@ -1991,7 +2175,9 @@
       "abilities": [
         "Jump Packs",
         "Embark / Disembark",
-        "CQC Specialist",
+        "CQC Specialist"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -2020,7 +2206,9 @@
         "Jump Packs",
         "Embark / Disembark",
         "CQC Specialist",
-        "Surveyor",
+        "Surveyor"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -2048,7 +2236,9 @@
       "abilities": [
         "Jump Packs",
         "Embark / Disembark",
-        "CQC Specialist",
+        "CQC Specialist"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -2075,7 +2265,9 @@
       "weapons": [],
       "abilities": [
         "Embark / Disembark",
-        "Close Quarters",
+        "Close Quarters"
+      ],
+      "traits": [
         "Squad"
       ]
     },
@@ -2100,7 +2292,8 @@
       "hp": null,
       "speed": null,
       "weapons": [],
-      "abilities": []
+      "abilities": [],
+      "traits": []
     },
     "30": {
       "id": 30,
@@ -2125,7 +2318,8 @@
       "weapons": [],
       "abilities": [
         "Surveyor"
-      ]
+      ],
+      "traits": []
     },
     "31": {
       "id": 31,
@@ -2152,7 +2346,8 @@
         "Reposition",
         "CQC Specialist",
         "Networked Automation"
-      ]
+      ],
+      "traits": []
     },
     "32": {
       "id": 32,
@@ -2177,7 +2372,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "33": {
       "id": 33,
@@ -2202,7 +2398,8 @@
       "weapons": [],
       "abilities": [
         "Reposition"
-      ]
+      ],
+      "traits": []
     },
     "34": {
       "id": 34,
@@ -2227,7 +2424,8 @@
       "weapons": [],
       "abilities": [
         "Armored"
-      ]
+      ],
+      "traits": []
     },
     "35": {
       "id": 35,
@@ -2250,7 +2448,8 @@
       "hp": null,
       "speed": null,
       "weapons": [],
-      "abilities": []
+      "abilities": [],
+      "traits": []
     }
   }
 }
