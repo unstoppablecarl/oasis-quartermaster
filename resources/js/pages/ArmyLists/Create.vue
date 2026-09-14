@@ -4,13 +4,11 @@ import { computed, watch } from 'vue'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import Heading from '../../components/Heading.vue'
 import {
-    type UnitEntry,
-    useArmyListUnits,
-} from '../../composables/useArmyListUnits'
-import {
-    ARMY_LIST_TYPES,
-    ARMY_LIST_TYPES_BY_ID,
-} from '../../data/army-list-types'
+    computedArmyListMaxPoints,
+    useArmyList,
+} from '../../composables/useArmyList'
+import type { LocalArmyList } from '../../composables/useUnitsInfo'
+import { ARMY_LIST_TYPES } from '../../../data/army-list-types'
 import {
     clearArmyListDraft,
     loadArmyListDraft,
@@ -28,12 +26,7 @@ const auth = computed(() => page.props.auth)
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
 const draft = loadArmyListDraft()
 
-const form = useForm<{
-    display_name: string
-    units: UnitEntry[]
-    army_list_type_id: number | null
-    custom_max_points: number | null
-}>({
+const form = useForm<LocalArmyList>({
     display_name: draft ? draft.display_name : '',
     units: [],
     army_list_type_id: draft
@@ -42,17 +35,11 @@ const form = useForm<{
     custom_max_points: draft ? draft.custom_max_points : null,
 })
 
-const { units, add, subtract, remove, totalCost } = useArmyListUnits(
+const { units, add, subtract, remove, totalCost } = useArmyList(
     draft?.units ?? [],
 )
 
-const maxPoints = computed(() => {
-    if (form.army_list_type_id === null) {
-        return form.custom_max_points
-    }
-
-    return ARMY_LIST_TYPES_BY_ID[form.army_list_type_id]?.max_points
-})
+const maxPoints = computedArmyListMaxPoints(form)
 
 watch(
     [
@@ -105,6 +92,7 @@ function save() {
     <ArmyListTable
         :units="units"
         :show-controls="true"
+        :max-points="maxPoints"
         @add="add"
         @subtract="subtract"
         @remove="remove"
@@ -123,7 +111,8 @@ function save() {
             An account is required to save.
             <Link :href="login()" class="link-light">Login</Link>
             or
-            <Link :href="register()" class="link-light">Register</Link>.
+            <Link :href="register()" class="link-light">Register</Link>
+            .
         </template>
     </ArmyListSaveBar>
 </template>

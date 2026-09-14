@@ -4,6 +4,7 @@ import Heading from '@/components/Heading.vue'
 import { edit, show } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
+import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
 
 const props = defineProps<{
     armyLists: ArmyList[];
@@ -14,15 +15,28 @@ const props = defineProps<{
     <Heading variant="small" title="Army Lists" />
 
     <table class="table align-middle border-top">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Max Points</th>
+        </tr>
+        </thead>
         <tbody>
         <tr v-if="props.armyLists.length === 0">
-            <td colspan="2" class="text-secondary text-center">
+            <td colspan="3" class="text-secondary text-center">
                 No army lists yet.
             </td>
         </tr>
         <tr v-for="item in props.armyLists" :key="item.uuid">
             <td class="fw-medium">
                 {{ item.display_name }}
+            </td>
+            <td>
+                {{ getArmyListTypeName(item) }}
+            </td>
+            <td class="number-cell">
+                {{ getArmyListMaxPoints(item) }}
             </td>
             <td class="text-end">
                 <div class="d-flex justify-content-end gap-2">

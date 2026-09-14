@@ -2,8 +2,8 @@ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transformWithOxc, type Plugin } from 'vite';
 
-const dataDir = path.resolve(import.meta.dirname, '../data');
-const dataOutputFile = path.resolve(import.meta.dirname, '../../static-data/data.json');
+const dataDir = path.resolve(import.meta.dirname, '../../data');
+const dataOutputFile = path.resolve(import.meta.dirname, '../../../static-data/data.json');
 
 async function importTsModule(filePath: string): Promise<Record<string, unknown>> {
     const source = await readFile(filePath, 'utf8');

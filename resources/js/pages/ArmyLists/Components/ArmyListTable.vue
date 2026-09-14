@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import Fraction from '../../../components/Fraction.vue'
 import { type UnitEntry, useUnitsInfo } from '../../../composables/useUnitsInfo'
 
-const { units, showControls = false } = defineProps<{
+const {
+    units,
+    showControls = false,
+    maxPoints,
+} = defineProps<{
+    maxPoints: number | null
     units: UnitEntry[]
     showControls?: boolean
 }>()
@@ -79,7 +85,9 @@ const { unitsInfo, totalCost } = useUnitsInfo(() => units)
                 <tfoot>
                     <tr>
                         <th colspan="5" class="text-end">Total</th>
-                        <th class="number-cell">{{ totalCost }}</th>
+                        <th class="number-cell">
+                            <Fraction :a="totalCost" :b="maxPoints" />
+                        </th>
                         <th colspan="2" v-if="showControls"></th>
                     </tr>
                 </tfoot>

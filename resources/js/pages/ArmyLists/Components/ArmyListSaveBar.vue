@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Fraction from '../../../components/Fraction.vue'
+
 withDefaults(
     defineProps<{
         totalCost: number
@@ -24,16 +26,9 @@ const emit = defineEmits<{
         <div class="save-bar fixed-bottom bg-black border-top">
             <div class="container py-1">
                 <div class="d-flex align-items-center flex-wrap gap-2">
-                    <div class="me-auto "></div>
+                    <div class="me-auto"></div>
                     <div class="btn-py px-3">
-                        Total Points: {{ totalCost
-                        }}
-                        <template
-                            v-if="maxPoints !== null && maxPoints !== undefined"
-                        >
-                            / {{ maxPoints }}
-                        </template
-                        >
+                        Total Points: <Fraction :a="totalCost" :b="maxPoints" />
                     </div>
                     <button
                         type="button"

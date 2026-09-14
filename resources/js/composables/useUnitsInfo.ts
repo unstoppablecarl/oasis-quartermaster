@@ -1,9 +1,16 @@
-import { type MaybeRefOrGetter, computed, toValue } from 'vue'
-import { UNITS_BY_ID } from '../data/units'
+import { computed, type MaybeRefOrGetter, toValue } from 'vue'
+import { UNITS_BY_ID } from '../../data/units'
 
 export type UnitEntry = {
     id: number
     quantity: number
+}
+
+export type LocalArmyList = {
+    display_name: string
+    units: UnitEntry[]
+    army_list_type_id: number | null
+    custom_max_points: number | null
 }
 
 export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Head, useHttp } from '@inertiajs/vue3'
-import { computed } from 'vue'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import {
+    computedArmyListMaxPoints,
     type UnitEntry,
-    useArmyListUnits,
-} from '../../composables/useArmyListUnits'
-import { ARMY_LIST_TYPES_BY_ID } from '../../data/army-list-types'
+    useArmyList,
+} from '../../composables/useArmyList'
+import type { LocalArmyList } from '../../composables/useUnitsInfo'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
 import ArmyListFields from './Components/ArmyListFields.vue'
@@ -24,32 +24,16 @@ type UpdateResponse = {
     message: string
 }
 
-const http = useHttp<
-    {
-        display_name: string
-        units: UnitEntry[]
-        army_list_type_id: number | null
-        custom_max_points: number | null
-    },
-    UpdateResponse
->({
+const http = useHttp<LocalArmyList, UpdateResponse>({
     display_name: armyList.display_name,
     units: [] as UnitEntry[],
     army_list_type_id: armyList.army_list_type_id,
     custom_max_points: armyList.custom_max_points,
 })
 
-const { units, add, subtract, remove, totalCost } = useArmyListUnits(
-    armyList.units,
-)
+const { units, add, subtract, remove, totalCost } = useArmyList(armyList.units)
 
-const maxPoints = computed(() => {
-    if (http.army_list_type_id === null) {
-        return http.custom_max_points
-    }
-
-    return ARMY_LIST_TYPES_BY_ID[http.army_list_type_id]?.max_points
-})
+const maxPoints = computedArmyListMaxPoints(http)
 
 function update() {
     http.units = units.value.map((u) => ({ ...u }))
@@ -82,6 +66,7 @@ function update() {
         <ArmyListTable
             :units="units"
             :show-controls="true"
+            :max-points="maxPoints"
             @add="add"
             @subtract="subtract"
             @remove="remove"
