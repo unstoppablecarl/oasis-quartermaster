@@ -80,7 +80,7 @@ function save() {
 <template>
     <Head title="Create" />
 
-    <Heading variant="small" title="Create" />
+    <Heading variant="small" title="Create Army List" />
 
     <ArmyListFields
         v-model:display-name="form.display_name"

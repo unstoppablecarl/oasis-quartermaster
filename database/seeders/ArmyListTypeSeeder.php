@@ -10,7 +10,7 @@ class ArmyListTypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $jsonString = file_get_contents('resources/static-data/data.json');
+        $jsonString = file_get_contents('static-data/data.json');
         $data = json_decode($jsonString, true);
 
         foreach ($data['ARMY_LIST_TYPES'] as $armyListType) {
