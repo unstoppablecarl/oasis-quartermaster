@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
-import ArmyListTable from './ArmyListTable.vue'
+import ArmyListTable from './Components/ArmyListTable.vue'
 
 const { armyList } = defineProps<{
     armyList: ArmyList

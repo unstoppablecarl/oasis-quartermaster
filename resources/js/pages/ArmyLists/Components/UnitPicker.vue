@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UNITS } from '../../data/units'
+import { UNITS } from '../../../data/units'
 
 const emit = defineEmits<{
     add: [unitId: number]

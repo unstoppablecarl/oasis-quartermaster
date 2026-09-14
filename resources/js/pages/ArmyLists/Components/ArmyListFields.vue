@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import InputError from '../../components/InputError.vue'
-import { ARMY_LIST_TYPES } from '../../data/army-list-types'
+import InputError from '../../../components/InputError.vue'
+import { ARMY_LIST_TYPES } from '../../../data/army-list-types'
 
 const displayName = defineModel<string>('displayName', { required: true })
 const armyListTypeId = defineModel<number | null>('armyListTypeId', {

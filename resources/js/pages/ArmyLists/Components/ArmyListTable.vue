@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type UnitEntry, useUnitsInfo } from '../../composables/useUnitsInfo'
+import { type UnitEntry, useUnitsInfo } from '../../../composables/useUnitsInfo'
 
 const { units, showControls = false } = defineProps<{
     units: UnitEntry[]

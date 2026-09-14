@@ -17,10 +17,10 @@ import {
     saveArmyListDraft,
 } from '../../lib/armyListDraft'
 import { login, register } from '../../routes'
-import ArmyListFields from './ArmyListFields.vue'
-import ArmyListSaveBar from './ArmyListSaveBar.vue'
-import ArmyListTable from './ArmyListTable.vue'
-import UnitPicker from './UnitPicker.vue'
+import ArmyListFields from './Components/ArmyListFields.vue'
+import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
+import ArmyListTable from './Components/ArmyListTable.vue'
+import UnitPicker from './Components/UnitPicker.vue'
 
 const page = usePage()
 const auth = computed(() => page.props.auth)
