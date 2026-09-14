@@ -14,7 +14,7 @@ test('user can create an army list with an army list type', function () {
     ]);
 
     $armyList = ArmyList::where('display_name', 'My New List')->firstOrFail();
-    $response->assertRedirect(route('army-lists.show', $armyList));
+    $response->assertRedirect(route('army-lists.edit', $armyList));
     expect($armyList->user_id)->toBe($user->id);
     expect($armyList->army_list_type_id)->toBe($armyListType->id);
 });

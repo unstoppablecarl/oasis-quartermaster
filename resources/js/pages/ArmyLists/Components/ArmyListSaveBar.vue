@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import Fraction from '../../../components/Fraction.vue'
 
-withDefaults(
-    defineProps<{
-        totalCost: number
-        maxPoints?: number | null
-        processing?: boolean
-        saveDisabled?: boolean
-        saveLabel?: string
-    }>(),
-    {
-        maxPoints: null,
-        processing: false,
-        saveDisabled: false,
-        saveLabel: 'Save',
-    },
-)
+const {
+    maxPoints = null,
+    processing = false,
+    saveDisabled = false,
+    saveLabel = 'Save',
+    totalCost,
+    unitCount,
+} = defineProps<{
+    totalCost: number
+    maxPoints?: number | null
+    processing?: boolean
+    saveDisabled?: boolean
+    saveLabel?: string
+    unitCount: number
+}>()
 
 const emit = defineEmits<{
     save: []
@@ -28,7 +28,12 @@ const emit = defineEmits<{
                 <div class="d-flex align-items-center flex-wrap gap-2">
                     <div class="me-auto"></div>
                     <div class="btn-py px-3">
-                        Total Points: <Fraction :a="totalCost" :b="maxPoints" />
+                        <strong> Unit Count: </strong>
+                        {{ unitCount }}
+                    </div>
+                    <div class="btn-py px-3">
+                        <strong> Total Points: </strong>
+                        <Fraction :a="totalCost" :b="maxPoints" />
                     </div>
                     <button
                         type="button"

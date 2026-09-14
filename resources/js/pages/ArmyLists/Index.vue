@@ -6,7 +6,7 @@ import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
 
-const props = defineProps<{
+const { armyLists } = defineProps<{
     armyLists: ArmyList[];
 }>()
 </script>
@@ -23,12 +23,12 @@ const props = defineProps<{
         </tr>
         </thead>
         <tbody>
-        <tr v-if="props.armyLists.length === 0">
+        <tr v-if="armyLists.length === 0">
             <td colspan="3" class="text-secondary text-center">
                 No army lists yet.
             </td>
         </tr>
-        <tr v-for="item in props.armyLists" :key="item.uuid">
+        <tr v-for="item in armyLists" :key="item.uuid">
             <td class="fw-medium">
                 {{ item.display_name }}
             </td>

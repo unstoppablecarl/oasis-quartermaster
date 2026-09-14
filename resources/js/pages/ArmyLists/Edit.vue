@@ -2,11 +2,7 @@
 import { Head, useHttp } from '@inertiajs/vue3'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
-import {
-    computedArmyListMaxPoints,
-    type UnitEntry,
-    useArmyList,
-} from '../../composables/useArmyList'
+import { useArmyList } from '../../composables/useArmyList'
 import type { LocalArmyList } from '../../composables/useUnitsInfo'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
@@ -26,24 +22,23 @@ type UpdateResponse = {
 
 const http = useHttp<LocalArmyList, UpdateResponse>({
     display_name: armyList.display_name,
-    units: [] as UnitEntry[],
+    units: armyList.units.map((u) => ({ ...u })),
     army_list_type_id: armyList.army_list_type_id,
     custom_max_points: armyList.custom_max_points,
 })
 
-const { units, add, subtract, remove, totalCost } = useArmyList(armyList.units)
-
-const maxPoints = computedArmyListMaxPoints(http)
+const { add, subtract, remove, totalCost, unitCount, maxPoints } = useArmyList(http)
 
 function update() {
-    http.units = units.value.map((u) => ({ ...u }))
-
     http.put(ArmyListController.update.url(armyList), {
+        onBefore: () => {
+            armyList.units = armyList.units.filter(u => u.quantity > 0)
+        },
         onSuccess: (response) => {
             armyList.display_name = response.armyList.display_name
             armyList.army_list_type_id = response.armyList.army_list_type_id
             armyList.custom_max_points = response.armyList.custom_max_points
-            units.value = response.armyList.units.map((u) => ({ ...u }))
+            armyList.units = response.armyList.units.map((u) => ({ ...u }))
             toast.success(response.message)
         },
         onError: () => {
@@ -56,15 +51,10 @@ function update() {
     <ArmyListItemLayout :army-list="armyList">
         <Head title="Edit" />
 
-        <ArmyListFields
-            v-model:display-name="http.display_name"
-            v-model:army-list-type-id="http.army_list_type_id"
-            v-model:custom-max-points="http.custom_max_points"
-            :errors="http.errors"
-        />
+        <ArmyListFields :army-list="http" :errors="http.errors" />
 
         <ArmyListTable
-            :units="units"
+            :units="http.units"
             :show-controls="true"
             :max-points="maxPoints"
             @add="add"
@@ -79,6 +69,7 @@ function update() {
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="http.processing"
+        :unit-count="unitCount"
         @save="update"
     />
 </template>

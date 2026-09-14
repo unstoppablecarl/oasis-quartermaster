@@ -1,25 +1,26 @@
-import type { UnitEntry } from '../composables/useUnitsInfo'
+import { ARMY_LIST_TYPES } from '../../data/army-list-types'
+import type { LocalArmyList } from '../composables/useUnitsInfo'
+import type { ArmyList } from '../types/army-list'
 
 const STORAGE_KEY = 'oasis-army-list-draft'
 
-export type ArmyListDraft = {
-    display_name: string
-    army_list_type_id: number | null
-    custom_max_points: number | null
-    units: UnitEntry[]
-}
-
-export function loadArmyListDraft(): ArmyListDraft | null {
+export function loadArmyListDraft(): LocalArmyList {
+    const draft = makeDraft()
     if (typeof window === 'undefined') {
-        return null
+        return draft
     }
 
     try {
         const raw = window.localStorage.getItem(STORAGE_KEY)
 
-        return raw ? (JSON.parse(raw) as ArmyListDraft) : null
+        const result = raw ? (JSON.parse(raw) as LocalArmyList) : null
+
+        return {
+            ...draft,
+            ...result,
+        }
     } catch {
-        return null
+        return draft
     }
 }
 
@@ -30,10 +31,12 @@ export function hasArmyListDraft(): boolean {
     return !!window.localStorage.getItem(STORAGE_KEY)
 }
 
-export function saveArmyListDraft(draft: ArmyListDraft): void {
+export function saveArmyListDraft(draft: LocalArmyList): void {
     if (typeof window === 'undefined') {
         return
     }
+
+    draft = toLocalArmyList(draft)
 
     try {
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(draft))
@@ -48,4 +51,24 @@ export function clearArmyListDraft(): void {
     }
 
     window.localStorage.removeItem(STORAGE_KEY)
+}
+
+function makeDraft(): LocalArmyList {
+    const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
+
+    return {
+        display_name: '',
+        units: [],
+        army_list_type_id: allArmyListTypes[0]?.id ?? null,
+        custom_max_points: null,
+    }
+}
+
+export function toLocalArmyList(armyList: ArmyList | LocalArmyList): LocalArmyList {
+    return {
+        display_name: armyList.display_name,
+        units: armyList.units.map((u) => ({ ...u })),
+        army_list_type_id: armyList.army_list_type_id,
+        custom_max_points: armyList.custom_max_points,
+    }
 }

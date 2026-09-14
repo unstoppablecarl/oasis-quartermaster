@@ -1,13 +1,12 @@
-import { computed, type MaybeRefOrGetter, ref, toValue } from 'vue'
+import { computed, toRef, toValue } from 'vue'
 import { ARMY_LIST_TYPES_BY_ID } from '../../data/army-list-types'
-import { type UnitEntry, useUnitsInfo } from './useUnitsInfo'
+import { type LocalArmyList, type UnitEntry, useUnitsInfo } from './useUnitsInfo'
 
 export type { UnitEntry }
 
-export function useArmyList(initialUnits: UnitEntry[] = []) {
-    const units = ref<UnitEntry[]>(initialUnits.map((u) => ({ ...u })))
-
-    const { unitsInfo, totalCost } = useUnitsInfo(units)
+export function useArmyList(armyList: LocalArmyList) {
+    const units = toRef(armyList, 'units')
+    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units)
 
     function add(unitId: number, quantity = 1) {
         const existing = units.value.find((v) => v.id === unitId)
@@ -41,22 +40,14 @@ export function useArmyList(initialUnits: UnitEntry[] = []) {
     }
 
     return {
-        units,
         unitsInfo,
         totalCost,
+        unitCount,
         add,
         subtract,
         remove,
+        maxPoints: computed(() => getArmyListMaxPoints(toValue(armyList))),
     }
-}
-
-export function computedArmyListMaxPoints(
-    armyList: MaybeRefOrGetter<{
-        army_list_type_id: number | null
-        custom_max_points: number | null
-    }>,
-) {
-    return computed(() => getArmyListMaxPoints(toValue(armyList)))
 }
 
 export function getArmyListMaxPoints(armyList: {

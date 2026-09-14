@@ -2,16 +2,13 @@
 import { computed, watch } from 'vue'
 import InputError from '../../../components/InputError.vue'
 import { ARMY_LIST_TYPES } from '../../../../data/army-list-types'
+import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 
-const displayName = defineModel<string>('displayName', { required: true })
-const armyListTypeId = defineModel<number | null>('armyListTypeId', {
-    required: true,
-})
-const customMaxPoints = defineModel<number | null>('customMaxPoints', {
-    required: true,
-})
-
-defineProps<{
+const { armyList, errors } = defineProps<{
+    armyList: Pick<
+        LocalArmyList,
+        'display_name' | 'army_list_type_id' | 'custom_max_points'
+    >
     errors?: Partial<
         Record<
             'display_name' | 'army_list_type_id' | 'custom_max_points',
@@ -21,11 +18,11 @@ defineProps<{
 }>()
 
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
-const isCustomArmyListType = computed(() => armyListTypeId.value === null)
+const isCustomArmyListType = computed(() => armyList.army_list_type_id === null)
 
 watch(isCustomArmyListType, (isCustom) => {
     if (!isCustom) {
-        customMaxPoints.value = null
+        armyList.custom_max_points = null
     }
 })
 </script>
@@ -39,7 +36,7 @@ watch(isCustomArmyListType, (isCustom) => {
             name="display_name"
             required
             placeholder="Name"
-            v-model="displayName"
+            v-model="armyList.display_name"
         />
         <InputError class="mt-2" :message="errors?.display_name" />
     </div>
@@ -52,14 +49,15 @@ watch(isCustomArmyListType, (isCustom) => {
             id="army_list_type_id"
             class="form-select"
             name="army_list_type_id"
-            v-model="armyListTypeId"
+            v-model="armyList.army_list_type_id"
         >
             <option
                 v-for="armyListType in allArmyListTypes"
                 :key="armyListType.id"
                 :value="armyListType.id"
             >
-                {{ armyListType.display_name }} - {{armyListType.max_points}} Points
+                {{ armyListType.display_name }} -
+                {{ armyListType.max_points }} Points
             </option>
             <option :value="null">Custom</option>
         </select>
@@ -77,7 +75,7 @@ watch(isCustomArmyListType, (isCustom) => {
             class="form-control"
             name="custom_max_points"
             required
-            v-model.number="customMaxPoints"
+            v-model.number="armyList.custom_max_points"
         />
         <InputError class="mt-2" :message="errors?.custom_max_points" />
     </div>

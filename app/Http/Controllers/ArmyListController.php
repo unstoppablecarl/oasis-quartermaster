@@ -49,7 +49,7 @@ class ArmyListController
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Army list created']);
 
-        return redirect()->route('army-lists.show', $armyList);
+        return redirect()->route('army-lists.edit', $armyList);
     }
 
     public function show(ArmyList $armyList)

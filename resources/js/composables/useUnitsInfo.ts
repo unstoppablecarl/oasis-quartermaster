@@ -23,17 +23,23 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {
         })
     })
 
-    const totalCost = computed(() => {
-        let total = 0
+    const totals = computed(() => {
+        let cost = 0
+        let count = 0
         for (let i = 0; i < unitsInfo.value.length; i++) {
             const item = unitsInfo.value[i]
-            total += item.quantity * item.cost
+            cost += item.quantity * item.cost
+            count += item.quantity
         }
-        return total
+        return { cost, count }
     })
+
+    const totalCost = computed(() => totals.value.cost)
+    const unitCount = computed(() => totals.value.count)
 
     return {
         unitsInfo,
         totalCost,
+        unitCount,
     }
 }
