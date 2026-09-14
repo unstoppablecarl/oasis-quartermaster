@@ -74,6 +74,12 @@ $navbar-dark-hover-color: $sand;
 $navbar-dark-active-color: $orange2;
 $navbar-nav-link-padding-x: 1rem;
 
+$border-radius:               .2rem !default;
+$border-radius-sm:            .5rem !default;
+$border-radius-lg:            1rem !default;
+$border-radius-xl:            2rem !default;
+$border-radius-xxl:           3rem !default;
+
 :root {
     --sand: #{$sand};
     --orange: #{$orange};
