@@ -16,6 +16,10 @@ class ArmyListResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'display_name' => $this->display_name,
+            'army_list_type_id' => $this->army_list_type_id,
+            'army_list_type' => $this->whenLoaded('armyListType', fn () => $this->armyListType ? new ArmyListTypeResource($this->armyListType) : null),
+            'custom_max_points' => $this->custom_max_points,
+            'max_points' => $this->maxPoints,
             'units' => $this->whenLoaded('units', fn () => $this->units->map(fn ($unit) => [
                 'id' => $unit->id,
                 'quantity' => $unit->pivot->quantity,

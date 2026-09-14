@@ -15,7 +15,7 @@ class ArmyListController
     public function index(Request $request)
     {
         Gate::authorize('viewAny', ArmyList::class);
-        $armyLists = $request->user()->armyLists()->get();
+        $armyLists = $request->user()->armyLists()->with('armyListType')->get();
 
         $resourceCollection = ArmyListResource::collection($armyLists);
 
@@ -52,7 +52,7 @@ class ArmyListController
         Gate::authorize('view', $armyList);
 
         $data = [
-            'armyList' => $armyList->load('units')->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Show', $data);
@@ -63,7 +63,7 @@ class ArmyListController
         Gate::authorize('update', $armyList);
 
         $data = [
-            'armyList' => $armyList->load('units')->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Edit', $data);
@@ -73,7 +73,7 @@ class ArmyListController
     {
         Gate::authorize('update', $armyList);
 
-        $armyList->update($request->safe()->only('display_name'));
+        $armyList->update($request->safe()->only(['display_name', 'army_list_type_id', 'custom_max_points']));
 
         $units = collect($request->safe()->array('units'))
             ->mapWithKeys(fn (array $unit) => [$unit['id'] => ['quantity' => $unit['quantity']]]);
@@ -81,7 +81,7 @@ class ArmyListController
         $armyList->units()->sync($units);
 
         return response()->json([
-            'armyList' => $armyList->load('units')->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
             'message' => 'Army List Updated',
         ]);
     }

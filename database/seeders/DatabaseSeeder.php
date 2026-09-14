@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $this->call(ArmyListTypeSeeder::class);
         $this->call(UnitSeeder::class);
     }
 }
