@@ -8,35 +8,33 @@ import InputError from '../../components/InputError.vue'
 
     <Head title="Create" />
 
-    <div class="d-flex flex-column gap-4">
-        <Heading variant="small" title="Create" />
+    <Heading variant="small" title="Create" />
 
-        <Form
-            v-bind="ArmyListController.store.form()"
-            v-slot="{ errors, processing }"
-        >
-            <div class="mb-3">
-                <label for="display_name" class="form-label">Name</label>
-                <input
-                    id="display_name"
-                    type="text"
-                    class="form-control"
-                    name="display_name"
-                    required
-                    placeholder="Name"
-                />
-                <InputError class="mt-2" :message="errors.name" />
-            </div>
+    <Form
+        v-bind="ArmyListController.store.form()"
+        v-slot="{ errors, processing }"
+    >
+        <div class="mb-3">
+            <label for="display_name" class="form-label">Name</label>
+            <input
+                id="display_name"
+                type="text"
+                class="form-control"
+                name="display_name"
+                required
+                placeholder="Name"
+            />
+            <InputError class="mt-2" :message="errors.name" />
+        </div>
 
-            <div class="d-flex align-items-center gap-3">
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                    :disabled="processing"
-                >
-                    Create
-                </button>
-            </div>
-        </Form>
-    </div>
+        <div class="d-flex align-items-center gap-3">
+            <button
+                type="submit"
+                class="btn btn-primary"
+                :disabled="processing"
+            >
+                Create
+            </button>
+        </div>
+    </Form>
 </template>
