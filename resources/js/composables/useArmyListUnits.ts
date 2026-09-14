@@ -1,35 +1,15 @@
-import { computed, ref } from 'vue'
-import { UNITS, UNITS_BY_ID } from '../data/units'
-import type { ArmyList } from '../types/army-list'
+import { ref } from 'vue'
+import { type UnitEntry, useUnitsInfo } from './useUnitsInfo'
 
-export type UnitEntry = {
-    id: number
-    quantity: number
-}
+export type { UnitEntry }
 
-export function useArmyListUnits(armyList: ArmyList) {
-    const units = ref<UnitEntry[]>(armyList.units.map(u => ({ ...u })))
+export function useArmyListUnits(initialUnits: UnitEntry[] = []) {
+    const units = ref<UnitEntry[]>(initialUnits.map((u) => ({ ...u })))
 
-    const unitsInfo = computed(() => {
-        return units.value.map(u => {
-            return {
-                ...u,
-                ...UNITS_BY_ID[u.id],
-            }
-        })
-    })
-
-    const totalCost = computed(() => {
-        let total = 0
-        for (let i = 0; i < unitsInfo.value.length; i++) {
-            const item = unitsInfo.value[i]
-            total += item.quantity * item.cost
-        }
-        return total
-    })
+    const { unitsInfo, totalCost } = useUnitsInfo(units)
 
     function add(unitId: number, quantity = 1) {
-        const existing = units.value.find(v => v.id === unitId)
+        const existing = units.value.find((v) => v.id === unitId)
         if (existing) {
             existing.quantity += quantity
             return
@@ -42,7 +22,7 @@ export function useArmyListUnits(armyList: ArmyList) {
     }
 
     function subtract(unitId: number, quantity = 1) {
-        const existing = units.value.find(v => v.id === unitId)
+        const existing = units.value.find((v) => v.id === unitId)
         if (!existing) {
             return
         }
@@ -56,7 +36,7 @@ export function useArmyListUnits(armyList: ArmyList) {
     }
 
     function remove(unitId: number) {
-        units.value = units.value.filter(v => v.id !== unitId)
+        units.value = units.value.filter((v) => v.id !== unitId)
     }
 
     return {

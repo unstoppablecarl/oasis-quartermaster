@@ -5,14 +5,13 @@ import type { ArmyList } from '../../types/army-list'
 import ArmyListTable from './ArmyListTable.vue'
 
 const { armyList } = defineProps<{
-    armyList: ArmyList;
+    armyList: ArmyList
 }>()
 </script>
 <template>
     <ArmyListItemLayout :army-list="armyList">
         <Head title="View" />
 
-        <ArmyListTable :army-list="armyList" :show-controls="false" />
-
+        <ArmyListTable :units="armyList.units" :show-controls="false" />
     </ArmyListItemLayout>
 </template>

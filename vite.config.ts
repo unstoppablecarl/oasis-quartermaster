@@ -10,15 +10,10 @@ export default defineConfig({
     plugins: lazyPlugins(() => [
         staticDataPlugin(),
         laravel({
-            input: [
-                'resources/styles/main.scss',
-                'resources/js/main.ts',
-            ],
+            input: ['resources/styles/main.scss', 'resources/js/main.ts'],
             refresh: true,
             fonts: [
-                google('Oswald', {
-                    
-                }),
+                google('Oswald', {}),
                 bunny('Instrument Sans', {
                     weights: [400, 500, 600],
                 }),
@@ -68,7 +63,7 @@ export default defineConfig({
         printWidth: 80,
         tabWidth: 4,
         singleQuote: true,
-        semi: true,
+        semi: false,
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [

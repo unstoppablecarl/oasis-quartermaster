@@ -2,7 +2,7 @@
 import UserInfo from '@/components/UserInfo.vue'
 import UserMenuContent from '@/components/UserMenuContent.vue'
 import { useCurrentUrl } from '@/composables/useCurrentUrl'
-import { diceRoller, home, rules } from '@/routes'
+import { diceRoller, home, login, register, rules } from '@/routes'
 import { create, index as armyLists } from '@/routes/army-lists'
 import type { NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
@@ -12,20 +12,21 @@ const page = usePage()
 const auth = computed(() => page.props.auth)
 const { isCurrentOrParentUrl, isCurrentUrl } = useCurrentUrl()
 
-const mainNavItems: NavItem[] = [
+const mainNavItems = computed<NavItem[]>(() => [
     {
         title: 'Army Lists',
         href: armyLists(),
         children: [
             {
                 title: 'Manage',
-                href: armyLists()
+                href: armyLists(),
+                visible: () => !!auth.value.user,
             },
             {
                 title: 'Create',
-                href: create()
-            }
-        ]
+                href: create(),
+            },
+        ],
     },
     {
         title: 'Rules',
@@ -35,7 +36,9 @@ const mainNavItems: NavItem[] = [
         title: 'Dice Roller',
         href: diceRoller(),
     },
-]
+])
+
+const isVisible = (item: NavItem) => item.visible?.() ?? true
 </script>
 
 <template>
@@ -49,7 +52,7 @@ const mainNavItems: NavItem[] = [
             Quartermaster
         </Link>
 
-        <div class="dropdown">
+        <div v-if="auth.user" class="dropdown">
             <button
                 class="btn d-flex align-items-center gap-2 border-0 shadow-none"
                 type="button"
@@ -61,6 +64,14 @@ const mainNavItems: NavItem[] = [
             <ul class="dropdown-menu dropdown-menu-end dropdown-user-context">
                 <UserMenuContent :user="auth.user" />
             </ul>
+        </div>
+        <div v-else class="d-flex align-items-center gap-2">
+            <Link :href="login()" class="btn btn-outline-secondary">
+                Log in
+            </Link>
+            <Link :href="register()" class="btn btn-primary">
+                Register
+            </Link>
         </div>
     </div>
     <nav class="navbar navbar-dark navbar-expand-lg border-bottom">
@@ -80,7 +91,7 @@ const mainNavItems: NavItem[] = [
             <div id="app-navbar-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li
-                        v-for="item in mainNavItems"
+                        v-for="item in mainNavItems.filter(isVisible)"
                         :key="item.title"
                         class="nav-item position-relative"
                     >
@@ -94,7 +105,7 @@ const mainNavItems: NavItem[] = [
                                 Army Lists
                             </a>
                             <ul class="dropdown-menu">
-                                <li v-for="child in item.children">
+                                <li v-for="child in item.children?.filter(isVisible)" :key="child.title">
                                     <Link
                                         :href="child.href"
                                         class="dropdown-item"

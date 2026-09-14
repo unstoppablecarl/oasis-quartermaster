@@ -38,9 +38,14 @@ class ArmyListController
         Gate::authorize('create', ArmyList::class);
 
         $armyList = new ArmyList;
-        $armyList->fill($request->validated());
+        $armyList->fill($request->safe()->only(['display_name', 'army_list_type_id', 'custom_max_points']));
         $armyList->user_id = $request->user()->id;
         $armyList->save();
+
+        $units = collect($request->safe()->array('units'))
+            ->mapWithKeys(fn (array $unit) => [$unit['id'] => ['quantity' => $unit['quantity']]]);
+
+        $armyList->units()->sync($units);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Army list created']);
 
