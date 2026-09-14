@@ -26,19 +26,22 @@ const props = defineProps<{
             </td>
             <td class="text-end">
                 <div class="d-flex justify-content-end gap-2">
-                    <Link
-                        :href="show(item.uuid)"
-                        class="btn btn-sm btn-outline-secondary"
-                    >View
-                    </Link
-                    >
-                    <Link
-                        v-if="item.can.update"
-                        :href="edit(item.uuid)"
-                        class="btn btn-sm btn-outline-secondary"
-                    >Edit
-                    </Link
-                    >
+                    <div class="btn-group">
+
+                        <Link
+                            :href="show(item.uuid)"
+                            class="btn btn-sm btn-outline-secondary"
+                        >View
+                        </Link
+                        >
+                        <Link
+                            v-if="item.can.update"
+                            :href="edit(item.uuid)"
+                            class="btn btn-sm btn-outline-secondary"
+                        >Edit
+                        </Link
+                        >
+                    </div>
                     <DeleteArmyListModal
                         v-if="item.can.delete"
                         :army-list="item"
