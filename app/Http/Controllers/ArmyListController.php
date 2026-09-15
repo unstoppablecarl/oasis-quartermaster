@@ -101,4 +101,15 @@ class ArmyListController
 
         return redirect()->route('army-lists.index');
     }
+
+    public function print(ArmyList $armyList)
+    {
+        Gate::authorize('view', $armyList);
+
+        $data = [
+            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
+        ];
+
+        return Inertia::render('ArmyLists/Print', $data);
+    }
 }

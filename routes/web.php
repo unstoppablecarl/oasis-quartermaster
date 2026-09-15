@@ -13,7 +13,7 @@ Route::get('army-lists/create', [ArmyListController::class, 'create'])->name('ar
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('army-lists', ArmyListController::class)->except('create');
-
+    Route::get('army-lists/{army_list}/print', [ArmyListController::class, 'print'])->name('army-lists.print');
 });
 
 require __DIR__.'/settings.php';
