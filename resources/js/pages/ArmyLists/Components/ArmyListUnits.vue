@@ -9,7 +9,7 @@ const {
 } = defineProps<{
     maxPoints: number | null
     units: UnitEntry[]
-    showControls?: boolean
+    showControls?: boolean,
 }>()
 
 const emit = defineEmits<{
@@ -18,13 +18,13 @@ const emit = defineEmits<{
     remove: [unitId: number]
 }>()
 
-const { unitsInfo, totalCost } = useUnitsInfo(() => units)
+const { unitsInfo, totalCost, unitCount } = useUnitsInfo(() => units)
 </script>
 <template>
     <div class="title pb-2">Units</div>
     <div class="card mb-3">
         <div class="card-body">
-            <table class="table table-hover">
+            <table class="table table-hover mb-0">
                 <thead>
                 <tr class="small">
                     <th>Name</th>
@@ -88,8 +88,10 @@ const { unitsInfo, totalCost } = useUnitsInfo(() => units)
                     </td>
                 </tr>
                 </tbody>
-                <caption class="px-1 fs-5 text-end">
-                    Total:
+                <caption class="px-1 pt-3 pb-0 fs-5 text-end">
+                    <strong>Unit Count: </strong>
+                    <span class="text-body-emphasis me-3">{{ unitCount }}</span>
+                    <strong>Total Cost: </strong>
                     <Fraction :a="totalCost" :b="maxPoints" />
                 </caption>
             </table>
