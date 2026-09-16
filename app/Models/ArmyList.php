@@ -38,7 +38,7 @@ class ArmyList extends Model
 
     public function units(): BelongsToMany
     {
-        return $this->belongsToMany(Unit::class)->withPivot('quantity');
+        return $this->belongsToMany(Unit::class)->withPivot(['quantity', 'display_order'])->orderByPivot('display_order');
     }
 
     public function armyListType(): BelongsTo

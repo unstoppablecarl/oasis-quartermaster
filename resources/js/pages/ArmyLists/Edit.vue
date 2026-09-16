@@ -27,7 +27,7 @@ const http = useHttp<LocalArmyList, UpdateResponse>({
     custom_max_points: armyList.custom_max_points,
 })
 
-const { add, subtract, remove, totalCost, unitCount, maxPoints } = useArmyList(http)
+const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(http)
 
 function update() {
     http.put(ArmyListController.update.url(armyList), {
@@ -60,6 +60,7 @@ function update() {
             @add="add"
             @subtract="subtract"
             @remove="remove"
+            @reorder="reorder"
         />
 
         <UnitPicker @add="add" />

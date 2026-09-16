@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateArmyListRequest;
 use App\Http\Resources\ArmyListResource;
 use App\Models\ArmyList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
@@ -42,10 +43,7 @@ class ArmyListController
         $armyList->user_id = $request->user()->id;
         $armyList->save();
 
-        $units = collect($request->safe()->array('units'))
-            ->mapWithKeys(fn (array $unit) => [$unit['id'] => ['quantity' => $unit['quantity']]]);
-
-        $armyList->units()->sync($units);
+        $armyList->units()->sync($this->unitsForSync($request));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Army list created']);
 
@@ -80,10 +78,7 @@ class ArmyListController
 
         $armyList->update($request->safe()->only(['display_name', 'army_list_type_id', 'custom_max_points']));
 
-        $units = collect($request->safe()->array('units'))
-            ->mapWithKeys(fn (array $unit) => [$unit['id'] => ['quantity' => $unit['quantity']]]);
-
-        $armyList->units()->sync($units);
+        $armyList->units()->sync($this->unitsForSync($request));
 
         return response()->json([
             'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
@@ -111,5 +106,18 @@ class ArmyListController
         ];
 
         return Inertia::render('ArmyLists/Print', $data);
+    }
+
+    /**
+     * @return Collection<int, array{quantity: int, display_order: int}>
+     */
+    private function unitsForSync(StoreArmyListRequest $request)
+    {
+        return collect($request->safe()->array('units'))
+            ->values()
+            ->mapWithKeys(fn (array $unit, int $index) => [$unit['id'] => [
+                'quantity' => $unit['quantity'],
+                'display_order' => $index,
+            ]]);
     }
 }

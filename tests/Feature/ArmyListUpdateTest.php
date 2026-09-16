@@ -41,7 +41,7 @@ test('updating units replaces the previous set', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create();
     $units = Unit::factory()->count(2)->create();
-    $armyList->units()->attach($units[0]->id, ['quantity' => 5]);
+    $armyList->units()->attach($units[0]->id, ['quantity' => 5, 'display_order' => 0]);
 
     $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
@@ -52,6 +52,30 @@ test('updating units replaces the previous set', function () {
     ])->assertOk();
 
     expect($armyList->units()->pluck('unit_id')->toArray())->toBe([$units[1]->id]);
+});
+
+test('units are persisted in the submitted display order', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+    $units = Unit::factory()->count(3)->create();
+    $armyList->units()->attach($units[0]->id, ['quantity' => 1, 'display_order' => 0]);
+    $armyList->units()->attach($units[1]->id, ['quantity' => 1, 'display_order' => 1]);
+
+    $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
+        'display_name' => $armyList->display_name,
+        'army_list_type_id' => $armyList->army_list_type_id,
+        'units' => [
+            ['id' => $units[2]->id, 'quantity' => 1],
+            ['id' => $units[0]->id, 'quantity' => 1],
+            ['id' => $units[1]->id, 'quantity' => 1],
+        ],
+    ])->assertOk();
+
+    expect($armyList->units()->pluck('unit_id')->toArray())->toBe([
+        $units[2]->id,
+        $units[0]->id,
+        $units[1]->id,
+    ]);
 });
 
 test('a user cannot update another users army list', function () {
@@ -69,7 +93,7 @@ test('edit page includes previously saved units', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create();
     $unit = Unit::factory()->create();
-    $armyList->units()->attach($unit->id, ['quantity' => 4]);
+    $armyList->units()->attach($unit->id, ['quantity' => 4, 'display_order' => 0]);
 
     $response = $this->actingAs($user)->get(route('army-lists.edit', $armyList));
 

@@ -41,6 +41,12 @@ export function useArmyList(armyList: LocalArmyList) {
         units.value = units.value.filter((v) => v.id !== unitId)
     }
 
+    function reorder(orderedUnitIds: number[]) {
+        const byId = new Map(units.value.map((unit) => [unit.id, unit]))
+
+        units.value = orderedUnitIds.map((id) => byId.get(id)).filter((unit) => unit !== undefined)
+    }
+
     return {
         unitsInfo,
         totalCost,
@@ -48,6 +54,7 @@ export function useArmyList(armyList: LocalArmyList) {
         add,
         subtract,
         remove,
+        reorder,
         maxPoints,
     }
 }

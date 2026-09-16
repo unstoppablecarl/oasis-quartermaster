@@ -17,7 +17,7 @@ const auth = computed(() => page.props.auth)
 const draft = loadArmyListDraft()
 const form = useForm(draft)
 
-const { add, subtract, remove, totalCost, unitCount, maxPoints } = useArmyList(form)
+const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(form)
 
 watch(
     [
@@ -62,6 +62,7 @@ function save() {
         @add="add"
         @subtract="subtract"
         @remove="remove"
+        @reorder="reorder"
     />
 
     <UnitPicker @add="add" />

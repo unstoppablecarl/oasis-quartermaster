@@ -14,6 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(ArmyList::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Unit::class)->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('display_order');
             $table->unsignedInteger('quantity')->default(1);
             $table->unique(['army_list_id', 'unit_id']);
         });
