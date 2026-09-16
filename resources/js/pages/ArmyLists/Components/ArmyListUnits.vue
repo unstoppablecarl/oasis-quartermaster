@@ -58,7 +58,7 @@ const draggableUnits = computed({
                     item-key="id"
                     handle=".drag-handle"
                     ghost-class="unit-row-ghost"
-                    :animation="150"
+                    :animation="60"
                     :disabled="!showControls"
                 >
                     <template #item="{ element: unit }">
@@ -68,7 +68,9 @@ const draggableUnits = computed({
                             </td>
                             <td>
                                 {{ unit.display_name }}
-                                <div v-for="message in unit.validationMessages" :key="message" class="text-danger small">{{ message }}</div>
+                                <div v-for="message in unit.validationMessages" :key="message"
+                                     class="text-danger small">{{ message }}
+                                </div>
                             </td>
                             <td class="number-cell">{{ unit.init }}</td>
                             <td class="number-cell">{{ unit.dodge }}</td>
@@ -79,7 +81,8 @@ const draggableUnits = computed({
                             <td class="text-teal">{{ unit.traits.join(', ') }}</td>
                             <td>{{ unit.abilities.join(', ') }}</td>
 
-                            <td class="number-cell pe-0 ws-nowrap">{{ unit.cost }} <span class="text-muted">&times;</span></td>
+                            <td class="number-cell pe-0 ws-nowrap">{{ unit.cost }} <span
+                                class="text-muted">&times;</span></td>
                             <td class="number-cell px-0">{{ unit.quantity }} <span class="text-muted">=</span></td>
                             <td class="number-cell fw-bold">
                                 {{ unit.quantity * unit.cost }}
@@ -144,30 +147,26 @@ table.table-units {
             border-bottom-width: 1px;
             border-top-width: 1px;
         }
+    }
 
-        th,
-        td {
-            border-width: 0;
-        }
-
-        tr:first-child {
-            th,
-            td {
-                border-top-width: 1px;
-            }
-        }
+    tbody tr:not(.unit-error-row):has(+ tr.unit-error-row) > * {
+        border-bottom-width: 0;
     }
 
     tbody tr.unit-error-row {
         border-color: var(--bs-danger);
-        border-width: 1px;
+        border-width: 0 1px;
+
+        th,
+        td {
+            border-color: var(--bs-danger);
+            border-width: 1px 0;
+        }
     }
 
     tbody tr.unit-row-ghost {
         opacity: 0.5;
         background-color: var(--bs-tertiary-bg);
-        border-color: var(--bs-danger);
-        border-width: 1px;
     }
 
     .drag-handle-cell {
