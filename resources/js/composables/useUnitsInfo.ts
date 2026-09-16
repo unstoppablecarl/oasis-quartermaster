@@ -13,8 +13,8 @@ export type LocalArmyList = {
     custom_max_points: number | null
 }
 
-export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {
-    const unitsInfo = computed(() => {
+export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: MaybeRefOrGetter<number | null>) {
+    const baseUnits = computed(() => {
         return toValue(units).map((u) => {
             return {
                 ...u,
@@ -23,11 +23,36 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {
         })
     })
 
+    const unitsInfo = computed(() => {
+        return baseUnits.value.map((u) => {
+
+            const cost = u.quantity * u.cost
+            const count = u.quantity
+
+            const resolvedMaxPoints = toValue(maxPoints)
+
+            const validationMessages = []
+            if (resolvedMaxPoints !== null && cost > resolvedMaxPoints * 0.5) {
+                validationMessages.push(`Unit cost cannot be greater than 50% of Total Points. (${cost} / ${resolvedMaxPoints * 0.5})`)
+            }
+            const halfCount =  Math.ceil(unitCount.value * 0.5)
+
+            if (count > halfCount) {
+                validationMessages.push(`Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`)
+            }
+
+            return {
+                ...u,
+                validationMessages,
+            }
+        })
+    })
+
     const totals = computed(() => {
         let cost = 0
         let count = 0
-        for (let i = 0; i < unitsInfo.value.length; i++) {
-            const item = unitsInfo.value[i]
+        for (let i = 0; i < baseUnits.value.length; i++) {
+            const item = baseUnits.value[i]
             cost += item.quantity * item.cost
             count += item.quantity
         }
@@ -43,3 +68,4 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {
         unitCount,
     }
 }
+

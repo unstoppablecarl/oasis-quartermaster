@@ -6,7 +6,9 @@ export type { UnitEntry }
 
 export function useArmyList(armyList: LocalArmyList) {
     const units = toRef(armyList, 'units')
-    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units)
+    const maxPoints = computed(() => getArmyListMaxPoints(toValue(armyList)))
+
+    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units, maxPoints)
 
     function add(unitId: number, quantity = 1) {
         const existing = units.value.find((v) => v.id === unitId)
@@ -46,7 +48,7 @@ export function useArmyList(armyList: LocalArmyList) {
         add,
         subtract,
         remove,
-        maxPoints: computed(() => getArmyListMaxPoints(toValue(armyList))),
+        maxPoints,
     }
 }
 

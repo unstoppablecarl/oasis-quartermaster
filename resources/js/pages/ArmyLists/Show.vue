@@ -8,7 +8,7 @@ import ArmyListUnits from './Components/ArmyListUnits.vue'
 const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
-const { maxPoints, unitCount } = useArmyList(armyList)
+const { maxPoints } = useArmyList(armyList)
 </script>
 <template>
     <ArmyListItemLayout title="View" :army-list="armyList">

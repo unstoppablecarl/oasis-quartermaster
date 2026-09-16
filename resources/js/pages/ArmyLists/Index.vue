@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import DeleteArmyListModal from '@/components/army-lists/DeleteArmyListModal.vue'
-import Heading from '@/components/Heading.vue'
-import { edit, show } from '@/routes/army-lists'
+import { edit, print, show } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
@@ -43,20 +42,25 @@ const { armyLists } = defineProps<{
             <td class="text-end">
                 <div class="d-flex justify-content-end gap-2">
                     <div class="btn-group">
-
                         <Link
                             :href="show(item.uuid)"
                             class="btn btn-sm btn-outline-secondary"
-                        >View
-                        </Link
                         >
+                            View
+                        </Link>
+                        <Link
+                            :href="print(item.uuid)"
+                            class="btn btn-sm btn-outline-secondary"
+                        >
+                            Print
+                        </Link>
                         <Link
                             v-if="item.can.update"
                             :href="edit(item.uuid)"
                             class="btn btn-sm btn-outline-secondary"
-                        >Edit
-                        </Link
                         >
+                            Edit
+                        </Link>
                     </div>
                     <DeleteArmyListModal
                         v-if="item.can.delete"
