@@ -13,7 +13,12 @@ const allUnits = Object.values(UNITS)
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <div class="title pb-2 ms-2">Recruits</div>
+
+            <div class="d-flex">
+                <div class="title pb-2 ms-2 text-warning unit-picker-title">Recruits</div>
+                <div class="hazard hazard-warning flex-grow-1 ms-2"></div>
+            </div>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -65,3 +70,8 @@ const allUnits = Object.values(UNITS)
         </div>
     </div>
 </template>
+<style lang="scss">
+.unit-picker-title {
+    line-height: 1;
+}
+</style>

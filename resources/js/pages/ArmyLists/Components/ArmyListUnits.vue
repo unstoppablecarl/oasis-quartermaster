@@ -139,6 +139,9 @@ function minus(unit: UnitEntry) {
                     </div>
                 </template>
             </draggable>
+            <div class="border-top border-bottom py-2 text-center text-teal text-uppercase" v-if="!unitsInfo.length">
+                No units added yet
+            </div>
             <div class="px-1 pt-3 pb-0 fs-5 text-end">
                 <strong>Unit Count: </strong>
                 <span class="text-body-emphasis me-3">{{ unitCount }}</span>

@@ -1,0 +1,83 @@
+@import '../../node_modules/bootstrap/scss/functions';
+
+$accordion-icon-color-dark: #fff;
+$accordion-icon-active-color-dark: #fff;
+
+$font-size-base: 0.9rem;
+
+$dropdown-border-width: 1px;
+$border-color-translucent: rgba(#000, 0.25);
+
+$dropdown-header-padding-y: .2rem;
+$dropdown-divider-margin-y: .2rem;
+$table-bg: transparent;
+
+$spacer: 1rem;
+
+$card-spacer-y: $spacer;
+$card-spacer-x: $spacer;
+
+$card-cap-padding-x: $card-spacer-y * .5;
+$card-cap-padding-y: $card-spacer-y * .5;
+
+//$enable-shadows: true;
+
+$toast-background-color: rgba(var(--bs-body-bg-rgb), 1);
+
+// guide colors
+$carbon: #232323;
+$bone: #d0cdbc;
+$plasma: #d96736;
+$laser: #b03b27;
+$kinesium: #2a635e;
+$cherenkhov: #77bfa7;
+$sulfur: #e0af44;
+$guide-blue: #315ebf;
+$guide-purple: #9c1fb5;
+
+$panel2: #1b1b1b;
+$line: #3a3a3a;
+$ink: #f2f2ef;
+$mute: #8f8f8b;
+$teal: #2f7d76;
+$teal-text: #43a79c;
+$success: #6fae54;
+$orange: #e2581f;
+$orange2: #f0843d;
+
+$warning: $sulfur;
+$primary: $guide-blue;
+$info: $teal;
+$anchor: $sulfur;
+
+$body-bg-color: $carbon;
+$body-bg-dark: $carbon;
+$body-color: $bone;
+$body-color-dark: $bone;
+$body-emphasis-color-dark: $ink;
+$body-emphasis-color: $ink;
+
+$border-color: $line;
+$border-color-translucent: $line;
+$border-color-dark: $line;
+$border-color-translucent-dark: $line;
+
+$title-font: 'Microgramma-extended', 'Oswald', sans-serif;
+$font-family-base: 'Bahnschrift-Regular', sans-serif;
+$headings-font-family: $title-font;
+$headings-font-weight: 500;
+$headings-color-dark: $ink;
+
+$form-label-color: $ink;
+
+$navbar-dark-color: $mute;
+$navbar-dark-hover-color: $bone;
+$navbar-dark-active-color: $orange2;
+$navbar-nav-link-padding-x: 1rem;
+
+$save-bar-height: 3rem;
+
+$table-color: $bone;
+
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/variables-dark';
