@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
+import HazardTitle from '../components/ui/HazardTitle.vue'
 </script>
 
 <template>
@@ -7,7 +8,9 @@ import { Head } from '@inertiajs/vue3'
 
     <div class="card card-rules">
         <div class="card-body">
-
+            <HazardTitle variant="sulfur" class="mb-1">
+                Rules
+            </HazardTitle>
             <p class="note" style="margin-top:0">Condensed rules reference — mechanics only, no glossary or diagrams.
                 See
                 the full rulebook for flavor text, examples, and illustrations.</p>

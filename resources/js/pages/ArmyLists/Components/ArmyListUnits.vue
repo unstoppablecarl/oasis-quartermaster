@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import draggable from 'vuedraggable'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
+import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import { type UnitEntry, useUnitsInfo } from '../../../composables/useUnitsInfo'
 
 const {
@@ -40,9 +41,11 @@ function minus(unit: UnitEntry) {
 }
 </script>
 <template>
-    <div class="title pb-2">Units</div>
     <div class="card mb-3">
         <div class="card-body table-units">
+            <HazardTitle variant="sulfur">
+                Units
+            </HazardTitle>
             <draggable
                 v-model="draggableUnits"
                 item-key="id"
@@ -142,7 +145,7 @@ function minus(unit: UnitEntry) {
             <div class="border-top border-bottom py-2 text-center text-teal text-uppercase" v-if="!unitsInfo.length">
                 No units added yet
             </div>
-            <div class="px-1 pt-3 pb-0 fs-5 text-end">
+            <div class="px-2 pt-3 pb-0 fs-5 text-end">
                 <strong>Unit Count: </strong>
                 <span class="text-body-emphasis me-3">{{ unitCount }}</span>
                 <strong>Total Cost: </strong>

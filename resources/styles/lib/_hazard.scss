@@ -1,8 +1,9 @@
 .hazard-rule {
+    --hazard-bg: var(--bone);
     height: 6px;
     margin: 22px auto;
-    background: repeating-linear-gradient(135deg, var(--sulfur) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
-    opacity: 0.85;
+    background: repeating-linear-gradient(135deg, var(--hazard-bg) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
+    opacity: 0.25;
 }
 
 .hazard {

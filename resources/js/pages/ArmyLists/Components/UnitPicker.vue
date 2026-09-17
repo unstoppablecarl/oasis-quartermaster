@@ -3,6 +3,7 @@ import { PhPlus } from '@phosphor-icons/vue'
 import { vBTooltip } from 'bootstrap-vue-next'
 import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
+import HazardTitle from '../../../components/ui/HazardTitle.vue'
 
 const emit = defineEmits<{
     add: [unitId: number]
@@ -14,11 +15,9 @@ const allUnits = Object.values(UNITS)
     <div class="card mb-3">
         <div class="card-body">
 
-            <div class="d-flex">
-                <div class="zxc"></div>
-                <div class="title pb-2 ms-2 text-sulfur unit-picker-title">Recruits</div>
-                <div class="hazard hazard-warning flex-grow-1 ms-2"></div>
-            </div>
+            <HazardTitle variant="teal" class="ms-2">
+                Recruits
+            </HazardTitle>
 
             <table class="table">
                 <thead>
@@ -71,8 +70,3 @@ const allUnits = Object.values(UNITS)
         </div>
     </div>
 </template>
-<style lang="scss">
-.unit-picker-title {
-    line-height: 1;
-}
-</style>

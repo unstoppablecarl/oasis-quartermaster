@@ -42,7 +42,7 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
 </script>
 
 <template>
-    <div class="container d-flex app-header navbar py-0">
+    <div class="container d-flex app-header navbar pb-0">
         <div class="container">
             <Link
                 :href="home()"
@@ -50,7 +50,7 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
             >
                 <img src="/images/logo.svg" alt="Oasis Logo" class="logo-img">
 
-                <span class="text-sulfur title logo-subheading fs-2 ms-2">
+                <span class="text-sulfur title fs-2 ms-2">
                 Quartermaster
                 </span>
             </Link>
@@ -135,8 +135,3 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
         </div>
     </nav>
 </template>
-<style lang="scss">
-.logo-subheading {
-
-}
-</style>

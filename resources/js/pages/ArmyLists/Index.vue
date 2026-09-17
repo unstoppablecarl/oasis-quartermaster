@@ -13,7 +13,7 @@ const { armyLists } = defineProps<{
 <template>
     <Head title="Army Lists" />
     <ArmyListItemHeader title="All" description="Army Lists">
-        <Link :href="create()" class="btn btn-primary">Create New</Link>
+        <Link :href="create()" class="btn btn-sm btn-primary">Create New</Link>
     </ArmyListItemHeader>
 
     <table class="table align-middle">
