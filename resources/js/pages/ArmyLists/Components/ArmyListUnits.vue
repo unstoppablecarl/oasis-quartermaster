@@ -57,8 +57,10 @@ function minus(unit: UnitEntry) {
                     <th>Weapons</th>
                     <th>Traits</th>
                     <th>Abilities</th>
-                    <th class="number-cell ws-nowrap">Pts <span class="text-muted">&times;</span></th>
-                    <th class="number-cell px-0 ws-nowrap">Qty <span class="text-muted">=</span></th>
+                    <th class="number-cell px-1">Pts</th>
+                    <th class="px-0 text-muted"><span class="text-muted">&times;</span></th>
+                    <th class="number-cell px-1">Qty</th>
+                    <th class="px-0 text-muted"><span class="text-muted">=</span></th>
                     <th class="number-cell ps-1">Cost</th>
                     <th class="px-0" v-if="showControls"></th>
                 </tr>
@@ -94,12 +96,11 @@ function minus(unit: UnitEntry) {
                             <td class="text-teal">{{ unit.traits.join(', ') }}</td>
                             <td>{{ unit.abilities.join(', ') }}</td>
 
-                            <td class="number-cell pe-0 ws-nowrap">{{ unit.cost }} <span
-                                class="text-muted">&times;</span></td>
-                            <td class="number-cell px-0">{{ unit.quantity }} <span class="text-muted">=</span></td>
-                            <td class="number-cell fw-bold">
-                                {{ unit.quantity * unit.cost }}
-                            </td>
+                            <td class="number-cell px-1">{{ unit.cost }}</td>
+                            <td class="px-0 text-muted">&times;</td>
+                            <td class="number-cell px-1">{{ unit.quantity }}</td>
+                            <td class="px-0 text-muted">=</td>
+                            <td class="number-cell fw-bold px-1">{{ unit.quantity * unit.cost }}</td>
                             <td class="ps-0 py-1 ws-nowrap" v-if="showControls">
                                 <div class="btn-group btn-group-sm">
                                     <button

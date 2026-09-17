@@ -1,9 +1,4 @@
-@use 'sass:map';
-
-
-@include color-mode(dark) {
-    @include table-variant('danger', mix($danger, $body-bg-dark, 10%));
-}
+@include table-variant('danger', mix($danger, $body-bg-dark, 10%));
 
 .table thead tr th {
     color: $ink;
