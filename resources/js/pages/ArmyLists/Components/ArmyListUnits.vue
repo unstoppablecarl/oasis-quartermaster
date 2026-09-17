@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { GripVertical } from '@lucide/vue'
+import { PhMinus, PhPlus } from '@phosphor-icons/vue'
 import { computed } from 'vue'
 import draggable from 'vuedraggable'
 import Fraction from '../../../components/Fraction.vue'
@@ -95,14 +96,14 @@ const draggableUnits = computed({
                                         @click="emit('subtract', unit.id)"
                                         :disabled="unit.quantity === 0"
                                     >
-                                        -
+                                        <PhMinus />
                                     </button>
                                     <button
                                         role="button"
                                         class="btn btn-secondary"
                                         @click="emit('add', unit.id)"
                                     >
-                                        +
+                                        <PhPlus />
                                     </button>
                                 </div>
 

@@ -1,4 +1,5 @@
 .card {
+
     .card-header {
         font-family: $title-font;
         text-transform: uppercase;
@@ -10,15 +11,13 @@
         letter-spacing: 2px;
         font-weight: bold;
     }
+
+    corner-shape: bevel;
+    $multiplier: 3;
+    border-bottom-left-radius: calc(var(--#{$prefix}card-border-radius) * $multiplier);
+    border-bottom-right-radius: calc(var(--#{$prefix}card-border-radius) * $multiplier);
 }
 
 .card .card {
     background: $panel2;
 }
-//.card-sm {
-//    --#{$prefix}card-spacer-y: #{calc($card-spacer-y/2)} !important;
-//    --#{$prefix}card-spacer-x: #{calc($card-spacer-x/2)} !important;
-//    --#{$prefix}card-title-spacer-y: #{calc($card-title-spacer-y/2)};
-//    --#{$prefix}card-cap-padding-y: #{calc($card-cap-padding-y/2)};
-//    --#{$prefix}card-cap-padding-x: #{calc($card-cap-padding-x/2)};
-//}

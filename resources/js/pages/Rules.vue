@@ -282,7 +282,7 @@ import { Head } from '@inertiajs/vue3'
     column-gap: 28px;
 
     a {
-        color: var(--sand);
+        color: var(--bone);
         text-decoration: none;
 
         &:hover {
@@ -295,7 +295,7 @@ import { Head } from '@inertiajs/vue3'
 .card-rules {
     margin-bottom: 30px;
     padding-bottom: 6px;
-    color: var(--sand);
+    color: var(--bone);
 
     .note {
         color: var(--mute);
@@ -313,7 +313,7 @@ import { Head } from '@inertiajs/vue3'
     }
 
     h3 {
-        color: var(--teal2);
+        color: var(--teal-text);
         font-size: 90%;
     }
 }

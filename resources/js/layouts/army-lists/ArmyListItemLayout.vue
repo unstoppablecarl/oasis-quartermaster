@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/vue3'
 import DeleteArmyListModal from '../../components/army-lists/DeleteArmyListModal.vue'
 import { useCurrentUrl } from '../../composables/useCurrentUrl'
 import ArmyListItemHeader from '../../pages/ArmyLists/Components/ArmyListItemHeader.vue'
-import { edit, show, print } from '../../routes/army-lists'
+import { edit, print, show } from '../../routes/army-lists'
 import type { ArmyList } from '../../types/army-list'
 
 const { isCurrentUrl } = useCurrentUrl()
@@ -36,7 +36,6 @@ const { armyList, title } = defineProps<{
                     :href="edit(armyList.uuid)"
                     class="btn btn-sm btn-outline-secondary"
                     :class="{active: isCurrentUrl(edit(armyList))}"
-
                 >Edit
                 </Link>
             </div>

@@ -36,28 +36,36 @@ $card-cap-padding-y: $card-spacer-y * .5;
 
 $toast-background-color: rgba(var(--bs-body-bg-rgb), 1);
 
+// guide colors
+$carbon: #232323;
+$bone: #d0cdbc;
+$plasma: #d96736;
+$laser: #b03b27;
+$kinesium: #2a635e;
+$cherenkhov: #77bfa7;
+$sulfur: #e0af44;
+$guide-blue: #315ebf;
+$guide-purple: #9c1fb5;
 
-$panel2: #1B1B1B;
-$line: #3A3A3A;
-//--line-bright: #525252;
-$sand: #D0CDBC;
-$ink: #F2F2EF;
-$mute: #8F8F8B;
+$panel2: #1b1b1b;
+$line: #3a3a3a;
+$ink: #f2f2ef;
+$mute: #8f8f8b;
 $teal: #2f7d76;
-$teal2: #43a79c;
+$teal-text: #43a79c;
 $success: #6fae54;
 $orange: #e2581f;
 $orange2: #f0843d;
 
-//$danger: #b03b27;
-$warning: #e0af44;
-$primary: $teal;
-$anchor: $warning;
+$warning: $sulfur;
+$primary: $guide-blue;
+$info: $teal;
+$anchor: $sulfur;
 
-$body-bg-color: #141414;
-$body-bg-dark: #141414;
-$body-color: $sand;
-$body-color-dark: $sand;
+$body-bg-color: $carbon;
+$body-bg-dark: $carbon;
+$body-color: $bone;
+$body-color-dark: $bone;
 $body-emphasis-color-dark: $ink;
 $body-emphasis-color: $ink;
 
@@ -75,13 +83,13 @@ $headings-color-dark: $ink;
 $form-label-color: $ink;
 
 $navbar-dark-color: $mute;
-$navbar-dark-hover-color: $sand;
+$navbar-dark-hover-color: $bone;
 $navbar-dark-active-color: $orange2;
 $navbar-nav-link-padding-x: 1rem;
 
 $save-bar-height: 3rem;
 
-$table-color: $sand;
+$table-color: $bone;
 
 .app-footer {
     padding-bottom: $save-bar-height;
@@ -92,11 +100,11 @@ $table-color: $sand;
 }
 
 :root {
-    --sand: #{$sand};
+    --bone: #{$bone};
     --orange: #{$orange};
     --mute: #{$mute};
     --teal: #{$teal};
-    --teal2: #{$teal2};
+    --teal-text: #{$teal-text};
     --ink: #{$ink};
     --line: #{$line};
     --body-font: #{$font-family-base};
@@ -104,20 +112,17 @@ $table-color: $sand;
 }
 
 .text-teal {
-    color: var(--teal2) !important;
+    color: var(--teal-text) !important;
 }
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
 @import '../../node_modules/bootstrap-vue-next/src/styles/styles';
 @import 'bootstrap/dropdown';
-//@import "bootstrap/collapse";
 @import 'bootstrap/buttons';
 @import 'bootstrap/cards';
 @import 'bootstrap/table';
 @import 'bootstrap/navbar';
 @import 'bootstrap/text';
-
-@import 'fonts/icons';
 
 @import 'print-page';
 @import 'page-cards-print';
@@ -127,7 +132,6 @@ $table-color: $sand;
 }
 
 @include color-mode(dark) {
-    //--bs-border-color-translucent: #{rgba($white, 0.3)};
     --bs-popover-header-color: var(--bs-body-color);
 }
 
