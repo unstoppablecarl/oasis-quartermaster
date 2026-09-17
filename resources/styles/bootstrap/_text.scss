@@ -1,45 +1,47 @@
-
-.text-tooltip {
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
 h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
 .number-cell {
-  text-align: right;
+    text-align: right;
 }
 
 .number-zero {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .number-positive {
-  color: var(--bs-success-text-emphasis);
+    color: var(--bs-success-text-emphasis);
 }
 
 .number-negative {
-  color: var(--bs-danger);
-}
-
-@include color-mode(dark) {
-  .number-negative {
     color: var(--bs-danger-text-emphasis);
-  }
 }
 
 .ws-nowrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .ws-pre-wrap {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 ul, ol {
     padding-left: 1rem;
+}
+
+:root {
+    @each $color, $value in $guide-colors {
+        --#{$color}: #{$value};
+    }
+}
+
+@mixin text-color-variant($name, $background) {
+    .text-#{$name} {
+        color: var(--#{$name}) !important;
+    }
+}
+
+@each $color, $value in $guide-colors {
+    @include text-color-variant($color, $value);
 }

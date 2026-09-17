@@ -3,6 +3,21 @@
     padding-top: 10px;
 }
 
+.navbar .navbar-brand {
+    $height: 24px;
+    .logo-img {
+        height: $height;
+    }
+    .logo-subheading {
+        font-size: $height;
+        line-height: $height;
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 0.5rem;
+        letter-spacing: 0.1rem;
+    }
+}
+
 .navbar-dark {
 
     font-size: 13px;
@@ -25,11 +40,6 @@
         }
     }
 
-
-    .navbar-brand {
-        display: block;
-    }
-
     .dropdown-user-context {
         font-family: $font-family-base;
         text-transform: none;
@@ -38,6 +48,5 @@
     .dropdown-menu {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        //border-top-radius: 0;
     }
 }

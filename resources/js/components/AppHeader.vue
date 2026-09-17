@@ -42,38 +42,43 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
 </script>
 
 <template>
-    <div class="container d-flex app-header">
-        <Link
-            :href="home()"
-            class="navbar-brand me-auto"
-        >
-            <img src="/images/logo.png" alt="Oasis Logo" height="24" class="d-inline-block align-text-top">
-
-            Quartermaster
-        </Link>
-
-        <div v-if="auth.user" class="dropdown">
-            <button
-                class="btn d-flex align-items-center gap-2 border-0 shadow-none"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+    <div class="container d-flex app-header navbar py-0">
+        <div class="container">
+            <Link
+                :href="home()"
+                class="navbar-brand me-auto"
             >
-                <UserInfo :user="auth.user" />
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-user-context">
-                <UserMenuContent :user="auth.user" />
-            </ul>
-        </div>
-        <div v-else class="d-flex align-items-center gap-2">
-            <Link :href="login()" class="btn btn-outline-secondary">
-                Login
+                <img src="/images/logo.svg" alt="Oasis Logo" class="logo-img">
+
+                <span class="text-sulfur title logo-subheading fs-2 ms-2">
+                Quartermaster
+                </span>
             </Link>
-            <Link :href="register()" class="btn btn-primary">
-                Register
-            </Link>
+
+            <div v-if="auth.user" class="dropdown">
+                <button
+                    class="btn d-flex align-items-center gap-2 border-0 shadow-none"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    <UserInfo :user="auth.user" />
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-user-context">
+                    <UserMenuContent :user="auth.user" />
+                </ul>
+            </div>
+            <div v-else class="d-flex align-items-center gap-2">
+                <Link :href="login()" class="btn btn-outline-secondary">
+                    Login
+                </Link>
+                <Link :href="register()" class="btn btn-primary">
+                    Register
+                </Link>
+            </div>
         </div>
     </div>
+
     <nav class="navbar navbar-dark navbar-expand-lg border-bottom">
         <div class="container">
             <button
@@ -130,3 +135,8 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
         </div>
     </nav>
 </template>
+<style lang="scss">
+.logo-subheading {
+
+}
+</style>

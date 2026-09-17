@@ -1,0 +1,29 @@
+.hazard-rule {
+    height: 6px;
+    margin: 22px auto;
+    background: repeating-linear-gradient(135deg, var(--sulfur) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
+    opacity: 0.85;
+}
+
+.hazard {
+    --hazard-bg: rgba(255, 255, 255, 0.1);
+    height: 1rem;
+    opacity: 0.85;
+    background: repeating-linear-gradient(135deg, var(--hazard-bg) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
+
+}
+
+@mixin hazard-variant($name, $background) {
+    .hazard-#{$name} {
+        --hazard-bg: #{$background};
+    }
+}
+
+@each $color, $value in $theme-colors {
+    @include hazard-variant($color, $value);
+}
+
+@each $color, $value in $guide-colors {
+    @include hazard-variant($color, $value);
+}
+

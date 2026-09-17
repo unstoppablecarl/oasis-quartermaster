@@ -20,22 +20,6 @@
     height: $save-bar-height;
 }
 
-:root {
-    --bone: #{$bone};
-    --orange: #{$orange};
-    --mute: #{$mute};
-    --teal: #{$teal};
-    --teal-text: #{$teal-text};
-    --ink: #{$ink};
-    --line: #{$line};
-    --body-font: #{$font-family-base};
-    --title-font: #{$title-font};
-}
-
-.text-teal {
-    color: var(--teal-text) !important;
-}
-
 @import '../../node_modules/bootstrap/scss/bootstrap';
 @import '../../node_modules/bootstrap-vue-next/src/styles/styles';
 @import 'bootstrap/dropdown';
@@ -44,7 +28,7 @@
 @import 'bootstrap/table';
 @import 'bootstrap/navbar';
 @import 'bootstrap/text';
-
+@import 'lib/hazard';
 @import 'print-page';
 @import 'page-cards-print';
 
@@ -76,29 +60,4 @@ body {
     font-family: $headings-font-family !important;
     text-transform: uppercase;
     color: $ink
-}
-
-.hazard-rule {
-    height: 6px;
-    margin: 22px auto;
-    background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
-    opacity: 0.85;
-}
-
-.hazard {
-    --hazard-bg: rgba(255, 255, 255, 0.1);
-    height: 1rem;
-    opacity: 0.85;
-    background: repeating-linear-gradient(135deg, var(--hazard-bg) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
-
-}
-
-@mixin hazard-variant($name, $background) {
-    .hazard-#{$name} {
-        --hazard-bg: #{$background};
-    }
-}
-
-@each $color, $value in $theme-colors {
-    @include hazard-variant($color, $value);
 }

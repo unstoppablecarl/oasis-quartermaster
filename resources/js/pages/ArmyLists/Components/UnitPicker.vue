@@ -15,7 +15,8 @@ const allUnits = Object.values(UNITS)
         <div class="card-body">
 
             <div class="d-flex">
-                <div class="title pb-2 ms-2 text-warning unit-picker-title">Recruits</div>
+                <div class="zxc"></div>
+                <div class="title pb-2 ms-2 text-sulfur unit-picker-title">Recruits</div>
                 <div class="hazard hazard-warning flex-grow-1 ms-2"></div>
             </div>
 

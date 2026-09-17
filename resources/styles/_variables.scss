@@ -74,10 +74,22 @@ $navbar-dark-color: $mute;
 $navbar-dark-hover-color: $bone;
 $navbar-dark-active-color: $orange2;
 $navbar-nav-link-padding-x: 1rem;
-
+$navbar-brand-font-size: 1.5rem;
 $save-bar-height: 3rem;
 
 $table-color: $bone;
 
 @import '../../node_modules/bootstrap/scss/variables';
 @import '../../node_modules/bootstrap/scss/variables-dark';
+
+$guide-colors: (
+    'carbon': $carbon,
+    'bone': $bone,
+    'laser': $laser,
+    'kinesium': $kinesium,
+    'cherenkhov': $cherenkhov,
+    'sulfur': $sulfur,
+    'blue': $blue,
+    'purple': $green,
+    'plasma': $plasma,
+) !default;
