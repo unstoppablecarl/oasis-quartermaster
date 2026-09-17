@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DeleteArmyListModal from '@/components/army-lists/DeleteArmyListModal.vue'
-import { edit, print, show } from '@/routes/army-lists'
+import { create, edit, print, show } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
@@ -12,7 +12,9 @@ const { armyLists } = defineProps<{
 </script>
 <template>
     <Head title="Army Lists" />
-    <ArmyListItemHeader title="All" description="Army Lists" />
+    <ArmyListItemHeader title="All" description="Army Lists">
+        <Link :href="create()" class="btn btn-primary">Create New</Link>
+    </ArmyListItemHeader>
 
     <table class="table align-middle">
         <thead>

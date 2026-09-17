@@ -11,9 +11,9 @@ const emit = defineEmits<{
 const allUnits = Object.values(UNITS)
 </script>
 <template>
-    <div class="title pb-2">Recruits</div>
     <div class="card mb-3">
         <div class="card-body">
+            <div class="title pb-2 ms-2">Recruits</div>
             <table class="table">
                 <thead>
                 <tr>

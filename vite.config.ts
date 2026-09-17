@@ -1,3 +1,4 @@
+import path from 'node:path'
 import inertia from '@inertiajs/vite'
 import { wayfinder } from '@laravel/vite-plugin-wayfinder'
 import vue from '@vitejs/plugin-vue'
@@ -5,6 +6,8 @@ import laravel from 'laravel-vite-plugin'
 import { google } from 'laravel-vite-plugin/fonts'
 import { defineConfig, lazyPlugins } from 'vite-plus'
 import { staticDataPlugin } from './resources/js/lib/vite-static-data-plugin'
+
+const scssVariablesPath = path.resolve(import.meta.dirname, 'resources/styles/variables')
 
 export default defineConfig({
     plugins: lazyPlugins(() => [
@@ -72,6 +75,9 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
+                // makes shared Sass variables (colors, spacing, etc.) available
+                // in every <style lang="scss"> block without a manual @import
+                additionalData: `@import "${scssVariablesPath}";`,
                 // bootstrap still uses deprecated but supported sass features
                 silenceDeprecations: [
                     'color-functions',

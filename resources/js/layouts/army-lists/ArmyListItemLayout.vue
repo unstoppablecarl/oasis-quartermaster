@@ -10,12 +10,11 @@ const { isCurrentUrl } = useCurrentUrl()
 const { armyList, title } = defineProps<{
     armyList: ArmyList
     title: string
-    subTitle?: string
 }>()
 </script>
 <template>
     <div>
-        <ArmyListItemHeader :title="title" :sub-title="subTitle" :description="armyList.display_name">
+        <ArmyListItemHeader :title="title" :description="armyList.display_name">
             <div class="btn-group btn-group-sm">
                 <Link
                     :href="show(armyList.uuid)"
