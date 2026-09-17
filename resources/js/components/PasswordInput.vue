@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { Eye, EyeOff } from '@lucide/vue';
-import { ref, useTemplateRef } from 'vue';
-import type { HTMLAttributes } from 'vue';
+import { PhEye, PhEyeClosed } from '@phosphor-icons/vue'
+import type { HTMLAttributes } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
-defineOptions({ inheritAttrs: false });
+defineOptions({ inheritAttrs: false })
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];
-}>();
+}>()
 
-const showPassword = ref(false);
-const inputRef = useTemplateRef('inputRef');
+const showPassword = ref(false)
+const inputRef = useTemplateRef('inputRef')
 
 defineExpose({
     $el: inputRef,
     focus: () => inputRef.value?.focus(),
-});
+})
 </script>
 
 <template>
@@ -34,8 +34,8 @@ defineExpose({
             :aria-label="showPassword ? 'Hide password' : 'Show password'"
             :tabindex="-1"
         >
-            <EyeOff v-if="showPassword" :size="16" />
-            <Eye v-else :size="16" />
+            <PhEye v-if="showPassword" :size="16" />
+            <PhEyeClosed v-else :size="16" />
         </button>
     </div>
 </template>

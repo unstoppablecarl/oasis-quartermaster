@@ -2,7 +2,7 @@ import inertia from '@inertiajs/vite'
 import { wayfinder } from '@laravel/vite-plugin-wayfinder'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
-import { bunny, google } from 'laravel-vite-plugin/fonts'
+import { google } from 'laravel-vite-plugin/fonts'
 import { defineConfig, lazyPlugins } from 'vite-plus'
 import { staticDataPlugin } from './resources/js/lib/vite-static-data-plugin'
 
@@ -14,9 +14,6 @@ export default defineConfig({
             refresh: true,
             fonts: [
                 google('Oswald', {}),
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
             ],
         }),
         inertia(),

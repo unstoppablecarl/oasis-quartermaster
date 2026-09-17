@@ -1,13 +1,6 @@
 <script lang="ts" setup>
-import {
-    CircleCheckIcon,
-    InfoIcon,
-    Loader2Icon,
-    OctagonXIcon,
-    TriangleAlertIcon,
-    XIcon,
-} from '@lucide/vue';
-import { Toaster as Sonner } from 'vue-sonner';
+import { PhCheckCircle, PhInfo, PhSpinner, PhWarning, PhWarningOctagon, PhX } from '@phosphor-icons/vue'
+import { Toaster as Sonner } from 'vue-sonner'
 </script>
 
 <template>
@@ -20,22 +13,22 @@ import { Toaster as Sonner } from 'vue-sonner';
         }"
     >
         <template #success-icon>
-            <CircleCheckIcon :size="16" />
+            <PhCheckCircle :size="16" />
         </template>
         <template #info-icon>
-            <InfoIcon :size="16" />
+            <PhInfo :size="16" />
         </template>
         <template #warning-icon>
-            <TriangleAlertIcon :size="16" />
+            <PhWarning :size="16" />
         </template>
         <template #error-icon>
-            <OctagonXIcon :size="16" />
+            <PhWarningOctagon :size="16" />
         </template>
         <template #loading-icon>
-            <Loader2Icon :size="16" class="animate-spin" />
+            <PhSpinner :size="16" class="animate-spin" />
         </template>
         <template #close-icon>
-            <XIcon :size="16" />
+            <PhX :size="16" />
         </template>
     </Sonner>
 </template>

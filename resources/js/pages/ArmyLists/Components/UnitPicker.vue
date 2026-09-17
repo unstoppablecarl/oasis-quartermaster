@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { PhPlus } from '@phosphor-icons/vue'
 import { UNITS } from '../../../../data/units'
+import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 
 const emit = defineEmits<{
     add: [unitId: number]
@@ -38,22 +40,15 @@ const allUnits = Object.values(UNITS)
                     <td class="text-teal">{{ unit.traits.join(', ') }}</td>
                     <td>{{ unit.abilities.join(', ') }}</td>
                     <td>{{ unit.cost }}</td>
-                    <td>
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-secondary"
-                        >
-                            View&nbsp;Card
-                        </button>
-                    </td>
-                    <td>
+                    <td class="ws-nowrap">
                         <button
                             type="button"
                             class="btn btn-sm btn-primary"
                             @click="emit('add', unit.id)"
                         >
-                            Add
+                            <PhPlus :size="16" />
                         </button>
+                        <UnitCardModal :unit-id="unit.id" />
                     </td>
                 </tr>
                 </tbody>
