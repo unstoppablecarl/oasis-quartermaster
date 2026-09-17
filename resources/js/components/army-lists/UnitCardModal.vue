@@ -23,6 +23,7 @@ const visible = ref(false)
         @click="visible = true"
         v-b-tooltip.hover.top
         title="View Card"
+        v-if="unitInfo.cards_front.length"
     >
         <Search :strokeWidth="2.5" :size="16" />
     </button>
