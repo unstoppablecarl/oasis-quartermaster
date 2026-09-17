@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url'
 import { transformWithOxc } from 'vite'
 
 const dir = path.dirname(fileURLToPath(import.meta.url))
-const csvPath = path.join(dir, 'master-unit-grid.csv')
-const outPath = path.join(dir, 'units.ts')
-const abilitiesPath = path.join(dir, 'abilities.ts')
+const csvPath = path.join(dir, '../data/master-unit-grid.csv')
+const outPath = path.join(dir, '../data/units.ts')
+const abilitiesPath = path.join(dir, '../data/abilities.ts')
 
 // abilities.ts is TypeScript (regex matchers, etc.), so it's loaded the same
 // way the Vite static-data plugin loads files from this directory: strip
@@ -117,6 +117,7 @@ function resolveColumns(headerRow) {
             DEFENSE: col('Def'),
             HP: col('HP'),
             SPEED: col('Speed'),
+            CARDS_FRONT: col('Cards Front'),
         },
         WEAPON_COLS: (positions.RNG ?? []).map((_, i) => ({
             range: columnIndex(positions, 'RNG', i),
@@ -236,6 +237,11 @@ function loadExistingIds(filePath) {
 
 function parseUnit(row, id, columns) {
     const { COL, WEAPON_COLS, ABILITY_COLS } = columns
+    let cardFrontRaw = str(row[COL.CARDS_FRONT])
+    let cardsFront = []
+    if (cardFrontRaw) {
+        cardsFront = cardFrontRaw.split(',').map(s => s.trim())
+    }
 
     return {
         id,
@@ -262,6 +268,8 @@ function parseUnit(row, id, columns) {
         // into their final abilities/traits arrays by classifyAbilities().
         abilities: ABILITY_COLS.map((col) => str(row[col])).filter(Boolean),
         traits: [],
+        cards_front: cardsFront.map(s => s + '.png'),
+        card_back: cardsFront.length ? cardsFront[0] + ' Back.png' : '',
     }
 }
 
@@ -379,6 +387,8 @@ export type Unit = {
     weapons: Weapon[]
     abilities: string[]
     traits: string[]
+    cards_front: string[]
+    card_back: string
 }
 
 export const UNITS: Record<string, Unit> = ${formatLiteral(units, 0)}

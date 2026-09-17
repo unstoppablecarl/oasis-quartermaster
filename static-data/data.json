@@ -205,7 +205,12 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Tigershark.png",
+        "TigerShark 2.png"
+      ],
+      "card_back": "Tigershark Back.png"
     },
     "TYPE_92": {
       "id": 2,
@@ -234,7 +239,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "GORGON": {
       "id": 3,
@@ -282,7 +289,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "CONDOR": {
       "id": 4,
@@ -311,7 +320,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "ROC": {
       "id": 5,
@@ -359,7 +370,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Roc.png"
+      ],
+      "card_back": "Roc Back.png"
     },
     "ALBATROSS": {
       "id": 6,
@@ -404,7 +419,11 @@
       ],
       "traits": [
         "Aircraft - Fixed Wing"
-      ]
+      ],
+      "cards_front": [
+        "Albatross.png"
+      ],
+      "card_back": "Albatross Back.png"
     },
     "COBRA": {
       "id": 7,
@@ -447,7 +466,9 @@
       ],
       "traits": [
         "Aircraft - Fixed Wing"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "RAVEN": {
       "id": 8,
@@ -491,7 +512,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Raven.png"
+      ],
+      "card_back": "Raven Back.png"
     },
     "BANDIT": {
       "id": 9,
@@ -521,7 +546,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Bandit.png"
+      ],
+      "card_back": "Bandit Back.png"
     },
     "MAMMOTH": {
       "id": 10,
@@ -549,7 +578,9 @@
         "Armored",
         "Smoke Grenades (2)"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "ZEUS": {
       "id": 11,
@@ -578,7 +609,9 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "NYX": {
       "id": 12,
@@ -624,7 +657,11 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [
+        "Nyx.png"
+      ],
+      "card_back": "Nyx Back.png"
     },
     "BRIGAND": {
       "id": 13,
@@ -652,7 +689,9 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "BUFFALO": {
       "id": 14,
@@ -680,7 +719,11 @@
         "Surveyor",
         "Independent"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [
+        "Buffalo.png"
+      ],
+      "card_back": "Buffalo Back.png"
     },
     "DRAKE": {
       "id": 15,
@@ -706,7 +749,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "HERCULES": {
       "id": 16,
@@ -733,7 +778,9 @@
         "Reposition",
         "Transport (2)"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "CHARIOT": {
       "id": 17,
@@ -768,7 +815,11 @@
       "abilities": [
         "Escort 8\""
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [
+        "Chariot.png"
+      ],
+      "card_back": "Chariot Back.png"
     },
     "RHINO": {
       "id": 18,
@@ -803,7 +854,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "WEASEL": {
       "id": 19,
@@ -829,7 +882,9 @@
       "abilities": [
         "Escort"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "SCARAB": {
       "id": 20,
@@ -855,7 +910,9 @@
       "abilities": [
         "Transport"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "COYOTE": {
       "id": 21,
@@ -890,7 +947,9 @@
       "abilities": [
         "Reposition"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "FOX": {
       "id": 22,
@@ -926,7 +985,9 @@
         "Reposition",
         "Escort"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "HOUND": {
       "id": 23,
@@ -954,7 +1015,9 @@
         "Surveyor",
         "Target Designator"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "MANTIS": {
       "id": 24,
@@ -984,7 +1047,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "ONI": {
       "id": 25,
@@ -1021,7 +1086,11 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [
+        "Oni.png"
+      ],
+      "card_back": "Oni Back.png"
     },
     "ONI_P": {
       "id": 26,
@@ -1052,7 +1121,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "ONI_H": {
       "id": 27,
@@ -1082,7 +1153,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "INFANTRY": {
       "id": 28,
@@ -1111,7 +1184,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "NARWHAL": {
       "id": 29,
@@ -1135,7 +1210,9 @@
       "speed": null,
       "weapons": [],
       "abilities": [],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "MOLE": {
       "id": 30,
@@ -1161,7 +1238,9 @@
       "abilities": [
         "Surveyor"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "HAWKMOTH": {
       "id": 31,
@@ -1189,7 +1268,9 @@
         "CQC Specialist",
         "Networked Automation"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "T_174": {
       "id": 32,
@@ -1215,7 +1296,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "ORCA": {
       "id": 33,
@@ -1241,7 +1324,9 @@
       "abilities": [
         "Reposition"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "HAMMERHEAD": {
       "id": 34,
@@ -1267,7 +1352,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "YOKAI": {
       "id": 35,
@@ -1291,7 +1378,9 @@
       "speed": null,
       "weapons": [],
       "abilities": [],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     }
   },
   "UNITS_BY_ID": {
@@ -1363,7 +1452,12 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Tigershark.png",
+        "TigerShark 2.png"
+      ],
+      "card_back": "Tigershark Back.png"
     },
     "2": {
       "id": 2,
@@ -1392,7 +1486,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "3": {
       "id": 3,
@@ -1440,7 +1536,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "4": {
       "id": 4,
@@ -1469,7 +1567,9 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "5": {
       "id": 5,
@@ -1517,7 +1617,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Roc.png"
+      ],
+      "card_back": "Roc Back.png"
     },
     "6": {
       "id": 6,
@@ -1562,7 +1666,11 @@
       ],
       "traits": [
         "Aircraft - Fixed Wing"
-      ]
+      ],
+      "cards_front": [
+        "Albatross.png"
+      ],
+      "card_back": "Albatross Back.png"
     },
     "7": {
       "id": 7,
@@ -1605,7 +1713,9 @@
       ],
       "traits": [
         "Aircraft - Fixed Wing"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "8": {
       "id": 8,
@@ -1649,7 +1759,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Raven.png"
+      ],
+      "card_back": "Raven Back.png"
     },
     "9": {
       "id": 9,
@@ -1679,7 +1793,11 @@
       ],
       "traits": [
         "Aircraft"
-      ]
+      ],
+      "cards_front": [
+        "Bandit.png"
+      ],
+      "card_back": "Bandit Back.png"
     },
     "10": {
       "id": 10,
@@ -1707,7 +1825,9 @@
         "Armored",
         "Smoke Grenades (2)"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "11": {
       "id": 11,
@@ -1736,7 +1856,9 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "12": {
       "id": 12,
@@ -1782,7 +1904,11 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [
+        "Nyx.png"
+      ],
+      "card_back": "Nyx Back.png"
     },
     "13": {
       "id": 13,
@@ -1810,7 +1936,9 @@
       ],
       "traits": [
         "Grav Drive"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "14": {
       "id": 14,
@@ -1838,7 +1966,11 @@
         "Surveyor",
         "Independent"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [
+        "Buffalo.png"
+      ],
+      "card_back": "Buffalo Back.png"
     },
     "15": {
       "id": 15,
@@ -1864,7 +1996,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "16": {
       "id": 16,
@@ -1891,7 +2025,9 @@
         "Reposition",
         "Transport (2)"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "17": {
       "id": 17,
@@ -1926,7 +2062,11 @@
       "abilities": [
         "Escort 8\""
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [
+        "Chariot.png"
+      ],
+      "card_back": "Chariot Back.png"
     },
     "18": {
       "id": 18,
@@ -1961,7 +2101,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "19": {
       "id": 19,
@@ -1987,7 +2129,9 @@
       "abilities": [
         "Escort"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "20": {
       "id": 20,
@@ -2013,7 +2157,9 @@
       "abilities": [
         "Transport"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "21": {
       "id": 21,
@@ -2048,7 +2194,9 @@
       "abilities": [
         "Reposition"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "22": {
       "id": 22,
@@ -2084,7 +2232,9 @@
         "Reposition",
         "Escort"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "23": {
       "id": 23,
@@ -2112,7 +2262,9 @@
         "Surveyor",
         "Target Designator"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "24": {
       "id": 24,
@@ -2142,7 +2294,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "25": {
       "id": 25,
@@ -2179,7 +2333,11 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [
+        "Oni.png"
+      ],
+      "card_back": "Oni Back.png"
     },
     "26": {
       "id": 26,
@@ -2210,7 +2368,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "27": {
       "id": 27,
@@ -2240,7 +2400,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "28": {
       "id": 28,
@@ -2269,7 +2431,9 @@
       ],
       "traits": [
         "Squad"
-      ]
+      ],
+      "cards_front": [],
+      "card_back": ""
     },
     "29": {
       "id": 29,
@@ -2293,7 +2457,9 @@
       "speed": null,
       "weapons": [],
       "abilities": [],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "30": {
       "id": 30,
@@ -2319,7 +2485,9 @@
       "abilities": [
         "Surveyor"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "31": {
       "id": 31,
@@ -2347,7 +2515,9 @@
         "CQC Specialist",
         "Networked Automation"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "32": {
       "id": 32,
@@ -2373,7 +2543,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "33": {
       "id": 33,
@@ -2399,7 +2571,9 @@
       "abilities": [
         "Reposition"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "34": {
       "id": 34,
@@ -2425,7 +2599,9 @@
       "abilities": [
         "Armored"
       ],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     },
     "35": {
       "id": 35,
@@ -2449,7 +2625,9 @@
       "speed": null,
       "weapons": [],
       "abilities": [],
-      "traits": []
+      "traits": [],
+      "cards_front": [],
+      "card_back": ""
     }
   }
 }

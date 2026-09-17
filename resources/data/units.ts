@@ -28,6 +28,8 @@ export type Unit = {
     weapons: Weapon[]
     abilities: string[]
     traits: string[]
+    cards_front: string[]
+    card_back: string
 }
 
 export const UNITS: Record<string, Unit> = {
@@ -100,6 +102,11 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [
+            'Tigershark.png',
+            'TigerShark 2.png',
+        ],
+        card_back: 'Tigershark Back.png',
     },
     TYPE_92: {
         id: 2,
@@ -129,6 +136,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [],
+        card_back: '',
     },
     GORGON: {
         id: 3,
@@ -177,6 +186,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [],
+        card_back: '',
     },
     CONDOR: {
         id: 4,
@@ -206,6 +217,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [],
+        card_back: '',
     },
     ROC: {
         id: 5,
@@ -254,6 +267,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [
+            'Roc.png',
+        ],
+        card_back: 'Roc Back.png',
     },
     ALBATROSS: {
         id: 6,
@@ -299,6 +316,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft - Fixed Wing',
         ],
+        cards_front: [
+            'Albatross.png',
+        ],
+        card_back: 'Albatross Back.png',
     },
     COBRA: {
         id: 7,
@@ -342,6 +363,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft - Fixed Wing',
         ],
+        cards_front: [],
+        card_back: '',
     },
     RAVEN: {
         id: 8,
@@ -386,6 +409,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [
+            'Raven.png',
+        ],
+        card_back: 'Raven Back.png',
     },
     BANDIT: {
         id: 9,
@@ -416,6 +443,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Aircraft',
         ],
+        cards_front: [
+            'Bandit.png',
+        ],
+        card_back: 'Bandit Back.png',
     },
     MAMMOTH: {
         id: 10,
@@ -444,6 +475,8 @@ export const UNITS: Record<string, Unit> = {
             'Smoke Grenades (2)',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     ZEUS: {
         id: 11,
@@ -473,6 +506,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Grav Drive',
         ],
+        cards_front: [],
+        card_back: '',
     },
     NYX: {
         id: 12,
@@ -519,6 +554,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Grav Drive',
         ],
+        cards_front: [
+            'Nyx.png',
+        ],
+        card_back: 'Nyx Back.png',
     },
     BRIGAND: {
         id: 13,
@@ -547,6 +586,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Grav Drive',
         ],
+        cards_front: [],
+        card_back: '',
     },
     BUFFALO: {
         id: 14,
@@ -575,6 +616,10 @@ export const UNITS: Record<string, Unit> = {
             'Independent',
         ],
         traits: [],
+        cards_front: [
+            'Buffalo.png',
+        ],
+        card_back: 'Buffalo Back.png',
     },
     DRAKE: {
         id: 15,
@@ -601,6 +646,8 @@ export const UNITS: Record<string, Unit> = {
             'Armored',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     HERCULES: {
         id: 16,
@@ -628,6 +675,8 @@ export const UNITS: Record<string, Unit> = {
             'Transport (2)',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     CHARIOT: {
         id: 17,
@@ -663,6 +712,10 @@ export const UNITS: Record<string, Unit> = {
             'Escort 8"',
         ],
         traits: [],
+        cards_front: [
+            'Chariot.png',
+        ],
+        card_back: 'Chariot Back.png',
     },
     RHINO: {
         id: 18,
@@ -698,6 +751,8 @@ export const UNITS: Record<string, Unit> = {
             'Armored',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     WEASEL: {
         id: 19,
@@ -724,6 +779,8 @@ export const UNITS: Record<string, Unit> = {
             'Escort',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     SCARAB: {
         id: 20,
@@ -750,6 +807,8 @@ export const UNITS: Record<string, Unit> = {
             'Transport',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     COYOTE: {
         id: 21,
@@ -785,6 +844,8 @@ export const UNITS: Record<string, Unit> = {
             'Reposition',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     FOX: {
         id: 22,
@@ -821,6 +882,8 @@ export const UNITS: Record<string, Unit> = {
             'Escort',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     HOUND: {
         id: 23,
@@ -849,6 +912,8 @@ export const UNITS: Record<string, Unit> = {
             'Target Designator',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     MANTIS: {
         id: 24,
@@ -879,6 +944,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Squad',
         ],
+        cards_front: [],
+        card_back: '',
     },
     ONI: {
         id: 25,
@@ -916,6 +983,10 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Squad',
         ],
+        cards_front: [
+            'Oni.png',
+        ],
+        card_back: 'Oni Back.png',
     },
     ONI_P: {
         id: 26,
@@ -947,6 +1018,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Squad',
         ],
+        cards_front: [],
+        card_back: '',
     },
     ONI_H: {
         id: 27,
@@ -977,6 +1050,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Squad',
         ],
+        cards_front: [],
+        card_back: '',
     },
     INFANTRY: {
         id: 28,
@@ -1006,6 +1081,8 @@ export const UNITS: Record<string, Unit> = {
         traits: [
             'Squad',
         ],
+        cards_front: [],
+        card_back: '',
     },
     NARWHAL: {
         id: 29,
@@ -1030,6 +1107,8 @@ export const UNITS: Record<string, Unit> = {
         weapons: [],
         abilities: [],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     MOLE: {
         id: 30,
@@ -1056,6 +1135,8 @@ export const UNITS: Record<string, Unit> = {
             'Surveyor',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     HAWKMOTH: {
         id: 31,
@@ -1084,6 +1165,8 @@ export const UNITS: Record<string, Unit> = {
             'Networked Automation',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     T_174: {
         id: 32,
@@ -1110,6 +1193,8 @@ export const UNITS: Record<string, Unit> = {
             'Armored',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     ORCA: {
         id: 33,
@@ -1136,6 +1221,8 @@ export const UNITS: Record<string, Unit> = {
             'Reposition',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     HAMMERHEAD: {
         id: 34,
@@ -1162,6 +1249,8 @@ export const UNITS: Record<string, Unit> = {
             'Armored',
         ],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
     YOKAI: {
         id: 35,
@@ -1186,6 +1275,8 @@ export const UNITS: Record<string, Unit> = {
         weapons: [],
         abilities: [],
         traits: [],
+        cards_front: [],
+        card_back: '',
     },
 }
 
