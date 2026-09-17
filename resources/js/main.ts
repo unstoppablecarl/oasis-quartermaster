@@ -15,8 +15,8 @@ pinia.use(piniaPluginPersistedstate)
 
 const bootstrap = createBootstrap({
     components: {
-        BPopover: {
-            delay: { show: 100, hide: 0 },
+        BTooltip: {
+            delay: { show: 300, hide: 0 },
         },
     },
 })

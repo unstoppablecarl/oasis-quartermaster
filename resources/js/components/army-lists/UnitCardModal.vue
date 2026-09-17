@@ -3,6 +3,7 @@ import { Search } from '@lucide/vue'
 import { BModal } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import { UNITS_BY_ID } from '../../../data/units'
+import { vBTooltip } from 'bootstrap-vue-next'
 
 defineOptions({ inheritAttrs: false })
 
@@ -20,6 +21,8 @@ const visible = ref(false)
         role="button"
         class="btn btn-sm btn-outline-info ms-1"
         @click="visible = true"
+        v-b-tooltip.hover.top
+        title="View Card"
     >
         <Search :strokeWidth="2.5" :size="16" />
     </button>
@@ -38,7 +41,8 @@ const visible = ref(false)
                  :alt="`${unitInfo.display_name} card front`" width="50%" />
         </p>
         <h5>Back</h5>
-        <img :src="`/images/cards/units/${unitInfo.card_back}`" :alt="`${unitInfo.display_name} card back`"
+        <img v-if="unitInfo.card_back" :src="`/images/cards/units/${unitInfo.card_back}`"
+             :alt="`${unitInfo.display_name} card back`"
              width="50%" />
     </BModal>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { GripVertical, Minus, Plus } from '@lucide/vue'
-import { PhX } from '@phosphor-icons/vue'
+import { GripVertical, Minus, Plus, X } from '@lucide/vue'
+import { BTooltip } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 import draggable from 'vuedraggable'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
@@ -30,6 +30,15 @@ const draggableUnits = computed({
     get: () => unitsInfo.value,
     set: (reordered) => emit('reorder', reordered.map((unit) => unit.id)),
 })
+
+function minus(unit: UnitEntry) {
+    if (unit.quantity > 0) {
+        emit('subtract', unit.id)
+    } else {
+        emit('remove', unit.id)
+    }
+}
+
 </script>
 <template>
     <div class="title pb-2">Units</div>
@@ -50,7 +59,7 @@ const draggableUnits = computed({
                     <th>Abilities</th>
                     <th class="number-cell ws-nowrap">Pts <span class="text-muted">&times;</span></th>
                     <th class="number-cell px-0 ws-nowrap">Qty <span class="text-muted">=</span></th>
-                    <th class="number-cell ps-0">Cost</th>
+                    <th class="number-cell ps-1">Cost</th>
                     <th class="px-0" v-if="showControls"></th>
                 </tr>
                 </thead>
@@ -95,31 +104,33 @@ const draggableUnits = computed({
                                 <div class="btn-group btn-group-sm">
                                     <button
                                         role="button"
-                                        class="btn btn-secondary"
-                                        @click="emit('subtract', unit.id)"
-                                        :disabled="unit.quantity === 0"
+                                        class="btn btn-minus"
+                                        :class="{
+                                            'btn-secondary': unit.quantity !== 0,
+                                            'btn-danger': unit.quantity === 0,
+                                        }"
+                                        @click="minus(unit)"
+                                        id="btn-remove-1"
                                     >
-                                        <Minus :strokeWidth="2.5" :size="16" />
+                                        <Minus v-if="unit.quantity !== 0" :strokeWidth="2.5" :size="16" />
+                                        <X v-else :strokeWidth="2.5" :size="16" />
                                     </button>
                                     <button
                                         role="button"
                                         class="btn btn-secondary"
                                         @click="emit('add', unit.id)"
+                                        id="btn-add-1"
                                     >
                                         <Plus :strokeWidth="2.5" :size="16" />
                                     </button>
                                 </div>
 
-                                <button
-                                    role="button"
-                                    class="btn btn-sm btn-danger ms-1"
-                                    :disabled="unit.quantity !== 0"
-                                    @click="emit('remove', unit.id)"
-                                    :style="`opacity: ${unit.quantity === 0 ? 1 : 0}`"
-                                >
-                                    <PhX />
-                                </button>
-
+                                <BTooltip target="#btn-remove-1" v-if="unit.quantity !== 0">
+                                    Remove 1
+                                </BTooltip>
+                                <BTooltip target="#btn-add-1">
+                                    Add 1
+                                </BTooltip>
                                 <UnitCardModal :unit-id="unit.id" />
 
                             </td>
@@ -196,5 +207,9 @@ table.table-units {
             vertical-align: top;
         }
     }
+}
+
+.btn-minus {
+    transition: border-color 0.3s, background-color 0.3s;
 }
 </style>

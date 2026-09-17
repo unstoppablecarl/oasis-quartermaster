@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PhPlus } from '@phosphor-icons/vue'
+import { vBTooltip } from 'bootstrap-vue-next'
 import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 
@@ -41,13 +42,19 @@ const allUnits = Object.values(UNITS)
                     <td>{{ unit.abilities.join(', ') }}</td>
                     <td>{{ unit.cost }}</td>
                     <td class="ws-nowrap">
+
+
                         <button
                             type="button"
                             class="btn btn-sm btn-primary"
                             @click="emit('add', unit.id)"
+                            v-b-tooltip.hover.top
+                            title="Add to List"
                         >
                             <PhPlus :size="16" />
                         </button>
+
+
                         <UnitCardModal :unit-id="unit.id" />
                     </td>
                 </tr>
