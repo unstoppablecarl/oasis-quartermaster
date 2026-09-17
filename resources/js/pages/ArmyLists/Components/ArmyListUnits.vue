@@ -93,6 +93,7 @@ const draggableUnits = computed({
                                         role="button"
                                         class="btn btn-secondary"
                                         @click="emit('subtract', unit.id)"
+                                        :disabled="unit.quantity === 0"
                                     >
                                         -
                                     </button>
@@ -104,6 +105,13 @@ const draggableUnits = computed({
                                         +
                                     </button>
                                 </div>
+
+                                <button
+                                    role="button"
+                                    class="btn btn-sm btn-info"
+                                >
+                                    Card
+                                </button>
                                 <button
                                     role="button"
                                     class="btn btn-sm btn-danger ms-1"

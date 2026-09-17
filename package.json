@@ -9,12 +9,12 @@
         "check": "vp check",
         "check:fix": "vp check --fix",
         "types:check": "vue-tsc --noEmit",
-        "import:units": "node resources/data/import-units.mjs"
+        "import:units": "node resources/scripts/import-units.mjs"
     },
     "dependencies": {
         "@inertiajs/vite": "^3.0.0",
         "@inertiajs/vue3": "^3.0.0",
-        "@lucide/vue": "^1.17.0",
+        "@phosphor-icons/vue": "^2.2.1",
         "@vueuse/core": "^12.8.2",
         "bootstrap": "^5.3.8",
         "bootstrap-vue-next": "^1.1.0",
