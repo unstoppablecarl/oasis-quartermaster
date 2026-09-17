@@ -23,6 +23,7 @@ const allUnits = Object.values(UNITS)
                     <th>Defense</th>
                     <th>HP</th>
                     <th>Speed</th>
+                    <th>Weapons</th>
                     <th>Traits</th>
                     <th>Abilities</th>
                     <th>Cost</th>
@@ -38,6 +39,7 @@ const allUnits = Object.values(UNITS)
                     <td>{{ unit.defense }}</td>
                     <td>{{ unit.hp }}</td>
                     <td>{{ unit.speed }}</td>
+                    <td>{{ unit.weapons.map((w: any) => w.name).join(', ') }}</td>
                     <td class="text-teal">{{ unit.traits.join(', ') }}</td>
                     <td>{{ unit.abilities.join(', ') }}</td>
                     <td>{{ unit.cost }}</td>

@@ -6,15 +6,8 @@ export const ABILITIES: Record<string, Ability> = {
     ARMORED: {
         display_name: 'Armored',
     },
-    COUNTERMEASURES: {
-        display_name: 'Countermeasures',
-    },
     EMBARK_DISEMBARK: {
         display_name: 'Embark / Disembark',
-    },
-    ESCORT: {
-        display_name: 'Escort [X"]',
-        matcher: /^Escort(\s+\d+")?$/i,
     },
     HITCHHIKER: {
         display_name: 'Hitchhiker',
@@ -22,18 +15,12 @@ export const ABILITIES: Record<string, Ability> = {
     JUMP_PACKS: {
         display_name: 'Jump Packs',
     },
-    MODULAR_PAYLOAD: {
-        display_name: 'Modular Payload',
-    },
     PRECISION: {
         display_name: 'Precision [Air / Ground / Squad]',
         matcher: /^Precision\b/i,
     },
     REMOTE_SURVEYOR: {
         display_name: 'Remote Surveyor',
-    },
-    REPAIR_SYSTEMS: {
-        display_name: 'Repair Systems',
     },
     REPOSITION: {
         display_name: 'Reposition [X"]',
@@ -128,6 +115,19 @@ export const TRAITS: Record<string, Trait> = {
     },
     GRAV_DRIVE: {
         display_name: 'Grav Drive',
+    },
+    MODULAR_PAYLOAD: {
+        display_name: 'Modular Payload',
+    },
+    ESCORT: {
+        display_name: 'Escort [X"]',
+        matcher: /^Escort(\s*\(\d+”\))?$/i,
+    },
+    REPAIR_SYSTEMS: {
+        display_name: 'Repair Systems',
+    },
+    ACTIVE_COUNTERMEASURES: {
+        display_name: 'Active Countermeasures',
     },
 }
 

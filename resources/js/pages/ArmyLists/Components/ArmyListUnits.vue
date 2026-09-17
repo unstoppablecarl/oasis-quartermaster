@@ -90,7 +90,7 @@ function minus(unit: UnitEntry) {
                         <div class="number-cell">{{ unit.defense }}</div>
                         <div class="number-cell">{{ unit.hp }}</div>
                         <div class="number-cell ws-nowrap">{{ unit.speed }}</div>
-                        <div></div>
+                        <div>{{ unit.weapons.map((w: any) => w.name).join(', ') }}</div>
                         <div class="text-teal">{{ unit.traits.join(', ') }}</div>
                         <div>{{ unit.abilities.join(', ') }}</div>
 

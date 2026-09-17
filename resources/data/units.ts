@@ -1,4 +1,5 @@
 export type Weapon = {
+    name: string,
     range: string
     accuracy: string
     damage: string
@@ -55,6 +56,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8 + R4',
         weapons: [
             {
+                name: 'Heavy Guided Missiles [AP]',
                 range: '10',
                 accuracy: '4',
                 damage: '6',
@@ -63,6 +65,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '120mm Cannon [2 ATKS] [AP]',
                 range: '14',
                 accuracy: '4+2',
                 damage: '4+2',
@@ -72,6 +75,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: 'VLS Battery [2 ATKS] [2” Splash]',
                 range: '18',
                 accuracy: '4',
                 damage: '6+3',
@@ -82,6 +86,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: 'Point Defense [2 ATKS]',
                 range: '6',
                 accuracy: '6+1',
                 damage: '4',
@@ -92,15 +97,15 @@ export const UNITS: Record<string, Unit> = {
         ],
         abilities: [
             'Reposition',
-            'Escort',
             'Armored',
-            'Repair Systems',
-            'Countermeasures',
-            'Modular Payload',
             'Clumsy',
         ],
         traits: [
             'Aircraft',
+            'Escort (6”)',
+            'Repair Systems',
+            'Active Countermeasures',
+            'Modular Payload',
         ],
         cards_front: [
             'Tigershark.png',
@@ -161,6 +166,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '12 + R4',
         weapons: [
             {
+                name: '',
                 range: '10',
                 accuracy: '5',
                 damage: '6',
@@ -169,6 +175,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '6',
                 accuracy: '6+2',
                 damage: '4+1',
@@ -180,11 +187,11 @@ export const UNITS: Record<string, Unit> = {
         ],
         abilities: [
             'Reposition',
-            'Escort',
             'Armored',
         ],
         traits: [
             'Aircraft',
+            'Escort',
         ],
         cards_front: [],
         card_back: '',
@@ -242,6 +249,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '14 + R6',
         weapons: [
             {
+                name: '',
                 range: '10',
                 accuracy: '4',
                 damage: '6',
@@ -251,6 +259,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '8',
                 accuracy: '6',
                 damage: '4+1',
@@ -294,6 +303,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '22 + R8',
         weapons: [
             {
+                name: '',
                 range: '10',
                 accuracy: '6',
                 damage: '6+1',
@@ -302,6 +312,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '6',
                 accuracy: '6',
                 damage: '4',
@@ -343,6 +354,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '28 + R10',
         weapons: [
             {
+                name: '',
                 range: '10',
                 accuracy: '6+2',
                 damage: '3+1',
@@ -351,6 +363,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '6',
                 accuracy: '5',
                 damage: '3',
@@ -388,6 +401,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '20 + R8',
         weapons: [
             {
+                name: '',
                 range: '10',
                 accuracy: '4',
                 damage: '6',
@@ -396,6 +410,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '8',
                 accuracy: '6',
                 damage: '3+1',
@@ -531,6 +546,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8',
         weapons: [
             {
+                name: '',
                 range: '14',
                 accuracy: '4+2',
                 damage: '6+1',
@@ -539,6 +555,7 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
             {
+                name: '',
                 range: '2',
                 accuracy: '6+2',
                 damage: '2',
@@ -700,6 +717,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '10',
         weapons: [
             {
+                name: '',
                 range: '12',
                 accuracy: '6+2',
                 damage: '4',
@@ -708,10 +726,10 @@ export const UNITS: Record<string, Unit> = {
                 ],
             },
         ],
-        abilities: [
-            'Escort 8"',
+        abilities: [],
+        traits: [
+            'Escort (8”)',
         ],
-        traits: [],
         cards_front: [
             'Chariot.png',
         ],
@@ -739,6 +757,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8',
         weapons: [
             {
+                name: '',
                 range: '12',
                 accuracy: '4+2',
                 damage: '4+2',
@@ -775,10 +794,10 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '8',
         weapons: [],
-        abilities: [
+        abilities: [],
+        traits: [
             'Escort',
         ],
-        traits: [],
         cards_front: [],
         card_back: '',
     },
@@ -832,6 +851,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '12 + R4',
         weapons: [
             {
+                name: '',
                 range: '8',
                 accuracy: '3',
                 damage: '6',
@@ -869,6 +889,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '14"',
         weapons: [
             {
+                name: '',
                 range: '8',
                 accuracy: '6+2',
                 damage: '3',
@@ -879,9 +900,10 @@ export const UNITS: Record<string, Unit> = {
         ],
         abilities: [
             'Reposition',
+        ],
+        traits: [
             'Escort',
         ],
-        traits: [],
         cards_front: [],
         card_back: '',
     },
@@ -969,6 +991,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8',
         weapons: [
             {
+                name: '',
                 range: '6',
                 accuracy: '6',
                 damage: '3',

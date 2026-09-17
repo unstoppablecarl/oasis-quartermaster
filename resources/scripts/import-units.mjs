@@ -120,6 +120,7 @@ function resolveColumns(headerRow) {
             CARDS_FRONT: col('Cards Front'),
         },
         WEAPON_COLS: (positions.RNG ?? []).map((_, i) => ({
+            name: columnIndex(positions, 'NAME', i),
             range: columnIndex(positions, 'RNG', i),
             accuracy: columnIndex(positions, 'ACC', i),
             damage: columnIndex(positions, 'DMG', i),
@@ -201,6 +202,7 @@ function slugKey(name) {
 }
 
 function parseWeapon(row, weaponCols) {
+    const name = row[weaponCols.name]
     const range = row[weaponCols.range]
     const accuracy = row[weaponCols.accuracy]
     const damage = row[weaponCols.damage]
@@ -211,6 +213,7 @@ function parseWeapon(row, weaponCols) {
     }
 
     return {
+        name: str(name) ?? '',
         range: str(range) ?? '',
         accuracy: str(accuracy) ?? '',
         damage: str(damage) ?? '',
@@ -358,6 +361,7 @@ main().catch((error) => {
 
 function generate(units) {
     return `export type Weapon = {
+    name: string,
     range: string
     accuracy: string
     damage: string

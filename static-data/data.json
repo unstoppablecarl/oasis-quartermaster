@@ -3,15 +3,8 @@
     "ARMORED": {
       "display_name": "Armored"
     },
-    "COUNTERMEASURES": {
-      "display_name": "Countermeasures"
-    },
     "EMBARK_DISEMBARK": {
       "display_name": "Embark / Disembark"
-    },
-    "ESCORT": {
-      "display_name": "Escort [X\"]",
-      "matcher": {}
     },
     "HITCHHIKER": {
       "display_name": "Hitchhiker"
@@ -19,18 +12,12 @@
     "JUMP_PACKS": {
       "display_name": "Jump Packs"
     },
-    "MODULAR_PAYLOAD": {
-      "display_name": "Modular Payload"
-    },
     "PRECISION": {
       "display_name": "Precision [Air / Ground / Squad]",
       "matcher": {}
     },
     "REMOTE_SURVEYOR": {
       "display_name": "Remote Surveyor"
-    },
-    "REPAIR_SYSTEMS": {
-      "display_name": "Repair Systems"
     },
     "REPOSITION": {
       "display_name": "Reposition [X\"]",
@@ -120,6 +107,19 @@
     },
     "GRAV_DRIVE": {
       "display_name": "Grav Drive"
+    },
+    "MODULAR_PAYLOAD": {
+      "display_name": "Modular Payload"
+    },
+    "ESCORT": {
+      "display_name": "Escort [X\"]",
+      "matcher": {}
+    },
+    "REPAIR_SYSTEMS": {
+      "display_name": "Repair Systems"
+    },
+    "ACTIVE_COUNTERMEASURES": {
+      "display_name": "Active Countermeasures"
     }
   },
   "ARMY_LIST_TYPES": {
@@ -159,6 +159,7 @@
       "speed": "8 + R4",
       "weapons": [
         {
+          "name": "Heavy Guided Missiles [AP]",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -167,6 +168,7 @@
           ]
         },
         {
+          "name": "120mm Cannon [2 ATKS] [AP]",
           "range": "14",
           "accuracy": "4+2",
           "damage": "4+2",
@@ -176,6 +178,7 @@
           ]
         },
         {
+          "name": "VLS Battery [2 ATKS] [2” Splash]",
           "range": "18",
           "accuracy": "4",
           "damage": "6+3",
@@ -186,6 +189,7 @@
           ]
         },
         {
+          "name": "Point Defense [2 ATKS]",
           "range": "6",
           "accuracy": "6+1",
           "damage": "4",
@@ -196,15 +200,15 @@
       ],
       "abilities": [
         "Reposition",
-        "Escort",
         "Armored",
-        "Repair Systems",
-        "Countermeasures",
-        "Modular Payload",
         "Clumsy"
       ],
       "traits": [
-        "Aircraft"
+        "Aircraft",
+        "Escort (6”)",
+        "Repair Systems",
+        "Active Countermeasures",
+        "Modular Payload"
       ],
       "cards_front": [
         "Tigershark.png",
@@ -265,6 +269,7 @@
       "speed": "12 + R4",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "5",
           "damage": "6",
@@ -273,6 +278,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "6+2",
           "damage": "4+1",
@@ -284,11 +290,11 @@
       ],
       "abilities": [
         "Reposition",
-        "Escort",
         "Armored"
       ],
       "traits": [
-        "Aircraft"
+        "Aircraft",
+        "Escort"
       ],
       "cards_front": [],
       "card_back": ""
@@ -346,6 +352,7 @@
       "speed": "14 + R6",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -355,6 +362,7 @@
           ]
         },
         {
+          "name": "",
           "range": "8",
           "accuracy": "6",
           "damage": "4+1",
@@ -398,6 +406,7 @@
       "speed": "22 + R8",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "6",
           "damage": "6+1",
@@ -406,6 +415,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "6",
           "damage": "4",
@@ -447,6 +457,7 @@
       "speed": "28 + R10",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "6+2",
           "damage": "3+1",
@@ -455,6 +466,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "5",
           "damage": "3",
@@ -492,6 +504,7 @@
       "speed": "20 + R8",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -500,6 +513,7 @@
           ]
         },
         {
+          "name": "",
           "range": "8",
           "accuracy": "6",
           "damage": "3+1",
@@ -635,6 +649,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "14",
           "accuracy": "4+2",
           "damage": "6+1",
@@ -643,6 +658,7 @@
           ]
         },
         {
+          "name": "",
           "range": "2",
           "accuracy": "6+2",
           "damage": "2",
@@ -804,6 +820,7 @@
       "speed": "10",
       "weapons": [
         {
+          "name": "",
           "range": "12",
           "accuracy": "6+2",
           "damage": "4",
@@ -812,10 +829,10 @@
           ]
         }
       ],
-      "abilities": [
-        "Escort 8\""
+      "abilities": [],
+      "traits": [
+        "Escort (8”)"
       ],
-      "traits": [],
       "cards_front": [
         "Chariot.png"
       ],
@@ -843,6 +860,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "12",
           "accuracy": "4+2",
           "damage": "4+2",
@@ -879,10 +897,10 @@
       "hp": 1,
       "speed": "8",
       "weapons": [],
-      "abilities": [
+      "abilities": [],
+      "traits": [
         "Escort"
       ],
-      "traits": [],
       "cards_front": [],
       "card_back": ""
     },
@@ -936,6 +954,7 @@
       "speed": "12 + R4",
       "weapons": [
         {
+          "name": "",
           "range": "8",
           "accuracy": "3",
           "damage": "6",
@@ -973,6 +992,7 @@
       "speed": "14\"",
       "weapons": [
         {
+          "name": "",
           "range": "8",
           "accuracy": "6+2",
           "damage": "3",
@@ -982,10 +1002,11 @@
         }
       ],
       "abilities": [
-        "Reposition",
+        "Reposition"
+      ],
+      "traits": [
         "Escort"
       ],
-      "traits": [],
       "cards_front": [],
       "card_back": ""
     },
@@ -1073,6 +1094,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "6",
           "accuracy": "6",
           "damage": "3",
@@ -1406,6 +1428,7 @@
       "speed": "8 + R4",
       "weapons": [
         {
+          "name": "Heavy Guided Missiles [AP]",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -1414,6 +1437,7 @@
           ]
         },
         {
+          "name": "120mm Cannon [2 ATKS] [AP]",
           "range": "14",
           "accuracy": "4+2",
           "damage": "4+2",
@@ -1423,6 +1447,7 @@
           ]
         },
         {
+          "name": "VLS Battery [2 ATKS] [2” Splash]",
           "range": "18",
           "accuracy": "4",
           "damage": "6+3",
@@ -1433,6 +1458,7 @@
           ]
         },
         {
+          "name": "Point Defense [2 ATKS]",
           "range": "6",
           "accuracy": "6+1",
           "damage": "4",
@@ -1443,15 +1469,15 @@
       ],
       "abilities": [
         "Reposition",
-        "Escort",
         "Armored",
-        "Repair Systems",
-        "Countermeasures",
-        "Modular Payload",
         "Clumsy"
       ],
       "traits": [
-        "Aircraft"
+        "Aircraft",
+        "Escort (6”)",
+        "Repair Systems",
+        "Active Countermeasures",
+        "Modular Payload"
       ],
       "cards_front": [
         "Tigershark.png",
@@ -1512,6 +1538,7 @@
       "speed": "12 + R4",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "5",
           "damage": "6",
@@ -1520,6 +1547,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "6+2",
           "damage": "4+1",
@@ -1531,11 +1559,11 @@
       ],
       "abilities": [
         "Reposition",
-        "Escort",
         "Armored"
       ],
       "traits": [
-        "Aircraft"
+        "Aircraft",
+        "Escort"
       ],
       "cards_front": [],
       "card_back": ""
@@ -1593,6 +1621,7 @@
       "speed": "14 + R6",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -1602,6 +1631,7 @@
           ]
         },
         {
+          "name": "",
           "range": "8",
           "accuracy": "6",
           "damage": "4+1",
@@ -1645,6 +1675,7 @@
       "speed": "22 + R8",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "6",
           "damage": "6+1",
@@ -1653,6 +1684,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "6",
           "damage": "4",
@@ -1694,6 +1726,7 @@
       "speed": "28 + R10",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "6+2",
           "damage": "3+1",
@@ -1702,6 +1735,7 @@
           ]
         },
         {
+          "name": "",
           "range": "6",
           "accuracy": "5",
           "damage": "3",
@@ -1739,6 +1773,7 @@
       "speed": "20 + R8",
       "weapons": [
         {
+          "name": "",
           "range": "10",
           "accuracy": "4",
           "damage": "6",
@@ -1747,6 +1782,7 @@
           ]
         },
         {
+          "name": "",
           "range": "8",
           "accuracy": "6",
           "damage": "3+1",
@@ -1882,6 +1918,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "14",
           "accuracy": "4+2",
           "damage": "6+1",
@@ -1890,6 +1927,7 @@
           ]
         },
         {
+          "name": "",
           "range": "2",
           "accuracy": "6+2",
           "damage": "2",
@@ -2051,6 +2089,7 @@
       "speed": "10",
       "weapons": [
         {
+          "name": "",
           "range": "12",
           "accuracy": "6+2",
           "damage": "4",
@@ -2059,10 +2098,10 @@
           ]
         }
       ],
-      "abilities": [
-        "Escort 8\""
+      "abilities": [],
+      "traits": [
+        "Escort (8”)"
       ],
-      "traits": [],
       "cards_front": [
         "Chariot.png"
       ],
@@ -2090,6 +2129,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "12",
           "accuracy": "4+2",
           "damage": "4+2",
@@ -2126,10 +2166,10 @@
       "hp": 1,
       "speed": "8",
       "weapons": [],
-      "abilities": [
+      "abilities": [],
+      "traits": [
         "Escort"
       ],
-      "traits": [],
       "cards_front": [],
       "card_back": ""
     },
@@ -2183,6 +2223,7 @@
       "speed": "12 + R4",
       "weapons": [
         {
+          "name": "",
           "range": "8",
           "accuracy": "3",
           "damage": "6",
@@ -2220,6 +2261,7 @@
       "speed": "14\"",
       "weapons": [
         {
+          "name": "",
           "range": "8",
           "accuracy": "6+2",
           "damage": "3",
@@ -2229,10 +2271,11 @@
         }
       ],
       "abilities": [
-        "Reposition",
+        "Reposition"
+      ],
+      "traits": [
         "Escort"
       ],
-      "traits": [],
       "cards_front": [],
       "card_back": ""
     },
@@ -2320,6 +2363,7 @@
       "speed": "8",
       "weapons": [
         {
+          "name": "",
           "range": "6",
           "accuracy": "6",
           "damage": "3",
