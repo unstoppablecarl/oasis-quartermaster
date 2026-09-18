@@ -11,6 +11,7 @@ import { Toaster as Sonner } from 'vue-sonner'
             '--normal-border': 'var(--bs-border-color)',
             '--border-radius': 'var(--bs-border-radius)',
         }"
+        :offset="60"
     >
         <template #success-icon>
             <PhCheckCircle :size="16" />
