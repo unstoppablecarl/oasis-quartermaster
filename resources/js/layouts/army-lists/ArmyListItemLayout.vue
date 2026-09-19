@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3'
+import { PhMonitor, PhPencilSimple, PhPrinter } from '@phosphor-icons/vue'
+import { BTooltip } from 'bootstrap-vue-next'
 import DeleteArmyListModal from '../../components/army-lists/DeleteArmyListModal.vue'
 import { useCurrentUrl } from '../../composables/useCurrentUrl'
 import ArmyListItemHeader from '../../pages/ArmyLists/Components/ArmyListItemHeader.vue'
@@ -20,14 +22,18 @@ const { armyList, title } = defineProps<{
                     :href="show(armyList.uuid)"
                     class="btn btn-sm btn-outline-secondary"
                     :class="{active: isCurrentUrl(show(armyList))}"
-                >View
+                    id="unit-controls-view"
+                >
+                    <PhMonitor :size="16" />
                 </Link>
 
                 <Link
                     :href="print(armyList.uuid)"
                     class="btn btn-sm btn-outline-secondary"
                     :class="{active: isCurrentUrl(print(armyList))}"
-                >Print
+                    id="unit-controls-print"
+                >
+                    <PhPrinter :size="16" />
                 </Link>
 
                 <Link
@@ -35,7 +41,9 @@ const { armyList, title } = defineProps<{
                     :href="edit(armyList.uuid)"
                     class="btn btn-sm btn-outline-secondary"
                     :class="{active: isCurrentUrl(edit(armyList))}"
-                >Edit
+                    id="unit-controls-edit"
+                >
+                    <PhPencilSimple :size="16" />
                 </Link>
             </div>
 
@@ -44,6 +52,17 @@ const { armyList, title } = defineProps<{
                 :army-list="armyList"
                 class="ms-2"
             />
+
+            <BTooltip target="#unit-controls-view">
+                View
+            </BTooltip>
+            <BTooltip target="#unit-controls-print">
+                Print
+            </BTooltip>
+            <BTooltip target="#unit-controls-edit">
+                Edit
+            </BTooltip>
+
         </ArmyListItemHeader>
 
         <slot />

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3'
-import { BModal, type BvTriggerableEvent } from 'bootstrap-vue-next'
-import { ref } from 'vue'
 import ArmyListController from '@/actions/App/Http/Controllers/ArmyListController'
 import type { ArmyList } from '@/types/army-list'
+import { router } from '@inertiajs/vue3'
+import { PhPencilSimple, PhTrash } from '@phosphor-icons/vue'
+import { BModal, type BvTriggerableEvent, vBTooltip } from 'bootstrap-vue-next'
+import { ref } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -34,10 +35,12 @@ function onOk(bvModalEvt: BvTriggerableEvent) {
     <button
         v-bind="$attrs"
         type="button"
-        class="btn btn-sm btn-outline-danger"
+        class="btn btn-sm btn-danger"
         @click="visible = true"
+        v-b-tooltip.hover.top
+        title="Delete"
     >
-        Delete
+        <PhTrash :size="16" />
     </button>
 
     <BModal
