@@ -1,10 +1,21 @@
 <script setup lang="ts">
 
-const year = new Date().getFullYear()
+const {
+    isPrintView = false,
+    saveBarPadding = false,
+} = defineProps<{
+    isPrintView?: boolean
+    saveBarPadding?: boolean
+}>()
 </script>
-
 <template>
-    <footer class="app-footer border-top mt-auto">
+    <footer
+        class="app-footer border-top mt-auto"
+        :class="{
+            'no-print': isPrintView,
+            'app-footer-save-bar-padding': saveBarPadding
+        }"
+    >
         <div class="container pt-3 text-center">
             <h5>Oasis Quartermaster</h5>
             <p>

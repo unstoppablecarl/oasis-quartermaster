@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, useHttp } from '@inertiajs/vue3'
+import { Head, setLayoutProps, useHttp } from '@inertiajs/vue3'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
@@ -14,6 +14,10 @@ import UnitPicker from './Components/UnitPicker.vue'
 const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
+
+setLayoutProps({
+    saveBarPadding: true,
+})
 
 type UpdateResponse = {
     armyList: ArmyList

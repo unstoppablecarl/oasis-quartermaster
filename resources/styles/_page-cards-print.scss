@@ -1,309 +1,123 @@
 // css spec: 96px = 1 inch
 
 $oneInch: 96px;
-$card-width: 2.5 * $oneInch;
-$card-height: 3.5 * $oneInch;
+$card-inner-width: 70mm;
+$card-inner-height: 120mm;
+
+$bleed: 4mm;
+
+$card-bleed-width: $card-inner-width + $bleed * 2;
+$card-bleed-height: $card-inner-height + $bleed * 2;
+
 
 $page-width: 8.5 * $oneInch;
 $page-height: 11 * $oneInch;
 
-$card-padding-x: 4pt;
-$card-padding-outer: 5pt;
-$armor-border-radius: 50% 50% 50% 50% / 20% 20% 80% 80%;
+$col-per-page: 2;
+$row-per-page: 2;
 
-$card-area-width: $card-width * 3;
-$card-area-height: $card-height * 3;
+$card-area-width: $card-bleed-width * $col-per-page;
+$card-area-height: $card-bleed-height * $row-per-page;
 
 $page-padding-x: ($page-width - $card-area-width) * 0.5;
 $page-padding-y: ($page-height - $card-area-height) * 0.5;
 
-$import-card-width: $card-width * 1.4;
-$import-card-height: $card-height * 1.4;
-
 .page-card-grid {
-  box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 @include color-mode(dark) {
-  body .output-container {
-    --bs-body-color: #000;
-  }
+    body .output-container {
+        --bs-body-color: #000;
+    }
 }
 
-
-$preview-scale: 1.2;
-
-.card-preview-container {
-  width: $card-width * $preview-scale;
-  min-height: $card-height * $preview-scale;
-}
+$grid-gap: 20px;
+$bleed-mark-size: 18px;
 
 .output-container {
+    .page-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, $card-bleed-width);
+        grid-template-rows: repeat(2, $card-bleed-height);
+        justify-content: center;
+        align-content: center;
 
-  --section-heading-bg: #ddd;
-  --sub-heading-bg: #eee;
-  --card-outline-color: #ccc;
-  --card-bg: #fff;
-  --bs-body-color: #000;
-
-  $font-size: 8pt;
-
-  color: #000;
-  font-size: $font-size;
-
-  .shrink-text-90 {
-    font-size: 9pt;
-  }
-
-  &.game-card-preview {
-    display: inline-block;
-    width: auto;
-    transform: scale($preview-scale);
-    transform-origin: top left;
-  }
-
-  .game-card {
-    width: $card-width;
-    height: $card-height;
-    box-sizing: border-box;
-    position: relative;
-    flex-direction: column;
-    line-height: 1.4;
-    outline: 1px solid var(--card-outline-color);
-    background: var(--card-bg);
-
-    .card-content-container {
-      padding: $card-padding-outer;
+        gap: $grid-gap;
+        width: $card-bleed-width * $col-per-page;
+        height: $card-bleed-height * $row-per-page;
+        padding: $page-padding-y $page-padding-x;
+        position: relative;
     }
 
-    .table {
-      background-color: transparent !important;
-
-      td,
-      th,
-      tr,
-      tbody,
-      thead {
-        background-color: transparent !important;
-      }
+    .page-number {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 0.8rem;
     }
-  }
-
-  .page-card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, $card-width);
-    grid-template-rows: repeat(3, $card-height);
-    justify-content: center;
-    align-content: normal;
-    gap: 1px;
-    width: $card-width * 3;
-    height: $card-height * 3;
-    padding: $page-padding-y $page-padding-x;
-  }
-
-  .page-card-grid-flex {
-    display: inline-flex;
-    flex-flow: row wrap;
-    padding: $page-padding-y $page-padding-x;
 
     .game-card {
-      outline: 0;
-      border: 1px solid var(--card-outline-color);
-      margin: -1px 0 0 -1px;
+        width: $card-bleed-width;
+        height: $card-bleed-height;
+        position: relative;
 
-      &.card-support-asset-size-2 {
-        width: $card-area-width - 1px;
-      }
-
-      &.card-support-asset-size-1 {
-        width: $card-area-width * 0.5;
-      }
-    }
-  }
-
-  .card-name {
-    margin: 0 $card-padding-x 2pt;
-    font-size: 80%;
-  }
-
-  .game-card-subtitle {
-    font-weight: $font-weight-light;
-    color: rgb(84, 84, 84);
-  }
-
-  .table-weapons {
-    width: 100%;
-
-    th,
-    td {
-      vertical-align: middle;
-      text-align: left;
-
-      &.stat {
-        width: 18pt;
-        text-align: center;
-      }
-
-      &:first-child {
-        padding-left: 4pt
-      }
-
-      &:last-child {
-        padding-right: 4pt
-      }
-    }
-
-    thead th {
-      text-transform: uppercase;
-      font-size: 80%;
-      padding: 2pt 0;
-      background: var(--section-heading-bg);
-      vertical-align: baseline;
-      line-height: 1;
-    }
-
-    tbody {
-      td.weapon-name {
-        font-weight: bold;
-      }
-
-      .weapon-row-1 {
-        td {
-          padding-bottom: 0;
-        }
-      }
-
-      .weapon-row-2 {
-        font-size: 90%;
-
-        td {
-          padding-top: 0;
-          padding-bottom: 0;
+        .game-card-image {
+            width: $card-bleed-width;
+            height: $card-bleed-height;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
-        &:not(:last-child) {
-          td {
-            border-bottom: 1px solid #eee;
-          }
+
+        %game-card-bleed-outline {
+            border-style: solid;
+            border-color: #000;
+            position: absolute;
         }
-      }
+
+        .game-card-bleed-outline-top {
+            @extend %game-card-bleed-outline;
+            width: $card-inner-width;
+            height: $bleed-mark-size;
+            top: -$bleed-mark-size;
+            border-width: 0 1px;
+            left: $bleed;
+        }
+
+        .game-card-bleed-outline-bottom {
+            @extend %game-card-bleed-outline;
+            width: $card-inner-width;
+            height: $bleed-mark-size;
+            border-width: 0 1px;
+            bottom: -$bleed-mark-size;
+            left: $bleed;
+        }
+
+        .game-card-bleed-outline-left {
+            @extend %game-card-bleed-outline;
+            width: $bleed-mark-size;
+            height: $card-inner-height;
+            border-width: 1px 0;
+            left: -$bleed-mark-size;
+            top: $bleed;
+        }
+
+        .game-card-bleed-outline-right {
+            @extend %game-card-bleed-outline;
+            width: $bleed-mark-size;
+            height: $card-inner-height;
+            border-width: 1px 0;
+            right: -$bleed-mark-size;
+            top: $bleed;
+        }
+
+        .game-card-image-not-found-outline {
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.33);
+            padding: 2rem;
+        }
     }
-  }
-
-  .game-card-footer {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-    font-size: 7pt;
-  }
-
-  .section {
-    padding: 0 $card-padding-x 1pt;
-  }
-
-  .section-heading {
-    background: var(--section-heading-bg);
-    font-size: 80%;
-    font-weight: normal;
-    padding: 2pt $card-padding-x;
-    margin: 2pt 0 1pt;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .stats {
-    height: 16px;
-    line-height: 16px;
-    vertical-align: middle;
-    border-top: 1px solid var(--section-heading-bg);
-  }
-
-  .stat-value {
-    font-weight: bold;
-    margin: 0 3pt 0 0;
-    font-size: 114%;
-  }
-
-  .stat-icon {
-    vertical-align: middle;
-  }
-
-  .upgrades {
-    font-size: 70%;
-    padding: 0 $card-padding-x;
-  }
-
-  .icon-faction {
-    padding: 0 4pt 0 0;
-  }
-
-  .hp,
-  .use {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 1pt solid #444;
-    margin: 2px 1px 1px 0;
-    font-size: 6pt;
-    line-height: 10pt;
-    text-align: center;
-  }
-
-  .hp {
-    border-radius: 1000px;
-  }
-
-  .uses {
-    margin-left: .25rem;
-  }
-
-  .use {
-    border-radius: 0;
-    vertical-align: bottom;
-  }
-
-  .unit-list-item {
-    display: inline-block;
-    white-space: pre-line;
-    font-weight: $font-weight-medium;
-  }
-
-  .details {
-    border-top: 1px solid var(--card-outline-color);
-    padding: 1pt $card-padding-x;
-    font-size: 75%;
-    opacity: 0.9;
-    margin: 3pt 0 0;
-
-    .d-flex {
-      div {
-        text-align: center;
-      }
-    }
-  }
-
-  .game-card-footer {
-    position: absolute;
-    bottom: 2pt;
-    text-align: center;
-    width: 100%;
-    font-size: 7pt;
-    opacity: 0.7;
-    padding: 0 $card-padding-x + $card-padding-outer;
-  }
-}
-
-
-@include color-mode(dark) {
-  .output-container {
-    &.game-card-preview {
-      > .game-card {
-        filter: invert(1);
-        background: rgba(#fff, 0.2);
-        --section-heading-bg: #{rgba(#000, .1)};
-        --card-outline-color: #{rgba(#fff, .4)};
-      }
-    }
-  }
 }

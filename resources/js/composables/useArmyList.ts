@@ -1,6 +1,6 @@
 import { computed, toRef, toValue } from 'vue'
 import { ARMY_LIST_TYPES_BY_ID } from '../../data/army-list-types'
-import { type LocalArmyList, type UnitEntry, useUnitsInfo } from './useUnitsInfo'
+import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 
 export type { UnitEntry }
 
@@ -56,7 +56,43 @@ export function useArmyList(armyList: LocalArmyList) {
         remove,
         reorder,
         maxPoints,
+        unitCards: computed(() => getUnitCards(unitsInfo.value)),
     }
+}
+
+export type UnitCard = {
+    display_name: string
+    type: 'Front' | 'Back'
+    cardImage: string
+}
+
+export function getUnitCards(unitsInfo: UnitEntryInfo[]): UnitCard[] {
+    const output: UnitCard[] = []
+
+    for (const unit of unitsInfo) {
+        const display_name = unit.display_name
+        for (const front of unit.cards_front) {
+            output.push({
+                display_name,
+                type: 'Front',
+                cardImage: front,
+            })
+        }
+        if (!unit.cards_front.length) {
+            output.push({
+                display_name,
+                type: 'Front',
+                cardImage: '',
+            })
+        }
+        output.push({
+            display_name,
+            type: 'Back',
+            cardImage: unit.card_back,
+        })
+    }
+
+    return output
 }
 
 export function getArmyListMaxPoints(armyList: {

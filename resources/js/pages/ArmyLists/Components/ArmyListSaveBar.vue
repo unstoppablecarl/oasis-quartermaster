@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>()
 </script>
 <template>
-    <Teleport to="#page-footer" defer>
+    <Teleport to="#before-page-footer-teleport" defer>
         <div class="save-bar fixed-bottom bg-black border-top">
             <div class="container py-1">
                 <div class="d-flex align-items-center flex-wrap gap-2">

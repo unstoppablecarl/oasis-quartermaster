@@ -1,9 +1,13 @@
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
-import { UNITS_BY_ID } from '../../data/units'
+import { type Unit, UNITS_BY_ID } from '../../data/units'
 
 export type UnitEntry = {
     id: number
     quantity: number
+}
+
+export type UnitEntryInfo = UnitEntry & Unit & {
+    validationMessages: string []
 }
 
 export type LocalArmyList = {
@@ -23,7 +27,7 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
         })
     })
 
-    const unitsInfo = computed(() => {
+    const unitsInfo = computed((): UnitEntryInfo[] => {
         return baseUnits.value.map((u) => {
 
             const cost = u.quantity * u.cost
@@ -35,7 +39,7 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
             if (resolvedMaxPoints !== null && cost > resolvedMaxPoints * 0.5) {
                 validationMessages.push(`Unit cost cannot be greater than 50% of Total Points. (${cost} / ${resolvedMaxPoints * 0.5})`)
             }
-            const halfCount =  Math.ceil(unitCount.value * 0.5)
+            const halfCount = Math.ceil(unitCount.value * 0.5)
 
             if (count > halfCount) {
                 validationMessages.push(`Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`)

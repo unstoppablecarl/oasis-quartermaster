@@ -13,6 +13,10 @@
 @import 'variables';
 
 .app-footer {
+    background: $header-footer-bg;
+}
+
+.app-footer-save-bar-padding {
     padding-bottom: $save-bar-height;
 }
 
@@ -40,10 +44,14 @@
     --bs-popover-header-color: var(--bs-body-color);
 }
 
-body {
+html, body {
     font-optical-sizing: auto;
     font-style: normal;
 
+    background: $header-footer-bg;
+}
+
+.bg-main {
     background-color: #0A0A0A;
 }
 
