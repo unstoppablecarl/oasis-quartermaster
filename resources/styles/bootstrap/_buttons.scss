@@ -37,19 +37,19 @@
     @include btn-transparent-light();
 }
 
-.btn-light-outline {
-    --bs-btn-box-shadow: 0;
-    --bs-btn-active-shadow: 0;
-    --bs-btn-focus-shadow: 0;
-    @include button-variant(
-        rgba(255, 255, 255, 0.0),
-        rgba(255, 255, 255, 0.3),
-        #fff,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.4),
-        #fff
-    );
-}
+//.btn-light-outline {
+//    --bs-btn-box-shadow: 0;
+//    --bs-btn-active-shadow: 0;
+//    --bs-btn-focus-shadow: 0;
+//    @include button-variant(
+//        rgba(255, 255, 255, 0.0),
+//        rgba(255, 255, 255, 0.3),
+//        #fff,
+//        rgba(255, 255, 255, 0.05),
+//        rgba(255, 255, 255, 0.4),
+//        #fff
+//    );
+//}
 
 .btn-default {
     @include button-variant(
@@ -112,10 +112,10 @@
     vertical-align: middle;
 }
 
-.btn-sm-py {
-    display: inline-block;
-    padding: $btn-padding-y-sm 0;
-    @include font-size(var(--#{$prefix}btn-font-size, $btn-font-size));
-    line-height: $btn-line-height;
-    vertical-align: middle;
-}
+//.btn-sm-py {
+//    display: inline-block;
+//    padding: $btn-padding-y-sm 0;
+//    @include font-size(var(--#{$prefix}btn-font-size, $btn-font-size));
+//    line-height: $btn-line-height;
+//    vertical-align: middle;
+//}

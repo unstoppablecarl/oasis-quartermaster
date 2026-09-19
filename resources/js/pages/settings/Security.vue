@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
-import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import { edit } from '@/routes/security';
+import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController'
+import Heading from '@/components/Heading.vue'
+import InputError from '@/components/InputError.vue'
+import PasswordInput from '@/components/PasswordInput.vue'
+import { Form, Head } from '@inertiajs/vue3'
 
 // oxfmt-ignore
 type Props = {
     passwordRules: string;
-} ;
+};
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 </script>
 
 <template>
@@ -42,7 +41,7 @@ const props = defineProps<Props>();
         >
             <div>
                 <label for="current_password" class="form-label"
-                    >Current password</label
+                >Current password</label
                 >
                 <PasswordInput
                     id="current_password"
@@ -67,7 +66,7 @@ const props = defineProps<Props>();
 
             <div>
                 <label for="password_confirmation" class="form-label"
-                    >Confirm password</label
+                >Confirm password</label
                 >
                 <PasswordInput
                     id="password_confirmation"

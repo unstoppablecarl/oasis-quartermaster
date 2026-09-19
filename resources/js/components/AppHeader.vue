@@ -51,7 +51,7 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                 >
                     <img src="/images/logo.svg" alt="Oasis Logo" class="logo-img">
 
-                    <span class="text-sulfur title fs-2 ms-2">
+                    <span class="text-sulfur title fs-2 ms-2 logo-subheading">
                         Quartermaster
                     </span>
                 </Link>
@@ -137,3 +137,9 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
         </nav>
     </div>
 </template>
+<style lang="scss">
+.logo-subheading {
+    vertical-align: middle;
+}
+
+</style>

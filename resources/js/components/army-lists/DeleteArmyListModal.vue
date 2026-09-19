@@ -2,7 +2,7 @@
 import ArmyListController from '@/actions/App/Http/Controllers/ArmyListController'
 import type { ArmyList } from '@/types/army-list'
 import { router } from '@inertiajs/vue3'
-import { PhPencilSimple, PhTrash } from '@phosphor-icons/vue'
+import { PhTrash } from '@phosphor-icons/vue'
 import { BModal, type BvTriggerableEvent, vBTooltip } from 'bootstrap-vue-next'
 import { ref } from 'vue'
 
