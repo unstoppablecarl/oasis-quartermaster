@@ -11,6 +11,19 @@ $heading-border-color: #7d8ba2;
     background: $page-preview-bg;
     padding: 20px 0;
     border-top: 1px solid #444;
+    color: #000;
+    --bs-body-color: #000;
+
+    .table,
+    .table th,
+    .table caption {
+        color: #000;
+        --bs-table-color: #000;
+    }
+
+    .text-muted {
+        color: rgba(0, 0, 0, 0.5) !important;
+    }
 }
 
 .page-preview {
@@ -25,8 +38,15 @@ $heading-border-color: #7d8ba2;
         width: $page-letter-width;
         height: $page-letter-height;
     }
+
+    &.padded {
+        padding: 0.5in;
+    }
 }
 
+.print-settings-container {
+    width: $page-letter-width;
+}
 
 @page {
     margin: 0;
