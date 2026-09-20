@@ -109,7 +109,7 @@ export const UNITS: Record<string, Unit> = {
         ],
         cards_front: [
             'Tigershark.png',
-            'TigerShark 2.png',
+            'Tigershark 2.png',
         ],
         card_back: 'Tigershark Back.png',
     },
