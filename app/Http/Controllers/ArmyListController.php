@@ -39,7 +39,12 @@ class ArmyListController
         Gate::authorize('create', ArmyList::class);
 
         $armyList = new ArmyList;
-        $armyList->fill($request->safe()->only(['display_name', 'army_list_type_id', 'custom_max_points']));
+        $armyList->fill($request->safe()->only([
+            'display_name',
+            'army_list_type_id',
+            'custom_max_points',
+            'public',
+        ]));
         $armyList->user_id = $request->user()->id;
         $armyList->save();
 
@@ -76,7 +81,12 @@ class ArmyListController
     {
         Gate::authorize('update', $armyList);
 
-        $armyList->update($request->safe()->only(['display_name', 'army_list_type_id', 'custom_max_points']));
+        $armyList->update($request->safe()->only([
+            'display_name',
+            'army_list_type_id',
+            'custom_max_points',
+            'public',
+        ]));
 
         $armyList->units()->sync($this->unitsForSync($request));
 

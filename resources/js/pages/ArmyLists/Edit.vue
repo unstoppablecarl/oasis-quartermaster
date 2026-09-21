@@ -22,6 +22,7 @@ setLayoutProps({
 type UpdateResponse = {
     armyList: ArmyList
     message: string
+    public: boolean
 }
 
 const http = useHttp<LocalArmyList, UpdateResponse>({
@@ -29,6 +30,7 @@ const http = useHttp<LocalArmyList, UpdateResponse>({
     units: armyList.units.map((u) => ({ ...u })),
     army_list_type_id: armyList.army_list_type_id,
     custom_max_points: armyList.custom_max_points,
+    public: armyList.public,
 })
 
 const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(http)
@@ -43,6 +45,7 @@ function update() {
             armyList.army_list_type_id = response.armyList.army_list_type_id
             armyList.custom_max_points = response.armyList.custom_max_points
             armyList.units = response.armyList.units.map((u) => ({ ...u }))
+            armyList.public = response.public
             toast.success(response.message)
         },
         onError: () => {

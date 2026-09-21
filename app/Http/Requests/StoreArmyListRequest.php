@@ -19,6 +19,7 @@ class StoreArmyListRequest extends FormRequest
             'army_list_type_id' => ['nullable', 'integer', 'exists:army_list_types,id'],
             'custom_max_points' => ['nullable', 'integer', 'min:1'],
             'units' => ['array'],
+            'public' => 'required|boolean',
             'units.*.id' => ['required', 'integer', 'exists:units,id'],
             'units.*.quantity' => ['required', 'integer', 'min:1'],
         ];

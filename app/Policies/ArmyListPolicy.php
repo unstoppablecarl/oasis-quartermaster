@@ -4,17 +4,26 @@ namespace App\Policies;
 
 use App\Models\ArmyList;
 use App\Models\User;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArmyListPolicy
 {
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
         return true;
     }
 
-    public function view(User $user, ArmyList $armyList): bool
+    public function view(?User $user, ArmyList $armyList): bool
     {
-        return $this->isOwner($user, $armyList);
+        if ($this->isOwner($user, $armyList)) {
+            return true;
+        }
+
+        if ($armyList->public) {
+            return true;
+        }
+
+        throw new NotFoundHttpException();
     }
 
     public function create(?User $user): bool
@@ -32,8 +41,11 @@ class ArmyListPolicy
         return $this->isOwner($user, $armyList);
     }
 
-    protected function isOwner(User $user, ArmyList $armyList): bool
+    protected function isOwner(?User $user, ArmyList $armyList): bool
     {
+        if (!$user) {
+            return false;
+        }
         return $armyList->user_id === $user->id;
     }
 }

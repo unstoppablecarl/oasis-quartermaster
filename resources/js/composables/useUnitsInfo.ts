@@ -15,6 +15,7 @@ export type LocalArmyList = {
     units: UnitEntry[]
     army_list_type_id: number | null
     custom_max_points: number | null
+    public: boolean
 }
 
 export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: MaybeRefOrGetter<number | null>) {

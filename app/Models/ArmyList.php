@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  */
 #[UseResource(ArmyListResource::class)]
-#[Fillable(['display_name', 'army_list_type_id', 'custom_max_points'])]
+#[Fillable(['display_name', 'army_list_type_id', 'custom_max_points', 'public'])]
 class ArmyList extends Model
 {
     /** @use HasFactory<ArmyListFactory> */

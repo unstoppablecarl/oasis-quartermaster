@@ -38,7 +38,7 @@ const { armyList, idPrefix } = defineProps<{
             :disabled="!armyList.can.update"
             :href="edit(armyList.uuid)"
             class="btn btn-sm btn-outline-secondary"
-            :class="{active: isCurrentUrl(edit(armyList))}"
+            :class="{active: isCurrentUrl(edit(armyList)), disabled: !armyList.can.update}"
             :id="`${idPrefix}unit-controls-edit`"
         >
             <PhPencilSimple :size="16" />

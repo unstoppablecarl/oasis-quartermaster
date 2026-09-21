@@ -20,6 +20,7 @@ class ArmyListResource extends JsonResource
             'army_list_type' => $this->whenLoaded('armyListType', fn () => $this->armyListType ? new ArmyListTypeResource($this->armyListType) : null),
             'custom_max_points' => $this->custom_max_points,
             'max_points' => $this->maxPoints,
+            'public' => $this->public,
             'units' => $this->whenLoaded('units', fn () => $this->units->map(fn ($unit) => [
                 'id' => $unit->id,
                 'quantity' => $unit->pivot->quantity,
