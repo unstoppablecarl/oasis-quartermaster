@@ -25,7 +25,8 @@ type UpdateResponse = {
     public: boolean
 }
 
-const http = useHttp<LocalArmyList, UpdateResponse>({
+const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
+    uuid: armyList.uuid,
     display_name: armyList.display_name,
     units: armyList.units.map((u) => ({ ...u })),
     army_list_type_id: armyList.army_list_type_id,

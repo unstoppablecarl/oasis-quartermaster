@@ -4,11 +4,12 @@ import { computed, watch } from 'vue'
 import { ARMY_LIST_TYPES } from '../../../../data/army-list-types'
 import InputError from '../../../components/InputError.vue'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import BtnCopyLink from './BtnCopyLink.vue'
 
-const { armyList, errors } = defineProps<{
+const { armyList, errors, isCreating = false } = defineProps<{
     armyList: Pick<
         LocalArmyList,
-        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public'
+        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid'
     >
     errors?: Partial<
         Record<
@@ -16,6 +17,7 @@ const { armyList, errors } = defineProps<{
             string
         >
     >
+    isCreating?: boolean
 }>()
 
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
@@ -66,22 +68,29 @@ watch(isCustomArmyListType, (isCustom) => {
             <InputError class="mt-2" :message="errors?.army_list_type_id" />
         </div>
 
-        <div class="col">
+        <div class="col" v-if="!isCreating">
             <label for="army_list_type_id" class="form-label title-font">
                 Visibility
             </label>
-            <BFormCheckbox
-                id="public"
-                v-model="armyList.public"
-                name="public"
-                :value="1"
-                :unchecked-value="0"
-                class="py-1"
-            >
-                Publicly Visible
-            </BFormCheckbox>
+            <div class="d-flex">
+                <div>
+                    <BFormCheckbox
+                        id="public"
+                        v-model="armyList.public"
+                        name="public"
+                        :value="1"
+                        :unchecked-value="0"
+                        class="py-1"
+                    >
+                        Publicly Visible
+                    </BFormCheckbox>
 
-            <InputError class="mt-2" :message="errors?.public" />
+                    <InputError class="mt-2" :message="errors?.public" />
+                </div>
+                <div class="ms-2" v-if="armyList.uuid">
+                    <BtnCopyLink :army-list-uuid="armyList.uuid" :disabled="!armyList.public"  />
+                </div>
+            </div>
         </div>
     </div>
     <div class="mb-3" v-if="isCustomArmyListType">

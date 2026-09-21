@@ -6,6 +6,7 @@ import DeleteArmyListModal from '../../../components/army-lists/DeleteArmyListMo
 import { useCurrentUrl } from '../../../composables/useCurrentUrl'
 import { edit, print, show } from '../../../routes/army-lists'
 import type { ArmyList } from '../../../types/army-list'
+import BtnCopyLink from './BtnCopyLink.vue'
 
 const { isCurrentUrl } = useCurrentUrl()
 
@@ -15,6 +16,8 @@ const { armyList, idPrefix } = defineProps<{
 }>()
 </script>
 <template>
+    <BtnCopyLink v-if="armyList.public" :army-list-uuid="armyList.uuid" class="me-2" />
+
     <div class="btn-group btn-group-sm">
         <Link
             :href="show(armyList.uuid)"

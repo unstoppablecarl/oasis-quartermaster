@@ -23,7 +23,7 @@ const {
             <div id="before-page-footer-teleport" />
         </div>
         <AppFooter v-if="showFooter" :save-bar-padding="saveBarPadding" />
-        <Toaster />
+        <Toaster richColors theme="dark" />
     </div>
     <div id="after-app-teleport"></div>
 </template>

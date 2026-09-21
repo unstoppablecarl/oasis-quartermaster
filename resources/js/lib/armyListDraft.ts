@@ -61,6 +61,7 @@ function makeDraft(): LocalArmyList {
         units: [],
         army_list_type_id: allArmyListTypes[0]?.id ?? null,
         custom_max_points: null,
+        public: false,
     }
 }
 
@@ -70,5 +71,6 @@ export function toLocalArmyList(armyList: ArmyList | LocalArmyList): LocalArmyLi
         units: armyList.units.map((u) => ({ ...u })),
         army_list_type_id: armyList.army_list_type_id,
         custom_max_points: armyList.custom_max_points,
+        public: armyList.public,
     }
 }

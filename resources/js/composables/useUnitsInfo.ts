@@ -11,6 +11,7 @@ export type UnitEntryInfo = UnitEntry & Unit & {
 }
 
 export type LocalArmyList = {
+    uuid?: string
     display_name: string
     units: UnitEntry[]
     army_list_type_id: number | null

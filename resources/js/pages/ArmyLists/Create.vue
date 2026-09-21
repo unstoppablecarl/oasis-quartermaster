@@ -25,6 +25,7 @@ watch(
         () => form.army_list_type_id,
         () => form.custom_max_points,
         () => form.units,
+        () => form.public,
     ],
     () => {
         if (auth.value.user) {
@@ -53,7 +54,7 @@ function save() {
 
     <ArmyListItemHeader title="Create" description="Army List" />
 
-    <ArmyListFields :army-list="form" :errors="form.errors" />
+    <ArmyListFields :is-creating="true" :army-list="form" :errors="form.errors" />
 
     <ArmyListUnits
         :units="form.units"
