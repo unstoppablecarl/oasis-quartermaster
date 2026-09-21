@@ -10,7 +10,7 @@ const { armyListUuid } = defineProps<{
 
 async function copy() {
     try {
-        let url = window.location + show(armyListUuid).url
+        let url = window.location.origin + show(armyListUuid).url
         await navigator.clipboard.writeText(url)
 
         toast.success('Army List Coppied')
