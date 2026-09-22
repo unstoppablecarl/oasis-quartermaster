@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { BFormCheckbox } from 'bootstrap-vue-next'
-import { computed, watch } from 'vue'
+import { computed, toRaw, watch } from 'vue'
 import { ARMY_LIST_TYPES } from '../../../../data/army-list-types'
+import FactionSelectModal from '../../../components/army-lists/FactionSelectModal.vue'
 import InputError from '../../../components/InputError.vue'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { FACTIONS_BY_ID } from '../../../lib/static-data-helpers'
 import BtnCopyLink from './BtnCopyLink.vue'
 
 const { armyList, errors, isCreating = false } = defineProps<{
     armyList: Pick<
         LocalArmyList,
-        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid'
+        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid' | 'faction_id'
     >
     errors?: Partial<
         Record<
@@ -22,6 +24,9 @@ const { armyList, errors, isCreating = false } = defineProps<{
 
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
 const isCustomArmyListType = computed(() => armyList.army_list_type_id === null)
+
+console.log('z', toRaw(armyList))
+const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
 
 watch(isCustomArmyListType, (isCustom) => {
     if (!isCustom) {
@@ -88,24 +93,32 @@ watch(isCustomArmyListType, (isCustom) => {
                     <InputError class="mt-2" :message="errors?.public" />
                 </div>
                 <div class="ms-2" v-if="armyList.uuid">
-                    <BtnCopyLink :army-list-uuid="armyList.uuid" :disabled="!armyList.public"  />
+                    <BtnCopyLink :army-list-uuid="armyList.uuid" :disabled="!armyList.public" />
                 </div>
             </div>
         </div>
     </div>
-    <div class="mb-3" v-if="isCustomArmyListType">
-        <label for="custom_max_points" class="form-label title-font"
-        >Custom Max Points</label
-        >
-        <input
-            id="custom_max_points"
-            type="number"
-            min="1"
-            class="form-control"
-            name="custom_max_points"
-            required
-            v-model.number="armyList.custom_max_points"
-        />
-        <InputError class="mt-2" :message="errors?.custom_max_points" />
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label title-font d-block">Faction</label>
+            {{ faction.display_name }}
+            <FactionSelectModal v-model="armyList.faction_id" class="ms-2" />
+        </div>
+
+        <div class="col" v-if="isCustomArmyListType">
+            <label for="custom_max_points" class="form-label title-font"
+            >Custom Max Points</label
+            >
+            <input
+                id="custom_max_points"
+                type="number"
+                min="1"
+                class="form-control"
+                name="custom_max_points"
+                required
+                v-model.number="armyList.custom_max_points"
+            />
+            <InputError class="mt-2" :message="errors?.custom_max_points" />
+        </div>
     </div>
 </template>

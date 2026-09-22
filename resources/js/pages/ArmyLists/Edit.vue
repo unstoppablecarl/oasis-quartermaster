@@ -33,6 +33,8 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
     army_list_type_id: armyList.army_list_type_id,
     custom_max_points: armyList.custom_max_points,
     public: armyList.public,
+    faction_id: armyList.faction_id,
+    commands: armyList.commands,
 })
 
 const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(http)
