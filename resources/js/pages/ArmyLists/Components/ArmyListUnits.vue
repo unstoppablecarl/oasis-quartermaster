@@ -63,10 +63,10 @@ function minus(unit: UnitEntry) {
                         <div class="number-cell">Dodge</div>
                         <div class="number-cell">Defense</div>
                         <div class="number-cell">HP</div>
-                        <div class="number-cell">Speed</div>
+                        <div class="number-cell">Move</div>
                         <div>Weapons</div>
                         <div>Traits</div>
-                        <div>Abilities</div>
+                        <div class="text-teal">Abilities</div>
                         <div class="number-cell px-1">Pts</div>
                         <div class="px-0 text-muted"><span class="text-muted">&times;</span></div>
                         <div class="number-cell px-1">Qty</div>
@@ -94,19 +94,19 @@ function minus(unit: UnitEntry) {
                         <div class="number-cell">{{ unit.hp }}</div>
                         <div class="number-cell ws-nowrap">{{ unit.speed }}</div>
                         <div>{{ unit.weapons.map((w: any) => w.name).join(', ') }}</div>
-                        <div class="text-teal">{{ unit.traits.join(', ') }}</div>
-                        <div>{{ unit.abilities.join(', ') }}</div>
+                        <div>{{ unit.traits.join(', ') }}</div>
+                        <div class="text-teal">{{ unit.abilities.join(', ') }}</div>
 
                         <div class="number-cell px-1">{{ unit.cost }}</div>
                         <div class="px-0 text-muted">&times;</div>
                         <div class="number-cell px-1">{{ unit.quantity }}</div>
                         <div class="px-0 text-muted">=</div>
                         <div class="number-cell fw-bold px-1">{{ unit.quantity * unit.cost }}</div>
-                        <div class="py-1 ws-nowrap" :class="{'invisible': !showControls}">
-                            <div class="btn-group btn-group-sm">
+                        <div class="py-1" :class="{'invisible': !showControls}">
+                            <div class="btn-group btn-group-sm me-1">
                                 <button
                                     role="button"
-                                    class="btn btn-minus"
+                                    class="btn btn-minus btn-sm"
                                     :class="{
                                             'btn-secondary': unit.quantity !== 0,
                                             'btn-danger': unit.quantity === 0,
@@ -119,7 +119,7 @@ function minus(unit: UnitEntry) {
                                 </button>
                                 <button
                                     role="button"
-                                    class="btn btn-secondary"
+                                    class="btn btn-secondary btn-sm"
                                     @click="emit('add', unit.id)"
                                     :id="`btn-add-1-${unit.id}`"
                                 >
@@ -127,14 +127,26 @@ function minus(unit: UnitEntry) {
                                 </button>
                             </div>
 
+                            <button
+                                role="button"
+                                class="btn btn-danger btn-sm"
+                                @click="emit('remove', unit.id)"
+                                :id="`btn-remove-all-${unit.id}`"
+                            >
+                                <X :strokeWidth="2.5" :size="16" />
+                            </button>
+
                             <BTooltip :target="`#btn-remove-1-${unit.id}`" v-if="unit.quantity !== 0">
                                 Remove 1
                             </BTooltip>
                             <BTooltip :target="`#btn-add-1-${unit.id}`">
                                 Add 1
                             </BTooltip>
-                            <UnitCardModal :unit-id="unit.id" />
+                            <BTooltip :target="`#btn-remove-all-${unit.id}`">
+                                Remove All
+                            </BTooltip>
 
+                            <UnitCardModal :unit-id="unit.id" />
                         </div>
                         <div class="error-msg" :class="{'error-msg-empty': !unit.validationMessages.length}">
                             <div v-for="message in unit.validationMessages" :key="message">{{ message }}</div>
@@ -161,8 +173,8 @@ function minus(unit: UnitEntry) {
     .table-grid {
         display: grid;
         grid-template-columns:
-        40px 2fr max-content max-content max-content max-content max-content
-        1fr 1fr 1fr max-content 15px max-content 15px max-content 120px;
+        40px max-content max-content max-content max-content max-content max-content
+        1fr 1fr 1fr max-content 15px max-content 15px max-content max-content;
     }
 
     .unit-row-ghost {
@@ -195,6 +207,9 @@ function minus(unit: UnitEntry) {
 
     .grid-header {
         font-weight: bold;
+        > div {
+            color: #fff;
+        }
     }
 
     .grid-header,

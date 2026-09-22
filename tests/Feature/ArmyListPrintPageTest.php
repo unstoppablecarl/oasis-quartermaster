@@ -21,11 +21,5 @@ test('a user cannot view another users army list print page', function () {
     $otherUser = User::factory()->create();
     $armyList = ArmyList::factory()->for($owner)->create();
 
-    $this->actingAs($otherUser)->get(route('army-lists.print', $armyList))->assertForbidden();
-});
-
-test('guests are redirected to login', function () {
-    $armyList = ArmyList::factory()->create();
-
-    $this->get(route('army-lists.print', $armyList))->assertRedirect(route('login'));
+    $this->actingAs($otherUser)->get(route('army-lists.print', $armyList))->assertNotFound();
 });

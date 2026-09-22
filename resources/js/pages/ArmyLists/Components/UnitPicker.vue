@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Plus } from '@lucide/vue'
 import { PhPlus } from '@phosphor-icons/vue'
 import { vBTooltip } from 'bootstrap-vue-next'
 import { UNITS } from '../../../../data/units'
@@ -15,7 +16,7 @@ const allUnits = Object.values(UNITS)
     <div class="card mb-3">
         <div class="card-body">
 
-            <HazardTitle variant="teal" class="ms-2">
+            <HazardTitle variant="teal">
                 Recruits
             </HazardTitle>
 
@@ -27,12 +28,11 @@ const allUnits = Object.values(UNITS)
                     <th>Dodge</th>
                     <th>Defense</th>
                     <th>HP</th>
-                    <th>Speed</th>
+                    <th>Move</th>
                     <th>Weapons</th>
                     <th>Traits</th>
-                    <th>Abilities</th>
+                    <th class="text-teal">Abilities</th>
                     <th>Cost</th>
-                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -45,12 +45,10 @@ const allUnits = Object.values(UNITS)
                     <td>{{ unit.hp }}</td>
                     <td>{{ unit.speed }}</td>
                     <td>{{ unit.weapons.map((w: any) => w.name).join(', ') }}</td>
-                    <td class="text-teal">{{ unit.traits.join(', ') }}</td>
-                    <td>{{ unit.abilities.join(', ') }}</td>
+                    <td>{{ unit.traits.join(', ') }}</td>
+                    <td class="text-teal">{{ unit.abilities.join(', ') }}</td>
                     <td>{{ unit.cost }}</td>
                     <td class="ws-nowrap">
-
-
                         <button
                             type="button"
                             class="btn btn-sm btn-primary"
@@ -58,9 +56,8 @@ const allUnits = Object.values(UNITS)
                             v-b-tooltip.hover.top
                             title="Add to List"
                         >
-                            <PhPlus :size="16" />
+                            <Plus :strokeWidth="2.5" :size="16" />
                         </button>
-
 
                         <UnitCardModal :unit-id="unit.id" />
                     </td>

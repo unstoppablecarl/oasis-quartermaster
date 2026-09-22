@@ -17,6 +17,7 @@ const { armyList } = defineProps<{
 
 setLayoutProps({
     saveBarPadding: true,
+    containerFluid: true,
 })
 
 type UpdateResponse = {

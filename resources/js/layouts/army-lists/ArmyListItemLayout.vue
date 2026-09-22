@@ -12,7 +12,6 @@ const { armyList, title } = defineProps<{
     <div>
         <ArmyListItemHeader :title="title" :description="armyList.display_name">
             <ArmyListControls :army-list="armyList" />
-
         </ArmyListItemHeader>
 
         <slot />

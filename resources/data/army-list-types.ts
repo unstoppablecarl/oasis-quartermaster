@@ -7,7 +7,7 @@ export type ArmyListType = {
 export const ARMY_LIST_TYPES: Record<string, ArmyListType> = {
     SALVAGE: {
         id: 1,
-        display_name: 'Salvage',
+        display_name: 'Standard Salvage',
         max_points: 400,
     },
 }
@@ -16,12 +16,14 @@ export const ARMY_LIST_TYPES_BY_ID = Object.fromEntries(Object.values(ARMY_LIST_
     return [v.id, v]
 }))
 
-const ids: number[] = []
-for (const [key, armyListType] of Object.entries(ARMY_LIST_TYPES)) {
+if (import.meta?.env?.DEV) {
+    const ids: number[] = []
+    for (const [key, item] of Object.entries(ARMY_LIST_TYPES)) {
 
-    if (ids.includes(armyListType.id)) {
-        throw new Error(`duplicate army list type id: ${armyListType.id}`)
+        if (ids.includes(item.id)) {
+            throw new Error(`duplicate army list type id: ${item.id}`)
+        }
+
+        ids.push(item.id)
     }
-
-    ids.push(armyListType.id)
 }

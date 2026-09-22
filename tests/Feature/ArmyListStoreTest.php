@@ -11,6 +11,7 @@ test('user can create an army list with an army list type', function () {
     $response = $this->actingAs($user)->post(route('army-lists.store'), [
         'display_name' => 'My New List',
         'army_list_type_id' => $armyListType->id,
+        'public' => false,
     ]);
 
     $armyList = ArmyList::where('display_name', 'My New List')->firstOrFail();
@@ -44,6 +45,7 @@ test('custom max points is saved when creating an army list without an army list
     $this->actingAs($user)->post(route('army-lists.store'), [
         'display_name' => 'My New List',
         'custom_max_points' => 600,
+        'public' => true,
     ]);
 
     $armyList = ArmyList::where('display_name', 'My New List')->firstOrFail();

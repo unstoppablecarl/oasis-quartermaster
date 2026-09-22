@@ -13,6 +13,7 @@ test('owner can update display name and sync units as json', function () {
     $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => 'Updated Name',
         'army_list_type_id' => $armyList->army_list_type_id,
+        'public' => false,
         'units' => [
             ['id' => $units[0]->id, 'quantity' => 3],
             ['id' => $units[1]->id, 'quantity' => 1],
@@ -46,6 +47,7 @@ test('updating units replaces the previous set', function () {
     $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $armyList->army_list_type_id,
+        'public' => false,
         'units' => [
             ['id' => $units[1]->id, 'quantity' => 2],
         ],
@@ -64,6 +66,7 @@ test('units are persisted in the submitted display order', function () {
     $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $armyList->army_list_type_id,
+        'public' => false,
         'units' => [
             ['id' => $units[2]->id, 'quantity' => 1],
             ['id' => $units[0]->id, 'quantity' => 1],
@@ -86,6 +89,7 @@ test('a user cannot update another users army list', function () {
     $this->actingAs($otherUser)->putJson(route('army-lists.update', $armyList), [
         'display_name' => 'Hacked',
         'army_list_type_id' => $armyList->army_list_type_id,
+        'public' => true,
     ])->assertForbidden();
 });
 
@@ -119,6 +123,7 @@ test('owner can update the army list type', function () {
     $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $newType->id,
+        'public' => true,
     ]);
 
     $response->assertOk();
@@ -156,6 +161,7 @@ test('custom max points is saved and used as the max points when no army list ty
         'display_name' => $armyList->display_name,
         'army_list_type_id' => null,
         'custom_max_points' => 750,
+        'public' => true
     ]);
 
     $response->assertOk();

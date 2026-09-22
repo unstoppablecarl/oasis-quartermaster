@@ -47,7 +47,7 @@ watch(isCustomArmyListType, (isCustom) => {
 
         <div class="col">
             <label for="army_list_type_id" class="form-label title-font">
-                Type
+                Game Mode
             </label>
             <select
                 id="army_list_type_id"
