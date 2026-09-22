@@ -1,3 +1,10 @@
+import type { CommandId } from '../../data/commands'
+import type { FactionId } from '../../data/factions'
+
+type Command = {
+    id: CommandId,
+}
+
 export type ArmyList = {
     uuid: string
     display_name: string
@@ -5,6 +12,7 @@ export type ArmyList = {
     custom_max_points: number | null
     public: boolean
     faction_id: FactionId,
+    commands: Command[],
     units: {
         id: number
         quantity: number

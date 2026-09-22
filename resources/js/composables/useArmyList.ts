@@ -1,6 +1,6 @@
 import { computed, toRef, toValue } from 'vue'
 import { ARMY_LIST_TYPES_BY_ID } from '../../data/army-list-types'
-import { FACTIONS_BY_ID } from '../lib/static-data-helpers'
+import { COMMANDS_BY_ID, FACTIONS_BY_ID } from '../lib/static-data-helpers'
 import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 
 export type { UnitEntry }
@@ -12,6 +12,7 @@ export function useArmyList(armyList: LocalArmyList) {
     const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units, maxPoints)
 
     const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
+    const commands = computed(() => armyList.commands.map(c => COMMANDS_BY_ID[c.id]))
 
     function add(unitId: number, quantity = 1) {
         const existing = units.value.find((v) => v.id === unitId)
@@ -60,6 +61,7 @@ export function useArmyList(armyList: LocalArmyList) {
         reorder,
         maxPoints,
         faction,
+        commands,
         unitCards: computed(() => getUnitCards(unitsInfo.value)),
     }
 }

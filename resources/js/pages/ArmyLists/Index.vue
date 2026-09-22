@@ -14,7 +14,7 @@ const { armyLists } = defineProps<{
 
 const armyListsInfo = computed(() => {
     return armyLists.map(a => {
-        const { maxPoints, totalCost, unitCount, faction } = useArmyList(a)
+        const { maxPoints, totalCost, unitCount, faction, commands } = useArmyList(a)
         return {
             armyList: a,
             display_name: a.display_name,
@@ -22,6 +22,7 @@ const armyListsInfo = computed(() => {
             totalCost,
             maxPoints,
             unitCount,
+            commands: commands.value.map(c => c.display_name),
             faction: faction.value.display_name,
         }
     })
@@ -39,6 +40,7 @@ const armyListsInfo = computed(() => {
             <th>Name</th>
             <th>Type</th>
             <th>Faction</th>
+            <th>Commands</th>
             <th class="number-cell">Unit Count</th>
             <th class="number-cell">Points</th>
             <th></th>
@@ -59,6 +61,9 @@ const armyListsInfo = computed(() => {
             </td>
             <td>
                 {{ item.faction }}
+            </td>
+            <td>
+                {{ item.commands.join(', ') }}
             </td>
             <td class="number-cell">
                 {{ item.unitCount }}
