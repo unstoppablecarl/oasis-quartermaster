@@ -3,7 +3,7 @@
 // Regenerates units.ts from master-unit-grid.csv. Re-run this any time the
 // grid is updated: `npm run import:units`.
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { transformWithOxc } from 'vite'
@@ -94,6 +94,7 @@ function resolveColumns(headerRow) {
 
     return {
         COL: {
+            ID: col('Unique ID'),
             QTY_IN_BASE_SET: col('Qty in Base Set'),
             NAME: col('Name'),
             CLASS_TYPE: col('Class'),
@@ -217,23 +218,6 @@ function parseWeapon(row, weaponCols) {
     }
 }
 
-function loadExistingIds(filePath) {
-    if (!existsSync(filePath)) {
-        return {}
-    }
-
-    const text = readFileSync(filePath, 'utf8')
-    const ids = {}
-    const pattern = /^ {4}(\w+): \{\n {8}id: (\d+),/gm
-
-    let match
-    while ((match = pattern.exec(text)) !== null) {
-        ids[match[1]] = Number(match[2])
-    }
-
-    return ids
-}
-
 function parseUnit(row, id, columns) {
     const { COL, WEAPON_COLS, ABILITY_COLS, TRAIT_COLS } = columns
     let cardFrontRaw = str(row[COL.CARDS_FRONT])
@@ -312,13 +296,8 @@ async function main() {
     const columns = resolveColumns(allRows[HEADER_ROW_INDEX])
     const rows = allRows.slice(HEADER_ROW_INDEX + 1).filter((row) => str(row[columns.COL.NAME]))
 
-    // Ids are keyed by the unit's slug so re-running the importer never
-    // changes an id for a unit that's still in the grid, even if rows are
-    // reordered, inserted, or removed. New units get the next unused id.
-    const existingIds = loadExistingIds(outPath)
-    let nextId = Object.values(existingIds).reduce((max, id) => Math.max(max, id), 0) + 1
-
     const usedKeys = new Set()
+    const usedIds = new Set()
     const units = {}
 
     for (const row of rows) {
@@ -330,13 +309,16 @@ async function main() {
         }
         usedKeys.add(key)
 
-        const id = existingIds[key] ?? nextId++
-        units[key] = parseUnit(row, id, columns)
-    }
+        const id = num(row[columns.COL.ID])
+        if (id === null) {
+            throw new Error(`missing Unique ID for unit: ${name}`)
+        }
+        if (usedIds.has(id)) {
+            throw new Error(`duplicate Unique ID ${id} for unit: ${name}`)
+        }
+        usedIds.add(id)
 
-    const removedKeys = Object.keys(existingIds).filter((key) => !usedKeys.has(key))
-    if (removedKeys.length > 0) {
-        console.warn(`Note: these units are no longer in the CSV, their ids will not be reused: ${removedKeys.join(', ')}`)
+        units[key] = parseUnit(row, id, columns)
     }
 
     const { validateUnits } = await loadAbilitiesModule(abilitiesPath)

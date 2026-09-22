@@ -2,6 +2,8 @@
 
 use App\Models\ArmyList;
 use App\Models\ArmyListType;
+use App\Models\Command;
+use App\Models\Faction;
 use App\Models\Unit;
 use App\Models\User;
 
@@ -9,14 +11,20 @@ test('owner can update display name and sync units as json', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create(['display_name' => 'Original']);
     $units = Unit::factory()->count(2)->create();
+    $commands = Command::factory()->count(2)->create();
 
     $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => 'Updated Name',
         'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
         'public' => false,
         'units' => [
             ['id' => $units[0]->id, 'quantity' => 3],
             ['id' => $units[1]->id, 'quantity' => 1],
+        ],
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
         ],
     ]);
 
@@ -43,13 +51,19 @@ test('updating units replaces the previous set', function () {
     $armyList = ArmyList::factory()->for($user)->create();
     $units = Unit::factory()->count(2)->create();
     $armyList->units()->attach($units[0]->id, ['quantity' => 5, 'display_order' => 0]);
+    $commands = Command::factory()->count(2)->create();
 
     $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
         'public' => false,
         'units' => [
             ['id' => $units[1]->id, 'quantity' => 2],
+        ],
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
         ],
     ])->assertOk();
 
@@ -62,15 +76,21 @@ test('units are persisted in the submitted display order', function () {
     $units = Unit::factory()->count(3)->create();
     $armyList->units()->attach($units[0]->id, ['quantity' => 1, 'display_order' => 0]);
     $armyList->units()->attach($units[1]->id, ['quantity' => 1, 'display_order' => 1]);
+    $commands = Command::factory()->count(2)->create();
 
     $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
         'public' => false,
         'units' => [
             ['id' => $units[2]->id, 'quantity' => 1],
             ['id' => $units[0]->id, 'quantity' => 1],
             ['id' => $units[1]->id, 'quantity' => 1],
+        ],
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
         ],
     ])->assertOk();
 
@@ -85,11 +105,17 @@ test('a user cannot update another users army list', function () {
     $owner = User::factory()->create();
     $otherUser = User::factory()->create();
     $armyList = ArmyList::factory()->for($owner)->create();
+    $commands = Command::factory()->count(2)->create();
 
     $this->actingAs($otherUser)->putJson(route('army-lists.update', $armyList), [
         'display_name' => 'Hacked',
         'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
         'public' => true,
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
+        ],
     ])->assertForbidden();
 });
 
@@ -106,6 +132,19 @@ test('edit page includes previously saved units', function () {
     );
 });
 
+test('edit page includes previously saved commands', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+    $command = Command::factory()->create();
+    $armyList->commands()->attach($command->id);
+
+    $response = $this->actingAs($user)->get(route('army-lists.edit', $armyList));
+
+    $response->assertInertia(fn ($page) => $page
+        ->where('armyList.commands', [['id' => $command->id]])
+    );
+});
+
 test('display name is required', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create();
@@ -119,17 +158,94 @@ test('owner can update the army list type', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create();
     $newType = ArmyListType::factory()->create();
+    $commands = Command::factory()->count(2)->create();
 
     $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => $newType->id,
+        'faction_id' => $armyList->faction_id,
         'public' => true,
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
+        ],
     ]);
 
     $response->assertOk();
     $response->assertJsonPath('armyList.army_list_type_id', $newType->id);
     $response->assertJsonPath('armyList.max_points', $newType->max_points);
     expect($armyList->refresh()->army_list_type_id)->toBe($newType->id);
+});
+
+test('owner can update the faction', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+    $newFaction = Faction::factory()->create();
+    $commands = Command::factory()->count(2)->create();
+
+    $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
+        'display_name' => $armyList->display_name,
+        'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $newFaction->id,
+        'public' => true,
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
+        ],
+    ]);
+
+    $response->assertOk();
+    expect($armyList->refresh()->faction_id)->toBe($newFaction->id);
+});
+
+test('owner can sync commands', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+    $originalCommand = Command::factory()->create();
+    $armyList->commands()->attach($originalCommand->id);
+    $newCommands = Command::factory()->count(2)->create();
+
+    $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
+        'display_name' => $armyList->display_name,
+        'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
+        'public' => true,
+        'commands' => [
+            ['id' => $newCommands[0]->id],
+            ['id' => $newCommands[1]->id],
+        ],
+    ])->assertOk();
+
+    expect($armyList->commands()->pluck('command_id')->sort()->values()->toArray())
+        ->toBe([$newCommands[0]->id, $newCommands[1]->id]);
+});
+
+test('exactly two commands are required', function (array $commandIds) {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+
+    $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
+        'display_name' => $armyList->display_name,
+        'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => $armyList->faction_id,
+        'public' => true,
+        'commands' => collect($commandIds)->map(fn (int $id) => ['id' => $id])->all(),
+    ])->assertJsonValidationErrors('commands');
+})->with([
+    'no commands' => [[]],
+    'one command' => fn () => [Command::factory()->create()->id],
+    'three commands' => fn () => Command::factory()->count(3)->create()->pluck('id')->all(),
+]);
+
+test('faction id is required', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create();
+
+    $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
+        'display_name' => $armyList->display_name,
+        'army_list_type_id' => $armyList->army_list_type_id,
+        'faction_id' => null,
+    ])->assertJsonValidationErrors('faction_id');
 });
 
 test('custom max points is required when no army list type is selected', function () {
@@ -156,12 +272,18 @@ test('custom max points must be empty when an army list type is selected', funct
 test('custom max points is saved and used as the max points when no army list type is selected', function () {
     $user = User::factory()->create();
     $armyList = ArmyList::factory()->for($user)->create();
+    $commands = Command::factory()->count(2)->create();
 
     $response = $this->actingAs($user)->putJson(route('army-lists.update', $armyList), [
         'display_name' => $armyList->display_name,
         'army_list_type_id' => null,
         'custom_max_points' => 750,
-        'public' => true
+        'faction_id' => $armyList->faction_id,
+        'public' => true,
+        'commands' => [
+            ['id' => $commands[0]->id],
+            ['id' => $commands[1]->id],
+        ],
     ]);
 
     $response->assertOk();

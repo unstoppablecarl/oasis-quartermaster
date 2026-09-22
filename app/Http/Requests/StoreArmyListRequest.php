@@ -22,6 +22,9 @@ class StoreArmyListRequest extends FormRequest
             'public' => 'required|boolean',
             'units.*.id' => ['required', 'integer', 'exists:units,id'],
             'units.*.quantity' => ['required', 'integer', 'min:1'],
+            'faction_id' => ['required', 'integer', 'exists:factions,id'],
+            'commands' => ['required', 'array', 'size:2'],
+            'commands.*.id' => ['required', 'integer', 'exists:commands,id'],
         ];
     }
 
@@ -31,7 +34,7 @@ class StoreArmyListRequest extends FormRequest
             $hasArmyListType = $this->filled('army_list_type_id');
             $hasCustomMaxPoints = $this->filled('custom_max_points');
 
-            if (! $hasArmyListType && ! $hasCustomMaxPoints) {
+            if (!$hasArmyListType && !$hasCustomMaxPoints) {
                 $validator->errors()->add('custom_max_points', 'The custom max points field is required when no army list type is selected.');
             }
 

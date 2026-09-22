@@ -378,7 +378,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     TITAN: {
-        id: 36,
+        id: 8,
         display_name: 'Titan',
         class_type: 'Heavy Lift VTOL',
         manufacturer: 'Midland Fabrication',
@@ -410,7 +410,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     RAVEN: {
-        id: 8,
+        id: 9,
         display_name: 'Raven',
         class_type: 'Attack VTOL',
         manufacturer: 'Keystone-Ostlund',
@@ -460,7 +460,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: 'Raven Back.png',
     },
     BANDIT: {
-        id: 9,
+        id: 10,
         display_name: 'Bandit',
         class_type: 'Support VTOL',
         manufacturer: 'Sturmlanze AG',
@@ -504,7 +504,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: 'Bandit Back.png',
     },
     MAMMOTH: {
-        id: 10,
+        id: 11,
         display_name: 'Mammoth',
         class_type: 'Expeditonary Platform',
         manufacturer: 'Keystone Extraction',
@@ -555,7 +555,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     ZEUS: {
-        id: 11,
+        id: 12,
         display_name: 'Zeus',
         class_type: 'Superheavy Gravtank',
         manufacturer: 'General Kinetics',
@@ -615,7 +615,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     NYX: {
-        id: 12,
+        id: 13,
         display_name: 'Nyx',
         class_type: 'Heavy Gravtank',
         manufacturer: 'General Kinetics',
@@ -665,7 +665,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: 'Nyx Back.png',
     },
     BRIGAND: {
-        id: 13,
+        id: 14,
         display_name: 'Brigand',
         class_type: 'Strike Craft',
         manufacturer: 'Hibiki Heavy Industries',
@@ -695,7 +695,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     BUFFALO: {
-        id: 14,
+        id: 15,
         display_name: 'Buffalo',
         class_type: 'Salvage Recovery Vehicle',
         manufacturer: 'General Kinetics-Keystone',
@@ -729,7 +729,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: 'Buffalo Back.png',
     },
     BUFFALO_Q_CRAFT: {
-        id: 37,
+        id: 16,
         display_name: 'Buffalo Q-Craft',
         class_type: 'Q-Craft',
         manufacturer: 'General Kinetics-Keystone',
@@ -780,7 +780,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     DRAKE: {
-        id: 15,
+        id: 17,
         display_name: 'Drake',
         class_type: 'Heavy Battle Hovertank',
         manufacturer: 'Burnside-Mason Engineering',
@@ -808,7 +808,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     HERCULES: {
-        id: 16,
+        id: 18,
         display_name: 'Hercules',
         class_type: 'Fast Transport',
         manufacturer: 'Keystone Extraction',
@@ -838,7 +838,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     CHARIOT: {
-        id: 17,
+        id: 19,
         display_name: 'Chariot',
         class_type: 'Light Attack Vehicle',
         manufacturer: 'Keystone-Ostlund',
@@ -877,7 +877,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     RHINO: {
-        id: 18,
+        id: 20,
         display_name: 'Rhino',
         class_type: 'Main Battle Tank',
         manufacturer: 'Sturmlanze AG',
@@ -915,7 +915,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     WEASEL: {
-        id: 19,
+        id: 21,
         display_name: 'Weasel',
         class_type: 'Missile Platform',
         manufacturer: 'Sturmlanze AG',
@@ -943,7 +943,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     SCARAB: {
-        id: 20,
+        id: 22,
         display_name: 'Scarab',
         class_type: 'Armored Personel Carrier',
         manufacturer: 'Sturmlanze AG',
@@ -971,7 +971,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     COYOTE: {
-        id: 21,
+        id: 23,
         display_name: 'Coyote',
         class_type: 'Fast Attack Vehicle',
         manufacturer: 'Keystone Extraction',
@@ -1009,7 +1009,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     FOX: {
-        id: 22,
+        id: 24,
         display_name: 'Fox',
         class_type: 'Fast Escort Vehicle',
         manufacturer: 'Keystone Extraction',
@@ -1047,7 +1047,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     HOUND: {
-        id: 23,
+        id: 25,
         display_name: 'Hound',
         class_type: 'Scout Vehicle',
         manufacturer: 'Keystone Extraction',
@@ -1077,7 +1077,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     MANTIS: {
-        id: 24,
+        id: 26,
         display_name: 'Mantis',
         class_type: 'Combat Drones',
         manufacturer: 'Sturmlanze AG',
@@ -1116,7 +1116,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     ONI: {
-        id: 25,
+        id: 27,
         display_name: 'Oni',
         class_type: 'Power Armor',
         manufacturer: 'Burnside-Mason Engineering',
@@ -1168,7 +1168,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: 'Oni Back.png',
     },
     ONI_P: {
-        id: 26,
+        id: 28,
         display_name: 'Oni-P',
         class_type: 'Pathfinder Armor',
         manufacturer: 'Burnside-Mason Engineering',
@@ -1200,7 +1200,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     ONI_H: {
-        id: 27,
+        id: 29,
         display_name: 'Oni-H',
         class_type: 'Assault Armor',
         manufacturer: 'Burnside-Mason Engineering',
@@ -1231,7 +1231,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     INFANTRY: {
-        id: 28,
+        id: 30,
         display_name: 'Infantry',
         class_type: 'Standard Unaugmented Squad',
         manufacturer: 'Various',
@@ -1261,7 +1261,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     NARWHAL: {
-        id: 29,
+        id: 31,
         display_name: 'Narwhal',
         class_type: 'Cargo Interface Drone',
         manufacturer: 'Keystone Orbital',
@@ -1287,7 +1287,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     MOLE: {
-        id: 30,
+        id: 32,
         display_name: 'Mole',
         class_type: 'Heavy Power Suit',
         manufacturer: null,
@@ -1315,7 +1315,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     HAWKMOTH: {
-        id: 31,
+        id: 33,
         display_name: 'Hawkmoth',
         class_type: 'Hunter-Killer UAV',
         manufacturer: null,
@@ -1345,7 +1345,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     T_174: {
-        id: 32,
+        id: 34,
         display_name: 'T-174',
         class_type: 'MBT',
         manufacturer: 'Karkov Design Bureau',
@@ -1373,7 +1373,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     ORCA: {
-        id: 33,
+        id: 35,
         display_name: 'Orca',
         class_type: 'Light Strike VTOL',
         manufacturer: null,
@@ -1401,7 +1401,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     HAMMERHEAD: {
-        id: 34,
+        id: 36,
         display_name: 'Hammerhead',
         class_type: 'Grav Destroyer',
         manufacturer: null,
@@ -1429,7 +1429,7 @@ export const UNITS: Record<string, Unit> = {
         card_back: '',
     },
     YOKAI: {
-        id: 35,
+        id: 37,
         display_name: 'Yokai',
         class_type: 'Drone Interceptor',
         manufacturer: null,

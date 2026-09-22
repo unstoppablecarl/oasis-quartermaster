@@ -43,12 +43,14 @@ class ArmyListController
             'display_name',
             'army_list_type_id',
             'custom_max_points',
+            'faction_id',
             'public',
         ]));
         $armyList->user_id = $request->user()->id;
         $armyList->save();
 
         $armyList->units()->sync($this->unitsForSync($request));
+        $armyList->commands()->sync($this->commandsForSync($request));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Army list created']);
 
@@ -60,7 +62,7 @@ class ArmyListController
         Gate::authorize('view', $armyList);
 
         $data = [
-            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType', 'commands'])->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Show', $data);
@@ -71,7 +73,7 @@ class ArmyListController
         Gate::authorize('update', $armyList);
 
         $data = [
-            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType', 'commands'])->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Edit', $data);
@@ -85,13 +87,15 @@ class ArmyListController
             'display_name',
             'army_list_type_id',
             'custom_max_points',
+            'faction_id',
             'public',
         ]));
 
         $armyList->units()->sync($this->unitsForSync($request));
+        $armyList->commands()->sync($this->commandsForSync($request));
 
         return response()->json([
-            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType', 'commands'])->toResource(),
             'message' => 'Army List Updated',
         ]);
     }
@@ -112,7 +116,7 @@ class ArmyListController
         Gate::authorize('view', $armyList);
 
         $data = [
-            'armyList' => $armyList->load(['units', 'armyListType'])->toResource(),
+            'armyList' => $armyList->load(['units', 'armyListType', 'commands'])->toResource(),
         ];
 
         return Inertia::render('ArmyLists/Print', $data);
@@ -129,5 +133,14 @@ class ArmyListController
                 'quantity' => $unit['quantity'],
                 'display_order' => $index,
             ]]);
+    }
+
+    /**
+     * @return Collection<int, int>
+     */
+    private function commandsForSync(StoreArmyListRequest $request)
+    {
+        return collect($request->safe()->array('commands'))
+            ->pluck('id');
     }
 }
