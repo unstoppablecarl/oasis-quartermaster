@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ArmyListTypeSeeder::class);
         $this->call(UnitSeeder::class);
+        $this->call(FactionSeeder::class);
+        $this->call(CommandSeeder::class);
     }
 }

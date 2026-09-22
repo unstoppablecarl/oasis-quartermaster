@@ -11,9 +11,9 @@ import { transformWithOxc } from 'vite'
 const dir = path.dirname(fileURLToPath(import.meta.url))
 const csvPath = path.join(dir, '../data/master-unit-grid.csv')
 const outPath = path.join(dir, '../data/units.ts')
-const abilitiesPath = path.join(dir, '../data/abilities.ts')
+const abilitiesPath = path.join(dir, '../data/abilities-and-traits.ts')
 
-// abilities.ts is TypeScript (regex matchers, etc.), so it's loaded the same
+// abilities-and-traits.ts is TypeScript (regex matchers, etc.), so it's loaded the same
 // way the Vite static-data plugin loads files from this directory: strip
 // types with oxc, then import the result as a data: URL module.
 async function loadAbilitiesModule(filePath) {
@@ -23,12 +23,7 @@ async function loadAbilitiesModule(filePath) {
     return import(dataUrl)
 }
 
-// Splits each unit's raw Ability/Trait cells into `abilities` and `traits`
-// based on which catalog in abilities.ts they matched, keeping the CSV's
-// original wording (e.g. "Escort 8\"") rather than the matcher's canonical
-// display_name, since specifics like distances/capacities live in that text.
-// Any cell that matches neither catalog fails the import.
-function classifyAbilities(units, findAbilityOrTrait) {
+function validateAbilities(units, findAbilityOrTrait) {
     const unmatched = new Map()
 
     for (const unit of Object.values(units)) {
@@ -101,7 +96,7 @@ function resolveColumns(headerRow) {
         COL: {
             QTY_IN_BASE_SET: col('Qty in Base Set'),
             NAME: col('Name'),
-            CLASS_TYPE: col('Class/Type'),
+            CLASS_TYPE: col('Class'),
             MANUFACTURER: col('Manufacturer'),
             BASE_SIZE: col('Base Size'),
             BASE_QTY: col('Base Qty'),
@@ -117,7 +112,7 @@ function resolveColumns(headerRow) {
             DEFENSE: col('Def'),
             HP: col('HP'),
             SPEED: col('Speed'),
-            CARDS_FRONT: col('Cards Front'),
+            CARDS_FRONT: col('Card File Names'),
         },
         WEAPON_COLS: (positions.RNG ?? []).map((_, i) => ({
             name: columnIndex(positions, 'NAME', i),
@@ -126,7 +121,8 @@ function resolveColumns(headerRow) {
             damage: columnIndex(positions, 'DMG', i),
             keywords: columnIndex(positions, 'KEY', i),
         })),
-        ABILITY_COLS: positions['Ability/Trait'] ?? [],
+        ABILITY_COLS: positions['Ability'] ?? [],
+        TRAIT_COLS: positions['Trait'] ?? [],
     }
 }
 
@@ -213,7 +209,7 @@ function parseWeapon(row, weaponCols) {
     }
 
     return {
-        name: str(name) ?? '',
+        name: str(name) ?? 'unnamed',
         range: str(range) ?? '',
         accuracy: str(accuracy) ?? '',
         damage: str(damage) ?? '',
@@ -239,7 +235,7 @@ function loadExistingIds(filePath) {
 }
 
 function parseUnit(row, id, columns) {
-    const { COL, WEAPON_COLS, ABILITY_COLS } = columns
+    const { COL, WEAPON_COLS, ABILITY_COLS, TRAIT_COLS } = columns
     let cardFrontRaw = str(row[COL.CARDS_FRONT])
     let cardsFront = []
     if (cardFrontRaw) {
@@ -267,10 +263,8 @@ function parseUnit(row, id, columns) {
         hp: num(row[COL.HP]),
         speed: str(row[COL.SPEED]),
         weapons: WEAPON_COLS.map((weaponCols) => parseWeapon(row, weaponCols)).filter(Boolean),
-        // Populated with the CSV's raw Ability/Trait cells here, then split
-        // into their final abilities/traits arrays by classifyAbilities().
         abilities: ABILITY_COLS.map((col) => str(row[col])).filter(Boolean),
-        traits: [],
+        traits: TRAIT_COLS.map((col) => str(row[col])).filter(Boolean),
         cards_front: cardsFront.map(s => s + '.png'),
         card_back: cardsFront.length ? cardsFront[0] + ' Back.png' : '',
     }
@@ -345,8 +339,9 @@ async function main() {
         console.warn(`Note: these units are no longer in the CSV, their ids will not be reused: ${removedKeys.join(', ')}`)
     }
 
-    const { findAbilityOrTrait } = await loadAbilitiesModule(abilitiesPath)
-    classifyAbilities(units, findAbilityOrTrait)
+    const { validateUnits } = await loadAbilitiesModule(abilitiesPath)
+
+    validateUnits(units)
 
     const content = generate(units)
 
@@ -365,7 +360,7 @@ function generate(units) {
     range: string
     accuracy: string
     damage: string
-    keywords: string[]
+    keywords: string[],
 }
 
 export type Unit = {
@@ -392,23 +387,9 @@ export type Unit = {
     abilities: string[]
     traits: string[]
     cards_front: string[]
-    card_back: string
+    card_back: string,
 }
 
 export const UNITS: Record<string, Unit> = ${formatLiteral(units, 0)}
-
-export const UNITS_BY_ID = Object.fromEntries(Object.values(UNITS).map(v => {
-    return [v.id, v]
-}))
-
-const ids: number[] = []
-for (const [key, unit] of Object.entries(UNITS)) {
-
-    if (ids.includes(unit.id)) {
-        throw new Error(\`duplicate unit id: \${unit.id}\`)
-    }
-
-    ids.push(unit.id)
-}
 `
 }
