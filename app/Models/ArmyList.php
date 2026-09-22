@@ -20,12 +20,13 @@ use Illuminate\Support\Str;
  * @property string $uuid
  * @property int $user_id
  * @property int|null $army_list_type_id
+ * @property int $faction_id
  * @property int|null $custom_max_points
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
 #[UseResource(ArmyListResource::class)]
-#[Fillable(['display_name', 'army_list_type_id', 'custom_max_points', 'public'])]
+#[Fillable(['display_name', 'army_list_type_id', 'faction_id', 'custom_max_points', 'public'])]
 class ArmyList extends Model
 {
     /** @use HasFactory<ArmyListFactory> */
@@ -44,6 +45,16 @@ class ArmyList extends Model
     public function armyListType(): BelongsTo
     {
         return $this->belongsTo(ArmyListType::class);
+    }
+
+    public function faction(): BelongsTo
+    {
+        return $this->belongsTo(Faction::class);
+    }
+
+    public function commands(): BelongsToMany
+    {
+        return $this->belongsToMany(Command::class, 'army_list_commands');
     }
 
     protected function maxPoints(): Attribute

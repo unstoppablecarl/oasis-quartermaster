@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Unit;
+use App\Models\Command;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -13,11 +13,11 @@ class CommandSeeder extends Seeder
         $jsonString = file_get_contents('static-data/data.json');
         $data = json_decode($jsonString, true);
 
-        foreach ($data['COMMANDS'] as $unit) {
-            $find = Arr::only($unit, ['id']);
-            $values = Arr::only($unit, ['display_name']);
+        foreach ($data['COMMANDS'] as $command) {
+            $find = Arr::only($command, ['id']);
+            $values = Arr::only($command, ['display_name']);
 
-            Unit::query()->updateOrCreate($find, $values);
+            Command::query()->updateOrCreate($find, $values);
         }
     }
 }
