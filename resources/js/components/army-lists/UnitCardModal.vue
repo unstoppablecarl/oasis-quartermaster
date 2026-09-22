@@ -2,8 +2,9 @@
 import { Search } from '@lucide/vue'
 import { BModal } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
-import { UNITS_BY_ID } from '../../../data/units'
 import { vBTooltip } from 'bootstrap-vue-next'
+
+import { UNITS_BY_ID } from '../../lib/static-data-helpers'
 
 defineOptions({ inheritAttrs: false })
 

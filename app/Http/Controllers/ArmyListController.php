@@ -16,7 +16,7 @@ class ArmyListController
     public function index(Request $request)
     {
         Gate::authorize('viewAny', ArmyList::class);
-        $armyLists = $request->user()->armyLists()->with('armyListType')->get();
+        $armyLists = $request->user()->armyLists()->with('armyListType', 'units')->get();
 
         $resourceCollection = ArmyListResource::collection($armyLists);
 

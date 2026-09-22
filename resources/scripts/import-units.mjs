@@ -372,6 +372,8 @@ export type Unit = {
     card_back: string,
 }
 
-export const UNITS: Record<string, Unit> = ${formatLiteral(units, 0)}
+export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']
+
+export const UNITS: Record<string, Unit> = ${formatLiteral(units, 0)} satisfies Record<string, Unit>
 `
 }

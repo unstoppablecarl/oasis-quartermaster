@@ -33,6 +33,8 @@ export type Unit = {
     card_back: string,
 }
 
+export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']
+
 export const UNITS: Record<string, Unit> = {
     TIGERSHARK: {
         id: 1,
@@ -1454,4 +1456,4 @@ export const UNITS: Record<string, Unit> = {
         cards_front: [],
         card_back: '',
     },
-}
+} satisfies Record<string, Unit>

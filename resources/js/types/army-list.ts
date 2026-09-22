@@ -3,7 +3,8 @@ export type ArmyList = {
     display_name: string
     army_list_type_id: number | null
     custom_max_points: number | null
-    public: boolean,
+    public: boolean
+    faction_id: FactionId,
     units: {
         id: number
         quantity: number

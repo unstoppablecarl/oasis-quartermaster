@@ -21,6 +21,7 @@ class ArmyListResource extends JsonResource
             'custom_max_points' => $this->custom_max_points,
             'max_points' => $this->maxPoints,
             'public' => $this->public,
+            'faction_id' => $this->faction_id,
             'commands' => $this->whenLoaded('commands', fn () => $this->commands->map(fn ($command) => [
                 'id' => $command->id,
             ])),

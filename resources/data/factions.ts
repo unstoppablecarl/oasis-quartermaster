@@ -25,4 +25,6 @@ export const FACTIONS = {
         display_name: 'SurveyFI',
         card: 'SurveyFI.png'
     },
-} satisfies Record<string, Faction>
+} as const satisfies Record<string, Faction>
+
+export type FactionId = (typeof FACTIONS)[keyof typeof FACTIONS]['id']

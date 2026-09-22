@@ -2,13 +2,30 @@
 import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
-import { getArmyListMaxPoints, getArmyListTypeName } from '../../composables/useArmyList'
+import { computed, toValue } from 'vue'
+import Fraction from '../../components/Fraction.vue'
+import { getArmyListTypeName, useArmyList } from '../../composables/useArmyList'
 import ArmyListControls from './Components/ArmyListControls.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 
 const { armyLists } = defineProps<{
     armyLists: ArmyList[];
 }>()
+
+const armyListsInfo = computed(() => {
+    return armyLists.map(a => {
+        const { maxPoints, totalCost, unitCount, faction } = useArmyList(a)
+        return {
+            armyList: a,
+            display_name: a.display_name,
+            type: getArmyListTypeName(a),
+            totalCost,
+            maxPoints,
+            unitCount,
+            faction: faction.value.display_name,
+        }
+    })
+})
 </script>
 <template>
     <Head title="Army Lists" />
@@ -21,29 +38,37 @@ const { armyLists } = defineProps<{
         <tr>
             <th>Name</th>
             <th>Type</th>
-            <th class="number-cell">Max Points</th>
+            <th>Faction</th>
+            <th class="number-cell">Unit Count</th>
+            <th class="number-cell">Points</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-if="armyLists.length === 0">
+        <tr v-if="armyListsInfo.length === 0">
             <td colspan="3" class="text-secondary text-center">
                 No army lists yet.
             </td>
         </tr>
-        <tr v-for="item in armyLists" :key="item.uuid">
+        <tr v-for="item in armyListsInfo" :key="item.armyList.uuid">
             <td class="fw-medium">
                 {{ item.display_name }}
             </td>
             <td>
-                {{ getArmyListTypeName(item) }}
+                {{ item.type }}
+            </td>
+            <td>
+                {{ item.faction }}
             </td>
             <td class="number-cell">
-                {{ getArmyListMaxPoints(item) }}
+                {{ item.unitCount }}
+            </td>
+            <td class="number-cell">
+                <Fraction :a="toValue(item.totalCost)" :b="toValue(item.maxPoints)" />
             </td>
             <td class="text-end">
                 <div class="d-flex justify-content-end gap-2">
-                    <ArmyListControls :army-list="item" />
+                    <ArmyListControls :army-list="item.armyList" />
                 </div>
             </td>
         </tr>
