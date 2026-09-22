@@ -9,7 +9,7 @@ import type { ArmyList } from '../../types/army-list'
 const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
-const { unitCards, totalCost, maxPoints, unitCount } = useArmyList(armyList)
+const { unitCards, totalCost, maxPoints, unitCount, faction, commands, armyListTypeName } = useArmyList(armyList)
 </script>
 <template>
     <ArmyListItemLayout title="View" :army-list="armyList">
@@ -19,7 +19,18 @@ const { unitCards, totalCost, maxPoints, unitCount } = useArmyList(armyList)
             <div class="card-body">
                 <div class="d-flex">
                     <div class="me-auto">
-                        <strong>Faction: </strong>
+                        <span>
+                            <strong class="text-body-emphasis">Game Mode: </strong>
+                            {{ armyListTypeName }}
+                        </span>
+                        <span class="ms-4">
+                            <strong class="text-body-emphasis">Faction: </strong> {{ faction.display_name }}
+                        </span>
+
+                        <span class="ms-4">
+                            <strong class="text-body-emphasis">Commands: </strong>
+                            {{ commands.map(c => c.display_name).join(', ') }}
+                        </span>
                     </div>
                     <div>
                         <strong>Unit Count: </strong>

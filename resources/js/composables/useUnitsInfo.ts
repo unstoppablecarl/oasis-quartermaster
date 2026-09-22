@@ -1,4 +1,5 @@
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
+import type { ArmyListTypeId } from '../../data/army-list-types'
 import type { CommandId } from '../../data/commands'
 import { type FactionId } from '../../data/factions'
 import { type Unit, type UnitId } from '../../data/units'
@@ -19,7 +20,7 @@ export type LocalArmyList = {
     faction_id: FactionId
     commands: {id: CommandId}[]
     units: UnitEntry[]
-    army_list_type_id: number | null
+    army_list_type_id: ArmyListTypeId | null
     custom_max_points: number | null
     public: boolean
 }

@@ -142,13 +142,6 @@
       "max_points": 400
     }
   },
-  "ARMY_LIST_TYPES_BY_ID": {
-    "1": {
-      "id": 1,
-      "display_name": "Standard Salvage",
-      "max_points": 400
-    }
-  },
   "COMMANDS": {
     "FIREPOWER": {
       "id": 1,

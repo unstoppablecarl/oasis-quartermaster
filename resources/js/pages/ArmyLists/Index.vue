@@ -38,7 +38,7 @@ const armyListsInfo = computed(() => {
         <thead>
         <tr>
             <th>Name</th>
-            <th>Type</th>
+            <th>Game Mode</th>
             <th>Faction</th>
             <th>Commands</th>
             <th class="number-cell">Unit Count</th>
