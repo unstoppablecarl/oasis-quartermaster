@@ -11,7 +11,6 @@ export function useArmyList(armyList: LocalArmyList) {
 
     const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units, maxPoints)
 
-    console.log('z',armyList.faction_id)
     const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
 
     function add(unitId: number, quantity = 1) {

@@ -1,10 +1,10 @@
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 import { type FactionId } from '../../data/factions'
-import { type Unit } from '../../data/units'
+import { type Unit, type UnitId } from '../../data/units'
 import { UNITS_BY_ID } from '../lib/static-data-helpers'
 
 export type UnitEntry = {
-    id: number
+    id: UnitId
     quantity: number
 }
 
