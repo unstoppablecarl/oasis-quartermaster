@@ -8,6 +8,7 @@ const value = defineModel<boolean>({ required: true })
     <BButton
         v-model:pressed="value"
         :variant="value ? 'success' : 'danger'"
+        role="button"
     >
         <PhCheck v-if="value" />
         <PhX v-else />
