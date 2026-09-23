@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { PhCheck, PhX } from '@phosphor-icons/vue'
-import { BButton } from 'bootstrap-vue-next'
+import { BButton, type ButtonVariant } from 'bootstrap-vue-next'
 
 const value = defineModel<boolean>({ required: true })
+const {
+    classOn = 'success',
+    classOff = 'danger',
+} = defineProps<{
+    classOn: ButtonVariant
+    classOff: ButtonVariant
+}>()
 </script>
 <template>
     <BButton
         v-model:pressed="value"
-        :variant="value ? 'success' : 'danger'"
+        :variant="value ? classOn : classOff"
         role="button"
     >
         <PhCheck v-if="value" />
         <PhX v-else />
         &nbsp;
-        <slot/>
+        <slot />
     </BButton>
 </template>
