@@ -132,9 +132,8 @@ const commands = computed({
                 </BFormCheckbox>
 
                 <BtnCopyLink
-                    v-if="armyList.uuid"
+                    v-if="armyList.uuid && armyList.public"
                     :army-list-uuid="armyList.uuid"
-                    :disabled="!armyList.public"
                     class="ms-2"
                 />
             </div>
