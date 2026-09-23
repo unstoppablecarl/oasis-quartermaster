@@ -1,4 +1,5 @@
 import { ARMY_LIST_TYPES } from '../../data/army-list-types'
+import { FACTIONS } from '../../data/factions'
 import type { LocalArmyList } from '../composables/useUnitsInfo'
 import type { ArmyList } from '../types/army-list'
 
@@ -62,6 +63,8 @@ function makeDraft(): LocalArmyList {
         army_list_type_id: allArmyListTypes[0]?.id ?? null,
         custom_max_points: null,
         public: false,
+        commands: [],
+        faction_id: FACTIONS.UNAFFILIATED.id
     }
 }
 
@@ -72,5 +75,7 @@ export function toLocalArmyList(armyList: ArmyList | LocalArmyList): LocalArmyLi
         army_list_type_id: armyList.army_list_type_id,
         custom_max_points: armyList.custom_max_points,
         public: armyList.public,
+        faction_id: armyList.faction_id,
+        commands: []
     }
 }
