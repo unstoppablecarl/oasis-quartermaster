@@ -119,3 +119,9 @@
 //    line-height: $btn-line-height;
 //    vertical-align: middle;
 //}
+
+
+.btn-outline-hover {
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--bs-btn-border-color) 20%, transparent);
+}

@@ -66,7 +66,7 @@ function update() {
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
-        <ArmyListFactionValidators :army-list="armyList" />
+        <ArmyListFactionValidators :army-list="http" />
     </ArmyListItemLayout>
 
     <Teleport to="#before-page-footer-teleport" defer>

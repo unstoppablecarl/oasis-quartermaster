@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Plus } from '@lucide/vue'
-import { PhEye, PhEyeSlash, PhWarning } from '@phosphor-icons/vue'
+import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX, PhWarning } from '@phosphor-icons/vue'
 import {
     BTable,
     type BTableSortBy,
@@ -77,11 +77,11 @@ const allUnits = computed(() => {
         }
     }).filter(row => {
         const valid = !row.faction_validation
-        if (!includeFactionInvalidUnits.value && !valid) {
+        if (filterFactionValidUnits.value && !valid) {
             return false
         }
 
-        if (!includeOutOfBudgetUnits.value && remainingPoints < row.cost) {
+        if (filterWithinBudgetUnits.value && remainingPoints < row.cost) {
             return false
         }
 
@@ -147,11 +147,12 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => ([
         class: 'number-cell',
         sortable: true,
     },
-    ...(hasFaction.value && includeFactionInvalidUnits.value ? [{
+    ...(hasFaction.value && !filterFactionValidUnits.value ? [{
         key: 'faction_validation',
         label: 'Faction Valid',
         sortable: true,
         sortCompare: sort((unit: Row) => unit.faction_validation ? 1 : 0),
+        class: 'cell-faction-validation',
     }] : []),
     {
         key: 'controls',
@@ -164,11 +165,11 @@ const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
 const showPrefix = ref(true)
 const showManufacturer = ref(true)
 const showClass = ref(true)
-const includeOutOfBudgetUnits = ref(true)
-const includeFactionInvalidUnits = ref(false)
+const filterWithinBudgetUnits = ref(true)
+const filterFactionValidUnits = ref(false)
 
 const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =>
-    type === 'row' && item?.faction_validation ? 'opacity-25' : ''
+    type === 'row' && item?.faction_validation ? 'row-faction-invalid' : ''
 </script>
 <template>
     <div class="card mb-3">
@@ -210,32 +211,32 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                         Manufacturer
                     </ButtonToggle>
                     <div class="btn-py ms-2">
-                        Rows:
+                        Filter Rows:
                     </div>
                     <ButtonToggle
-                        v-model="includeOutOfBudgetUnits"
+                        v-model="filterWithinBudgetUnits"
                         class-off="secondary"
                     >
                         <template #icon-on>
-                            <PhEye weight="fill" />
+                            <PhFunnel weight="fill" />
                         </template>
                         <template #icon-off>
-                            <PhEyeSlash weight="fill" />
+                            <PhFunnelX />
                         </template>
-                        Exceed Available Points
+                        Within Available Points
                     </ButtonToggle>
                     <ButtonToggle
-                        v-model="includeFactionInvalidUnits"
+                        v-model="filterFactionValidUnits"
                         class-off="secondary"
                         v-if="armyList.faction_id !== FACTIONS.UNAFFILIATED.id"
                     >
                         <template #icon-on>
-                            <PhEye weight="fill" />
+                            <PhFunnel weight="fill" />
                         </template>
                         <template #icon-off>
-                            <PhEyeSlash weight="fill" />
+                            <PhFunnelX />
                         </template>
-                        Faction Invalid
+                        Faction Valid
                     </ButtonToggle>
                 </div>
             </div>
@@ -272,7 +273,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
 
                         <BTooltip>
                             <template #target>
-                                <button role="button" class="btn btn-outline-danger">
+                                <button role="button" class="btn btn-outline-danger btn-faction-validation">
                                     <PhWarning weight="fill" />
                                 </button>
                             </template>
@@ -291,6 +292,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                         @click="emit('add', data.item.id)"
                         v-b-tooltip.hover.top
                         title="Add to List"
+                        :disabled="!!data.item.faction_validation"
                     >
                         <Plus :strokeWidth="2.5" :size="16" />
                     </button>
@@ -301,7 +303,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
         </div>
     </div>
 </template>
-<style scoped>
+<style lang="scss">
 .unit-picker-toolbar {
     background: var(--bs-card-bg);
     z-index: 3;
@@ -313,5 +315,28 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
     position: sticky;
     top: 5.125rem;
     z-index: 2;
+}
+
+.table-hover > tbody > tr.row-faction-invalid {
+    > td {
+        --bs-table-bg-state: var(--bs-table-bg);
+    }
+}
+
+.table-striped > tbody > tr.row-faction-invalid {
+
+    &:nth-of-type(odd) > * {
+        --bs-table-bg-type: var(--bs-table-bg);
+    }
+
+    > td {
+        &:not(:has(.btn-faction-validation)) {
+            opacity: 0.25;
+        }
+
+        &:has(.btn-faction-validation) {
+            border-color: color-mix(in srgb, var(--bs-table-border-color) 25%, transparent);
+        }
+    }
 }
 </style>

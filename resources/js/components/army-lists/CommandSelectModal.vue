@@ -37,7 +37,11 @@ function select(id: CommandId) {
 
 <template>
     <div class="btn-group d-flex">
-        <button role="button" class="btn btn-outline-secondary disabled flex-grow-1">
+        <button
+            role="button"
+            class="btn btn-outline-secondary flex-grow-1 btn-outline-hover"
+            @click="visible = true"
+        >
             {{ commands.join(', ') }}
             <template v-if="commands.length === 0">None Selected</template>
         </button>

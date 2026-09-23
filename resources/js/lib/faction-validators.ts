@@ -1,4 +1,4 @@
-import { TRAITS } from '../../data/abilities-and-traits'
+import { ABILITIES, TRAITS } from '../../data/abilities-and-traits'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { UnitId } from '../../data/units'
 import { getArmyListMaxPoints, type UnitEntry } from '../composables/useArmyList'
@@ -30,7 +30,7 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
             }
         }
 
-        function validateUnitInList(armyList: ArmyList, unit: UnitEntry) {
+        function validateUnitInList(armyList: LocalArmyList, unit: UnitEntry) {
             const result = validateUnitCandidate(armyList, unit.id)
             if (result) {
                 return {
@@ -47,7 +47,7 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
         }
     })(),
     [FACTIONS.FREELANCE.id]: (() => {
-        function validateUnitInList(armyList: ArmyList, u: UnitEntry) {
+        function validateUnitInList(armyList: LocalArmyList, u: UnitEntry) {
             if (u.quantity > 1) {
                 return {
                     id: u.id,
@@ -79,7 +79,7 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
             }
         }
 
-        function validateUnitInList(armyList: ArmyList, unit: UnitEntry) {
+        function validateUnitInList(armyList: LocalArmyList, unit: UnitEntry) {
             const result = validateUnitCandidate(armyList, unit.id)
             if (result) {
                 return {
@@ -90,7 +90,7 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
         }
 
         return {
-            validateArmyList: (armyList: ArmyList) => {
+            validateArmyList: (armyList: LocalArmyList) => {
                 const unitCount = armyList.units.reduce((c, v) => c + v.quantity, 0)
                 let surveyorUnitCount = 0
                 const maxPoints = getArmyListMaxPoints(armyList)
@@ -98,7 +98,7 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
 
                 for (const u of armyList.units) {
                     const unit = UNITS_BY_ID[u.id]
-                    const isSurveyor = unit.traits.includes(TRAITS.SURVEYOR.display_name)
+                    const isSurveyor = unit.abilities.includes(ABILITIES.SURVEYOR.display_name)
                     if (isSurveyor) {
                         surveyorUnitCount += u.quantity
                         surveyorUnitTotalCost += u.quantity * unit.cost
@@ -148,13 +148,13 @@ type FactionUnitEntry = {
 export type UnitInListValidationResult = Exclude<ReturnType<FactionValidator['validateUnitInList']>, undefined>
 
 type FactionValidator = {
-    validateArmyList: (armyList: ArmyList) => string[],
-    validateUnitInList: (armyList: ArmyList, unit: UnitEntry) => FactionUnitEntry | undefined,
+    validateArmyList: (armyList: LocalArmyList) => string[],
+    validateUnitInList: (armyList: LocalArmyList, unit: UnitEntry) => FactionUnitEntry | undefined,
     validateUnitCandidate: (armyList: LocalArmyList, unitId: UnitId) => Omit<FactionUnitEntry, 'quantity'> | undefined,
 }
 
 export function getArmyListFactionValidator(factionId: FactionId) {
-    return FACTION_VALIDATORS_BY_ID[factionId]
+    return FACTION_VALIDATORS_BY_ID[factionId ?? FACTIONS.UNAFFILIATED.id]
 }
 
 export function validateArmyListFaction(armyList: ArmyList) {
