@@ -16,6 +16,8 @@ export type UnitEntryInfo = UnitEntry & Unit & {
 
 export type LocalArmyList = {
     uuid?: string
+    created_at?: string
+    updated_at?: string
     display_name: string
     faction_id: FactionId
     commands: {id: CommandId}[]

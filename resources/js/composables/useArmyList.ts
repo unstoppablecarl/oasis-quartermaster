@@ -14,6 +14,9 @@ export function useArmyList(armyList: LocalArmyList) {
     const commands = computed(() => armyList.commands.map(c => COMMANDS_BY_ID[c.id]))
     const armyListTypeName = computed(() => getArmyListTypeName(armyList))
 
+    const createdAt = computed(() => toTimestamp(armyList.created_at))
+    const updatedAt = computed(() => toTimestamp(armyList.updated_at))
+
     function add(unitId: number, quantity = 1) {
         const existing = units.value.find((v) => v.id === unitId)
         if (existing) {
@@ -63,6 +66,8 @@ export function useArmyList(armyList: LocalArmyList) {
         faction,
         commands,
         armyListTypeName,
+        createdAt,
+        updatedAt,
         unitCards: computed(() => getUnitCards(unitsInfo.value)),
     }
 }
@@ -120,5 +125,12 @@ export function getArmyListTypeName(armyList: {
         return 'Custom'
     }
     return ARMY_LIST_TYPES_BY_ID[armyList.army_list_type_id]?.display_name
+}
+
+function toTimestamp(val: string | undefined) {
+    if (!val) {
+        return null
+    }
+    return new Date(val)
 }
 

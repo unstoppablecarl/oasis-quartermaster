@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Test User',
                 'email' => $email,
                 'email_verified_at' => now(),
-                'password' => Hash::make('test'),
+                'password' => Hash::make('oasis-test1234'),
             ]);
         }
 

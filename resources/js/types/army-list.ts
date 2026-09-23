@@ -13,6 +13,8 @@ export type ArmyList = {
     public: boolean
     faction_id: FactionId,
     commands: Command[],
+    created_at: string,
+    updated_at: string,
     units: {
         id: number
         quantity: number

@@ -29,6 +29,8 @@ class ArmyListResource extends JsonResource
                 'id' => $unit->id,
                 'quantity' => $unit->pivot->quantity,
             ])),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'can' => [
                 'update' => $canUpdate,
                 'delete' => $canDelete,
