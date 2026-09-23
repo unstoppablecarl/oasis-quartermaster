@@ -9,7 +9,8 @@ export type Weapon = {
 export type Unit = {
     id: number
     display_name: string
-    class_type: string | null
+    class: string | null
+    prefix: string | null,
     manufacturer: string | null
     qty_in_base_set: number | null
     base_size: string | null
@@ -39,7 +40,8 @@ export const UNITS: Record<string, Unit> = {
     TIGERSHARK: {
         id: 1,
         display_name: 'Tigershark',
-        class_type: 'Gravfrigate',
+        class: 'Gravfrigate',
+        prefix: 'GVX-II',
         manufacturer: 'General Kinetics',
         qty_in_base_set: null,
         base_size: '45F',
@@ -117,7 +119,8 @@ export const UNITS: Record<string, Unit> = {
     TYPE_92: {
         id: 2,
         display_name: 'Type-92',
-        class_type: 'Siege Frigate',
+        class: 'Siege Frigate',
+        prefix: null,
         manufacturer: 'Hibiki Heavy Industries',
         qty_in_base_set: null,
         base_size: '45F',
@@ -147,7 +150,8 @@ export const UNITS: Record<string, Unit> = {
     GORGON: {
         id: 3,
         display_name: 'Gorgon',
-        class_type: 'Grav Corvette',
+        class: 'Grav Corvette',
+        prefix: null,
         manufacturer: 'Karkov Design Bureau',
         qty_in_base_set: null,
         base_size: '2875F',
@@ -199,7 +203,8 @@ export const UNITS: Record<string, Unit> = {
     CONDOR: {
         id: 4,
         display_name: 'Condor',
-        class_type: 'Heavy Lift VTOL',
+        class: 'Heavy Lift VTOL',
+        prefix: null,
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '2875F',
@@ -230,7 +235,8 @@ export const UNITS: Record<string, Unit> = {
     ROC: {
         id: 5,
         display_name: 'Roc',
-        class_type: 'Assault Transport VTOL',
+        class: 'Assault Transport VTOL',
+        prefix: 'V292',
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '25F',
@@ -284,7 +290,8 @@ export const UNITS: Record<string, Unit> = {
     ALBATROSS: {
         id: 6,
         display_name: 'Albatross',
-        class_type: 'Tactical Gunship',
+        class: 'Tactical Gunship',
+        prefix: 'OA-10-J',
         manufacturer: 'Horizon Systems',
         qty_in_base_set: null,
         base_size: '25F',
@@ -335,7 +342,8 @@ export const UNITS: Record<string, Unit> = {
     COBRA: {
         id: 7,
         display_name: 'Cobra',
-        class_type: 'Fighter',
+        class: 'Fighter',
+        prefix: null,
         manufacturer: 'MK Ostlund',
         qty_in_base_set: null,
         base_size: '2125F',
@@ -382,7 +390,8 @@ export const UNITS: Record<string, Unit> = {
     TITAN: {
         id: 8,
         display_name: 'Titan',
-        class_type: 'Heavy Lift VTOL',
+        class: 'Heavy Lift VTOL',
+        prefix: 'L-24B',
         manufacturer: 'Midland Fabrication',
         qty_in_base_set: null,
         base_size: '25F',
@@ -414,7 +423,8 @@ export const UNITS: Record<string, Unit> = {
     RAVEN: {
         id: 9,
         display_name: 'Raven',
-        class_type: 'Attack VTOL',
+        class: 'Attack VTOL',
+        prefix: 'V212',
         manufacturer: 'Keystone-Ostlund',
         qty_in_base_set: null,
         base_size: '2125F',
@@ -464,7 +474,8 @@ export const UNITS: Record<string, Unit> = {
     BANDIT: {
         id: 10,
         display_name: 'Bandit',
-        class_type: 'Support VTOL',
+        class: 'Support VTOL',
+        prefix: 'UHB',
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '2125F',
@@ -508,7 +519,8 @@ export const UNITS: Record<string, Unit> = {
     MAMMOTH: {
         id: 11,
         display_name: 'Mammoth',
-        class_type: 'Expeditonary Platform',
+        class: 'Expeditonary Platform',
+        prefix: 'V312',
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '25',
@@ -559,7 +571,8 @@ export const UNITS: Record<string, Unit> = {
     ZEUS: {
         id: 12,
         display_name: 'Zeus',
-        class_type: 'Superheavy Gravtank',
+        class: 'Superheavy Gravtank',
+        prefix: 'GV-18',
         manufacturer: 'General Kinetics',
         qty_in_base_set: null,
         base_size: '2125F',
@@ -619,7 +632,8 @@ export const UNITS: Record<string, Unit> = {
     NYX: {
         id: 13,
         display_name: 'Nyx',
-        class_type: 'Heavy Gravtank',
+        class: 'Heavy Gravtank',
+        prefix: 'GV-15',
         manufacturer: 'General Kinetics',
         qty_in_base_set: null,
         base_size: '175F',
@@ -669,7 +683,8 @@ export const UNITS: Record<string, Unit> = {
     BRIGAND: {
         id: 14,
         display_name: 'Brigand',
-        class_type: 'Strike Craft',
+        class: 'Strike Craft',
+        prefix: null,
         manufacturer: 'Hibiki Heavy Industries',
         qty_in_base_set: null,
         base_size: '175F',
@@ -699,7 +714,8 @@ export const UNITS: Record<string, Unit> = {
     BUFFALO: {
         id: 15,
         display_name: 'Buffalo',
-        class_type: 'Salvage Recovery Vehicle',
+        class: 'Salvage Recovery Vehicle',
+        prefix: 'AEGV-18',
         manufacturer: 'General Kinetics-Keystone',
         qty_in_base_set: null,
         base_size: '175F',
@@ -733,7 +749,8 @@ export const UNITS: Record<string, Unit> = {
     BUFFALO_Q_CRAFT: {
         id: 16,
         display_name: 'Buffalo Q-Craft',
-        class_type: 'Q-Craft',
+        class: 'Q-Craft',
+        prefix: null,
         manufacturer: 'General Kinetics-Keystone',
         qty_in_base_set: null,
         base_size: '175F',
@@ -784,7 +801,8 @@ export const UNITS: Record<string, Unit> = {
     DRAKE: {
         id: 17,
         display_name: 'Drake',
-        class_type: 'Heavy Battle Hovertank',
+        class: 'Heavy Battle Hovertank',
+        prefix: null,
         manufacturer: 'Burnside-Mason Engineering',
         qty_in_base_set: null,
         base_size: '175F',
@@ -812,7 +830,8 @@ export const UNITS: Record<string, Unit> = {
     HERCULES: {
         id: 18,
         display_name: 'Hercules',
-        class_type: 'Fast Transport',
+        class: 'Fast Transport',
+        prefix: null,
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '175',
@@ -842,7 +861,8 @@ export const UNITS: Record<string, Unit> = {
     CHARIOT: {
         id: 19,
         display_name: 'Chariot',
-        class_type: 'Light Attack Vehicle',
+        class: 'Light Attack Vehicle',
+        prefix: 'V323',
         manufacturer: 'Keystone-Ostlund',
         qty_in_base_set: null,
         base_size: '1375',
@@ -881,7 +901,8 @@ export const UNITS: Record<string, Unit> = {
     RHINO: {
         id: 20,
         display_name: 'Rhino',
-        class_type: 'Main Battle Tank',
+        class: 'Main Battle Tank',
+        prefix: 'KF152',
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '1375',
@@ -919,7 +940,8 @@ export const UNITS: Record<string, Unit> = {
     WEASEL: {
         id: 21,
         display_name: 'Weasel',
-        class_type: 'Missile Platform',
+        class: 'Missile Platform',
+        prefix: null,
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '1375',
@@ -947,7 +969,8 @@ export const UNITS: Record<string, Unit> = {
     SCARAB: {
         id: 22,
         display_name: 'Scarab',
-        class_type: 'Armored Personel Carrier',
+        class: 'Armored Personel Carrier',
+        prefix: null,
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '1375',
@@ -975,7 +998,8 @@ export const UNITS: Record<string, Unit> = {
     COYOTE: {
         id: 23,
         display_name: 'Coyote',
-        class_type: 'Fast Attack Vehicle',
+        class: 'Fast Attack Vehicle',
+        prefix: 'V217-C',
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '1',
@@ -1013,7 +1037,8 @@ export const UNITS: Record<string, Unit> = {
     FOX: {
         id: 24,
         display_name: 'Fox',
-        class_type: 'Fast Escort Vehicle',
+        class: 'Fast Escort Vehicle',
+        prefix: 'V217-A',
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '1',
@@ -1051,7 +1076,8 @@ export const UNITS: Record<string, Unit> = {
     HOUND: {
         id: 25,
         display_name: 'Hound',
-        class_type: 'Scout Vehicle',
+        class: 'Scout Vehicle',
+        prefix: 'V217-B',
         manufacturer: 'Keystone Extraction',
         qty_in_base_set: null,
         base_size: '1',
@@ -1081,7 +1107,8 @@ export const UNITS: Record<string, Unit> = {
     MANTIS: {
         id: 26,
         display_name: 'Mantis',
-        class_type: 'Combat Drones',
+        class: 'Combat Drones',
+        prefix: 'GH54',
         manufacturer: 'Sturmlanze AG',
         qty_in_base_set: null,
         base_size: '1S',
@@ -1120,7 +1147,8 @@ export const UNITS: Record<string, Unit> = {
     ONI: {
         id: 27,
         display_name: 'Oni',
-        class_type: 'Power Armor',
+        class: 'Power Armor',
+        prefix: 'AES-16A',
         manufacturer: 'Burnside-Mason Engineering',
         qty_in_base_set: null,
         base_size: '1S',
@@ -1172,7 +1200,8 @@ export const UNITS: Record<string, Unit> = {
     ONI_P: {
         id: 28,
         display_name: 'Oni-P',
-        class_type: 'Pathfinder Armor',
+        class: 'Pathfinder Armor',
+        prefix: null,
         manufacturer: 'Burnside-Mason Engineering',
         qty_in_base_set: null,
         base_size: '1S',
@@ -1204,7 +1233,8 @@ export const UNITS: Record<string, Unit> = {
     ONI_H: {
         id: 29,
         display_name: 'Oni-H',
-        class_type: 'Assault Armor',
+        class: 'Assault Armor',
+        prefix: null,
         manufacturer: 'Burnside-Mason Engineering',
         qty_in_base_set: null,
         base_size: '1S',
@@ -1235,7 +1265,8 @@ export const UNITS: Record<string, Unit> = {
     INFANTRY: {
         id: 30,
         display_name: 'Infantry',
-        class_type: 'Standard Unaugmented Squad',
+        class: 'Standard Unaugmented Squad',
+        prefix: null,
         manufacturer: 'Various',
         qty_in_base_set: null,
         base_size: '1S',
@@ -1265,7 +1296,8 @@ export const UNITS: Record<string, Unit> = {
     NARWHAL: {
         id: 31,
         display_name: 'Narwhal',
-        class_type: 'Cargo Interface Drone',
+        class: 'Cargo Interface Drone',
+        prefix: null,
         manufacturer: 'Keystone Orbital',
         qty_in_base_set: null,
         base_size: '175',
@@ -1291,7 +1323,8 @@ export const UNITS: Record<string, Unit> = {
     MOLE: {
         id: 32,
         display_name: 'Mole',
-        class_type: 'Heavy Power Suit',
+        class: 'Heavy Power Suit',
+        prefix: null,
         manufacturer: null,
         qty_in_base_set: null,
         base_size: null,
@@ -1319,7 +1352,8 @@ export const UNITS: Record<string, Unit> = {
     HAWKMOTH: {
         id: 33,
         display_name: 'Hawkmoth',
-        class_type: 'Hunter-Killer UAV',
+        class: 'Hunter-Killer UAV',
+        prefix: null,
         manufacturer: null,
         qty_in_base_set: null,
         base_size: null,
@@ -1349,7 +1383,8 @@ export const UNITS: Record<string, Unit> = {
     T_174: {
         id: 34,
         display_name: 'T-174',
-        class_type: 'MBT',
+        class: 'MBT',
+        prefix: null,
         manufacturer: 'Karkov Design Bureau',
         qty_in_base_set: null,
         base_size: null,
@@ -1377,7 +1412,8 @@ export const UNITS: Record<string, Unit> = {
     ORCA: {
         id: 35,
         display_name: 'Orca',
-        class_type: 'Light Strike VTOL',
+        class: 'Light Strike VTOL',
+        prefix: null,
         manufacturer: null,
         qty_in_base_set: null,
         base_size: null,
@@ -1405,7 +1441,8 @@ export const UNITS: Record<string, Unit> = {
     HAMMERHEAD: {
         id: 36,
         display_name: 'Hammerhead',
-        class_type: 'Grav Destroyer',
+        class: 'Grav Destroyer',
+        prefix: null,
         manufacturer: null,
         qty_in_base_set: null,
         base_size: null,
@@ -1433,7 +1470,8 @@ export const UNITS: Record<string, Unit> = {
     YOKAI: {
         id: 37,
         display_name: 'Yokai',
-        class_type: 'Drone Interceptor',
+        class: 'Drone Interceptor',
+        prefix: null,
         manufacturer: null,
         qty_in_base_set: null,
         base_size: null,

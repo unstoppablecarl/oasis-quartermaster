@@ -97,7 +97,8 @@ function resolveColumns(headerRow) {
             ID: col('Unique ID'),
             QTY_IN_BASE_SET: col('Qty in Base Set'),
             NAME: col('Name'),
-            CLASS_TYPE: col('Class'),
+            PREFIX: col('Prefix'),
+            CLASS: col('Class'),
             MANUFACTURER: col('Manufacturer'),
             BASE_SIZE: col('Base Size'),
             BASE_QTY: col('Base Qty'),
@@ -229,7 +230,8 @@ function parseUnit(row, id, columns) {
     return {
         id,
         display_name: str(row[COL.NAME]),
-        class_type: str(row[COL.CLASS_TYPE]),
+        class: str(row[COL.CLASS]),
+        prefix: str(row[COL.PREFIX]),
         manufacturer: str(row[COL.MANUFACTURER]),
         qty_in_base_set: num(row[COL.QTY_IN_BASE_SET]),
         base_size: str(row[COL.BASE_SIZE]),
@@ -348,7 +350,8 @@ function generate(units) {
 export type Unit = {
     id: number
     display_name: string
-    class_type: string | null
+    class: string | null
+    prefix: string | null,
     manufacturer: string | null
     qty_in_base_set: number | null
     base_size: string | null
