@@ -5,8 +5,6 @@ import type { FactionId } from '../../../data/factions'
 import { FACTIONS } from '../../../data/factions'
 import { FACTIONS_BY_ID } from '../../lib/static-data-helpers'
 
-defineOptions({ inheritAttrs: false })
-
 const factionId = defineModel<FactionId>({ required: true })
 
 const allFactions = computed(() => {
@@ -29,7 +27,7 @@ function select(id: FactionId) {
 </script>
 
 <template>
-    <div class="btn-group btn-group-sm" v-bind="$attrs">
+    <div class="btn-group btn-group-sm">
         <button role="button" class="btn btn-outline-secondary btn-sm disabled">
             {{ faction.display_name }}
         </button>
