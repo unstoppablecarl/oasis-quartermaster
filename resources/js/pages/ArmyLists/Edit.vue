@@ -81,7 +81,7 @@ function update() {
                 @reorder="reorder"
             />
 
-            <UnitPicker @add="add" :faction-id="http.faction_id" />
+            <UnitPicker @add="add" :army-list="http" />
 
         </div>
     </Teleport>

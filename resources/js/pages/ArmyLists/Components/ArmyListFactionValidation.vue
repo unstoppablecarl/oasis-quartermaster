@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
-import { validateArmyListFaction } from '../../../lib/faction-validators'
+import { getArmyListFactionValidator, type UnitInListValidationResult } from '../../../lib/faction-validators'
 import { UNITS_BY_ID } from '../../../lib/static-data-helpers'
 import type { ArmyList } from '../../../types/army-list'
 
@@ -9,8 +9,13 @@ const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
 
-const factionValidation = computed(() => validateArmyListFaction(armyList))
-const valid = computed(() => !factionValidation.value.validationMessages.length && !factionValidation.value.units.length)
+const validator = computed(() => getArmyListFactionValidator(armyList.faction_id))
+const factionValidationMessages = computed(() => validator.value.validateArmyList(armyList))
+const factionUnitValidationMessages = computed(() => {
+    return armyList.units.map(u => validator.value.validateUnitInList(armyList, u)).filter(v => v) as UnitInListValidationResult[]
+})
+
+const valid = computed(() => !factionValidationMessages.value.length && !factionUnitValidationMessages.value.length)
 
 </script>
 <template>
@@ -19,15 +24,15 @@ const valid = computed(() => !factionValidation.value.validationMessages.length 
             <HazardTitle variant="danger">
                 Faction Error
             </HazardTitle>
-            <div v-if="factionValidation.validationMessages.length">
+            <div v-if="factionValidationMessages.length">
                 <div class="title text-warning">Invalid Requirements</div>
                 <ul>
-                    <li v-for="message in factionValidation.validationMessages">{{ message }}</li>
+                    <li v-for="message in factionValidationMessages">{{ message }}</li>
                 </ul>
             </div>
-            <div v-if="factionValidation.units.length">
+            <div v-if="factionUnitValidationMessages.length">
                 <div class="title text-warning">Invalid Units</div>
-                <div v-for="unit in factionValidation.units">
+                <div v-for="unit in factionUnitValidationMessages">
                     <div>
                         <strong>{{ UNITS_BY_ID[unit.id].display_name }}</strong>
                         <template v-if="unit.quantity > 1"> &times; {{ unit.quantity }}</template>

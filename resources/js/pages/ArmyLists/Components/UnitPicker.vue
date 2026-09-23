@@ -1,25 +1,95 @@
 <script setup lang="ts">
 import { Plus } from '@lucide/vue'
-import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX } from '@phosphor-icons/vue'
-import { BTable, type BTableSortBy, type TableFieldRaw, vBTooltip } from 'bootstrap-vue-next'
+import { PhEye, PhEyeSlash, PhWarning } from '@phosphor-icons/vue'
+import {
+    BTable,
+    type BTableSortBy,
+    BTooltip,
+    type TableFieldRaw,
+    type TableRowType,
+    type TableStrictClassValue,
+    vBTooltip,
+} from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
-import { type FactionId, FACTIONS } from '../../../../data/factions'
-import { type Unit, UNITS } from '../../../../data/units'
+import { FACTIONS } from '../../../../data/factions'
+import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
+import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
+import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { getArmyListFactionValidator } from '../../../lib/faction-validators'
+import { sort } from '../../../lib/utils'
 import ButtonToggle from './ButtonToggle.vue'
 
-const { factionId } = defineProps<{
-    factionId: FactionId
+const { armyList } = defineProps<{
+    armyList: LocalArmyList
 }>()
 
 const emit = defineEmits<{
     add: [unitId: number]
 }>()
 
-const allUnits = Object.values(UNITS)
+type Row = typeof allUnits['value'][0]
 
-const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
+const validator = computed(() => getArmyListFactionValidator(armyList.faction_id))
+const hasFaction = computed(() => armyList.faction_id !== FACTIONS.UNAFFILIATED.id)
+
+const allUnits = computed(() => {
+
+    const maxPoints = getArmyListMaxPoints(armyList) ?? 0
+    const totalPoints = getArmyListTotalPoints(armyList)
+    const remainingPoints = Math.max(maxPoints - totalPoints, 0)
+
+    return Object.values(UNITS).map(u => {
+
+        const {
+            id,
+            prefix,
+            display_name,
+            manufacturer,
+            init,
+            dodge,
+            defense,
+            speed,
+            hp,
+            cost,
+            weapons,
+            traits,
+            abilities,
+        } = u
+
+        return {
+            id,
+            prefix,
+            display_name,
+            class: u.class,
+            manufacturer,
+            init,
+            dodge,
+            defense,
+            speed,
+            hp,
+            cost,
+            weapons: weapons.map(w => ({ ...w })),
+            traits: [...traits],
+            abilities: [...abilities],
+            faction_validation: validator.value.validateUnitCandidate(armyList, u.id),
+        }
+    }).filter(row => {
+        const valid = !row.faction_validation
+        if (!includeFactionInvalidUnits.value && !valid) {
+            return false
+        }
+
+        if (!includeOutOfBudgetUnits.value && remainingPoints < row.cost) {
+            return false
+        }
+
+        return true
+    })
+})
+
+const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => ([
     {
         key: 'display_name',
         label: 'Name',
@@ -36,27 +106,31 @@ const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
     }] : []),
     {
         key: 'init',
-        label: 'Int.',
+        label: 'Init.',
+        class: 'number-cell',
         sortable: true,
     },
     {
         key: 'dodge',
+        class: 'number-cell',
         sortable: true,
     },
     {
         key: 'defense',
+        class: 'number-cell',
         sortable: true,
     },
     {
         key: 'hp',
         label: 'HP',
+        class: 'number-cell',
         sortable: true,
     },
     {
         key: 'speed',
         label: 'Move',
         sortable: true,
-        class: 'ws-nowrap',
+        class: 'ws-nowrap number-cell',
     },
     {
         key: 'weapons',
@@ -70,8 +144,15 @@ const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
     },
     {
         key: 'cost',
+        class: 'number-cell',
         sortable: true,
     },
+    ...(hasFaction.value && includeFactionInvalidUnits.value ? [{
+        key: 'faction_validation',
+        label: 'Faction Valid',
+        sortable: true,
+        sortCompare: sort((unit: Row) => unit.faction_validation ? 1 : 0),
+    }] : []),
     {
         key: 'controls',
         label: '',
@@ -85,6 +166,9 @@ const showManufacturer = ref(true)
 const showClass = ref(true)
 const includeOutOfBudgetUnits = ref(true)
 const includeFactionInvalidUnits = ref(false)
+
+const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =>
+    type === 'row' && item?.faction_validation ? 'opacity-25' : ''
 </script>
 <template>
     <div class="card mb-3">
@@ -143,7 +227,7 @@ const includeFactionInvalidUnits = ref(false)
                     <ButtonToggle
                         v-model="includeFactionInvalidUnits"
                         class-off="secondary"
-                        v-if="factionId !== FACTIONS.UNAFFILIATED.id"
+                        v-if="armyList.faction_id !== FACTIONS.UNAFFILIATED.id"
                     >
                         <template #icon-on>
                             <PhEye weight="fill" />
@@ -165,6 +249,7 @@ const includeFactionInvalidUnits = ref(false)
                 v-model:sort-by="sortBy"
                 head-variant="dark"
                 no-border-collapse
+                :tbody-tr-class="rowClass"
             >
                 <template #cell(display_name)="data">
                     <span class="text-muted fw-light" v-if="showPrefix">{{ data.item.prefix }}</span>
@@ -181,6 +266,24 @@ const includeFactionInvalidUnits = ref(false)
                 <template #cell(abilities)="data">
                     {{ data.item.abilities.join(', ') }}
                 </template>
+
+                <template #cell(faction_validation)="data">
+                    <template v-if="data.item.faction_validation">
+
+                        <BTooltip>
+                            <template #target>
+                                <button role="button" class="btn btn-outline-danger">
+                                    <PhWarning weight="fill" />
+                                </button>
+                            </template>
+                            <div v-for="item in data.item.faction_validation.validationMessages">
+                                {{ item }}
+                            </div>
+                        </BTooltip>
+
+                    </template>
+                </template>
+
                 <template #cell(controls)="data">
                     <button
                         type="button"

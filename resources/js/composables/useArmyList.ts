@@ -1,5 +1,6 @@
 import { computed, toRef, toValue } from 'vue'
-import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID } from '../lib/static-data-helpers'
+import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
+import type { ArmyList } from '../types/army-list'
 import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 
 export type { UnitEntry }
@@ -134,3 +135,13 @@ function toTimestamp(val: string | undefined) {
     return new Date(val)
 }
 
+export function getArmyListTotalPoints(armyList: Pick<ArmyList, 'units'>) {
+    let total = 0
+    for (const u of armyList.units) {
+        const unit = UNITS_BY_ID[u.id]
+
+        total += u.quantity * unit.cost
+    }
+
+    return total
+}
