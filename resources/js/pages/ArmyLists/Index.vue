@@ -3,27 +3,16 @@ import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem } from 'bootstrap-vue-next'
-import { formatDistanceToNow } from 'date-fns'
 import { computed, ref, toValue } from 'vue'
 import Fraction from '../../components/Fraction.vue'
 import { getArmyListTypeName, useArmyList } from '../../composables/useArmyList'
+import { localize, sort, timeAgo } from '../../lib/utils'
 import ArmyListControls from './Components/ArmyListControls.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 
 const { armyLists } = defineProps<{
     armyLists: ArmyList[];
 }>()
-
-function timeAgo(val: Date | undefined | null) {
-    if (!val) return null
-    return formatDistanceToNow(val, { addSuffix: true })
-}
-
-function localize(val: Date | undefined | null) {
-    if (!val) return null
-
-    return val.toLocaleDateString() + ' ' + val.toLocaleTimeString()
-}
 
 function armyListRow(armyList: ArmyList) {
     const {
@@ -75,36 +64,31 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
         key: 'unitCount',
         class: 'number-cell',
         sortable: true,
-        sortCompare: sort((r) => r.unitCount.value)
-    }, {
+        sortCompare: sort((r) => r.unitCount.value),
+    },
+    {
         key: 'points',
         class: 'number-cell',
         sortable: true,
-        sortCompare: sort((r) => r.totalCost.value)
+        sortCompare: sort((r) => r.totalCost.value),
     },
     {
         key: 'createdAt',
         label: 'Created',
         sortable: true,
-        sortCompare: sort((r) => r.createdAt.value!.getTime())
+        sortCompare: sort((r) => r.createdAt.value!.getTime()),
     },
     {
         key: 'updatedAt',
         label: 'Updated',
         sortable: true,
-        sortCompare: sort((r) => r.updatedAt.value!.getTime())
+        sortCompare: sort((r) => r.updatedAt.value!.getTime()),
     },
     {
         key: 'controls',
         label: '',
     },
 ]
-
-function sort(getter: (v: ArmyListRow) => number) {
-    return (a: ArmyListRow, b: ArmyListRow): number => {
-        return getter(a) - getter(b)
-    }
-}
 
 const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
 </script>
