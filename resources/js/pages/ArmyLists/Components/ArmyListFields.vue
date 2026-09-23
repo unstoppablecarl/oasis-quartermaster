@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BFormCheckbox } from 'bootstrap-vue-next'
-import { computed, toRaw, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { ARMY_LIST_TYPES } from '../../../../data/army-list-types'
 import FactionSelectModal from '../../../components/army-lists/FactionSelectModal.vue'
 import InputError from '../../../components/InputError.vue'
@@ -25,7 +25,6 @@ const { armyList, errors, isCreating = false } = defineProps<{
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
 const isCustomArmyListType = computed(() => armyList.army_list_type_id === null)
 
-console.log('z', toRaw(armyList))
 const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
 
 watch(isCustomArmyListType, (isCustom) => {
@@ -101,8 +100,8 @@ watch(isCustomArmyListType, (isCustom) => {
     <div class="row mb-3">
         <div class="col">
             <label class="form-label title-font d-block">Faction</label>
-            {{ faction.display_name }}
-            <FactionSelectModal v-model="armyList.faction_id" class="ms-2" />
+
+            <FactionSelectModal v-model="armyList.faction_id" />
         </div>
 
         <div class="col" v-if="isCustomArmyListType">

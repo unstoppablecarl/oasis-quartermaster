@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import { BModal } from 'bootstrap-vue-next'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import { FACTIONS } from '../../../data/factions'
+import { FACTIONS_BY_ID } from '../../lib/static-data-helpers'
 
 defineOptions({ inheritAttrs: false })
 
 const factionId = defineModel<FactionId>({ required: true })
 
-const allFactions = Object.values(FACTIONS)
+const allFactions = computed(() => {
+    return Object.values(FACTIONS).map((f) => {
+
+        return {
+            ...f,
+            selected: f.id === factionId.value,
+        }
+    })
+})
+
+const faction = computed(() => FACTIONS_BY_ID[factionId.value])
 const visible = ref(false)
 
 function select(id: FactionId) {
@@ -18,14 +29,20 @@ function select(id: FactionId) {
 </script>
 
 <template>
-    <button
-        v-bind="$attrs"
-        type="button"
-        class="btn btn-primary btn-sm"
-        @click="visible = true"
-    >
-        Change
-    </button>
+    <div class="btn-group btn-group-sm" v-bind="$attrs">
+        <button role="button" class="btn btn-outline-secondary btn-sm disabled">
+            {{ faction.display_name }}
+        </button>
+        <button
+
+            type="button"
+            class="btn btn-primary btn-sm"
+            @click="visible = true"
+        >
+            Change
+        </button>
+
+    </div>
 
     <BModal
         v-model="visible"
@@ -42,15 +59,29 @@ function select(id: FactionId) {
             >
                 <button
                     type="button"
-                    class="btn btn-primary"
-                    :class="{ active: faction.id === factionId }"
+                    class="btn p-1 w-100 h-100"
+                    :class="{
+                        'btn-info': faction.selected,
+                        'btn-primary': !faction.selected
+                    }"
                     @click="select(faction.id)"
                 >
-                    <img v-if="faction.card" :src="`/images/cards/factions/${faction.card}`" class="w-100" :alt="`${faction.display_name} Faction Card`" />
+                    <img
+                        v-if="faction.card"
+                        :src="`/images/cards/factions/${faction.card}`"
+                        class="w-100"
+                        :alt="`${faction.display_name} Faction Card`"
+                    />
                     <template v-else>
                         {{ faction.display_name }}
                     </template>
-                    Select
+                    <br>
+                    <template v-if="faction.selected">
+                        Current
+                    </template>
+                    <template v-else>
+                        Select
+                    </template>
                 </button>
             </div>
         </div>
