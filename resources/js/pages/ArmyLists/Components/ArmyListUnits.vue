@@ -108,9 +108,9 @@ function minus(unit: UnitEntry) {
                                     role="button"
                                     class="btn btn-minus btn-sm"
                                     :class="{
-                                            'btn-secondary': unit.quantity !== 0,
-                                            'btn-danger': unit.quantity === 0,
-                                        }"
+                                        'btn-primary': unit.quantity !== 0,
+                                        'btn-danger': unit.quantity === 0,
+                                    }"
                                     @click="minus(unit)"
                                     :id="`btn-remove-1-${unit.id}`"
                                 >
@@ -119,7 +119,7 @@ function minus(unit: UnitEntry) {
                                 </button>
                                 <button
                                     role="button"
-                                    class="btn btn-secondary btn-sm"
+                                    class="btn btn-primary btn-sm"
                                     @click="emit('add', unit.id)"
                                     :id="`btn-add-1-${unit.id}`"
                                 >
