@@ -12,13 +12,15 @@ const containerClass = computed(() => {
     }
 
     return {
-        'text-success-emphasis': a <= b,
+        'text-success-emphasis': a == b,
+        'text-warning-emphasis': a <= b,
         'text-danger-emphasis': a > b,
     }
 })
 </script>
 <template>
     <span :class="containerClass">
-        {{ a }}<template v-if="b !== null"> / {{ b }}</template>
+        {{ a }}
+        <template v-if="b !== null"> / {{ b }}</template>
     </span>
 </template>
