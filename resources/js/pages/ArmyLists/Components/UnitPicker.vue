@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { Plus } from '@lucide/vue'
+import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX } from '@phosphor-icons/vue'
 import { BTable, type BTableSortBy, type TableFieldRaw, vBTooltip } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
+import { type FactionId, FACTIONS } from '../../../../data/factions'
 import { type Unit, UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import ButtonToggle from './ButtonToggle.vue'
+
+const { factionId } = defineProps<{
+    factionId: FactionId
+}>()
 
 const emit = defineEmits<{
     add: [unitId: number]
@@ -77,6 +83,8 @@ const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
 const showPrefix = ref(true)
 const showManufacturer = ref(true)
 const showClass = ref(true)
+const includeOutOfBudgetUnits = ref(true)
+const includeFactionInvalidUnits = ref(false)
 </script>
 <template>
     <div class="card mb-3">
@@ -87,9 +95,64 @@ const showClass = ref(true)
                 </HazardTitle>
 
                 <div class="d-flex gap-2 my-2">
-                    <ButtonToggle v-model="showPrefix">Show Prefix</ButtonToggle>
-                    <ButtonToggle v-model="showClass">Show Class</ButtonToggle>
-                    <ButtonToggle v-model="showManufacturer">Show Manufacturer</ButtonToggle>
+                    <div class="btn-py fw-bold">
+                        Columns:
+                    </div>
+                    <ButtonToggle v-model="showPrefix" class-on="success" class-off="info">
+                        <template #icon-on>
+                            <PhEye weight="fill" />
+                        </template>
+                        <template #icon-off>
+                            <PhEyeSlash weight="fill" />
+                        </template>
+                        Prefix
+                    </ButtonToggle>
+                    <ButtonToggle v-model="showClass" class-on="success" class-off="info">
+                        <template #icon-on>
+                            <PhEye weight="fill" />
+                        </template>
+                        <template #icon-off>
+                            <PhEyeSlash weight="fill" />
+                        </template>
+                        Class
+                    </ButtonToggle>
+                    <ButtonToggle v-model="showManufacturer" class-on="success" class-off="info">
+                        <template #icon-on>
+                            <PhEye weight="fill" />
+                        </template>
+                        <template #icon-off>
+                            <PhEyeSlash weight="fill" />
+                        </template>
+                        Manufacturer
+                    </ButtonToggle>
+                    <div class="btn-py ms-2">
+                        Rows:
+                    </div>
+                    <ButtonToggle
+                        v-model="includeOutOfBudgetUnits"
+                        class-off="secondary"
+                    >
+                        <template #icon-on>
+                            <PhEye weight="fill" />
+                        </template>
+                        <template #icon-off>
+                            <PhEyeSlash weight="fill" />
+                        </template>
+                        Exceed Available Points
+                    </ButtonToggle>
+                    <ButtonToggle
+                        v-model="includeFactionInvalidUnits"
+                        class-off="secondary"
+                        v-if="factionId !== FACTIONS.UNAFFILIATED.id"
+                    >
+                        <template #icon-on>
+                            <PhEye weight="fill" />
+                        </template>
+                        <template #icon-off>
+                            <PhEyeSlash weight="fill" />
+                        </template>
+                        Faction Invalid
+                    </ButtonToggle>
                 </div>
             </div>
 

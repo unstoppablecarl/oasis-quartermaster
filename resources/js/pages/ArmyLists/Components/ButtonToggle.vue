@@ -17,9 +17,10 @@ const {
         :variant="value ? classOn : classOff"
         role="button"
     >
-        <PhCheck v-if="value" />
-        <PhX v-else />
-        &nbsp;
-        <slot />
+        <slot v-if="value" name="icon-on"><PhCheck /></slot>
+        <slot v-else name="icon-off"><PhX /></slot>
+        <span class="ms-1">
+            <slot />
+        </span>
     </BButton>
 </template>

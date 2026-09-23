@@ -66,9 +66,10 @@ function save() {
         @reorder="reorder"
     />
 
-    <UnitPicker @add="add" />
+    <UnitPicker @add="add" :faction-id="form.faction_id" />
 
     <ArmyListSaveBar
+        :name="form.display_name"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="form.processing"

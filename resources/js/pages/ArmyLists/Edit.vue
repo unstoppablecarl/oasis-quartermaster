@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { Head, setLayoutProps, useHttp } from '@inertiajs/vue3'
 import { toast } from 'vue-sonner'
+import type { FactionId } from '../../../data/factions'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
 import type { LocalArmyList } from '../../composables/useUnitsInfo'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
+import ArmyListFactionValidators from './Components/ArmyListFactionValidation.vue'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
 import ArmyListUnits from './Components/ArmyListUnits.vue'
@@ -23,6 +25,7 @@ type UpdateResponse = {
     armyList: ArmyList
     message: string
     public: boolean
+    faction_id: FactionId
 }
 
 const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
@@ -49,6 +52,7 @@ function update() {
             armyList.custom_max_points = response.armyList.custom_max_points
             armyList.units = response.armyList.units.map((u) => ({ ...u }))
             armyList.public = response.public
+            armyList.faction_id = response.faction_id
             toast.success(response.message)
         },
         onError: () => {
@@ -62,6 +66,7 @@ function update() {
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
+        <ArmyListFactionValidators :army-list="armyList" />
     </ArmyListItemLayout>
 
     <Teleport to="#before-page-footer-teleport" defer>
@@ -76,11 +81,12 @@ function update() {
                 @reorder="reorder"
             />
 
-            <UnitPicker @add="add" />
+            <UnitPicker @add="add" :faction-id="http.faction_id" />
 
         </div>
     </Teleport>
     <ArmyListSaveBar
+        :name="armyList.display_name"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="http.processing"

@@ -20,7 +20,7 @@ export type LocalArmyList = {
     updated_at?: string
     display_name: string
     faction_id: FactionId
-    commands: {id: CommandId}[]
+    commands: { id: CommandId }[]
     units: UnitEntry[]
     army_list_type_id: ArmyListTypeId | null
     custom_max_points: number | null
@@ -46,8 +46,11 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
             const resolvedMaxPoints = toValue(maxPoints)
 
             const validationMessages = []
-            if (resolvedMaxPoints !== null && cost > resolvedMaxPoints * 0.5) {
-                validationMessages.push(`Unit cost cannot be greater than 50% of Total Points. (${cost} / ${resolvedMaxPoints * 0.5})`)
+            if (resolvedMaxPoints !== null) {
+                const halfPoints = Math.ceil(resolvedMaxPoints * 0.5)
+                if (cost > halfPoints) {
+                    validationMessages.push(`Unit cost cannot be greater than 50% of Total Points. (${cost} / ${halfPoints})`)
+                }
             }
             const halfCount = Math.ceil(unitCount.value * 0.5)
 
