@@ -3,3 +3,8 @@
 .table thead tr th {
     color: $ink;
 }
+
+.table-dark {
+    //--bs-table-color: #fff;
+    --bs-table-bg: #{$carbon};
+}

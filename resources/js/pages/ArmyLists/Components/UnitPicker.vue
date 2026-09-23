@@ -20,10 +20,10 @@ const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
         sortable: true,
         class: 'ws-nowrap',
     },
-    {
+    ...(showClass.value ? [{
         key: 'class',
         sortable: true,
-    },
+    }] : []),
     ...(showManufacturer.value ? [{
         key: 'manufacturer',
         sortable: true,
@@ -43,6 +43,7 @@ const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
     },
     {
         key: 'hp',
+        label: 'HP',
         sortable: true,
     },
     {
@@ -75,11 +76,11 @@ const fields = computed<Exclude<TableFieldRaw<Unit>, string>[]>(() => ([
 const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
 const showPrefix = ref(true)
 const showManufacturer = ref(true)
-
+const showClass = ref(true)
 </script>
 <template>
     <div class="card mb-3">
-        <div class="card-body">
+        <div class="card-body pt-0">
             <div class="unit-picker-toolbar sticky-top">
                 <HazardTitle variant="teal">
                     Recruits
@@ -87,6 +88,7 @@ const showManufacturer = ref(true)
 
                 <div class="d-flex gap-2 my-2">
                     <ButtonToggle v-model="showPrefix">Show Prefix</ButtonToggle>
+                    <ButtonToggle v-model="showClass">Show Class</ButtonToggle>
                     <ButtonToggle v-model="showManufacturer">Show Manufacturer</ButtonToggle>
                 </div>
             </div>
@@ -99,9 +101,10 @@ const showManufacturer = ref(true)
                 :fields="fields"
                 v-model:sort-by="sortBy"
                 head-variant="dark"
+                no-border-collapse
             >
                 <template #cell(display_name)="data">
-                    <span class="opacity-50" v-if="showPrefix">{{ data.item.prefix }}</span>
+                    <span class="text-muted fw-light" v-if="showPrefix">{{ data.item.prefix }}</span>
                     {{ data.item.display_name }}
                 </template>
 
@@ -136,12 +139,13 @@ const showManufacturer = ref(true)
 .unit-picker-toolbar {
     background: var(--bs-card-bg);
     z-index: 3;
+    padding-top: var(--bs-card-spacer-y);
 }
 
 /* Sticks the table header just below the toolbar above it, instead of at the very top of the viewport. */
 :deep(.unit-picker-sticky-head th) {
     position: sticky;
-    top: 4.125rem;
+    top: 5.125rem;
     z-index: 2;
 }
 </style>
