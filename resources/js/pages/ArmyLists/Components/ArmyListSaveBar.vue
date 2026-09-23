@@ -2,6 +2,7 @@
 import Fraction from '../../../components/Fraction.vue'
 
 const {
+    name,
     maxPoints = null,
     processing = false,
     saveDisabled = false,
@@ -9,6 +10,7 @@ const {
     totalCost,
     unitCount,
 } = defineProps<{
+    name: string
     totalCost: number
     maxPoints?: number | null
     processing?: boolean
@@ -26,7 +28,10 @@ const emit = defineEmits<{
         <div class="save-bar fixed-bottom bg-black border-top">
             <div class="container py-1">
                 <div class="d-flex align-items-center flex-wrap gap-2">
-                    <div class="me-auto"></div>
+                    <div class="btn-py px-3 me-auto">
+                        <strong>Army List: </strong>
+                        <span class="text-body-emphasis">{{ name }}</span>
+                    </div>
                     <div class="btn-py px-3">
                         <strong> Unit Count: </strong>
                         <span class="text-body-emphasis">
