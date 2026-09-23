@@ -1,21 +1,23 @@
 <script setup lang="ts">
+import { PhCheck, PhX } from '@phosphor-icons/vue'
 import { BFormCheckbox } from 'bootstrap-vue-next'
 import { computed, watch } from 'vue'
 import { ARMY_LIST_TYPES } from '../../../../data/army-list-types'
+import type { CommandId } from '../../../../data/commands'
+import CommandSelectModal from '../../../components/army-lists/CommandSelectModal.vue'
 import FactionSelectModal from '../../../components/army-lists/FactionSelectModal.vue'
 import InputError from '../../../components/InputError.vue'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
-import { FACTIONS_BY_ID } from '../../../lib/static-data-helpers'
 import BtnCopyLink from './BtnCopyLink.vue'
 
 const { armyList, errors, isCreating = false } = defineProps<{
     armyList: Pick<
         LocalArmyList,
-        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid' | 'faction_id'
+        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid' | 'faction_id' | 'commands'
     >
     errors?: Partial<
         Record<
-            'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public',
+            'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'commands',
             string
         >
     >
@@ -25,17 +27,28 @@ const { armyList, errors, isCreating = false } = defineProps<{
 const allArmyListTypes = Object.values(ARMY_LIST_TYPES)
 const isCustomArmyListType = computed(() => armyList.army_list_type_id === null)
 
-const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
-
 watch(isCustomArmyListType, (isCustom) => {
     if (!isCustom) {
         armyList.custom_max_points = null
     }
 })
+
+const commands = computed({
+    get() {
+        return armyList.commands.map(c => c.id)
+    },
+    set(value: CommandId[]) {
+        armyList.commands = value.map(v => {
+            return {
+                id: v,
+            }
+        })
+    },
+})
 </script>
 <template>
     <div class="row mb-3">
-        <div class="col">
+        <div class="col-md-4 col-sm-6 mb-2">
             <label for="display_name" class="form-label title-font">Name</label>
             <input
                 id="display_name"
@@ -49,7 +62,7 @@ watch(isCustomArmyListType, (isCustom) => {
             <InputError class="mt-2" :message="errors?.display_name" />
         </div>
 
-        <div class="col">
+        <div class="col-md-4 col-sm-6 mb-2">
             <label for="army_list_type_id" class="form-label title-font">
                 Game Mode
             </label>
@@ -72,42 +85,10 @@ watch(isCustomArmyListType, (isCustom) => {
             <InputError class="mt-2" :message="errors?.army_list_type_id" />
         </div>
 
-        <div class="col" v-if="!isCreating">
-            <label for="army_list_type_id" class="form-label title-font">
-                Visibility
+        <div class="col-md-4 col-sm-6 mb-2" :class="{'lg-invisible': !isCustomArmyListType}">
+            <label for="custom_max_points" class="form-label title-font">
+                Max Points
             </label>
-            <div class="d-flex">
-                <div>
-                    <BFormCheckbox
-                        id="public"
-                        v-model="armyList.public"
-                        name="public"
-                        :value="1"
-                        :unchecked-value="0"
-                        class="py-1"
-                    >
-                        Publicly Visible
-                    </BFormCheckbox>
-
-                    <InputError class="mt-2" :message="errors?.public" />
-                </div>
-                <div class="ms-2" v-if="armyList.uuid">
-                    <BtnCopyLink :army-list-uuid="armyList.uuid" :disabled="!armyList.public" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <label class="form-label title-font d-block">Faction</label>
-
-            <FactionSelectModal v-model="armyList.faction_id" />
-        </div>
-
-        <div class="col" v-if="isCustomArmyListType">
-            <label for="custom_max_points" class="form-label title-font"
-            >Custom Max Points</label
-            >
             <input
                 id="custom_max_points"
                 type="number"
@@ -119,5 +100,48 @@ watch(isCustomArmyListType, (isCustom) => {
             />
             <InputError class="mt-2" :message="errors?.custom_max_points" />
         </div>
+
+        <div class="col-md-4 col-sm-6 mb-2">
+            <label class="form-label title-font d-block">Faction</label>
+            <FactionSelectModal v-model="armyList.faction_id" />
+        </div>
+        <div class="col-md-4 col-sm-6 mb-2">
+            <label class="form-label title-font d-block">Commands</label>
+            <CommandSelectModal v-model="commands" />
+            <InputError class="mt-2" :message="errors?.commands" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-2" v-if="!isCreating">
+            <label for="army_list_type_id" class="form-label title-font">
+                Visibility
+            </label>
+            <div>
+                <BFormCheckbox
+                    id="public"
+                    v-model="armyList.public"
+                    name="public"
+                    :value="1"
+                    :unchecked-value="0"
+                    class="d-inline-block"
+                    :button-variant="armyList.public ? 'success' : 'danger'"
+                    button
+                >
+                    <PhCheck v-if="armyList.public" />
+                    <PhX v-else />
+                    Publicly Visible
+                </BFormCheckbox>
+
+                <BtnCopyLink
+                    v-if="armyList.uuid"
+                    :army-list-uuid="armyList.uuid"
+                    :disabled="!armyList.public"
+                    class="ms-2"
+                />
+            </div>
+            <InputError class="mt-2" :message="errors?.public" />
+        </div>
     </div>
 </template>
+<style lang="scss">
+
+</style>

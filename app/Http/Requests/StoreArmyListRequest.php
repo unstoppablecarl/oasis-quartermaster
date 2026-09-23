@@ -23,7 +23,7 @@ class StoreArmyListRequest extends FormRequest
             'units.*.id' => ['required', 'integer', 'exists:units,id'],
             'units.*.quantity' => ['required', 'integer', 'min:1'],
             'faction_id' => ['required', 'integer', 'exists:factions,id'],
-            'commands' => ['required', 'array', 'size:2'],
+            'commands' => ['required', 'array', 'max:2'],
             'commands.*.id' => ['required', 'integer', 'exists:commands,id'],
         ];
     }

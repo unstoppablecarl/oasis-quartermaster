@@ -17,7 +17,6 @@ const { armyList } = defineProps<{
 
 setLayoutProps({
     saveBarPadding: true,
-    containerFluid: true,
 })
 
 type UpdateResponse = {
@@ -63,20 +62,24 @@ function update() {
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
-
-        <ArmyListUnits
-            :units="http.units"
-            :show-controls="true"
-            :max-points="maxPoints"
-            @add="add"
-            @subtract="subtract"
-            @remove="remove"
-            @reorder="reorder"
-        />
-
-        <UnitPicker @add="add" />
     </ArmyListItemLayout>
 
+    <Teleport to="#before-page-footer-teleport" defer>
+        <div class="container-fluid">
+            <ArmyListUnits
+                :units="http.units"
+                :show-controls="true"
+                :max-points="maxPoints"
+                @add="add"
+                @subtract="subtract"
+                @remove="remove"
+                @reorder="reorder"
+            />
+
+            <UnitPicker @add="add" />
+
+        </div>
+    </Teleport>
     <ArmyListSaveBar
         :total-cost="totalCost"
         :max-points="maxPoints"

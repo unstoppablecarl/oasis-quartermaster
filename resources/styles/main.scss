@@ -32,6 +32,8 @@
 @import 'bootstrap/table';
 @import 'bootstrap/navbar';
 @import 'bootstrap/text';
+    @import 'bootstrap/modal';
+
 @import 'lib/hazard';
 @import 'print-page';
 @import 'page-cards-print';
@@ -68,4 +70,20 @@ html, body {
     font-family: $headings-font-family !important;
     text-transform: uppercase;
     color: $ink
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.lg-invisible {
+    visibility: visible;
+    display: none;
+}
+
+@include media-breakpoint-up(md) {
+    .lg-invisible {
+        display: inherit;
+        visibility: hidden;
+    }
 }

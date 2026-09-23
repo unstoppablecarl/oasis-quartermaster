@@ -87,6 +87,8 @@ $header-footer-bg: #121212;
 
 @import '../../node_modules/bootstrap/scss/variables';
 @import '../../node_modules/bootstrap/scss/variables-dark';
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
 
 $guide-colors: (
     'carbon': $carbon,

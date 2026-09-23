@@ -27,19 +27,18 @@ function select(id: FactionId) {
 </script>
 
 <template>
-    <div class="btn-group btn-group-sm">
-        <button role="button" class="btn btn-outline-secondary btn-sm disabled">
+    <div class="btn-group d-flex">
+        <button role="button" class="btn btn-outline-secondary disabled flex-grow-1">
             {{ faction.display_name }}
         </button>
         <button
 
             type="button"
-            class="btn btn-primary btn-sm"
+            class="btn btn-primary flex-grow-0"
             @click="visible = true"
         >
             Change
         </button>
-
     </div>
 
     <BModal

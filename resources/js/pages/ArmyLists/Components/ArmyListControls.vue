@@ -16,7 +16,7 @@ const { armyList, idPrefix } = defineProps<{
 }>()
 </script>
 <template>
-    <BtnCopyLink v-if="armyList.public" :army-list-uuid="armyList.uuid" class="me-2" />
+    <BtnCopyLink v-if="armyList.public" :army-list-uuid="armyList.uuid" class="me-2 btn-sm" />
 
     <div class="btn-group btn-group-sm">
         <Link

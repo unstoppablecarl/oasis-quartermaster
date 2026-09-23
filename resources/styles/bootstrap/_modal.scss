@@ -1,0 +1,11 @@
+.modal-fluid {
+    width: calc(100% - 8rem) !important;
+    max-width: none !important;
+    height: calc(100% - 8rem);
+    margin: 4rem;
+
+    .modal-content {
+        max-height: 100%;
+        overflow-y: auto;
+    }
+}

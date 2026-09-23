@@ -24,7 +24,7 @@ async function copy() {
 </script>
 <template>
     <button role="button"
-            class="btn btn-outline-info btn-sm"
+            class="btn btn-outline-info"
             @click="copy"
             v-b-tooltip.hover.top
             title="Copy Armylist URL"
