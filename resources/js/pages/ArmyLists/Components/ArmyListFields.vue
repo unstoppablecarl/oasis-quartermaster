@@ -9,6 +9,7 @@ import FactionSelectModal from '../../../components/army-lists/FactionSelectModa
 import InputError from '../../../components/InputError.vue'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import BtnCopyLink from './BtnCopyLink.vue'
+import ButtonToggle from './ButtonToggle.vue'
 
 const { armyList, errors, isCreating = false } = defineProps<{
     armyList: Pick<
@@ -128,6 +129,7 @@ const commands = computed({
                 >
                     <PhCheck v-if="armyList.public" />
                     <PhX v-else />
+                    &nbsp;
                     Publicly Visible
                 </BFormCheckbox>
 
