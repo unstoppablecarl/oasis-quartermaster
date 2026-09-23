@@ -7,8 +7,8 @@ const {
     classOn = 'success',
     classOff = 'danger',
 } = defineProps<{
-    classOn: ButtonVariant
-    classOff: ButtonVariant
+    classOn?: ButtonVariant
+    classOff?: ButtonVariant
 }>()
 </script>
 <template>
