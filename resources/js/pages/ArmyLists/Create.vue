@@ -4,6 +4,8 @@ import { computed, watch } from 'vue'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
 import { clearArmyListDraft, loadArmyListDraft, saveArmyListDraft } from '../../lib/armyListDraft'
+import { getArmyListFactionValidator } from '../../lib/faction-validators'
+import { getFactionName } from '../../lib/static-data-helpers'
 import { login, register } from '../../routes'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
@@ -60,6 +62,7 @@ function save() {
 
     <ArmyListSaveBar
         :name="form.display_name"
+        :faction-id="form.faction_id"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="form.processing"

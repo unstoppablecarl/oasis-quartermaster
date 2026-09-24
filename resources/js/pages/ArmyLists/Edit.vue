@@ -78,6 +78,7 @@ function update() {
     </Teleport>
     <ArmyListSaveBar
         :name="armyList.display_name"
+        :faction-id="armyList.faction_id"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="http.processing"

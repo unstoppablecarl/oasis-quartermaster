@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import type { FactionId } from '../../../../data/factions'
 import Fraction from '../../../components/Fraction.vue'
+import { getFactionName } from '../../../lib/static-data-helpers'
 
 const {
     name,
+    factionId,
     maxPoints = null,
     processing = false,
     saveDisabled = false,
@@ -11,6 +15,7 @@ const {
     unitCount,
 } = defineProps<{
     name: string
+    factionId: FactionId,
     totalCost: number
     maxPoints?: number | null
     processing?: boolean
@@ -22,6 +27,8 @@ const {
 const emit = defineEmits<{
     save: []
 }>()
+
+const faction = computed(() => getFactionName(factionId))
 </script>
 <template>
     <Teleport to="#before-page-footer-teleport" defer>
@@ -31,6 +38,8 @@ const emit = defineEmits<{
                     <div class="btn-py px-3 me-auto">
                         <strong>Army List: </strong>
                         <span class="text-body-emphasis">{{ name }}</span>
+                        <strong class="ms-3">Faction: </strong>
+                        <span class="text-body-emphasis">{{ faction }}</span>
                     </div>
                     <div class="btn-py px-3">
                         <strong> Unit Count: </strong>
