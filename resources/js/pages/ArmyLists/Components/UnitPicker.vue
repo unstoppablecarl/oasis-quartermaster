@@ -273,7 +273,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
 
                         <BTooltip>
                             <template #target>
-                                <button role="button" class="btn btn-outline-danger btn-faction-validation">
+                                <button role="button" class="btn btn-danger btn-faction-validation">
                                     <PhWarning weight="fill" />
                                 </button>
                             </template>
