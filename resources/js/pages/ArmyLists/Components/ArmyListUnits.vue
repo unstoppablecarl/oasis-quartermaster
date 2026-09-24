@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical, Minus, Plus, RotateCcw, X } from '@lucide/vue'
-import { PhWarning } from '@phosphor-icons/vue'
 import { BTooltip } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import draggable from 'vuedraggable'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
+import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import { useArmyList } from '../../../composables/useArmyList'
 import { type LocalArmyList, type UnitEntry, type UnitEntryInfo } from '../../../composables/useUnitsInfo'
@@ -23,7 +23,6 @@ const {
     unitCount,
     maxPoints,
     unitsInfo,
-    hasFactionValidationErrors,
 } = useArmyList(armyList)
 
 type SortKey = 'display_name' | 'init' | 'dodge' | 'defense' | 'hp' | 'speed' | 'cost' | 'quantity' | 'totalCost' | 'manufacturer'
@@ -186,9 +185,7 @@ function minus(unit: UnitEntry) {
                 <template #item="{ element: unit }">
                     <div class="grid-row"
                          :class="{ 'row-error': unit.validationMessages.length || unit.factionValidation?.validationMessages?.length }">
-                        <div class="p-0 drag-handle-cell" :class="{
-                            'span-error-row': unit.validationMessages.length > 0
-                        }">
+                        <div class="p-0 drag-handle-cell">
                             <button
                                 role="button"
                                 class="btn btn-transparent drag-handle d-flex align-items-start"
@@ -198,17 +195,11 @@ function minus(unit: UnitEntry) {
                                 <GripVertical weight="bold" :size="16" />
                             </button>
                         </div>
-                        <div v-if="hasFactionValidationErrors">
-                            <BTooltip v-if="unit.factionValidation?.validationMessages?.length">
-                                <template #target>
-                                    <button role="button" class="btn btn-danger">
-                                        <PhWarning weight="fill" />
-                                    </button>
-                                </template>
-                                <div v-for="item in unit.factionValidation.validationMessages">
-                                    {{ item }}
-                                </div>
-                            </BTooltip>
+                        <div>
+                            <BtnPopoverValidation
+                                :messages="unit.validationMessages"
+                                :factionMessages="unit.factionValidation?.validationMessages"
+                            />
                         </div>
                         <div>
                             <span class="text-muted fw-light">{{ unit.prefix }}</span>
@@ -274,17 +265,6 @@ function minus(unit: UnitEntry) {
                             </BTooltip>
 
                             <UnitCardModal :unit-id="unit.id" />
-                        </div>
-                        <div class="error-msg"
-                             :class="{'error-msg-empty': !unit.validationMessages.length && !unit.factionValidation?.validationMessages?.length}">
-                            <div v-for="message in unit.validationMessages" :key="message">{{ message }}</div>
-
-                            <div class="text-warning" v-if="unit.factionValidation?.validationMessages?.length">
-                                Faction Violations
-                            </div>
-                            <div v-for="item in unit.factionValidation?.validationMessages">
-                                {{ item }}
-                            </div>
                         </div>
                     </div>
                 </template>
@@ -395,34 +375,12 @@ function minus(unit: UnitEntry) {
         &:first-child {
             border-top-width: 1px;
         }
-
-
-        > div.error-msg {
-            grid-column: 2 / -1;
-            font-size: 0.85em;
-            padding-top: 0;
-            color: mix($danger, #fff, 50%);
-        }
-
-        > div.error-msg-empty {
-            padding: 0;
-        }
-
     }
 
     .row-error {
         --bs-border-color: var(--bs-danger);
         border-width: 1px;
         background: mix($danger, $body-bg-dark, 10%);
-
-        /* Selects the .row-error that is immediately followed by a .row-error */
-        &:has(+ .row-error):not(:first-child) {
-            border-bottom-width: 0;
-        }
-    }
-
-    .span-error-row {
-        grid-row: span 2;
     }
 }
 

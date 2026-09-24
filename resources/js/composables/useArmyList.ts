@@ -66,10 +66,6 @@ export function useArmyList(armyList: LocalArmyList) {
         })
     })
 
-    const hasFactionValidationErrors = computed(() => {
-        return unitsInfoFinal.value.find(u => u.factionValidation?.validationMessages?.length)
-    })
-
     return {
         unitsInfo: unitsInfoFinal,
         totalCost,
@@ -85,7 +81,6 @@ export function useArmyList(armyList: LocalArmyList) {
         createdAt,
         updatedAt,
         unitCards: computed(() => getUnitCards(unitsInfo.value)),
-        hasFactionValidationErrors,
     }
 }
 

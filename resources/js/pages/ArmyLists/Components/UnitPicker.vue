@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { Plus } from '@lucide/vue'
-import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX, PhWarning } from '@phosphor-icons/vue'
+import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX, PhPlus } from '@phosphor-icons/vue'
 import {
     BTable,
     type BTableSortBy,
-    BTooltip,
     type TableFieldRaw,
     type TableRowType,
     type TableStrictClassValue,
@@ -14,8 +12,8 @@ import { computed, ref } from 'vue'
 import { FACTIONS } from '../../../../data/factions'
 import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
+import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
-import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
 import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
@@ -98,6 +96,19 @@ const allUnits = computed(() => {
 })
 
 const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
+    ...(hasFaction.value && !filterFactionValidUnits.value
+        ? [
+            {
+                key: 'faction_validation',
+                label: 'Valid',
+                sortable: true,
+                sortCompare: sort((unit: Row) =>
+                    unit.faction_validation ? 1 : 0,
+                ),
+                class: 'cell-faction-validation',
+            },
+        ]
+        : []),
     {
         key: 'display_name',
         label: 'Name',
@@ -163,19 +174,6 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
         class: 'number-cell',
         sortable: true,
     },
-    ...(hasFaction.value && !filterFactionValidUnits.value
-        ? [
-            {
-                key: 'faction_validation',
-                label: 'Valid',
-                sortable: true,
-                sortCompare: sort((unit: Row) =>
-                    unit.faction_validation ? 1 : 0,
-                ),
-                class: 'cell-faction-validation',
-            },
-        ]
-        : []),
     {
         key: 'controls',
         label: '',
@@ -288,6 +286,10 @@ function sortMode(key: string) {
                 no-border-collapse
                 :tbody-tr-class="rowClass"
             >
+                <template #cell(faction_validation)="data">
+                    <BtnPopoverValidation :faction-messages="data.item.faction_validation?.validationMessages" />
+                </template>
+
                 <template #cell(display_name)="data">
                     <span class="text-muted fw-light" v-if="showPrefix">{{
                             data.item.prefix
@@ -306,27 +308,6 @@ function sortMode(key: string) {
                     {{ data.item.abilities.join(', ') }}
                 </template>
 
-                <template #cell(faction_validation)="data">
-                    <template v-if="data.item.faction_validation">
-                        <BTooltip>
-                            <template #target>
-                                <button
-                                    role="button"
-                                    class="btn btn-danger btn-faction-validation"
-                                >
-                                    <PhWarning weight="fill" />
-                                </button>
-                            </template>
-                            <div
-                                v-for="item in data.item.faction_validation
-                                    .validationMessages"
-                            >
-                                {{ item }}
-                            </div>
-                        </BTooltip>
-                    </template>
-                </template>
-
                 <template #cell(controls)="data">
                     <button
                         type="button"
@@ -336,7 +317,7 @@ function sortMode(key: string) {
                         title="Add to List"
                         :disabled="!!data.item.faction_validation"
                     >
-                        <Plus :strokeWidth="2.5" :size="16" />
+                        <PhPlus weight="bold" :size="16" />
                     </button>
 
                     <UnitCardModal :unit-id="data.item.id" />
@@ -376,11 +357,11 @@ function sortMode(key: string) {
     }
 
     > td {
-        &:not(:has(.btn-faction-validation)) {
+        &:not(:has(.btn-popover-validation)) {
             opacity: 0.25;
         }
 
-        &:has(.btn-faction-validation) {
+        &:has(.btn-popover-validation) {
             border-color: color-mix(
                 in srgb,
                 var(--bs-table-border-color) 25%,
