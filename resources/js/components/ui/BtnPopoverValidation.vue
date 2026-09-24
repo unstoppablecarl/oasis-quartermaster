@@ -2,10 +2,13 @@
 import { PhWarning } from '@phosphor-icons/vue'
 import { BPopover } from 'bootstrap-vue-next'
 import { computed } from 'vue'
+import ValidationMessages from './ValidationMessages.vue'
 
-const { messages, factionMessages } = defineProps<{
+const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass } = defineProps<{
     messages?: string[]
-    factionMessages?: string[],
+    factionMessages?: string[]
+    headingClass?: string
+    textClass?: string
 }>()
 
 const hasMessages = computed(() => messages?.length || factionMessages?.length)
@@ -21,23 +24,12 @@ const hasMessages = computed(() => messages?.length || factionMessages?.length)
                 <PhWarning weight="fill" />
             </button>
         </template>
-        <template v-if="messages?.length">
-            <div class="text-danger fw-bold">Rules Violation</div>
-            <ul v-if="messages.length > 1">
-                <li v-for="item in messages">
-                    {{ item }}
-                </li>
-            </ul>
-            <div v-else>{{ messages[0] }}</div>
-        </template>
-        <template v-if="factionMessages?.length">
-            <div class="text-danger fw-bold">Faction Violation</div>
-            <ul v-if="factionMessages.length > 1">
-                <li v-for="item in factionMessages">
-                    {{ item }}
-                </li>
-            </ul>
-            <div v-else>{{ factionMessages[0] }}</div>
-        </template>
+        <ValidationMessages
+            :faction-messages="factionMessages"
+            :messages="messages"
+            :heading-class="headingClass"
+            :text-class="textClass"
+        />
+
     </BPopover>
 </template>

@@ -32,7 +32,7 @@ const faction = computed(() => getFactionName(factionId))
 </script>
 <template>
     <Teleport to="#before-page-footer-teleport" defer>
-        <div class="save-bar fixed-bottom bg-black border-top">
+        <div class="save-bar fixed-bottom border-top">
             <div class="container py-1">
                 <div class="d-flex align-items-center flex-wrap gap-2">
                     <div class="btn-py px-3 me-auto">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { PhEye, PhEyeSlash, PhFunnel, PhFunnelX, PhPlus } from '@phosphor-icons/vue'
+import { PhFunnel, PhFunnelX, PhPlus } from '@phosphor-icons/vue'
+import { useElementSize } from '@vueuse/core'
 import {
     BTable,
     type BTableSortBy,
@@ -8,18 +9,23 @@ import {
     type TableStrictClassValue,
     vBTooltip,
 } from 'bootstrap-vue-next'
-import { computed, ref } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 import { FACTIONS } from '../../../../data/factions'
 import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
-import HazardTitle from '../../../components/ui/HazardTitle.vue'
+import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
-import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
+import {
+    getArmyListMaxPoints,
+    getArmyListTotalPoints,
+} from '../../../composables/useArmyList'
+import { useFilterSettings } from '../../../composables/useFilterSettings'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
 import { sort } from '../../../lib/utils'
 import ButtonToggle from './ButtonToggle.vue'
+import UnitGridFilters from './UnitGridFilters.vue'
 
 const { armyList } = defineProps<{
     armyList: LocalArmyList
@@ -99,16 +105,16 @@ const allUnits = computed(() => {
 const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     ...(hasFaction.value && !filterFactionValidUnits.value
         ? [
-            {
-                key: 'faction_validation',
-                label: 'Valid',
-                sortable: true,
-                sortCompare: sort((unit: Row) =>
-                    unit.faction_validation ? 1 : 0,
-                ),
-                class: 'cell-faction-validation',
-            },
-        ]
+              {
+                  key: 'faction_validation',
+                  label: 'Valid',
+                  sortable: true,
+                  sortCompare: sort((unit: Row) =>
+                      unit.faction_validation ? 1 : 0,
+                  ),
+                  class: 'cell-faction-validation',
+              },
+          ]
         : []),
     {
         key: 'display_name',
@@ -118,19 +124,19 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     },
     ...(showClass.value
         ? [
-            {
-                key: 'class',
-                sortable: true,
-            },
-        ]
+              {
+                  key: 'class',
+                  sortable: true,
+              },
+          ]
         : []),
     ...(showManufacturer.value
         ? [
-            {
-                key: 'manufacturer',
-                sortable: true,
-            },
-        ]
+              {
+                  key: 'manufacturer',
+                  sortable: true,
+              },
+          ]
         : []),
     {
         key: 'init',
@@ -183,11 +189,10 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
 ])
 
 const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'desc' }])
-const showPrefix = ref(true)
-const showManufacturer = ref(true)
-const showClass = ref(true)
 const filterWithinBudgetUnits = ref(true)
 const filterFactionValidUnits = ref(false)
+
+const { showClass, showManufacturer, showPrefix } = useFilterSettings()
 
 const rowClass = (
     item: Row | null,
@@ -198,81 +203,60 @@ const rowClass = (
 function sortMode(key: string) {
     return sortBy.value.find((s) => s.key === key)?.order
 }
+
+const toolbarRef = useTemplateRef<HTMLElement>('toolbar')
+const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
+    box: 'border-box',
+})
 </script>
 <template>
-    <div class="card mb-3">
+    <div
+        class="card mb-3"
+        :style="{ '--unit-picker-toolbar-height': `${toolbarHeight}px` }"
+    >
         <div class="card-body pt-0">
-            <div class="unit-picker-toolbar sticky-top">
-                <HazardTitle variant="teal"> Recruits</HazardTitle>
+            <div ref="toolbar" class="unit-picker-toolbar sticky-top">
+                <CardHazardTitle title="Recruits" variant="teal">
 
-                <div class="d-flex gap-2 my-2">
-                    <div class="btn-py fw-bold">Columns:</div>
-                    <ButtonToggle
-                        v-model="showPrefix"
-                        class-on="success"
-                        class-off="info"
+
+                    <UnitGridFilters
+                        :army-list="armyList"
+                        v-model:show-class="showClass"
+                        v-model:show-manufacturer="showManufacturer"
+                        v-model:show-prefix="showPrefix"
                     >
-                        <template #icon-on>
-                            <PhEye weight="fill" />
-                        </template>
-                        <template #icon-off>
-                            <PhEyeSlash weight="fill" />
-                        </template>
-                        Prefix
-                    </ButtonToggle>
-                    <ButtonToggle
-                        v-model="showClass"
-                        class-on="success"
-                        class-off="info"
-                    >
-                        <template #icon-on>
-                            <PhEye weight="fill" />
-                        </template>
-                        <template #icon-off>
-                            <PhEyeSlash weight="fill" />
-                        </template>
-                        Class
-                    </ButtonToggle>
-                    <ButtonToggle
-                        v-model="showManufacturer"
-                        class-on="success"
-                        class-off="info"
-                    >
-                        <template #icon-on>
-                            <PhEye weight="fill" />
-                        </template>
-                        <template #icon-off>
-                            <PhEyeSlash weight="fill" />
-                        </template>
-                        Manufacturer
-                    </ButtonToggle>
-                    <div class="btn-py ms-2">Filter Rows:</div>
-                    <ButtonToggle
-                        v-model="filterWithinBudgetUnits"
-                        class-off="secondary"
-                    >
-                        <template #icon-on>
-                            <PhFunnel weight="fill" />
-                        </template>
-                        <template #icon-off>
-                            <PhFunnelX />
-                        </template>
-                        Within Available Points
-                    </ButtonToggle>
-                    <ButtonToggle
-                        v-model="filterFactionValidUnits"
-                        class-off="secondary"
-                        v-if="armyList.faction_id !== FACTIONS.UNAFFILIATED.id"
-                    >
-                        <template #icon-on>
-                            <PhFunnel weight="fill" />
-                        </template>
-                        <template #icon-off>
-                            <PhFunnelX />
-                        </template>
-                        Faction Valid
-                    </ButtonToggle>
-                </div>
+                        <div class="btn-sm-py ms-2 fw-bold">Filters:</div>
+                        <ButtonToggle
+                            v-model="filterWithinBudgetUnits"
+                            class-off="secondary"
+                            size="sm"
+                        >
+                            <template #icon-on>
+                                <PhFunnel weight="fill" />
+                            </template>
+                            <template #icon-off>
+                                <PhFunnelX />
+                            </template>
+                            Within Available Points
+                        </ButtonToggle>
+                        <ButtonToggle
+                            v-model="filterFactionValidUnits"
+                            class-off="secondary"
+                            v-if="
+                                armyList.faction_id !== FACTIONS.UNAFFILIATED.id
+                            "
+                            size="sm"
+                        >
+                            <template #icon-on>
+                                <PhFunnel weight="fill" />
+                            </template>
+                            <template #icon-off>
+                                <PhFunnelX />
+                            </template>
+                            Faction Valid
+                        </ButtonToggle>
+                    </UnitGridFilters>
+                </CardHazardTitle>
             </div>
 
             <BTable
@@ -289,17 +273,25 @@ function sortMode(key: string) {
                 no-sortable-icon
             >
                 <template #head()="scope">
-                    <TableSortHeader :mode="sortMode(scope.field.key)" :scope="scope" :size="14" />
+                    <TableSortHeader
+                        :mode="sortMode(scope.field.key)"
+                        :scope="scope"
+                        :size="14"
+                    />
                 </template>
 
                 <template #cell(faction_validation)="data">
-                    <BtnPopoverValidation :faction-messages="data.item.faction_validation?.validationMessages" />
+                    <BtnPopoverValidation
+                        :faction-messages="
+                            data.item.faction_validation?.validationMessages
+                        "
+                    />
                 </template>
 
                 <template #cell(display_name)="data">
                     <span class="text-muted fw-light" v-if="showPrefix">{{
-                            data.item.prefix
-                        }}</span>
+                        data.item.prefix
+                    }}</span>
                     {{ data.item.display_name }}
                 </template>
 
@@ -340,13 +332,17 @@ function sortMode(key: string) {
 }
 
 /* Sticks the table header just below the toolbar above it, instead of at the very top of the viewport. */
-:deep(.unit-picker-sticky-head th) {
-    position: sticky;
-    top: 5.125rem;
-    z-index: 2;
+.unit-picker-sticky-head {
+    background: var(--bs-card-bg);
+
+    th {
+        position: sticky;
+        top: var(--unit-picker-toolbar-height, 0px);
+        z-index: 2;
+    }
 }
 
-:deep(.sort-icon) {
+.sort-icon {
     vertical-align: -0.15em;
     margin-left: 0.25rem;
 }
@@ -356,12 +352,14 @@ function sortMode(key: string) {
         > th {
             white-space: nowrap;
         }
+
         > th.b-table-sortable-column:hover {
             background: $table-th-sortable-hover-bg;
             color: $table-th-sortable-hover-color;
         }
+
         > th[aria-sort='ascending'],
-        > th[aria-sort='descending']{
+        > th[aria-sort='descending'] {
             color: var(--bs-primary);
         }
     }

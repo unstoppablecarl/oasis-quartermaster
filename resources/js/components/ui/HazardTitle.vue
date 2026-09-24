@@ -10,9 +10,10 @@ const { variant } = defineProps<{
             <slot />
         </div>
         <div class="flex-grow-1 ms-2 hazard hazard-title-strip" :class="`hazard-${variant}`"></div>
+        <slot name="after"/>
     </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
 .hazard-title {
     line-height: 1;
 }

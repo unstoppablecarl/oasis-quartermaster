@@ -23,8 +23,6 @@ export const ARMY_LIST_TYPES_BY_ID = Object.values(ARMY_LIST_TYPES).reduce((acc,
     return acc
 }, {} as Record<ArmyListTypeId, ArmyListType>)
 
-export const SORT_NONE: SortMode = 0
-export const SORT_DESC: SortMode = 1
-export const SORT_ASC: SortMode = 2
-
-export type SortMode = 0 | 1 | 2
+export function getFactionName(id: FactionId) {
+    return FACTIONS_BY_ID[id]?.display_name ?? ''
+}
