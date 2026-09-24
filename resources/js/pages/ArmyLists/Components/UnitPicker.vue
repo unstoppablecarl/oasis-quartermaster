@@ -14,6 +14,7 @@ import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
+import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
 import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
@@ -285,7 +286,12 @@ function sortMode(key: string) {
                 head-variant="dark"
                 no-border-collapse
                 :tbody-tr-class="rowClass"
+                no-sortable-icon
             >
+                <template #head()="scope">
+                    <TableSortHeader :mode="sortMode(scope.field.key)" :scope="scope" :size="14" />
+                </template>
+
                 <template #cell(faction_validation)="data">
                     <BtnPopoverValidation :faction-messages="data.item.faction_validation?.validationMessages" />
                 </template>
@@ -345,28 +351,44 @@ function sortMode(key: string) {
     margin-left: 0.25rem;
 }
 
-.table-unit-picker.table-hover > tbody > tr.row-faction-invalid {
-    > td {
-        --bs-table-bg-state: var(--bs-table-bg);
+.table-unit-picker {
+    > thead > tr {
+        > th {
+            white-space: nowrap;
+        }
+        > th.b-table-sortable-column:hover {
+            background: $table-th-sortable-hover-bg;
+            color: $table-th-sortable-hover-color;
+        }
+        > th[aria-sort='ascending'],
+        > th[aria-sort='descending']{
+            color: var(--bs-primary);
+        }
     }
-}
 
-.table-unit-picker > tbody > tr.row-faction-invalid {
-    &:nth-of-type(odd) > * {
-        --bs-table-bg-type: var(--bs-table-bg);
+    &.table-hover > tbody > tr.row-faction-invalid {
+        > td {
+            --bs-table-bg-state: var(--bs-table-bg);
+        }
     }
 
-    > td {
-        &:not(:has(.btn-popover-validation)) {
-            opacity: 0.25;
+    > tbody > tr.row-faction-invalid {
+        &:nth-of-type(odd) > * {
+            --bs-table-bg-type: var(--bs-table-bg);
         }
 
-        &:has(.btn-popover-validation) {
-            border-color: color-mix(
-                in srgb,
-                var(--bs-table-border-color) 25%,
-                transparent
-            );
+        > td {
+            &:not(:has(.btn-popover-validation)) {
+                opacity: 0.25;
+            }
+
+            &:has(.btn-popover-validation) {
+                border-color: color-mix(
+                    in srgb,
+                    var(--bs-table-border-color) 25%,
+                    transparent
+                );
+            }
         }
     }
 }
