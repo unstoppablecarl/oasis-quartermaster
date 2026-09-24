@@ -15,6 +15,7 @@ import { FACTIONS } from '../../../../data/factions'
 import { UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
+import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
 import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
@@ -29,81 +30,96 @@ const emit = defineEmits<{
     add: [unitId: number]
 }>()
 
-type Row = typeof allUnits['value'][0]
+type Row = (typeof allUnits)['value'][0]
 
-const validator = computed(() => getArmyListFactionValidator(armyList.faction_id))
-const hasFaction = computed(() => armyList.faction_id !== FACTIONS.UNAFFILIATED.id)
+const validator = computed(() =>
+    getArmyListFactionValidator(armyList.faction_id),
+)
+const hasFaction = computed(
+    () => armyList.faction_id !== FACTIONS.UNAFFILIATED.id,
+)
 
 const allUnits = computed(() => {
-
     const maxPoints = getArmyListMaxPoints(armyList) ?? 0
     const totalPoints = getArmyListTotalPoints(armyList)
     const remainingPoints = Math.max(maxPoints - totalPoints, 0)
 
-    return Object.values(UNITS).map(u => {
+    return Object.values(UNITS)
+        .map((u) => {
+            const {
+                id,
+                prefix,
+                display_name,
+                manufacturer,
+                init,
+                dodge,
+                defense,
+                speed,
+                hp,
+                cost,
+                weapons,
+                traits,
+                abilities,
+            } = u
 
-        const {
-            id,
-            prefix,
-            display_name,
-            manufacturer,
-            init,
-            dodge,
-            defense,
-            speed,
-            hp,
-            cost,
-            weapons,
-            traits,
-            abilities,
-        } = u
+            return {
+                id,
+                prefix,
+                display_name,
+                class: u.class,
+                manufacturer,
+                init,
+                dodge,
+                defense,
+                speed,
+                hp,
+                cost,
+                weapons: weapons.map((w) => ({ ...w })),
+                traits: [...traits],
+                abilities: [...abilities],
+                faction_validation: validator.value.validateUnitCandidate(
+                    armyList,
+                    u.id,
+                ),
+            }
+        })
+        .filter((row) => {
+            const valid = !row.faction_validation
+            if (filterFactionValidUnits.value && !valid) {
+                return false
+            }
 
-        return {
-            id,
-            prefix,
-            display_name,
-            class: u.class,
-            manufacturer,
-            init,
-            dodge,
-            defense,
-            speed,
-            hp,
-            cost,
-            weapons: weapons.map(w => ({ ...w })),
-            traits: [...traits],
-            abilities: [...abilities],
-            faction_validation: validator.value.validateUnitCandidate(armyList, u.id),
-        }
-    }).filter(row => {
-        const valid = !row.faction_validation
-        if (filterFactionValidUnits.value && !valid) {
-            return false
-        }
+            if (filterWithinBudgetUnits.value && remainingPoints < row.cost) {
+                return false
+            }
 
-        if (filterWithinBudgetUnits.value && remainingPoints < row.cost) {
-            return false
-        }
-
-        return true
-    })
+            return true
+        })
 })
 
-const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => ([
+const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     {
         key: 'display_name',
         label: 'Name',
         sortable: true,
         class: 'ws-nowrap',
     },
-    ...(showClass.value ? [{
-        key: 'class',
-        sortable: true,
-    }] : []),
-    ...(showManufacturer.value ? [{
-        key: 'manufacturer',
-        sortable: true,
-    }] : []),
+    ...(showClass.value
+        ? [
+            {
+                key: 'class',
+                sortable: true,
+            },
+        ]
+        : []),
+    ...(showManufacturer.value
+        ? [
+            {
+                key: 'manufacturer',
+                sortable: true,
+            },
+        ]
+        : []),
     {
         key: 'init',
         label: 'Init.',
@@ -147,43 +163,56 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => ([
         class: 'number-cell',
         sortable: true,
     },
-    ...(hasFaction.value && !filterFactionValidUnits.value ? [{
-        key: 'faction_validation',
-        label: 'Faction Valid',
-        sortable: true,
-        sortCompare: sort((unit: Row) => unit.faction_validation ? 1 : 0),
-        class: 'cell-faction-validation',
-    }] : []),
+    ...(hasFaction.value && !filterFactionValidUnits.value
+        ? [
+            {
+                key: 'faction_validation',
+                label: 'Valid',
+                sortable: true,
+                sortCompare: sort((unit: Row) =>
+                    unit.faction_validation ? 1 : 0,
+                ),
+                class: 'cell-faction-validation',
+            },
+        ]
+        : []),
     {
         key: 'controls',
         label: '',
         class: 'ws-nowrap',
     },
-]))
+])
 
-const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
+const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'desc' }])
 const showPrefix = ref(true)
 const showManufacturer = ref(true)
 const showClass = ref(true)
 const filterWithinBudgetUnits = ref(true)
 const filterFactionValidUnits = ref(false)
 
-const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =>
+const rowClass = (
+    item: Row | null,
+    type: TableRowType,
+): TableStrictClassValue =>
     type === 'row' && item?.faction_validation ? 'row-faction-invalid' : ''
+
+function sortMode(key: string) {
+    return sortBy.value.find((s) => s.key === key)?.order
+}
 </script>
 <template>
     <div class="card mb-3">
         <div class="card-body pt-0">
             <div class="unit-picker-toolbar sticky-top">
-                <HazardTitle variant="teal">
-                    Recruits
-                </HazardTitle>
+                <HazardTitle variant="teal"> Recruits</HazardTitle>
 
                 <div class="d-flex gap-2 my-2">
-                    <div class="btn-py fw-bold">
-                        Columns:
-                    </div>
-                    <ButtonToggle v-model="showPrefix" class-on="success" class-off="info">
+                    <div class="btn-py fw-bold">Columns:</div>
+                    <ButtonToggle
+                        v-model="showPrefix"
+                        class-on="success"
+                        class-off="info"
+                    >
                         <template #icon-on>
                             <PhEye weight="fill" />
                         </template>
@@ -192,7 +221,11 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                         </template>
                         Prefix
                     </ButtonToggle>
-                    <ButtonToggle v-model="showClass" class-on="success" class-off="info">
+                    <ButtonToggle
+                        v-model="showClass"
+                        class-on="success"
+                        class-off="info"
+                    >
                         <template #icon-on>
                             <PhEye weight="fill" />
                         </template>
@@ -201,7 +234,11 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                         </template>
                         Class
                     </ButtonToggle>
-                    <ButtonToggle v-model="showManufacturer" class-on="success" class-off="info">
+                    <ButtonToggle
+                        v-model="showManufacturer"
+                        class-on="success"
+                        class-off="info"
+                    >
                         <template #icon-on>
                             <PhEye weight="fill" />
                         </template>
@@ -210,9 +247,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                         </template>
                         Manufacturer
                     </ButtonToggle>
-                    <div class="btn-py ms-2">
-                        Filter Rows:
-                    </div>
+                    <div class="btn-py ms-2">Filter Rows:</div>
                     <ButtonToggle
                         v-model="filterWithinBudgetUnits"
                         class-off="secondary"
@@ -245,6 +280,7 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                 striped
                 hover
                 thead-class="unit-picker-sticky-head"
+                class="table-unit-picker"
                 :items="allUnits"
                 :fields="fields"
                 v-model:sort-by="sortBy"
@@ -253,7 +289,9 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
                 :tbody-tr-class="rowClass"
             >
                 <template #cell(display_name)="data">
-                    <span class="text-muted fw-light" v-if="showPrefix">{{ data.item.prefix }}</span>
+                    <span class="text-muted fw-light" v-if="showPrefix">{{
+                            data.item.prefix
+                        }}</span>
                     {{ data.item.display_name }}
                 </template>
 
@@ -270,18 +308,22 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
 
                 <template #cell(faction_validation)="data">
                     <template v-if="data.item.faction_validation">
-
                         <BTooltip>
                             <template #target>
-                                <button role="button" class="btn btn-danger btn-faction-validation">
+                                <button
+                                    role="button"
+                                    class="btn btn-danger btn-faction-validation"
+                                >
                                     <PhWarning weight="fill" />
                                 </button>
                             </template>
-                            <div v-for="item in data.item.faction_validation.validationMessages">
+                            <div
+                                v-for="item in data.item.faction_validation
+                                    .validationMessages"
+                            >
                                 {{ item }}
                             </div>
                         </BTooltip>
-
                     </template>
                 </template>
 
@@ -317,14 +359,18 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
     z-index: 2;
 }
 
-.table-hover > tbody > tr.row-faction-invalid {
+:deep(.sort-icon) {
+    vertical-align: -0.15em;
+    margin-left: 0.25rem;
+}
+
+.table-unit-picker.table-hover > tbody > tr.row-faction-invalid {
     > td {
         --bs-table-bg-state: var(--bs-table-bg);
     }
 }
 
-.table-striped > tbody > tr.row-faction-invalid {
-
+.table-unit-picker > tbody > tr.row-faction-invalid {
     &:nth-of-type(odd) > * {
         --bs-table-bg-type: var(--bs-table-bg);
     }
@@ -335,7 +381,11 @@ const rowClass = (item: Row | null, type: TableRowType): TableStrictClassValue =
         }
 
         &:has(.btn-faction-validation) {
-            border-color: color-mix(in srgb, var(--bs-table-border-color) 25%, transparent);
+            border-color: color-mix(
+                in srgb,
+                var(--bs-table-border-color) 25%,
+                transparent
+            );
         }
     }
 }

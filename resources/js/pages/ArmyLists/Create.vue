@@ -55,18 +55,8 @@ function save() {
     <ArmyListItemHeader title="Create" description="Army List" />
 
     <ArmyListFields :is-creating="true" :army-list="form" :errors="form.errors" />
-
-    <ArmyListUnits
-        :units="form.units"
-        :show-controls="true"
-        :max-points="maxPoints"
-        @add="add"
-        @subtract="subtract"
-        @remove="remove"
-        @reorder="reorder"
-    />
-
-    <UnitPicker @add="add" :faction-id="form.faction_id" />
+    <ArmyListUnits :army-list="form" />
+    <UnitPicker @add="add" :army-list="form" />
 
     <ArmyListSaveBar
         :name="form.display_name"

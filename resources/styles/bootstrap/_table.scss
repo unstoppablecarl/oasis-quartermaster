@@ -8,3 +8,16 @@
     //--bs-table-color: #fff;
     --bs-table-bg: #{$carbon};
 }
+
+.table {
+    --bvn-sort-icon-none: url(./table/ChevronsUpDown.svg);
+    --bvn-sort-icon-asc: url(./table/ChevronDown.svg);
+    --bvn-sort-icon-desc: url(./table/ChevronUp.svg);
+}
+
+.table.b-table:not(.b-table-no-sort-icon) {
+    > thead > tr > [aria-sort],
+    > tfoot > tr > [aria-sort] {
+        background-size: 1em 1em;
+    }
+}

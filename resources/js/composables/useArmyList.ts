@@ -1,4 +1,5 @@
 import { computed, toRef, toValue } from 'vue'
+import { getArmyListFactionValidator } from '../lib/faction-validators'
 import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
 import type { ArmyList } from '../types/army-list'
 import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
@@ -55,8 +56,22 @@ export function useArmyList(armyList: LocalArmyList) {
         units.value = orderedUnitIds.map((id) => byId.get(id)).filter((unit) => unit !== undefined)
     }
 
+    const unitsInfoFinal = computed(() => {
+        const validator = getArmyListFactionValidator(armyList.faction_id)
+        return unitsInfo.value.map(u => {
+            return {
+                ...u,
+                factionValidation: validator.validateUnitInList(armyList, u),
+            }
+        })
+    })
+
+    const hasFactionValidationErrors = computed(() => {
+        return unitsInfoFinal.value.find(u => u.factionValidation?.validationMessages?.length)
+    })
+
     return {
-        unitsInfo,
+        unitsInfo: unitsInfoFinal,
         totalCost,
         unitCount,
         add,
@@ -70,6 +85,7 @@ export function useArmyList(armyList: LocalArmyList) {
         createdAt,
         updatedAt,
         unitCards: computed(() => getUnitCards(unitsInfo.value)),
+        hasFactionValidationErrors,
     }
 }
 

@@ -39,7 +39,7 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
     commands: armyList.commands,
 })
 
-const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(http)
+const { add, totalCost, unitCount, maxPoints } = useArmyList(http)
 
 function update() {
     http.put(ArmyListController.update.url(armyList), {
@@ -71,18 +71,9 @@ function update() {
 
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
-            <ArmyListUnits
-                :units="http.units"
-                :show-controls="true"
-                :max-points="maxPoints"
-                @add="add"
-                @subtract="subtract"
-                @remove="remove"
-                @reorder="reorder"
-            />
+            <ArmyListUnits :army-list="http" />
 
             <UnitPicker @add="add" :army-list="http" />
-
         </div>
     </Teleport>
     <ArmyListSaveBar

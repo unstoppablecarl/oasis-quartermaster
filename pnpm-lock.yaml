@@ -27,8 +27,8 @@ importers:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
       bootstrap-vue-next:
-        specifier: ^1.1.0
-        version: 1.1.0(@vueuse/core@12.8.2(typescript@5.9.3))(bootstrap@5.3.8(@popperjs/core@2.11.8))(vue@3.5.42(typescript@5.9.3))
+        specifier: ^1.2.1
+        version: 1.2.1(@vueuse/core@12.8.2(typescript@5.9.3))(bootstrap@5.3.8(@popperjs/core@2.11.8))(vue@3.5.42(typescript@5.9.3))
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -1082,8 +1082,8 @@ packages:
   birpc@2.9.0:
     resolution: {integrity: sha512-KrayHS5pBi69Xi9JmvoqrIgYGDkD6mcSe/i6YKi3w5kekCLzrX4+nawcXqrj2tIp50Kw/mT/s3p+GVK0A0sKxw==}
 
-  bootstrap-vue-next@1.1.0:
-    resolution: {integrity: sha512-VHLtuvUzko56WKuxgOFL4JvAPdHIQ8hC5Qhuks6MLTNRdISGxqZrQqRN/a5mDWMwcY4Shi6POQ2Kp5PfYvNBAA==}
+  bootstrap-vue-next@1.2.1:
+    resolution: {integrity: sha512-KJRk7aYz5GkqLvfv8GieBCAEFDOl+2IIKTJT8be7H6dOtscnC6C1AZSukU+sM9zy/sjB/ieCcVUo6dk8mDiBkA==}
     peerDependencies:
       '@floating-ui/vue': '*'
       '@internationalized/date': '*'
@@ -2558,7 +2558,7 @@ snapshots:
 
   birpc@2.9.0: {}
 
-  bootstrap-vue-next@1.1.0(@vueuse/core@12.8.2(typescript@5.9.3))(bootstrap@5.3.8(@popperjs/core@2.11.8))(vue@3.5.42(typescript@5.9.3)):
+  bootstrap-vue-next@1.2.1(@vueuse/core@12.8.2(typescript@5.9.3))(bootstrap@5.3.8(@popperjs/core@2.11.8))(vue@3.5.42(typescript@5.9.3)):
     dependencies:
       '@floating-ui/core': 1.8.0
       bootstrap: 5.3.8(@popperjs/core@2.11.8)

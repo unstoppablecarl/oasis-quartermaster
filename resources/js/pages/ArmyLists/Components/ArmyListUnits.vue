@@ -1,91 +1,218 @@
 <script setup lang="ts">
-import { GripVertical, Minus, Plus, X } from '@lucide/vue'
+import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical, Minus, Plus, RotateCcw, X } from '@lucide/vue'
+import { PhWarning } from '@phosphor-icons/vue'
 import { BTooltip } from 'bootstrap-vue-next'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import draggable from 'vuedraggable'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
-import { type UnitEntry, useUnitsInfo } from '../../../composables/useUnitsInfo'
+import { useArmyList } from '../../../composables/useArmyList'
+import { type LocalArmyList, type UnitEntry, type UnitEntryInfo } from '../../../composables/useUnitsInfo'
+
+const { armyList } = defineProps<{
+    armyList: LocalArmyList,
+}>()
 
 const {
-    units,
-    showControls = false,
+    add,
+    subtract,
+    remove,
+    reorder,
+    totalCost,
+    unitCount,
     maxPoints,
-} = defineProps<{
-    maxPoints: number | null
-    units: UnitEntry[]
-    showControls?: boolean,
-}>()
+    unitsInfo,
+    hasFactionValidationErrors,
+} = useArmyList(armyList)
 
-const emit = defineEmits<{
-    add: [unitId: number]
-    subtract: [unitId: number]
-    remove: [unitId: number]
-    reorder: [orderedUnitIds: number[]]
-}>()
+type SortKey = 'display_name' | 'init' | 'dodge' | 'defense' | 'hp' | 'speed' | 'cost' | 'quantity' | 'totalCost' | 'manufacturer'
 
-const { unitsInfo, totalCost, unitCount } = useUnitsInfo(() => units, () => maxPoints)
+const sortAccessors: Record<SortKey, (unit: UnitEntryInfo) => string | number | null> = {
+    display_name: (unit) => unit.display_name,
+    manufacturer: (unit) => unit.manufacturer,
+    init: (unit) => unit.init,
+    dodge: (unit) => unit.dodge,
+    defense: (unit) => unit.defense,
+    hp: (unit) => unit.hp,
+    speed: (unit) => unit.speed,
+    cost: (unit) => unit.cost,
+    quantity: (unit) => unit.quantity,
+    totalCost: (unit) => unit.quantity * unit.cost,
+}
+
+const sortKey = ref<SortKey | null>(null)
+const sortDir = ref<'asc' | 'desc'>('asc')
+
+function toggleSort(key: SortKey) {
+    if (sortKey.value !== key) {
+        sortKey.value = key
+        sortDir.value = 'asc'
+        return
+    }
+
+    if (sortDir.value === 'asc') {
+        sortDir.value = 'desc'
+        return
+    }
+
+    sortKey.value = null
+    sortDir.value = 'asc'
+}
+
+function resetSort() {
+    sortKey.value = null
+    sortDir.value = 'asc'
+}
+
+function sortIconFor(key: SortKey) {
+    if (sortKey.value !== key) {
+        return ChevronsUpDown
+    }
+
+    return sortDir.value === 'asc' ? ChevronUp : ChevronDown
+}
+
+const sortedUnitsInfo = computed(() => {
+    if (!sortKey.value) {
+        return unitsInfo.value
+    }
+
+    const accessor = sortAccessors[sortKey.value]
+    const direction = sortDir.value === 'asc' ? 1 : -1
+
+    return [...unitsInfo.value].sort((a, b) => {
+        const aVal = accessor(a)
+        const bVal = accessor(b)
+
+        if (aVal === null || bVal === null) {
+            return aVal === bVal ? 0 : aVal === null ? 1 : -1
+        }
+
+        if (typeof aVal === 'string' || typeof bVal === 'string') {
+            return String(aVal).localeCompare(String(bVal)) * direction
+        }
+
+        return (aVal - bVal) * direction
+    })
+})
 
 const draggableUnits = computed({
-    get: () => unitsInfo.value,
-    set: (reordered) => emit('reorder', reordered.map((unit) => unit.id)),
+    get: () => sortedUnitsInfo.value,
+    set: (reordered) => reorder(reordered.map((unit) => unit.id)),
 })
 
 function minus(unit: UnitEntry) {
     if (unit.quantity > 0) {
-        emit('subtract', unit.id)
+        subtract(unit.id)
     } else {
-        emit('remove', unit.id)
+        remove(unit.id)
     }
 }
 </script>
 <template>
     <div class="card mb-3">
         <div class="card-body table-units">
-            <HazardTitle variant="sulfur">
-                Units
-            </HazardTitle>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <HazardTitle variant="sulfur" class="flex-grow-1 mb-0">
+                    Units
+                </HazardTitle>
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary ms-2 text-nowrap"
+                    :disabled="!sortKey"
+                    @click="resetSort"
+                >
+                    <RotateCcw :size="14" /> Reset Order
+                </button>
+            </div>
             <draggable
                 v-model="draggableUnits"
                 item-key="id"
                 handle=".drag-handle"
                 ghost-class="unit-row-ghost"
                 :animation="60"
-                :disabled="!showControls"
+                :disabled="sortKey !== null"
                 class="mb-0 table-grid"
             >
                 <template #header>
                     <div class="grid-header">
-                        <div class="px-0" :class="{'invisible': !showControls}"></div>
-                        <div>Name</div>
-                        <div class="number-cell">Init.</div>
-                        <div class="number-cell">Dodge</div>
-                        <div class="number-cell">Defense</div>
-                        <div class="number-cell">HP</div>
-                        <div class="number-cell">Move</div>
+                        <div class="px-0"></div>
+                        <div class="px-0"></div>
+                        <div class="sort-header" :class="{ 'sort-header-active': sortKey === 'display_name' }" @click="toggleSort('display_name')">
+                            Name
+                            <component :is="sortIconFor('display_name')" :size="14" />
+                        </div>
+                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'init' }" @click="toggleSort('init')">
+                            Init.
+                            <component :is="sortIconFor('init')" :size="14" />
+                        </div>
+                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'dodge' }" @click="toggleSort('dodge')">
+                            Dodge
+                            <component :is="sortIconFor('dodge')" :size="14" />
+                        </div>
+                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'defense' }" @click="toggleSort('defense')">
+                            Defense
+                            <component :is="sortIconFor('defense')" :size="14" />
+                        </div>
+                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'hp' }" @click="toggleSort('hp')">
+                            HP
+                            <component :is="sortIconFor('hp')" :size="14" />
+                        </div>
+                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'speed' }" @click="toggleSort('speed')">
+                            Move
+                            <component :is="sortIconFor('speed')" :size="14" />
+                        </div>
                         <div>Weapons</div>
                         <div>Traits</div>
                         <div class="text-teal">Abilities</div>
-                        <div class="number-cell px-1">Pts</div>
+                        <div class="number-cell px-1 sort-header" :class="{ 'sort-header-active': sortKey === 'cost' }" @click="toggleSort('cost')">
+                            Pts
+                            <component :is="sortIconFor('cost')" :size="14" />
+                        </div>
                         <div class="px-0 text-muted"><span class="text-muted">&times;</span></div>
-                        <div class="number-cell px-1">Qty</div>
+                        <div class="number-cell px-1 sort-header" :class="{ 'sort-header-active': sortKey === 'quantity' }" @click="toggleSort('quantity')">
+                            Qty
+                            <component :is="sortIconFor('quantity')" :size="14" />
+                        </div>
                         <div class="px-0 text-muted"><span class="text-muted">=</span></div>
-                        <div class="number-cell ps-1">Cost</div>
-                        <div class="px-0" :class="{'invisible': !showControls}"></div>
+                        <div class="number-cell ps-1 sort-header" :class="{ 'sort-header-active': sortKey === 'totalCost' }" @click="toggleSort('totalCost')">
+                            Cost
+                            <component :is="sortIconFor('totalCost')" :size="14" />
+                        </div>
+                        <div class="px-0"></div>
                     </div>
                 </template>
                 <template #item="{ element: unit }">
-                    <div class="grid-row" :class="{ 'row-error': unit.validationMessages.length }">
+                    <div class="grid-row"
+                         :class="{ 'row-error': unit.validationMessages.length || unit.factionValidation?.validationMessages?.length }">
                         <div class="p-0 drag-handle-cell" :class="{
-                            'invisible': !showControls,
                             'span-error-row': unit.validationMessages.length > 0
                         }">
-                            <button role="button" class="btn btn-transparent drag-handle d-flex align-items-start">
+                            <button
+                                role="button"
+                                class="btn btn-transparent drag-handle d-flex align-items-start"
+                                :class="{ 'drag-handle-disabled': sortKey !== null }"
+                                :disabled="sortKey !== null"
+                            >
                                 <GripVertical weight="bold" :size="16" />
                             </button>
                         </div>
+                        <div v-if="hasFactionValidationErrors">
+                            <BTooltip v-if="unit.factionValidation?.validationMessages?.length">
+                                <template #target>
+                                    <button role="button" class="btn btn-danger">
+                                        <PhWarning weight="fill" />
+                                    </button>
+                                </template>
+                                <div v-for="item in unit.factionValidation.validationMessages">
+                                    {{ item }}
+                                </div>
+                            </BTooltip>
+                        </div>
                         <div>
+                            <span class="text-muted fw-light">{{ unit.prefix }}</span>
+
                             {{ unit.display_name }}
                         </div>
                         <div class="number-cell">{{ unit.init }}</div>
@@ -102,7 +229,7 @@ function minus(unit: UnitEntry) {
                         <div class="number-cell px-1">{{ unit.quantity }}</div>
                         <div class="px-0 text-muted">=</div>
                         <div class="number-cell fw-bold px-1">{{ unit.quantity * unit.cost }}</div>
-                        <div class="py-1" :class="{'invisible': !showControls}">
+                        <div class="py-1">
                             <div class="btn-group btn-group-sm me-1">
                                 <button
                                     role="button"
@@ -120,7 +247,7 @@ function minus(unit: UnitEntry) {
                                 <button
                                     role="button"
                                     class="btn btn-primary btn-sm"
-                                    @click="emit('add', unit.id)"
+                                    @click="add(unit.id)"
                                     :id="`btn-add-1-${unit.id}`"
                                 >
                                     <Plus :strokeWidth="2.5" :size="16" />
@@ -130,7 +257,7 @@ function minus(unit: UnitEntry) {
                             <button
                                 role="button"
                                 class="btn btn-danger btn-sm"
-                                @click="emit('remove', unit.id)"
+                                @click="remove(unit.id)"
                                 :id="`btn-remove-all-${unit.id}`"
                             >
                                 <X :strokeWidth="2.5" :size="16" />
@@ -148,8 +275,16 @@ function minus(unit: UnitEntry) {
 
                             <UnitCardModal :unit-id="unit.id" />
                         </div>
-                        <div class="error-msg" :class="{'error-msg-empty': !unit.validationMessages.length}">
+                        <div class="error-msg"
+                             :class="{'error-msg-empty': !unit.validationMessages.length && !unit.factionValidation?.validationMessages?.length}">
                             <div v-for="message in unit.validationMessages" :key="message">{{ message }}</div>
+
+                            <div class="text-warning" v-if="unit.factionValidation?.validationMessages?.length">
+                                Faction Violations
+                            </div>
+                            <div v-for="item in unit.factionValidation?.validationMessages">
+                                {{ item }}
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -173,8 +308,10 @@ function minus(unit: UnitEntry) {
     .table-grid {
         display: grid;
         grid-template-columns:
-        40px max-content max-content max-content max-content max-content max-content
-        1fr 1fr 1fr max-content 15px max-content 15px max-content max-content;
+
+        40px repeat(6, max-content)
+        1fr 1fr 1fr
+        repeat(10, max-content);
     }
 
     .unit-row-ghost {
@@ -198,6 +335,11 @@ function minus(unit: UnitEntry) {
         svg {
             vertical-align: top;
         }
+
+        &.drag-handle-disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
     }
 
 
@@ -207,8 +349,30 @@ function minus(unit: UnitEntry) {
 
     .grid-header {
         font-weight: bold;
+
         > div {
             color: #fff;
+        }
+
+        .sort-header {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+            user-select: none;
+            color: var(--bs-secondary-color);
+
+            &:hover {
+                color: #fff;
+            }
+
+            &.sort-header-active {
+                color: var(--bs-primary);
+            }
+        }
+
+        .number-cell.sort-header {
+            justify-content: flex-end;
         }
     }
 
