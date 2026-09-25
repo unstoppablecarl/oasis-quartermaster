@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import { FACTIONS } from '../../../data/factions'
 import { FACTIONS_BY_ID } from '../../lib/static-data-helpers'
+import FactionCard from '../ui/FactionCard.vue'
 
 const factionId = defineModel<FactionId>({ required: true })
 
@@ -43,48 +44,44 @@ function select(id: FactionId) {
         >
             Change
         </button>
-        </div>
+    </div>
 
-        <BModal
-            v-model="visible"
-            title="Select Faction"
-            :hide-footer="true"
-            no-footer
-            size="xl"
-        >
-            <div class="row">
-                <div
-                    class="col-3"
-                    v-for="faction in allFactions"
-                    :key="faction.id"
-                >
-                    <button
-                        type="button"
-                        class="btn p-1 w-100 h-100"
-                        :class="{
+    <BModal
+        v-model="visible"
+        title="Select Faction"
+        :hide-footer="true"
+        no-footer
+        size="xl"
+    >
+        <div class="row">
+            <div
+                class="col-3"
+                v-for="faction in allFactions"
+                :key="faction.id"
+            >
+                <button
+                    type="button"
+                    class="btn p-1 w-100 h-100"
+                    :class="{
                         'btn-info': faction.selected,
                         'btn-primary': !faction.selected
                     }"
-                        @click="select(faction.id)"
-                    >
-                        <img
-                            v-if="faction.card"
-                            :src="`/images/cards/factions/${faction.card}`"
-                            class="w-100"
-                            :alt="`${faction.display_name} Faction Card`"
-                        />
-                        <template v-else>
-                            {{ faction.display_name }}
-                        </template>
-                        <br>
-                        <template v-if="faction.selected">
-                            Current
-                        </template>
-                        <template v-else>
-                            Select
-                        </template>
-                    </button>
-                </div>
+                    @click="select(faction.id)"
+                >
+                    <template v-if="faction.id === FACTIONS.UNAFFILIATED.id">
+                        {{ faction.display_name }}
+                    </template>
+                    <FactionCard v-else :card-image="faction.card" :display-name="faction.display_name" class="w-100" />
+
+                    <br>
+                    <template v-if="faction.selected">
+                        Current
+                    </template>
+                    <template v-else>
+                        Select
+                    </template>
+                </button>
             </div>
-        </BModal>
+        </div>
+    </BModal>
 </template>

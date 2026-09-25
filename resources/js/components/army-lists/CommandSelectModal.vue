@@ -3,6 +3,7 @@ import { BModal } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import { type CommandId, COMMANDS } from '../../../data/commands'
 import { COMMANDS_BY_ID } from '../../lib/static-data-helpers'
+import CommandCard from '../ui/CommandCard.vue'
 
 const commandIds = defineModel<CommandId[]>({ required: true })
 
@@ -61,15 +62,13 @@ function select(id: CommandId) {
     >
         <template #title>Select Commands ({{ commands.length }}/2)</template>
         <template #cancel>&nbsp;</template>
-        <div class="row">
+        <div class="d-flex flex-wrap justify-content-center">
             <div
-                class="col-3 mb-2"
+                class="mx-2 my-2"
                 v-for="command in allCommands"
                 :key="command.id"
             >
-
                 <div
-                    v-if="command.card"
                     class="border"
                     :class="{
                         'border-danger': command.selected,
@@ -79,15 +78,12 @@ function select(id: CommandId) {
                     }"
                     @click="select(command.id)"
                 >
-                    <img
-                        :src="`/images/cards/commands/${command.card}`"
-                        class="w-100"
-                        :alt="`${command.display_name} Faction Card`"
+                    <CommandCard
+                        :card-image="command.card_front"
+                        :display-name="command.display_name"
+                        type="Front"
                     />
                 </div>
-                <template v-else>
-                    {{ command.display_name }}
-                </template>
                 <button
                     type="button"
                     class="btn p-1 w-100 btn-command"
@@ -102,7 +98,7 @@ function select(id: CommandId) {
                         Remove
                     </template>
                     <template v-else>
-                        Add
+                        Select
                     </template>
                 </button>
             </div>

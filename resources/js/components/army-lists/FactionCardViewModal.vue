@@ -2,8 +2,9 @@
 import { PhMagnifyingGlass } from '@phosphor-icons/vue'
 import { BModal } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
-import type { FactionId } from '../../../data/factions'
+import { type FactionId, FACTIONS } from '../../../data/factions'
 import { FACTIONS_BY_ID } from '../../lib/static-data-helpers'
+import FactionCard from '../ui/FactionCard.vue'
 
 const { factionId } = defineProps<{
     factionId: FactionId
@@ -18,6 +19,7 @@ const visible = ref(false)
         role="button"
         class="btn btn-outline-info btn-sm"
         @click="visible = true"
+        v-if="factionId !== FACTIONS.UNAFFILIATED.id"
     >
         <PhMagnifyingGlass />
     </button>
@@ -29,12 +31,7 @@ const visible = ref(false)
         no-footer
     >
         <div class="text-center">
-            <img
-                v-if="faction.card"
-                :src="`/images/cards/factions/${faction.card}`"
-                :alt="`${faction.display_name} Faction Card`"
-                width="400"
-            />
+            <FactionCard :card-image="faction.card!" :display-name="faction.display_name" width="400" />
         </div>
     </BModal>
 </template>

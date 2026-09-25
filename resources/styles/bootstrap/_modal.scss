@@ -1,8 +1,9 @@
 .modal-fluid {
-    width: calc(100% - 8rem) !important;
+    $margin: 2rem;
+    width: calc(100% - $margin *2) !important;
     max-width: none !important;
-    height: calc(100% - 8rem);
-    margin: 4rem;
+    height: calc(100% - $margin *2);
+    margin: $margin;
 
     .modal-content {
         max-height: 100%;

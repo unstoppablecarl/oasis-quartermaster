@@ -50,13 +50,11 @@ const { unitCards, totalCost, maxPoints, unitCount, faction, commands, armyListT
                 <div>{{ unit.display_name }} {{ unit.type }}</div>
                 <div>
                     <UnitCard
-                        v-if="unit.cardImage"
-                        :unit-card="unit"
+                        :display-name="unit.display_name"
+                        :type="unit.type"
+                        :card-image="unit.cardImage"
                         class="w-100"
                     />
-                    <div v-else>
-                        Image Not Found
-                    </div>
                 </div>
             </div>
         </div>

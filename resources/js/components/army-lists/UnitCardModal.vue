@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Search } from '@lucide/vue'
-import { BModal } from 'bootstrap-vue-next'
+import { BModal, vBTooltip } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
-import { vBTooltip } from 'bootstrap-vue-next'
 
 import { UNITS_BY_ID } from '../../lib/static-data-helpers'
+import UnitCard from '../ui/UnitCard.vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -36,15 +36,31 @@ const visible = ref(false)
         :hide-footer="true"
         no-footer
     >
-        <h5>Front</h5>
-        <p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <div>
+                <h5>Front</h5>
+                <p class="d-flex gap-2">
+                    <UnitCard
+                        v-for="cardFront in unitInfo.cards_front"
+                        :card-image="cardFront"
+                        :display-name="unitInfo.display_name"
+                        type="Front"
+                        width="400"
+                    />
+                </p>
 
-            <img v-for="cardFront in unitInfo.cards_front" :src="`/images/cards/units/${cardFront}`"
-                 :alt="`${unitInfo.display_name} card front`" width="50%" />
-        </p>
-        <h5>Back</h5>
-        <img v-if="unitInfo.card_back" :src="`/images/cards/units/${unitInfo.card_back}`"
-             :alt="`${unitInfo.display_name} card back`"
-             width="50%" />
+            </div>
+            <div>
+                <h5>Back</h5>
+                <p>
+                    <UnitCard
+                        :card-image="unitInfo.card_back"
+                        :display-name="unitInfo.display_name"
+                        type="Back"
+                        width="400"
+                    />
+                </p>
+            </div>
+        </div>
     </BModal>
 </template>

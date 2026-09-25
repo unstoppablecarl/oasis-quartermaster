@@ -116,8 +116,11 @@ $bleed-mark-size: 18px;
         .game-card-image-not-found-outline {
             width: 100%;
             height: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.33);
-            padding: 2rem;
         }
     }
+}
+
+.game-card-image-not-found-outline {
+    border: 1px solid rgba(0, 0, 0, 0.33);
+    padding: 2rem;
 }

@@ -26,3 +26,18 @@ export const ARMY_LIST_TYPES_BY_ID = Object.values(ARMY_LIST_TYPES).reduce((acc,
 export function getFactionName(id: FactionId) {
     return FACTIONS_BY_ID[id]?.display_name ?? ''
 }
+
+export const unitCardColor = (file: string) => `/images/cards/units-color/${file}`
+
+export const unitCardBlackWhite = (file: string) => `/images/cards/units-black-white/${file}`
+
+
+export const factionCardColor = (file: string) => `/images/cards/factions-color/${file}`
+
+export const factionCardBlackWhite = (file: string) => `/images/cards/factions-black-white/${file}`
+
+export const commandCardColor = (file: string) => `/images/cards/commands-color/${file}`
+
+export const commandCardBlackWhite = (file: string) => `/images/cards/commands-black-white/${file}`
+
+export const CARD_DEFAULT_WIDTH = 300

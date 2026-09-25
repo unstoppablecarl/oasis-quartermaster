@@ -102,6 +102,7 @@ const printOnlyFrontCards = ref(true)
                     v-if="printMode === PRINT_MODE_CARDS"
                     :army-list="armyList"
                     :print-only-front-cards="printOnlyFrontCards"
+                    :print-cards-in-color="printCardsInColor"
                 />
 
                 <PrintUnitList

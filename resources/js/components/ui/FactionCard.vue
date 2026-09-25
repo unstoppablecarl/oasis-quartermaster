@@ -2,13 +2,18 @@
 
 import { computed } from 'vue'
 import type { CardType } from '../../composables/useArmyList'
-import { CARD_DEFAULT_WIDTH, unitCardBlackWhite, unitCardColor } from '../../lib/static-data-helpers'
+import {
+    CARD_DEFAULT_WIDTH,
+    factionCardBlackWhite,
+    factionCardColor,
+    unitCardBlackWhite,
+    unitCardColor,
+} from '../../lib/static-data-helpers'
 
-const { cardImage, displayName, type, color = true, width = CARD_DEFAULT_WIDTH } = defineProps<{
+const { cardImage, displayName, color = true, width = CARD_DEFAULT_WIDTH } = defineProps<{
     cardImage: string
     color?: boolean
     displayName: string
-    type: CardType
     width?: number | string
 }>()
 
@@ -16,20 +21,20 @@ const src = computed(() => {
     if (!cardImage) return ''
 
     if (color) {
-        return unitCardColor(cardImage)
+        return factionCardColor(cardImage)
     }
-    return unitCardBlackWhite(cardImage)
+    return factionCardBlackWhite(cardImage)
 })
 </script>
 <template>
     <img
         v-if="src"
         :src="src"
-        :alt="`${displayName} ${type} Unit Card`"
+        :alt="`${displayName} Faction Card`"
         :width="width"
     />
     <div v-else class="game-card-image-not-found-outline">
-        {{ displayName }} {{ type }} Unit
+        {{ displayName }} Faction
         <div class="text-danger">Card Image Not Found</div>
     </div>
 </template>
