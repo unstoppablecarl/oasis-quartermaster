@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3'
-import { PhMonitor, PhPencilSimple, PhPrinter } from '@phosphor-icons/vue'
+import { PhCopySimple, PhMonitor, PhPencilSimple, PhPrinter } from '@phosphor-icons/vue'
 import { BTooltip } from 'bootstrap-vue-next'
 import DeleteArmyListModal from '../../../components/army-lists/DeleteArmyListModal.vue'
 import { useCurrentUrl } from '../../../composables/useCurrentUrl'
-import { edit, print, show } from '../../../routes/army-lists'
+import { duplicate, edit, print, show } from '../../../routes/army-lists'
 import type { ArmyList } from '../../../types/army-list'
 import BtnCopyLink from './BtnCopyLink.vue'
 
@@ -46,6 +46,16 @@ const { armyList, idPrefix } = defineProps<{
         >
             <PhPencilSimple :size="16" />
         </Link>
+
+        <Link
+            :href="duplicate(armyList.uuid)"
+            method="post"
+            as="button"
+            class="btn btn-sm btn-outline-info"
+            :id="`${idPrefix}unit-controls-duplicate`"
+        >
+            <PhCopySimple :size="16" />
+        </Link>
     </div>
 
     <DeleteArmyListModal
@@ -63,5 +73,8 @@ const { armyList, idPrefix } = defineProps<{
     </BTooltip>
     <BTooltip :target="`${idPrefix}unit-controls-edit`">
         Edit
+    </BTooltip>
+    <BTooltip :target="`${idPrefix}unit-controls-duplicate`">
+        Duplicate
     </BTooltip>
 </template>
