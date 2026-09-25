@@ -147,53 +147,57 @@
       "id": 1,
       "display_name": "Firepower",
       "card_front": "Firepower.png",
-      "card_back": "Cmd Card Back.png"
+      "card_back": "Command Card Back.png"
     },
     "GENERALIST": {
       "id": 2,
       "display_name": "Generalist",
       "card_front": "Generalist.png",
-      "card_back": "Cmd Card Back.png"
+      "card_back": "Command Card Back.png"
     },
     "MOBILITY": {
       "id": 3,
       "display_name": "Mobility",
       "card_front": "Mobility.png",
-      "card_back": "Cmd Card Back.png"
+      "card_back": "Command Card Back.png"
     },
     "SURVEYOR": {
       "id": 4,
       "display_name": "Surveyor",
       "card_front": "Surveyor.png",
-      "card_back": "Cmd Card Back.png"
+      "card_back": "Command Card Back.png"
     },
     "SURVIVE": {
       "id": 5,
       "display_name": "Survive",
       "card_front": "Survive.png",
-      "card_back": "Cmd Card Back.png"
+      "card_back": "Command Card Back.png"
     }
   },
   "FACTIONS": {
     "UNAFFILIATED": {
       "id": 1,
       "display_name": "Unaffiliated (Default)",
-      "card": null
+      "card_front": "Unaffiliated.png",
+      "card_back": "Faction Card Back.png"
     },
     "IRON_RAIN": {
       "id": 2,
       "display_name": "Iron Rain",
-      "card": "IronRain.png"
+      "card_front": "IronRain.png",
+      "card_back": "Faction Card Back.png"
     },
     "FREELANCE": {
       "id": 3,
       "display_name": "Freelance",
-      "card": "Freelance.png"
+      "card_front": "Freelance.png",
+      "card_back": "Faction Card Back.png"
     },
     "SURVEYFI": {
       "id": 4,
       "display_name": "SurveyFI",
-      "card": "SurveyFI.png"
+      "card_front": "SurveyFI.png",
+      "card_back": "Faction Card Back.png"
     }
   },
   "UNITS": {

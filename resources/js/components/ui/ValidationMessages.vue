@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import { getFactionName } from '../../lib/static-data-helpers'
-import FactionCardViewModal from '../army-lists/FactionCardViewModal.vue'
 
 const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass, factionId } = defineProps<{
     messages?: string[]

@@ -37,9 +37,7 @@ type Row = (typeof allUnits)['value'][0]
 const validator = computed(() =>
     getArmyListFactionValidator(armyList.faction_id),
 )
-const hasFaction = computed(
-    () => armyList.faction_id !== FACTIONS.UNAFFILIATED.id,
-)
+const hasFaction = computed(() => armyList.faction_id !== FACTIONS.UNAFFILIATED.id)
 
 const allUnits = computed(() => {
     const maxPoints = getArmyListMaxPoints(armyList) ?? 0

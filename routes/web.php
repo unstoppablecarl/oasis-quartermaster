@@ -14,6 +14,7 @@ Route::get('army-lists/{army_list}/print', [ArmyListController::class, 'print'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('army-lists', ArmyListController::class)->except('create', 'show');
+    Route::post('army-lists/{army_list}/duplicate', [ArmyListController::class, 'duplicate'])->name('army-lists.duplicate');
 });
 
 require __DIR__.'/settings.php';

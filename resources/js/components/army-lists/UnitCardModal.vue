@@ -44,7 +44,7 @@ const visible = ref(false)
                         v-for="cardFront in unitInfo.cards_front"
                         :card-image="cardFront"
                         :display-name="unitInfo.display_name"
-                        type="Front"
+                        side="Front"
                         width="400"
                     />
                 </p>
@@ -56,7 +56,7 @@ const visible = ref(false)
                     <UnitCard
                         :card-image="unitInfo.card_back"
                         :display-name="unitInfo.display_name"
-                        type="Back"
+                        side="Back"
                         width="400"
                     />
                 </p>

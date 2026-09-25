@@ -111,6 +111,31 @@ class ArmyListController
         return redirect()->route('army-lists.index');
     }
 
+    public function duplicate(Request $request, ArmyList $armyList)
+    {
+        Gate::authorize('update', $armyList);
+
+        $armyList->loadMissing(['units', 'commands']);
+
+        $duplicate = $armyList->replicate(['uuid']);
+        $duplicate->display_name = "{$armyList->display_name} (Copy)";
+        $duplicate->user_id = $request->user()->id;
+        $duplicate->public = false;
+        $duplicate->save();
+
+        $duplicate->units()->sync(
+            $armyList->units->mapWithKeys(fn ($unit) => [$unit->id => [
+                'quantity' => $unit->pivot->quantity,
+                'display_order' => $unit->pivot->display_order,
+            ]])
+        );
+        $duplicate->commands()->sync($armyList->commands->pluck('id'));
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'Army List Duplicated']);
+
+        return redirect()->route('army-lists.edit', $duplicate);
+    }
+
     public function print(ArmyList $armyList)
     {
         Gate::authorize('view', $armyList);

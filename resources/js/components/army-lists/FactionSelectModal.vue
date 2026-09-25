@@ -68,10 +68,13 @@ function select(id: FactionId) {
                     }"
                     @click="select(faction.id)"
                 >
-                    <template v-if="faction.id === FACTIONS.UNAFFILIATED.id">
-                        {{ faction.display_name }}
-                    </template>
-                    <FactionCard v-else :card-image="faction.card" :display-name="faction.display_name" class="w-100" />
+
+                    <FactionCard
+                        :card-image="faction.card_front"
+                        side="Front"
+                        :display-name="faction.display_name"
+                        class="w-100"
+                    />
 
                     <br>
                     <template v-if="faction.selected">

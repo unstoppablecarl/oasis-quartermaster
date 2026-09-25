@@ -81,7 +81,7 @@ function select(id: CommandId) {
                     <CommandCard
                         :card-image="command.card_front"
                         :display-name="command.display_name"
-                        type="Front"
+                        side="Front"
                     />
                 </div>
                 <button

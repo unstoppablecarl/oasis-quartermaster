@@ -1,4 +1,6 @@
 import { computed, toRef, toValue } from 'vue'
+import type { Command } from '../../data/commands'
+import type { FactionId } from '../../data/factions'
 import { getArmyListFactionValidator } from '../lib/faction-validators'
 import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
 import type { ArmyList } from '../types/army-list'
@@ -81,43 +83,89 @@ export function useArmyList(armyList: LocalArmyList) {
         createdAt,
         updatedAt,
         unitCards: computed(() => getUnitCards(unitsInfo.value)),
+        commandCards: computed(() => getCommandCards(commands.value)),
+        factionCards: computed(() => getFactionCards(armyList.faction_id)),
     }
 }
 
-export type CardType = 'Front' | 'Back'
-export type UnitCard = {
+export type CardSide = 'Front' | 'Back'
+export type CardType = 'Unit' | 'Command' | 'Faction'
+export type Card = {
     display_name: string
-    type: CardType
+    side: CardSide
     cardImage: string
+    type: CardType
 }
 
-export function getUnitCards(unitsInfo: UnitEntryInfo[]): UnitCard[] {
-    const output: UnitCard[] = []
+export function getUnitCards(unitsInfo: UnitEntryInfo[]): Card[] {
+    const output: Card[] = []
 
+    const type = 'Unit'
     for (const unit of unitsInfo) {
         const display_name = unit.display_name
         for (const front of unit.cards_front) {
             output.push({
                 display_name,
-                type: 'Front',
+                side: 'Front',
                 cardImage: front,
+                type,
             })
         }
         if (!unit.cards_front.length) {
             output.push({
                 display_name,
-                type: 'Front',
+                side: 'Front',
                 cardImage: '',
+                type,
             })
         }
         output.push({
             display_name,
-            type: 'Back',
+            side: 'Back',
             cardImage: unit.card_back,
+            type,
         })
     }
 
     return output
+}
+
+export function getCommandCards(commands: Command[]): Card[] {
+    const output: Card[] = []
+    const type = 'Command'
+    for (const item of commands) {
+        const display_name = item.display_name
+        output.push({
+            display_name,
+            side: 'Front',
+            cardImage: item.card_front,
+            type,
+        })
+
+        output.push({
+            display_name,
+            side: 'Back',
+            cardImage: item.card_back,
+            type,
+        })
+    }
+
+    return output
+}
+
+export function getFactionCards(factionId: FactionId): Card[] {
+    const faction = FACTIONS_BY_ID[factionId]
+    return [{
+        display_name: faction.display_name,
+        side: 'Front',
+        cardImage: faction.card_front!,
+        type: 'Faction',
+    }, {
+        display_name: faction.display_name,
+        side: 'Back',
+        cardImage: faction.card_back!,
+        type: 'Faction',
+    }]
 }
 
 export function getArmyListMaxPoints(armyList: {

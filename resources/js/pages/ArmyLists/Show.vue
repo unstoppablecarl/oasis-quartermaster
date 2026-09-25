@@ -47,11 +47,12 @@ const { unitCards, totalCost, maxPoints, unitCount, faction, commands, armyListT
 
         <div class="row">
             <div v-for="unit in unitCards" class="col-3">
-                <div>{{ unit.display_name }} {{ unit.type }}</div>
+                <div>{{ unit.display_name }} {{ unit.side }}</div>
                 <div>
                     <UnitCard
                         :display-name="unit.display_name"
-                        :type="unit.type"
+                        :side="unit.side"
+                        type="Unit"
                         :card-image="unit.cardImage"
                         class="w-100"
                     />
