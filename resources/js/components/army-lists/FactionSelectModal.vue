@@ -53,30 +53,35 @@ function select(id: FactionId) {
         no-footer
         size="fluid"
     >
-        <div class="row">
+        <div class="d-flex flex-wrap justify-content-center">
             <div
-                class="col-3"
+                class="mx-2 my-2"
                 v-for="faction in allFactions"
                 :key="faction.id"
             >
+                <div
+                    class="border cursor-pointer"
+                    :class="{
+                        'border-danger': faction.selected,
+                        'border-primary': !faction.selected,
+                    }"
+                    @click="select(faction.id)"
+                >
+                    <FactionCard
+                        :card-image="faction.card_front"
+                        :display-name="faction.display_name"
+                        side="Front"
+                    />
+                </div>
                 <button
                     type="button"
-                    class="btn p-1 w-100 h-100"
+                    class="btn p-1 w-100 btn-card-choice"
                     :class="{
-                        'btn-info': faction.selected,
+                        'btn-danger': faction.selected,
                         'btn-primary': !faction.selected
                     }"
                     @click="select(faction.id)"
                 >
-
-                    <FactionCard
-                        :card-image="faction.card_front"
-                        side="Front"
-                        :display-name="faction.display_name"
-                        class="w-100"
-                    />
-
-                    <br>
                     <template v-if="faction.selected">
                         Current
                     </template>

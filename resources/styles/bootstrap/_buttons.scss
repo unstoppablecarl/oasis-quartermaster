@@ -130,3 +130,8 @@
     --bs-btn-hover-color: var(--bs-btn-color);
     --bs-btn-hover-bg: color-mix(in srgb, var(--bs-btn-border-color) 20%, transparent);
 }
+
+.btn-card-choice {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

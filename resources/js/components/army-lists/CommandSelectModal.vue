@@ -86,7 +86,7 @@ function select(id: CommandId) {
                 </div>
                 <button
                     type="button"
-                    class="btn p-1 w-100 btn-command"
+                    class="btn p-1 w-100 btn-card-choice"
                     :class="{
                         'btn-danger': command.selected,
                         'btn-primary': !command.selected
@@ -106,10 +106,6 @@ function select(id: CommandId) {
     </BModal>
 </template>
 <style lang="scss">
-.btn-command {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
 
 .border-disabled {
     --bs-border-opacity: #{$btn-disabled-opacity};
