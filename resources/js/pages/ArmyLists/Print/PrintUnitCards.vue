@@ -5,13 +5,20 @@ import { useArmyList } from '../../../composables/useArmyList'
 import { chunk } from '../../../lib/utils'
 import type { ArmyList } from '../../../types/army-list'
 
-const { armyList } = defineProps<{
-    armyList: ArmyList
+const { armyList, printOnlyFrontCards } = defineProps<{
+    armyList: ArmyList,
+    printOnlyFrontCards: boolean
 }>()
 const { unitCards } = useArmyList(armyList)
 
+const cardsPerPage = 4
 const pages = computed(() => {
-    return chunk(unitCards.value, 4)
+    if (printOnlyFrontCards) {
+        const cards = unitCards.value.filter(c => c.type === 'Front')
+        return chunk(cards, cardsPerPage)
+    }
+
+    return chunk(unitCards.value, cardsPerPage)
 })
 </script>
 
@@ -32,7 +39,6 @@ const pages = computed(() => {
                 />
                 <div v-else class="game-card-image-not-found-outline">
                     {{ card.display_name }} {{ card.type }}
-
                     <div class="text-danger">Image Not Found</div>
                 </div>
                 <div class="game-card-bleed-outline-top"></div>

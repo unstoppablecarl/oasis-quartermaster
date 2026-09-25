@@ -39,6 +39,7 @@ const printMode = ref(PRINT_MODE_CARDS)
 const printModeDisplayName = computed(() => PRINT_MODES[printMode.value].display_name)
 
 const printCardsInColor = ref(true)
+const printOnlyFrontCards = ref(true)
 
 </script>
 <template>
@@ -77,8 +78,13 @@ const printCardsInColor = ref(true)
                     >
                         Print Cards in Color
                     </BFormCheckbox>
+                    <BFormCheckbox
+                        v-model="printOnlyFrontCards"
+                        id="print_only_front_cards"
+                    >
+                        Print Only Front Cards
+                    </BFormCheckbox>
                 </div>
-
             </template>
             <template #footer>
                 <button role="button" class="btn btn-primary btn-sm me-4" @click="print">
@@ -95,6 +101,7 @@ const printCardsInColor = ref(true)
                 <PrintUnitCards
                     v-if="printMode === PRINT_MODE_CARDS"
                     :army-list="armyList"
+                    :print-only-front-cards="printOnlyFrontCards"
                 />
 
                 <PrintUnitList
