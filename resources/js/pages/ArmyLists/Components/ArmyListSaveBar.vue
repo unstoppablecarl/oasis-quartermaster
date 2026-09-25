@@ -53,31 +53,37 @@ const saveStatusText = computed(() => {
 <template>
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="save-bar fixed-bottom border-top">
-            <div class="container py-1">
-                <div class="d-flex align-items-center flex-wrap gap-2">
-                    <div class="btn-sm-py me-auto">
-                        <strong class="text-body-emphasis">Army List: </strong>
+            <div class="container h-100">
+                <div class="hstack gap-4 save-bar-info">
+                    <div class="hstack gap-4 me-auto">
+                        <div>
+                            <strong class="text-body-emphasis">Army List: </strong>
+                            <span v-if="name">{{ name }}</span>
+                            <span v-else class="text-danger-emphasis">Unnamed</span>
+                        </div>
+                        <div>
+                            <strong class="text-body-emphasis">Faction: </strong>
+                            <span>{{ faction }}</span>
+                        </div>
+                        <div>
+                            <strong class="text-body-emphasis">Commands: </strong>
+                            <span v-if="commands.length">{{ commands.join(', ') }}</span>
+                            <span v-else class="text-danger-emphasis">None Selected</span>
+                        </div>
 
-                        <span v-if="name">{{ name }}</span>
-                        <span v-else class="text-danger-emphasis">Unnamed</span>
-                        <strong class="text-body-emphasis ms-3">Faction: </strong>
-                        <span>{{ faction }}</span>
+                        <div>
+                            <strong class="text-body-emphasis"> Unit Count: </strong>
+                            <span>
+                                {{ unitCount }}
+                            </span>
+                        </div>
 
-                        <strong class="text-body-emphasis ms-3">Commands: </strong>
-                        <span v-if="commands.length">{{ commands.join(', ') }}</span>
-                        <span v-else class="text-danger-emphasis">None Selected</span>
-                    </div>
-                    <div class="btn-sm-py mx-2">
-                        <strong class="text-body-emphasis"> Unit Count: </strong>
-                        <span>
-                            {{ unitCount }}
-                        </span>
+                        <div>
+                            <strong class="text-body-emphasis"> Total Points: </strong>
+                            <Fraction :a="totalCost" :b="maxPoints" />
+                        </div>
                     </div>
 
-                    <div class="btn-sm-py ms-2">
-                        <strong class="text-body-emphasis"> Total Points: </strong>
-                        <Fraction :a="totalCost" :b="maxPoints" />
-                    </div>
                     <button
                         v-if="!autosave"
                         type="button"
@@ -91,7 +97,7 @@ const saveStatusText = computed(() => {
                         v-else-if="saveStatusText"
                         class="btn-sm-py px-3 small"
                         :class="{
-                            'text-danger': saveStatus === 'error',
+                            'text-danger-emphasis': saveStatus === 'error',
                             'text-success': saveStatus !== 'error',
                         }"
                     >
