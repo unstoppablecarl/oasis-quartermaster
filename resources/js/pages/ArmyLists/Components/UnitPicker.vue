@@ -262,7 +262,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                 striped
                 hover
                 thead-class="unit-picker-sticky-head"
-                class="table-unit-picker"
+                class="table-unit-picker table-sortable"
                 :items="allUnits"
                 :fields="fields"
                 v-model:sort-by="sortBy"
@@ -329,7 +329,6 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     padding-top: var(--bs-card-spacer-y);
 }
 
-/* Sticks the table header just below the toolbar above it, instead of at the very top of the viewport. */
 .unit-picker-sticky-head {
     background: var(--bs-card-bg);
 
@@ -340,34 +339,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     }
 }
 
-.sort-icon {
-    vertical-align: -0.15em;
-    margin-left: 0.25rem;
-}
-
 .table-unit-picker {
-    > thead > tr {
-        > th {
-            white-space: nowrap;
-        }
-
-        > th.b-table-sortable-column:hover {
-            background: $table-th-sortable-hover-bg;
-            color: $table-th-sortable-hover-color;
-        }
-
-        > th[aria-sort='ascending'],
-        > th[aria-sort='descending'] {
-            color: var(--bs-primary);
-        }
-    }
-
-    &.table-hover > tbody > tr.row-faction-invalid {
-        > td {
-            --bs-table-bg-state: var(--bs-table-bg);
-        }
-    }
-
     > tbody > tr.row-faction-invalid {
         &:nth-of-type(odd) > * {
             --bs-table-bg-type: var(--bs-table-bg);

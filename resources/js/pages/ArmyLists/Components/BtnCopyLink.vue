@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { PhCopy } from '@phosphor-icons/vue'
-import { vBTooltip } from 'bootstrap-vue-next'
 import { toast } from 'vue-sonner'
 import { show } from '../../../routes/army-lists'
 
@@ -26,8 +25,6 @@ async function copy() {
     <button role="button"
             class="btn btn-outline-info"
             @click="copy"
-            v-b-tooltip.hover.top
-            title="Copy Armylist URL"
     >
         <PhCopy :size="16" />
     </button>

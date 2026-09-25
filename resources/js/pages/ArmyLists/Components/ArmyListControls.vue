@@ -16,7 +16,12 @@ const { armyList, idPrefix } = defineProps<{
 }>()
 </script>
 <template>
-    <BtnCopyLink v-if="armyList.public" :army-list-uuid="armyList.uuid" class="me-2 btn-sm" />
+    <BtnCopyLink
+        v-if="armyList.public"
+        :army-list-uuid="armyList.uuid"
+        class="me-2 btn-sm"
+        :id="`${idPrefix}unit-controls-copy-url`"
+    />
 
     <div class="btn-group btn-group-sm">
         <Link
@@ -46,8 +51,6 @@ const { armyList, idPrefix } = defineProps<{
         >
             <PhPencilSimple :size="16" />
         </Link>
-
-
     </div>
 
     <Link
@@ -78,5 +81,9 @@ const { armyList, idPrefix } = defineProps<{
     </BTooltip>
     <BTooltip :target="`${idPrefix}unit-controls-duplicate`">
         Duplicate
+    </BTooltip>
+
+    <BTooltip :target="`${idPrefix}unit-controls-copy-url`">
+        Copy Army List URL
     </BTooltip>
 </template>

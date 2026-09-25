@@ -8,3 +8,27 @@
     //--bs-table-color: #fff;
     --bs-table-bg: #{$carbon};
 }
+
+.table-sortable {
+    > thead > tr {
+        > th {
+            white-space: nowrap;
+        }
+
+        > th.b-table-sortable-column:hover {
+            background: $table-th-sortable-hover-bg;
+            color: $table-th-sortable-hover-color;
+        }
+
+        > th[aria-sort='ascending'],
+        > th[aria-sort='descending'] {
+            color: var(--bs-primary);
+        }
+    }
+
+    &.table-hover > tbody > tr.row-faction-invalid {
+        > td {
+            --bs-table-bg-state: var(--bs-table-bg);
+        }
+    }
+}

@@ -3,9 +3,10 @@ import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { Plus } from '@lucide/vue'
-import { vBTooltip, BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem } from 'bootstrap-vue-next'
+import { BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem, vBTooltip } from 'bootstrap-vue-next'
 import { computed, ref, toValue } from 'vue'
 import Fraction from '../../components/Fraction.vue'
+import TableSortHeader from '../../components/ui/TableSortHeader.vue'
 import { getArmyListTypeName, useArmyList } from '../../composables/useArmyList'
 import { localize, sort, timeAgo } from '../../lib/utils'
 import ArmyListControls from './Components/ArmyListControls.vue'
@@ -53,6 +54,7 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
         key: 'type',
         label: 'Game Mode',
         sortable: true,
+        class: 'ws-nowrap',
     },
     {
         key: 'faction',
@@ -92,57 +94,102 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
 ]
 
 const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
+
+function sortMode(key: string) {
+    return sortBy.value.find((s) => s.key === key)?.order
+}
 </script>
 <template>
     <Head title="Army Lists" />
     <ArmyListItemHeader title="All" description="Army Lists">
-        <Link :href="create()" class="btn btn-sm btn-primary"  v-b-tooltip.hover.top title="Create New Army List">
+        <Link :href="create()" class="btn btn-sm btn-primary" v-b-tooltip.hover.top title="Create New Army List">
             <Plus :strokeWidth="2.5" :size="16" />
         </Link>
     </ArmyListItemHeader>
 
-    <BTable
-        striped
-        hover
-        :items="armyListsInfo"
-        :fields="fields"
-        responsive="sm"
-        v-model:sort-by="sortBy"
-    >
-        <template #cell(commands)="data">
-            {{ data.item.commands.join(', ') }}
-        </template>
 
-        <template #cell(points)="data">
-            <Fraction :a="toValue(data.item.totalCost)" :b="toValue(data.item.maxPoints)" />
-        </template>
+    <Teleport to="#before-page-footer-teleport" defer>
+        <div class="container-fluid">
 
-        <template #cell(createdAt)="data">
-            <BTooltip>
-                <template #target>
-                    <button role="button" class="btn btn-link p-0">
-                        {{ timeAgo(data.item.createdAt.value) }}
-                    </button>
+            <BTable
+                striped
+                hover
+                :items="armyListsInfo"
+                :fields="fields"
+                responsive="sm"
+                v-model:sort-by="sortBy"
+                no-sortable-icon
+                table-class="table-army-lists table-sortable"
+                thead-class="table-army-lists-sticky-head"
+                no-border-collapse
+            >
+                <template #head()="scope">
+                    <TableSortHeader
+                        :mode="sortMode(scope.field.key)"
+                        :scope="scope"
+                        :size="14"
+                    />
                 </template>
-                {{ localize(data.item.createdAt.value) }}
-            </BTooltip>
-        </template>
 
-        <template #cell(updatedAt)="data">
-            <BTooltip>
-                <template #target>
-                    <button role="button" class="btn btn-link p-0">
-                        {{ timeAgo(data.item.updatedAt.value) }}
-                    </button>
+                <template #cell(commands)="data">
+                    {{ data.item.commands.join(', ') }}
                 </template>
-                {{ localize(data.item.updatedAt.value) }}
-            </BTooltip>
-        </template>
 
-        <template #cell(controls)="data">
-            <div class="d-flex justify-content-end gap-2">
-                <ArmyListControls :army-list="data.item.armyList" />
-            </div>
-        </template>
-    </BTable>
+                <template #cell(points)="data">
+                    <Fraction :a="toValue(data.item.totalCost)" :b="toValue(data.item.maxPoints)" />
+                </template>
+
+                <template #cell(createdAt)="data">
+                    <BTooltip>
+                        <template #target>
+                            <button role="button" class="btn btn-link p-0">
+                                {{ timeAgo(data.item.createdAt.value) }}
+                            </button>
+                        </template>
+                        {{ localize(data.item.createdAt.value) }}
+                    </BTooltip>
+                </template>
+
+                <template #cell(updatedAt)="data">
+                    <BTooltip>
+                        <template #target>
+                            <button role="button" class="btn btn-link p-0">
+                                {{ timeAgo(data.item.updatedAt.value) }}
+                            </button>
+                        </template>
+                        {{ localize(data.item.updatedAt.value) }}
+                    </BTooltip>
+                </template>
+
+                <template #cell(controls)="data">
+                    <div class="d-flex justify-content-end gap-2">
+                        <ArmyListControls :army-list="data.item.armyList" />
+                    </div>
+                </template>
+            </BTable>
+        </div>
+    </Teleport>
 </template>
+<style lang="scss">
+.table-army-lists {
+    > thead > tr {
+        > th {
+            white-space: nowrap;
+        }
+    }
+}
+
+.table-army-lists-sticky-head {
+    background: var(--bs-card-bg);
+
+    border-bottom: 1px solid var(--bs-border-color);
+
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: $bg-main;
+        border-bottom: 1px solid var(--bs-border-color);
+    }
+}
+</style>
