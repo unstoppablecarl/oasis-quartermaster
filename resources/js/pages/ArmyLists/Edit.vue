@@ -42,14 +42,23 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
 
 const { add, totalCost, unitCount, maxPoints } = useArmyList(http)
 
+function snapshot() {
+    return JSON.stringify(http.data())
+}
+
+let lastSentSnapshot = snapshot()
+
 function save() {
-    if (http.processing) {
+    if (http.processing || snapshot() === lastSentSnapshot) {
         return
     }
 
     http.put(ArmyListController.update.url(armyList), {
         onBefore: () => {
-            http.units = http.units.filter(u => u.quantity > 0)
+            if (http.units.some(u => u.quantity <= 0)) {
+                http.units = http.units.filter(u => u.quantity > 0)
+            }
+            lastSentSnapshot = snapshot()
         },
         onSuccess: (response) => {
             armyList.display_name = response.armyList.display_name
@@ -59,11 +68,12 @@ function save() {
             armyList.public = response.armyList.public
             armyList.faction_id = response.armyList.faction_id
         },
-        onError: () => {
-            toast.error('Failed to save army list')
+        onError: (errors) => {
+            const messages = Object.values(errors).flat()
+            toast.error(messages.length ? messages.join('\n') : 'Failed to save army list')
         },
         onFinish: () => {
-            if (http.isDirty) {
+            if (snapshot() !== lastSentSnapshot) {
                 saveDebounced()
             }
         },
@@ -96,7 +106,7 @@ watch(
         () => http.commands,
     ],
     () => {
-        if (!http.isDirty) {
+        if (snapshot() === lastSentSnapshot) {
             return
         }
 
