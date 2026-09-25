@@ -2,7 +2,8 @@
 import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
-import { BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem } from 'bootstrap-vue-next'
+import { Plus } from '@lucide/vue'
+import { vBTooltip, BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem } from 'bootstrap-vue-next'
 import { computed, ref, toValue } from 'vue'
 import Fraction from '../../components/Fraction.vue'
 import { getArmyListTypeName, useArmyList } from '../../composables/useArmyList'
@@ -95,7 +96,9 @@ const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
 <template>
     <Head title="Army Lists" />
     <ArmyListItemHeader title="All" description="Army Lists">
-        <Link :href="create()" class="btn btn-sm btn-primary">Create New</Link>
+        <Link :href="create()" class="btn btn-sm btn-primary"  v-b-tooltip.hover.top title="Create New Army List">
+            <Plus :strokeWidth="2.5" :size="16" />
+        </Link>
     </ArmyListItemHeader>
 
     <BTable
@@ -106,7 +109,6 @@ const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
         responsive="sm"
         v-model:sort-by="sortBy"
     >
-
         <template #cell(commands)="data">
             {{ data.item.commands.join(', ') }}
         </template>

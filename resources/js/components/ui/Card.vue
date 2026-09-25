@@ -22,7 +22,7 @@ const { type, src, displayName, side, width = CARD_DEFAULT_WIDTH } = defineProps
         :alt="`${displayName} ${side} ${type} Card`"
         :width="width"
     />
-    <div v-else class="game-card-image-not-found-outline">
+    <div v-else class="game-card-image-not-found-outline" v-bind="$attrs">
         {{ displayName }} {{ type }} {{ side }}
         <div class="text-danger">Card Image Not Found</div>
     </div>

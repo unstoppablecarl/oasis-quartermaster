@@ -55,10 +55,9 @@ const printCommandCards = ref(true)
     <ArmyListItemLayout title="Print" :army-list="armyList">
         <Head title="Print" />
 
-        <div class="print-settings-container m-auto">
             <ArmyListInfoSummary :army-list="armyList" />
             <ArmyListValidationSummary :army-list="armyList" heading-class="text-teal" />
-        </div>
+
         <PrintSettings>
             <template #nav>
                 <template v-for="(item, key) in PRINT_MODES">

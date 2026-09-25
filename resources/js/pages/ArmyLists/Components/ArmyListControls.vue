@@ -47,16 +47,18 @@ const { armyList, idPrefix } = defineProps<{
             <PhPencilSimple :size="16" />
         </Link>
 
-        <Link
-            :href="duplicate(armyList.uuid)"
-            method="post"
-            as="button"
-            class="btn btn-sm btn-outline-info"
-            :id="`${idPrefix}unit-controls-duplicate`"
-        >
-            <PhCopySimple :size="16" />
-        </Link>
+
     </div>
+
+    <Link
+        :href="duplicate(armyList.uuid)"
+        method="post"
+        as="button"
+        class="btn btn-sm btn-info ms-2"
+        :id="`${idPrefix}unit-controls-duplicate`"
+    >
+        <PhCopySimple :size="16" />
+    </Link>
 
     <DeleteArmyListModal
         :disabled="!armyList.can.delete"

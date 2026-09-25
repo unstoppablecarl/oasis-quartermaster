@@ -8,7 +8,7 @@ const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
 
-const { unitCount, totalCost, maxPoints, faction } = useArmyList(armyList)
+const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } = useArmyList(armyList)
 
 </script>
 <template>
@@ -16,20 +16,37 @@ const { unitCount, totalCost, maxPoints, faction } = useArmyList(armyList)
     <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex">
-                <div class="pe-3 me-auto">
-                    <strong class="">Faction: </strong>
-                    <span class="text-teal">{{ faction.display_name }}
-                        <FactionCardViewModal :faction-id="armyList.faction_id" />
+                <div class="me-3 me-auto">
+
+                    <span>
+                        <strong class="text-body-emphasis">Game Mode: </strong>
+                        {{ armyListTypeName }}
+                    </span>
+                    <span class="ms-4">
+                        <strong class="text-body-emphasis">Faction: </strong> {{ faction.display_name }}
+                    </span>
+
+                    <span class="ms-4">
+                        <strong class="text-body-emphasis">Commands: </strong>
+                        {{ commands.map(c => c.display_name).join(', ') }}
+                    </span>
+
+                    <span class="ms-4">
+                        <strong class="text-body-emphasis">Faction: </strong>
+                        <span class="text-teal">{{ faction.display_name }}
+                            <FactionCardViewModal :faction-id="armyList.faction_id" />
+                        </span>
                     </span>
                 </div>
-                <div class="px-3">
-                    <strong> Unit Count: </strong>
-                    <span class="text-body-emphasis">
-                        {{ unitCount }}
-                    </span>
+
+                <div class="mx-3">
+                    <strong class="text-body-emphasis"> Unit Count: </strong>
+
+                    {{ unitCount }}
+
                 </div>
-                <div class="ps-3">
-                    <strong> Total Points: </strong>
+                <div class="ms-3">
+                    <strong class="text-body-emphasis"> Total Points: </strong>
                     <Fraction :a="totalCost" :b="maxPoints" />
                 </div>
             </div>
