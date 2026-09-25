@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { Head, setLayoutProps, useHttp } from '@inertiajs/vue3'
+import { reactive } from 'vue'
 import { toast } from 'vue-sonner'
-import type { FactionId } from '../../../data/factions'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
 import type { LocalArmyList } from '../../composables/useUnitsInfo'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
-import ArmyListFactionValidators from './Components/ArmyListFactionValidation.vue'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
 import ArmyListUnits from './Components/ArmyListUnits.vue'
+import ArmyListValidationSummary from './Components/ArmyListValidationSummary.vue'
 import UnitPicker from './Components/UnitPicker.vue'
 
-const { armyList } = defineProps<{
+const props = defineProps<{
     armyList: ArmyList
 }>()
+
+const armyList = reactive({ ...props.armyList })
 
 setLayoutProps({
     saveBarPadding: true,
@@ -24,8 +26,6 @@ setLayoutProps({
 type UpdateResponse = {
     armyList: ArmyList
     message: string
-    public: boolean
-    faction_id: FactionId
 }
 
 const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
@@ -44,15 +44,15 @@ const { add, totalCost, unitCount, maxPoints } = useArmyList(http)
 function update() {
     http.put(ArmyListController.update.url(armyList), {
         onBefore: () => {
-            armyList.units = armyList.units.filter(u => u.quantity > 0)
+            http.units = http.units.filter(u => u.quantity > 0)
         },
         onSuccess: (response) => {
             armyList.display_name = response.armyList.display_name
             armyList.army_list_type_id = response.armyList.army_list_type_id
             armyList.custom_max_points = response.armyList.custom_max_points
             armyList.units = response.armyList.units.map((u) => ({ ...u }))
-            armyList.public = response.public
-            armyList.faction_id = response.faction_id
+            armyList.public = response.armyList.public
+            armyList.faction_id = response.armyList.faction_id
             toast.success(response.message)
         },
         onError: () => {
@@ -66,7 +66,7 @@ function update() {
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
-        <ArmyListFactionValidators :army-list="http" />
+        <ArmyListValidationSummary :army-list="http" />
     </ArmyListItemLayout>
 
     <Teleport to="#before-page-footer-teleport" defer>

@@ -2,13 +2,15 @@
 import { PhWarning } from '@phosphor-icons/vue'
 import { BPopover } from 'bootstrap-vue-next'
 import { computed } from 'vue'
+import type { FactionId } from '../../../data/factions'
 import ValidationMessages from './ValidationMessages.vue'
 
-const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass } = defineProps<{
+const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass, factionId } = defineProps<{
     messages?: string[]
     factionMessages?: string[]
     headingClass?: string
     textClass?: string
+    factionId: FactionId
 }>()
 
 const hasMessages = computed(() => messages?.length || factionMessages?.length)
@@ -25,6 +27,7 @@ const hasMessages = computed(() => messages?.length || factionMessages?.length)
             </button>
         </template>
         <ValidationMessages
+            :faction-id="factionId"
             :faction-messages="factionMessages"
             :messages="messages"
             :heading-class="headingClass"

@@ -16,10 +16,7 @@ import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
-import {
-    getArmyListMaxPoints,
-    getArmyListTotalPoints,
-} from '../../../composables/useArmyList'
+import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
@@ -105,16 +102,16 @@ const allUnits = computed(() => {
 const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     ...(hasFaction.value && !filterFactionValidUnits.value
         ? [
-              {
-                  key: 'faction_validation',
-                  label: 'Valid',
-                  sortable: true,
-                  sortCompare: sort((unit: Row) =>
-                      unit.faction_validation ? 1 : 0,
-                  ),
-                  class: 'cell-faction-validation',
-              },
-          ]
+            {
+                key: 'faction_validation',
+                label: 'Valid',
+                sortable: true,
+                sortCompare: sort((unit: Row) =>
+                    unit.faction_validation ? 1 : 0,
+                ),
+                class: 'cell-faction-validation',
+            },
+        ]
         : []),
     {
         key: 'display_name',
@@ -124,19 +121,19 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     },
     ...(showClass.value
         ? [
-              {
-                  key: 'class',
-                  sortable: true,
-              },
-          ]
+            {
+                key: 'class',
+                sortable: true,
+            },
+        ]
         : []),
     ...(showManufacturer.value
         ? [
-              {
-                  key: 'manufacturer',
-                  sortable: true,
-              },
-          ]
+            {
+                key: 'manufacturer',
+                sortable: true,
+            },
+        ]
         : []),
     {
         key: 'init',
@@ -189,10 +186,14 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
 ])
 
 const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'desc' }])
-const filterWithinBudgetUnits = ref(true)
-const filterFactionValidUnits = ref(false)
 
-const { showClass, showManufacturer, showPrefix } = useFilterSettings()
+const {
+    showClass,
+    showManufacturer,
+    showPrefix,
+    filterFactionValidUnits,
+    filterWithinBudgetUnits,
+} = useFilterSettings()
 
 const rowClass = (
     item: Row | null,
@@ -282,16 +283,15 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 
                 <template #cell(faction_validation)="data">
                     <BtnPopoverValidation
-                        :faction-messages="
-                            data.item.faction_validation?.validationMessages
-                        "
+                        :faction-id="armyList.faction_id"
+                        :faction-messages="data.item.faction_validation?.validationMessages"
                     />
                 </template>
 
                 <template #cell(display_name)="data">
                     <span class="text-muted fw-light" v-if="showPrefix">{{
-                        data.item.prefix
-                    }}</span>
+                            data.item.prefix
+                        }}</span>
                     {{ data.item.display_name }}
                 </template>
 

@@ -375,6 +375,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                              :class="{ 'error-msg-empty': !unit.validationMessages.length && !unit.factionValidation?.validationMessages?.length }">
 
                             <ValidationMessages
+                                :faction-id="armyList.faction_id"
                                 :messages="unit.validationMessages"
                                 :faction-messages="unit.factionValidation?.validationMessages"
                                 heading-class="text-warning fw-bold"
@@ -402,7 +403,6 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     .unit-list-toolbar {
         background: var(--bs-card-bg);
         z-index: 3;
-        padding-top: var(--bs-card-spacer-y);
     }
 
     .table-grid {

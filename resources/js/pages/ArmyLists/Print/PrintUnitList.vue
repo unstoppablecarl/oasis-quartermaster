@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import { type UnitEntry, useUnitsInfo } from '../../../composables/useUnitsInfo'
+import { useArmyList } from '../../../composables/useArmyList'
+import { getFactionName } from '../../../lib/static-data-helpers'
+import type { ArmyList } from '../../../types/army-list'
 
-const {
-    units,
-    maxPoints,
-    displayName,
-} = defineProps<{
-    maxPoints: number | null
-    units: UnitEntry[]
-    displayName: string
+const { armyList } = defineProps<{
+    armyList: ArmyList
 }>()
 
-const { unitsInfo, totalCost, unitCount } = useUnitsInfo(() => units, () => maxPoints)
+const { maxPoints, unitsInfo, totalCost, unitCount } = useArmyList(armyList)
+
 </script>
 <template>
     <div
         class="page-preview page-letter padded"
         style="background-color:white"
     >
-        <div class="h5 text-dark">{{ displayName }}</div>
+        <div class="h5 text-dark">{{ armyList.display_name }}</div>
+        <div class="h5 text-dark">Faction: {{ getFactionName(armyList.faction_id) }}</div>
+
         <table class="table">
             <thead>
             <tr>
@@ -46,7 +45,7 @@ const { unitsInfo, totalCost, unitCount } = useUnitsInfo(() => units, () => maxP
             </tr>
             </tbody>
             <caption>
-                <div class="px-2 pt-3 pb-0 fs-5 text-end">
+                <div class="px-2 pt-3 pb-0 text-end">
                     <strong>Unit Count: </strong>
                     <span class="me-3">{{ unitCount }}</span>
                     <strong>Total Cost: </strong>

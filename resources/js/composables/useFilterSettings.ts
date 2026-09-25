@@ -4,6 +4,8 @@ type Settings = {
     showPrefix: boolean
     showManufacturer: boolean
     showClass: boolean
+    filterWithinBudgetUnits: boolean
+    filterFactionValidUnits: boolean
 }
 
 const STORAGE_KEY = 'oasis-army-list-filter-settings'
@@ -13,6 +15,8 @@ function make(): Settings {
         showPrefix: true,
         showManufacturer: true,
         showClass: true,
+        filterWithinBudgetUnits: false,
+        filterFactionValidUnits: false,
     }
 }
 
@@ -63,6 +67,8 @@ export function toRawSettings(settings: MaybeRefOrGetter<Settings>): Settings {
         showPrefix: s.showPrefix,
         showManufacturer: s.showManufacturer,
         showClass: s.showClass,
+        filterFactionValidUnits: s.filterFactionValidUnits,
+        filterWithinBudgetUnits: s.filterWithinBudgetUnits,
     }
 }
 
@@ -76,10 +82,14 @@ export function useFilterSettings() {
     const showPrefix = toRef(settings, 'showPrefix')
     const showManufacturer = toRef(settings, 'showManufacturer')
     const showClass = toRef(settings, 'showClass')
+    const filterWithinBudgetUnits = toRef(settings, 'filterWithinBudgetUnits')
+    const filterFactionValidUnits = toRef(settings, 'filterFactionValidUnits')
 
     return {
         showPrefix,
         showManufacturer,
         showClass,
+        filterWithinBudgetUnits,
+        filterFactionValidUnits
     }
 }

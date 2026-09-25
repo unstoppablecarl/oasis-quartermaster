@@ -4,9 +4,10 @@ import { PhPrinter } from '@phosphor-icons/vue'
 import { BFormCheckbox } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import AppFooter from '../../components/AppFooter.vue'
-import { useArmyList } from '../../composables/useArmyList'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
+import ArmyListInfoSummary from './ArmyListInfoSummary.vue'
+import ArmyListValidationSummary from './Components/ArmyListValidationSummary.vue'
 import PrintSettings from './Print/PrintSettings.vue'
 import PrintUnitCards from './Print/PrintUnitCards.vue'
 import PrintUnitList from './Print/PrintUnitList.vue'
@@ -14,7 +15,6 @@ import PrintUnitList from './Print/PrintUnitList.vue'
 const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
-const { maxPoints } = useArmyList(armyList)
 
 setLayoutProps({
     showFooter: false,
@@ -45,6 +45,10 @@ const printCardsInColor = ref(true)
     <ArmyListItemLayout title="Print" :army-list="armyList">
         <Head title="Print" />
 
+        <div class="print-settings-container m-auto">
+            <ArmyListInfoSummary :army-list="armyList" />
+            <ArmyListValidationSummary :army-list="armyList" heading-class="text-teal" />
+        </div>
         <PrintSettings>
             <template #nav>
                 <template v-for="(item, key) in PRINT_MODES">
@@ -95,9 +99,7 @@ const printCardsInColor = ref(true)
 
                 <PrintUnitList
                     v-if="printMode === PRINT_MODE_LIST"
-                    :units="armyList.units"
-                    :max-points="maxPoints"
-                    :display-name="armyList.display_name"
+                    :army-list="armyList"
                 />
             </div>
         </div>

@@ -5,6 +5,7 @@ import UnitCard from '../../components/ui/UnitCard.vue'
 import { useArmyList } from '../../composables/useArmyList'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
+import ArmyListValidationSummary from './Components/ArmyListValidationSummary.vue'
 
 const { armyList } = defineProps<{
     armyList: ArmyList
@@ -41,6 +42,9 @@ const { unitCards, totalCost, maxPoints, unitCount, faction, commands, armyListT
                 </div>
             </div>
         </div>
+
+        <ArmyListValidationSummary :army-list="armyList" />
+
         <div class="row">
             <div v-for="unit in unitCards" class="col-3">
                 <div>{{ unit.display_name }} {{ unit.type }}</div>

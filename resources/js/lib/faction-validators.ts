@@ -105,28 +105,22 @@ export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
                     }
                 }
 
-                let validationMessages = []
+                let validationMessages: string[] = []
                 let halfPointsValid = false
                 let halfPoints: number | null = null
                 if (maxPoints !== null) {
                     halfPoints = Math.ceil(maxPoints * 0.5)
                     halfPointsValid = surveyorUnitTotalCost >= halfPoints
-                    if (!halfPointsValid) {
-                        validationMessages.push(`Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${halfPoints})`)
-                    }
                 }
 
                 const halfCount = Math.ceil(unitCount * 0.5)
                 const halfCountValid = surveyorUnitCount >= halfCount
 
-                if (!halfCountValid) {
-                    validationMessages.push(`Required Surveyor Trait Unit count. (${surveyorUnitCount} / ${halfCount})`)
-                }
-
-                if (validationMessages.length) {
+                if (!halfPointsValid && !halfCountValid) {
                     validationMessages = [
                         `At least 50% of the total Units cost or Units count must be Units with the Surveyor Trait.`,
-                        ...validationMessages,
+                        `Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${halfPoints})`,
+                        `Required Surveyor Trait Unit count. (${surveyorUnitCount} / ${halfCount})`,
                     ]
                 }
 
