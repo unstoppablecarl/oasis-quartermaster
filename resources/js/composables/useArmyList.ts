@@ -84,9 +84,10 @@ export function useArmyList(armyList: LocalArmyList) {
     }
 }
 
+export type CardType = 'Front' | 'Back'
 export type UnitCard = {
     display_name: string
-    type: 'Front' | 'Back'
+    type: CardType
     cardImage: string
 }
 
