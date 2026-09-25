@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import type { CommandId } from '../../../../data/commands'
 import type { FactionId } from '../../../../data/factions'
 import Fraction from '../../../components/Fraction.vue'
@@ -36,6 +36,24 @@ const emit = defineEmits<{
 
 const faction = computed(() => getFactionName(factionId))
 
+const saveBarRef = useTemplateRef<HTMLElement>('saveBar')
+
+let resizeObserver: ResizeObserver | null = null
+
+onMounted(() => {
+    resizeObserver = new ResizeObserver(() => {
+        if (saveBarRef.value) {
+            document.documentElement.style.setProperty('--save-bar-height', `${saveBarRef.value.offsetHeight}px`)
+        }
+    })
+    resizeObserver.observe(saveBarRef.value as HTMLElement)
+})
+
+onBeforeUnmount(() => {
+    resizeObserver?.disconnect()
+    document.documentElement.style.removeProperty('--save-bar-height')
+})
+
 const commands = computed(() => commandIds.map(id => COMMANDS_BY_ID[id].display_name))
 const saveStatusText = computed(() => {
     switch (saveStatus) {
@@ -52,13 +70,13 @@ const saveStatusText = computed(() => {
 </script>
 <template>
     <Teleport to="#before-page-footer-teleport" defer>
-        <div class="save-bar fixed-bottom border-top">
-            <div class="container h-100">
-                <div class="hstack gap-4 save-bar-info">
-                    <div class="hstack gap-4 me-auto">
-                        <div>
-                            <strong class="text-body-emphasis">Army List: </strong>
-                            <span v-if="name">{{ name }}</span>
+        <div ref="saveBar" class="save-bar fixed-bottom border-top">
+            <div class="container">
+                <div class="hstack save-bar-info">
+                    <div class="hstack me-auto save-bar-fields">
+                        <div class="save-bar-name">
+                            <strong class="text-body-emphasis">Name:&nbsp;</strong>
+                            <span v-if="name" class="text-truncate">{{ name }}</span>
                             <span v-else class="text-danger-emphasis">Unnamed</span>
                         </div>
                         <div>
@@ -87,7 +105,7 @@ const saveStatusText = computed(() => {
                     <button
                         v-if="!autosave"
                         type="button"
-                        class="btn btn-primary btn-sm"
+                        class="btn btn-primary btn-sm flex-shrink-0"
                         :disabled="processing || saveDisabled"
                         @click="emit('save')"
                     >
@@ -95,15 +113,15 @@ const saveStatusText = computed(() => {
                     </button>
                     <div
                         v-else-if="saveStatusText"
-                        class="btn-sm-py px-3 small"
+                        class="btn-sm-py pe-3 small flex-shrink-0"
                         :class="{
                             'text-danger-emphasis': saveStatus === 'error',
-                            'text-success': saveStatus !== 'error',
+                            'text-success-emphasis': saveStatus !== 'error',
                         }"
                     >
                         {{ saveStatusText }}
                     </div>
-                    <div class="small text-danger">
+                    <div class="small text-danger save-bar-note">
                         <slot name="note" />
                     </div>
                 </div>
@@ -111,3 +129,35 @@ const saveStatusText = computed(() => {
         </div>
     </Teleport>
 </template>
+
+<style lang="scss">
+.save-bar-info {
+    flex-wrap: wrap;
+    column-gap: $spacer * 1.5;
+    row-gap: 0.25rem;
+}
+
+.save-bar-fields {
+    flex-wrap: wrap;
+    column-gap: $spacer * 1.5;
+    row-gap: 0.25rem;
+    min-width: 0;
+}
+
+.save-bar-name {
+    display: flex;
+    min-width: 0;
+    max-width: min(40vw, 320px);
+
+    .text-truncate {
+        min-width: 0;
+    }
+}
+
+.save-bar-note {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>

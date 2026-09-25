@@ -17,13 +17,21 @@
 }
 
 .app-footer-save-bar-padding {
-    padding-bottom: $save-bar-height;
+    padding-bottom: var(--save-bar-height, #{$save-bar-height});
 }
 
 .save-bar {
-    height: $save-bar-height;
+    min-height: $save-bar-height;
     z-index: $zindex-modal + 1;
     background: #1e1f20;
+
+    .container {
+        display: flex;
+        align-items: center;
+        min-height: $save-bar-height;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
 }
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
@@ -34,7 +42,7 @@
 @import 'bootstrap/table';
 @import 'bootstrap/navbar';
 @import 'bootstrap/text';
-    @import 'bootstrap/modal';
+@import 'bootstrap/modal';
 
 @import 'lib/hazard';
 @import 'print-page';
