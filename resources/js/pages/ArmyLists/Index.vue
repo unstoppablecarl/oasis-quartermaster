@@ -124,14 +124,14 @@ function sortMode(key: string) {
             <BTable
                 striped
                 hover
+                class="table-army-lists table-sortable"
+                thead-class="table-army-lists-sticky-head"
                 :items="armyListsInfo"
                 :fields="fields"
-                responsive="sm"
                 v-model:sort-by="sortBy"
-                no-sortable-icon
-                table-class="table-army-lists table-sortable"
-                thead-class="table-army-lists-sticky-head"
+                responsive="sm"
                 no-border-collapse
+                no-sortable-icon
             >
                 <template #head()="scope">
                     <TableSortHeader
@@ -185,7 +185,7 @@ function sortMode(key: string) {
 </template>
 <style lang="scss">
 .table-army-lists {
-    > thead > tr {
+   table > thead > tr {
         > th {
             white-space: nowrap;
         }

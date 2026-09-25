@@ -10,6 +10,7 @@
 }
 
 .table-sortable {
+    table > thead > tr,
     > thead > tr {
         > th {
             white-space: nowrap;
@@ -26,9 +27,13 @@
         }
     }
 
-    &.table-hover > tbody > tr.row-faction-invalid {
-        > td {
-            --bs-table-bg-state: var(--bs-table-bg);
+    table.table-hover,
+    &.table-hover {
+        > tbody > tr.row-faction-invalid {
+
+            > td {
+                --bs-table-bg-state: var(--bs-table-bg);
+            }
         }
     }
 }
