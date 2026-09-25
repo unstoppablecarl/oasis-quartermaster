@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical, Minus, Plus, RotateCcw, X } from '@lucide/vue'
+import {
+    ChevronDown,
+    ChevronsUpDown,
+    ChevronUp,
+    GripVertical,
+    Minus,
+    Plus,
+    RotateCcw,
+    X,
+} from '@lucide/vue'
 import { PhEquals, PhX } from '@phosphor-icons/vue'
 import { useElementSize } from '@vueuse/core'
 import { BTooltip } from 'bootstrap-vue-next'
@@ -11,11 +20,14 @@ import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { useArmyList } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
-import { type LocalArmyList, type UnitEntry } from '../../../composables/useUnitsInfo'
+import {
+    type LocalArmyList,
+    type UnitEntry,
+} from '../../../composables/useUnitsInfo'
 import UnitGridFilters from './UnitGridFilters.vue'
 
 const { armyList } = defineProps<{
-    armyList: LocalArmyList,
+    armyList: LocalArmyList
 }>()
 
 const {
@@ -42,7 +54,7 @@ type SortKey =
     | 'manufacturer'
     | 'class'
 
-type Row = typeof unitsInfo.value[0]
+type Row = (typeof unitsInfo.value)[0]
 
 const sortAccessors: Record<SortKey, (unit: Row) => string | number | null> = {
     display_name: (unit) => unit.display_name,
@@ -154,9 +166,18 @@ const gridTemplateColumns = computed(() => {
     }
 
     columns.push(
-        'max-content', 'max-content', 'max-content', 'max-content', 'max-content',
-        '1fr', '1fr', '1fr',
-        'max-content', 'max-content', 'max-content', '1fr',
+        'max-content',
+        'max-content',
+        'max-content',
+        'max-content',
+        'max-content',
+        '1fr',
+        '1fr',
+        '1fr',
+        'max-content',
+        'max-content',
+        'max-content',
+        '1fr',
     )
 
     return columns.join(' ')
@@ -166,7 +187,6 @@ const toolbarRef = useTemplateRef<HTMLElement>('toolbar')
 const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     box: 'border-box',
 })
-
 </script>
 <template>
     <div
@@ -176,7 +196,6 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         <div class="card-body table-units pt-0">
             <div ref="toolbar" class="unit-list-toolbar sticky-top">
                 <CardHazardTitle title="Units" variant="sulfur">
-
                     <UnitGridFilters
                         :army-list="armyList"
                         v-model:show-class="showClass"
@@ -185,7 +204,6 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                     />
                 </CardHazardTitle>
             </div>
-
 
             <draggable
                 v-model="draggableUnits"
@@ -210,109 +228,209 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                                     <button
                                         type="button"
                                         class="btn btn-sm btn-outline-secondary"
-                                        :class="{'invisible': !sortKey}"
+                                        :class="{ invisible: !sortKey }"
                                         :disabled="!sortKey"
                                         @click="resetSort"
                                     >
                                         <RotateCcw :size="14" />
-
                                     </button>
                                 </template>
                                 Reset Order
                             </BTooltip>
                         </div>
-                        <div class="sort-header" :class="{ 'sort-header-active': sortKey === 'display_name' }"
-                             @click="toggleSort('display_name')">
+                        <div
+                            class="sort-header"
+                            :class="{
+                                'sort-header-active':
+                                    sortKey === 'display_name',
+                            }"
+                            @click="toggleSort('display_name')"
+                        >
                             Name
-                            <component :is="sortIconFor('display_name')" :size="14" />
+                            <component
+                                :is="sortIconFor('display_name')"
+                                :size="14"
+                            />
                         </div>
-                        <div v-if="showClass" class="sort-header"
-                             :class="{ 'sort-header-active': sortKey === 'class' }"
-                             @click="toggleSort('class')">
+                        <div
+                            v-if="showClass"
+                            class="sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'class',
+                            }"
+                            @click="toggleSort('class')"
+                        >
                             Class
                             <component :is="sortIconFor('class')" :size="14" />
                         </div>
-                        <div v-if="showManufacturer" class="sort-header"
-                             :class="{ 'sort-header-active': sortKey === 'manufacturer' }"
-                             @click="toggleSort('manufacturer')">
+                        <div
+                            v-if="showManufacturer"
+                            class="sort-header"
+                            :class="{
+                                'sort-header-active':
+                                    sortKey === 'manufacturer',
+                            }"
+                            @click="toggleSort('manufacturer')"
+                        >
                             Manufacturer
-                            <component :is="sortIconFor('manufacturer')" :size="14" />
+                            <component
+                                :is="sortIconFor('manufacturer')"
+                                :size="14"
+                            />
                         </div>
-                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'init' }"
-                             @click="toggleSort('init')">
+                        <div
+                            class="number-cell sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'init',
+                            }"
+                            @click="toggleSort('init')"
+                        >
                             Init.
                             <component :is="sortIconFor('init')" :size="14" />
                         </div>
-                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'dodge' }"
-                             @click="toggleSort('dodge')">
+                        <div
+                            class="number-cell sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'dodge',
+                            }"
+                            @click="toggleSort('dodge')"
+                        >
                             Dodge
                             <component :is="sortIconFor('dodge')" :size="14" />
                         </div>
-                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'defense' }"
-                             @click="toggleSort('defense')">
+                        <div
+                            class="number-cell sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'defense',
+                            }"
+                            @click="toggleSort('defense')"
+                        >
                             Defense
-                            <component :is="sortIconFor('defense')" :size="14" />
+                            <component
+                                :is="sortIconFor('defense')"
+                                :size="14"
+                            />
                         </div>
-                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'hp' }"
-                             @click="toggleSort('hp')">
+                        <div
+                            class="number-cell sort-header"
+                            :class="{ 'sort-header-active': sortKey === 'hp' }"
+                            @click="toggleSort('hp')"
+                        >
                             HP
                             <component :is="sortIconFor('hp')" :size="14" />
                         </div>
-                        <div class="number-cell sort-header" :class="{ 'sort-header-active': sortKey === 'speed' }"
-                             @click="toggleSort('speed')">
+                        <div
+                            class="number-cell sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'speed',
+                            }"
+                            @click="toggleSort('speed')"
+                        >
                             Move
                             <component :is="sortIconFor('speed')" :size="14" />
                         </div>
                         <div>Weapons</div>
                         <div>Traits</div>
                         <div class="text-teal">Abilities</div>
-                        <div class="number-cell px-1 sort-header" :class="{ 'sort-header-active': sortKey === 'cost' }"
-                             @click="toggleSort('cost')">
+                        <div
+                            class="number-cell px-1 sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'cost',
+                            }"
+                            @click="toggleSort('cost')"
+                        >
                             Pts
                             <component :is="sortIconFor('cost')" :size="14" />
                         </div>
-                        <div class="number-cell px-1 sort-header"
-                             :class="{ 'sort-header-active': sortKey === 'quantity' }" @click="toggleSort('quantity')">
+                        <div
+                            class="number-cell px-1 sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'quantity',
+                            }"
+                            @click="toggleSort('quantity')"
+                        >
                             Qty
-                            <component :is="sortIconFor('quantity')" :size="14" />
+                            <component
+                                :is="sortIconFor('quantity')"
+                                :size="14"
+                            />
                         </div>
-                        <div class="number-cell ps-1 sort-header"
-                             :class="{ 'sort-header-active': sortKey === 'totalCost' }"
-                             @click="toggleSort('totalCost')">
+                        <div
+                            class="number-cell ps-1 sort-header"
+                            :class="{
+                                'sort-header-active': sortKey === 'totalCost',
+                            }"
+                            @click="toggleSort('totalCost')"
+                        >
                             Cost
-                            <component :is="sortIconFor('totalCost')" :size="14" />
+                            <component
+                                :is="sortIconFor('totalCost')"
+                                :size="14"
+                            />
                         </div>
                         <div class="px-0"></div>
                     </div>
                 </template>
                 <template #item="{ element: unit }">
-                    <div class="grid-row"
-                         :class="{ 'row-error': unit.validationMessages.length || unit.factionValidation?.validationMessages?.length }">
-                        <div class="p-0 drag-handle-cell"
-                             :class="{ 'span-error-row': unit.validationMessages.length || unit.factionValidation?.validationMessages?.length }">
+                    <div
+                        class="grid-row"
+                        :class="{
+                            'row-error':
+                                unit.validationMessages.length ||
+                                unit.factionValidation?.validationMessages
+                                    ?.length,
+                        }"
+                    >
+                        <div
+                            class="p-0 drag-handle-cell"
+                            :class="{
+                                'span-error-row':
+                                    unit.validationMessages.length ||
+                                    unit.factionValidation?.validationMessages
+                                        ?.length,
+                            }"
+                        >
                             <button
                                 role="button"
                                 class="btn btn-transparent drag-handle d-flex align-items-start"
-                                :class="{ 'drag-handle-disabled': sortKey !== null }"
+                                :class="{
+                                    'drag-handle-disabled': sortKey !== null,
+                                }"
                                 :disabled="sortKey !== null"
                             >
                                 <GripVertical weight="bold" :size="16" />
                             </button>
                         </div>
                         <div>
-                            <span v-if="showPrefix" class="text-muted fw-light">{{ unit.prefix }}</span>
+                            <span
+                                v-if="showPrefix"
+                                class="text-muted fw-light"
+                                >{{ unit.prefix }}</span
+                            >
                             {{ unit.display_name }}
                         </div>
                         <div v-if="showClass">{{ unit.class }}</div>
-                        <div v-if="showManufacturer">{{ unit.manufacturer }}</div>
+                        <div v-if="showManufacturer">
+                            {{ unit.manufacturer }}
+                        </div>
                         <div class="number-cell-sortable">{{ unit.init }}</div>
                         <div class="number-cell-sortable">{{ unit.dodge }}</div>
-                        <div class="number-cell-sortable">{{ unit.defense }}</div>
+                        <div class="number-cell-sortable">
+                            {{ unit.defense }}
+                        </div>
                         <div class="number-cell-sortable">{{ unit.hp }}</div>
-                        <div class="number-cell-sortable ws-nowrap">{{ unit.speed }}</div>
-                        <div>{{ unit.weapons.map((w: any) => w.name).join(', ') }}</div>
+                        <div class="number-cell-sortable ws-nowrap">
+                            {{ unit.speed }}
+                        </div>
+                        <div>
+                            {{
+                                unit.weapons.map((w: any) => w.name).join(', ')
+                            }}
+                        </div>
                         <div>{{ unit.traits.join(', ') }}</div>
-                        <div class="text-teal">{{ unit.abilities.join(', ') }}</div>
+                        <div class="text-teal">
+                            {{ unit.abilities.join(', ') }}
+                        </div>
 
                         <div class="number-cell px-1">
                             {{ unit.cost }}
@@ -337,7 +455,11 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                                     @click="minus(unit)"
                                     :id="`btn-remove-1-${unit.id}`"
                                 >
-                                    <Minus v-if="unit.quantity !== 0" :strokeWidth="2.5" :size="16" />
+                                    <Minus
+                                        v-if="unit.quantity !== 0"
+                                        :strokeWidth="2.5"
+                                        :size="16"
+                                    />
                                     <X v-else :strokeWidth="2.5" :size="16" />
                                 </button>
                                 <button
@@ -359,7 +481,10 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                                 <X :strokeWidth="2.5" :size="16" />
                             </button>
 
-                            <BTooltip :target="`#btn-remove-1-${unit.id}`" v-if="unit.quantity !== 0">
+                            <BTooltip
+                                :target="`#btn-remove-1-${unit.id}`"
+                                v-if="unit.quantity !== 0"
+                            >
                                 Remove 1
                             </BTooltip>
                             <BTooltip :target="`#btn-add-1-${unit.id}`">
@@ -371,20 +496,31 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 
                             <UnitCardModal :unit-id="unit.id" />
                         </div>
-                        <div class="error-msg"
-                             :class="{ 'error-msg-empty': !unit.validationMessages.length && !unit.factionValidation?.validationMessages?.length }">
-
+                        <div
+                            class="error-msg"
+                            :class="{
+                                'error-msg-empty':
+                                    !unit.validationMessages.length &&
+                                    !unit.factionValidation?.validationMessages
+                                        ?.length,
+                            }"
+                        >
                             <ValidationMessages
                                 :faction-id="armyList.faction_id"
                                 :messages="unit.validationMessages"
-                                :faction-messages="unit.factionValidation?.validationMessages"
+                                :faction-messages="
+                                    unit.factionValidation?.validationMessages
+                                "
                                 heading-class="text-warning fw-bold"
                             />
                         </div>
                     </div>
                 </template>
             </draggable>
-            <div class="border-top border-bottom py-2 text-center text-teal text-uppercase" v-if="!unitsInfo.length">
+            <div
+                class="border-top border-bottom py-2 text-center text-teal text-uppercase"
+                v-if="!unitsInfo.length"
+            >
                 No units added yet
             </div>
             <div class="px-2 pt-3 pb-0 fs-5 text-end">
@@ -397,9 +533,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     </div>
 </template>
 <style lang="scss">
-
 .table-units {
-
     .unit-list-toolbar {
         background: var(--bs-card-bg);
         padding-top: var(--bs-card-spacer-y);
@@ -442,9 +576,10 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         pointer-events: none;
     }
 
-
     .btn-minus {
-        transition: border-color 0.3s, background-color 0.3s;
+        transition:
+            border-color 0.3s,
+            background-color 0.3s;
     }
 
     .grid-header {

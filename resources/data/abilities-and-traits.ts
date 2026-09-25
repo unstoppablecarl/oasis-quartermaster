@@ -77,7 +77,6 @@ export const ABILITIES: Record<string, Ability> = {
     ESCORT: {
         display_name: 'Escort [X"]',
         matcher: /^Escort \[\d+"]?$/i,
-
     },
     MODULAR_PAYLOAD: {
         display_name: 'Modular Payload',
@@ -91,8 +90,8 @@ export const ABILITIES: Record<string, Ability> = {
 }
 
 export type Trait = {
-    display_name: string,
-    matcher?: RegExp,
+    display_name: string
+    matcher?: RegExp
 }
 export const TRAITS: Record<string, Trait> = {
     ARMORED: {
@@ -147,27 +146,39 @@ export const TRAITS: Record<string, Trait> = {
     },
 }
 
-function matchesEntry(entry: { display_name: string, matcher?: RegExp }, value: string): boolean {
+function matchesEntry(
+    entry: { display_name: string; matcher?: RegExp },
+    value: string,
+): boolean {
     if (entry.matcher) {
         return entry.matcher.test(value)
     }
     return entry.display_name.toLowerCase() === value.toLowerCase()
 }
 
-type Finder = (raw: string) => { key: string, display_name: string } | undefined
+type Finder = (raw: string) => { key: string; display_name: string } | undefined
 
-function findAbility(raw: string): { key: string, display_name: string } | undefined {
+function findAbility(
+    raw: string,
+): { key: string; display_name: string } | undefined {
     return find(ABILITIES, raw)
 }
 
-function findTrait(raw: string): { key: string, display_name: string } | undefined {
+function findTrait(
+    raw: string,
+): { key: string; display_name: string } | undefined {
     return find(TRAITS, raw)
 }
 
-function find<T extends Record<string, any>>(target: T, raw: string): {
-    key: string,
-    display_name: string
-} | undefined {
+function find<T extends Record<string, any>>(
+    target: T,
+    raw: string,
+):
+    | {
+          key: string
+          display_name: string
+      }
+    | undefined {
     const value = raw.trim()
 
     for (const [key, entry] of Object.entries(target)) {
@@ -179,7 +190,10 @@ function find<T extends Record<string, any>>(target: T, raw: string): {
     return undefined
 }
 
-type UnitRows = Record<string, { display_name: string, abilities: string[], traits: string[] }>
+type UnitRows = Record<
+    string,
+    { display_name: string; abilities: string[]; traits: string[] }
+>
 
 function unmatchedToStrLines(unmatched: Map<any, any>) {
     return [...unmatched.entries()]
@@ -205,7 +219,11 @@ export function validateUnits(rows: UnitRows) {
     }
 }
 
-function findUnmatched(rows: UnitRows, key: 'abilities' | 'traits', finder: Finder) {
+function findUnmatched(
+    rows: UnitRows,
+    key: 'abilities' | 'traits',
+    finder: Finder,
+) {
     const unmatched = new Map()
 
     for (const unit of Object.values(rows)) {

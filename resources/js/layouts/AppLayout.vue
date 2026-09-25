@@ -7,7 +7,7 @@ const {
     showFooter = true,
     printMode = false,
     saveBarPadding = false,
-    containerFluid = false
+    containerFluid = false,
 } = defineProps<{
     showFooter?: boolean
     printMode?: boolean
@@ -16,13 +16,19 @@ const {
 }>()
 </script>
 <template>
-    <div class="d-flex flex-column" :class="{'no-print': printMode, 'min-vh-100': !printMode}">
+    <div
+        class="d-flex flex-column"
+        :class="{ 'no-print': printMode, 'min-vh-100': !printMode }"
+    >
         <AppHeader />
         <div class="bg-main flex-grow-1">
-            <main class="flex-grow-1 pt-4" :class="{
-                'container-fluid': containerFluid,
-                'container': !containerFluid,
-            }">
+            <main
+                class="flex-grow-1 pt-4"
+                :class="{
+                    'container-fluid': containerFluid,
+                    container: !containerFluid,
+                }"
+            >
                 <slot />
             </main>
             <div id="before-page-footer-teleport" />

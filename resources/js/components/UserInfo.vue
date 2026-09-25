@@ -3,16 +3,15 @@ import { useInitials } from '@/composables/useInitials'
 import type { User } from '@/types'
 
 type Props = {
-    user: User;
-    showEmail?: boolean;
-};
+    user: User
+    showEmail?: boolean
+}
 
 const props = withDefaults(defineProps<Props>(), {
     showEmail: false,
 })
 
 const { getInitials } = useInitials()
-
 </script>
 <template>
     <div

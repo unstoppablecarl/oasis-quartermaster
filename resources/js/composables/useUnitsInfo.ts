@@ -10,9 +10,10 @@ export type UnitEntry = {
     quantity: number
 }
 
-export type UnitEntryInfo = UnitEntry & Unit & {
-    validationMessages: string []
-}
+export type UnitEntryInfo = UnitEntry &
+    Unit & {
+        validationMessages: string[]
+    }
 
 export type LocalArmyList = {
     uuid?: string
@@ -27,7 +28,10 @@ export type LocalArmyList = {
     public: boolean
 }
 
-export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: MaybeRefOrGetter<number | null>) {
+export function useUnitsInfo(
+    units: MaybeRefOrGetter<UnitEntry[]>,
+    maxPoints: MaybeRefOrGetter<number | null>,
+) {
     const baseUnits = computed(() => {
         return toValue(units).map((u) => {
             return {
@@ -39,7 +43,6 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
 
     const unitsInfo = computed((): UnitEntryInfo[] => {
         return baseUnits.value.map((u) => {
-
             const cost = u.quantity * u.cost
             const count = u.quantity
 
@@ -49,13 +52,17 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
             if (resolvedMaxPoints !== null) {
                 const halfPoints = Math.ceil(resolvedMaxPoints * 0.5)
                 if (cost > halfPoints) {
-                    validationMessages.push(`Unit cost cannot be greater than 50% of Total Points. (${cost} / ${halfPoints})`)
+                    validationMessages.push(
+                        `Unit cost cannot be greater than 50% of Total Points. (${cost} / ${halfPoints})`,
+                    )
                 }
             }
             const halfCount = Math.ceil(unitCount.value * 0.5)
 
             if (count > halfCount) {
-                validationMessages.push(`Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`)
+                validationMessages.push(
+                    `Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`,
+                )
             }
 
             return {
@@ -85,4 +92,3 @@ export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>, maxPoints: Ma
         unitCount,
     }
 }
-

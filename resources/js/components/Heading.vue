@@ -1,13 +1,13 @@
 <script setup lang="ts">
 type Props = {
-    title: string;
-    description?: string;
-    variant?: 'default' | 'small';
-};
+    title: string
+    description?: string
+    variant?: 'default' | 'small'
+}
 
 withDefaults(defineProps<Props>(), {
     variant: 'default',
-});
+})
 </script>
 
 <template>
@@ -22,6 +22,5 @@ withDefaults(defineProps<Props>(), {
             {{ description }}
         </p>
         <div class="hazard-rule"></div>
-
     </header>
 </template>

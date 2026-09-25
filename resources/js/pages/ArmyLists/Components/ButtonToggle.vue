@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { Check, X } from '@lucide/vue'
 import { PhFunnel } from '@phosphor-icons/vue'
 import { BButton, type ButtonVariant } from 'bootstrap-vue-next'
 
 const value = defineModel<boolean>({ required: true })
-const {
-    classOn = 'success',
-    classOff = 'danger',
-} = defineProps<{
+const { classOn = 'success', classOff = 'danger' } = defineProps<{
     classOn?: ButtonVariant
     classOff?: ButtonVariant
 }>()
@@ -19,7 +15,7 @@ const {
         role="button"
     >
         <slot v-if="value" name="icon-on">
-            <PhFunnel weight="fill"/>
+            <PhFunnel weight="fill" />
         </slot>
         <slot v-else name="icon-off">
             <PhFunnel />

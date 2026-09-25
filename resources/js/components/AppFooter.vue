@@ -1,9 +1,5 @@
 <script setup lang="ts">
-
-const {
-    isPrintView = false,
-    saveBarPadding = false,
-} = defineProps<{
+const { isPrintView = false, saveBarPadding = false } = defineProps<{
     isPrintView?: boolean
     saveBarPadding?: boolean
 }>()
@@ -13,7 +9,7 @@ const {
         class="app-footer border-top mt-auto"
         :class="{
             'no-print': isPrintView,
-            'app-footer-save-bar-padding': saveBarPadding
+            'app-footer-save-bar-padding': saveBarPadding,
         }"
     >
         <div class="container pt-3 text-center">
@@ -25,15 +21,23 @@ const {
             <p>
                 <a href="https://oasis-game.com/">Oasis Site</a>
                 -
-                <a href="https://www.collinsepicwargames.com/privacy.html">Privacy Policy</a>
+                <a href="https://www.collinsepicwargames.com/privacy.html"
+                    >Privacy Policy</a
+                >
                 -
-                <a href="https://collinsepicwargames.com/sitepolicy.html">Site Policy</a>
+                <a href="https://collinsepicwargames.com/sitepolicy.html"
+                    >Site Policy</a
+                >
                 -
-                <a href="https://github.com/unstoppablecarl/oasis-quartermaster">Github Project</a>
+                <a href="https://github.com/unstoppablecarl/oasis-quartermaster"
+                    >Github Project</a
+                >
             </p>
 
-
-            <p class="text-secondary">Oasis Copyright © 2026 Collins Epic Wargames, LLC. All Rights Reserved.</p>
+            <p class="text-secondary">
+                Oasis Copyright © 2026 Collins Epic Wargames, LLC. All Rights
+                Reserved.
+            </p>
         </div>
     </footer>
 </template>

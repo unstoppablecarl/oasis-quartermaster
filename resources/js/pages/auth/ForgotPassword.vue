@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import Spinner from '@/components/Spinner.vue';
-import TextLink from '@/components/TextLink.vue';
-import { login } from '@/routes';
-import { email } from '@/routes/password';
+import { Form, Head } from '@inertiajs/vue3'
+import InputError from '@/components/InputError.vue'
+import Spinner from '@/components/Spinner.vue'
+import TextLink from '@/components/TextLink.vue'
+import { login } from '@/routes'
+import { email } from '@/routes/password'
 
 defineOptions({
     layout: {
         title: 'Forgot password',
         description: 'Enter your email to receive a password reset link',
     },
-});
+})
 
 defineProps<{
-    status?: string;
-}>();
+    status?: string
+}>()
 </script>
 
 <template>

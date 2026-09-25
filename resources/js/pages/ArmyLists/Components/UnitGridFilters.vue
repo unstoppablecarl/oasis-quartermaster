@@ -4,7 +4,9 @@ import ButtonToggle from './ButtonToggle.vue'
 
 const showClass = defineModel<boolean>('showClass', { required: true })
 const showPrefix = defineModel<boolean>('showPrefix', { required: true })
-const showManufacturer = defineModel<boolean>('showManufacturer', { required: true })
+const showManufacturer = defineModel<boolean>('showManufacturer', {
+    required: true,
+})
 </script>
 
 <template>

@@ -75,14 +75,20 @@ function increaseCount() {
 
         <div class="card">
             <div class="card-body">
-
                 <div class="dr-panel-head">
                     <h4 class="dr-panel-title">Face Database</h4>
                     <span class="dr-panel-hint">Fixed — 8 / 8</span>
                 </div>
                 <div class="dr-faces-strip">
-                    <div class="dr-face-chip" v-for="i in faces" :data-idx="'0' + (i + 1)">
-                        <img :src="`/images/die-${i + 1}.png`" :alt="`Face ${i + 1}`" />
+                    <div
+                        class="dr-face-chip"
+                        v-for="i in faces"
+                        :data-idx="'0' + (i + 1)"
+                    >
+                        <img
+                            :src="`/images/die-${i + 1}.png`"
+                            :alt="`Face ${i + 1}`"
+                        />
                     </div>
                 </div>
             </div>
@@ -92,44 +98,54 @@ function increaseCount() {
 
         <section class="card">
             <div class="card-body">
-
                 <div class="dr-panel-head">
                     <h2 class="dr-panel-title">Dice Roller</h2>
 
                     <div class="d-flex">
                         <div class="dr-stepper">
-                            <button type="button"
-                                    @click="decreaseCount"
-                                    class="dr-btn"
-                                    aria-label="Decrease dice count"
+                            <button
+                                type="button"
+                                @click="decreaseCount"
+                                class="dr-btn"
+                                aria-label="Decrease dice count"
                             >
                                 −
                             </button>
                             <span class="dr-count-value">{{ diceToRoll }}</span>
-                            <button type="button"
-                                    @click="increaseCount"
-                                    class="dr-btn"
-                                    aria-label="Increase dice count">
+                            <button
+                                type="button"
+                                @click="increaseCount"
+                                class="dr-btn"
+                                aria-label="Increase dice count"
+                            >
                                 +
                             </button>
                         </div>
-                        <button class="dr-btn-roll ms-2" @click="rollDice">Roll</button>
+                        <button class="dr-btn-roll ms-2" @click="rollDice">
+                            Roll
+                        </button>
                     </div>
                 </div>
                 <div class="dr-tray">
                     <div class="dr-dice-row">
-                        <div class="dr-die-unit" v-for="(r, index) in diceResults">
-                            <span class="dr-die-index">Unit 0{{ index + 1 }}</span>
+                        <div
+                            class="dr-die-unit"
+                            v-for="(r, index) in diceResults"
+                        >
+                            <span class="dr-die-index"
+                                >Unit 0{{ index + 1 }}</span
+                            >
                             <div
                                 ref="diceRefs"
                                 :class="{
                                     'dr-die': true,
-                                    'dr-rolling': isRolling[index]
+                                    'dr-rolling': isRolling[index],
                                 }"
                             >
                                 <img
                                     :src="`/images/die-${r}.png`"
-                                    :alt="`Die ${index + 1} result`">
+                                    :alt="`Die ${index + 1} result`"
+                                />
                             </div>
                             <button
                                 class="dr-btn"
@@ -147,18 +163,30 @@ function increaseCount() {
 </template>
 <style lang="scss">
 .dr {
-    --dr-void: #0A0A0A;
+    --dr-void: #0a0a0a;
     --dr-plate: #141414;
-    --dr-plate-raised: #1B1B1B;
-    --dr-steel: #2A2A2A;
-    --dr-line: #3A3A3A;
+    --dr-plate-raised: #1b1b1b;
+    --dr-steel: #2a2a2a;
+    --dr-line: #3a3a3a;
     --dr-line-bright: #525252;
-    --dr-white: #D0CDBC;
-    --dr-dim: #8F8F8B;
-    --dr-dimmer: #5C5C58;
-    --dr-led: #F2F2EF;
+    --dr-white: #d0cdbc;
+    --dr-dim: #8f8f8b;
+    --dr-dimmer: #5c5c58;
+    --dr-led: #f2f2ef;
     --dr-shadow: rgba(0, 0, 0, 0.65);
-    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0px, rgba(255, 255, 255, 0.018) 1px, transparent 1px, transparent 3px), radial-gradient(ellipse at 50% -8%, rgba(255, 255, 255, 0.05) 0%, transparent 55%);
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.018) 0px,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        radial-gradient(
+            ellipse at 50% -8%,
+            rgba(255, 255, 255, 0.05) 0%,
+            transparent 55%
+        );
 
     .dr-panel-head {
         display: flex;
@@ -227,12 +255,22 @@ function increaseCount() {
         height: 6px;
         max-width: 260px;
         margin: 22px auto 0;
-        background: repeating-linear-gradient(135deg, var(--dr-white) 0 10px, var(--dr-void) 10px 20px);
+        background: repeating-linear-gradient(
+            135deg,
+            var(--dr-white) 0 10px,
+            var(--dr-void) 10px 20px
+        );
         opacity: 0.85;
     }
 
     .dr-tray {
-        background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 8px), var(--dr-void);
+        background:
+            repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.015) 0 2px,
+                transparent 2px 8px
+            ),
+            var(--dr-void);
         border-radius: 4px;
         border: 1px solid var(--dr-line);
         padding: 30px 20px;
@@ -249,7 +287,11 @@ function increaseCount() {
             left: 0;
             right: 0;
             height: 6px;
-            background: repeating-linear-gradient(135deg, var(--dr-white) 0 8px, transparent 8px 16px);
+            background: repeating-linear-gradient(
+                135deg,
+                var(--dr-white) 0 8px,
+                transparent 8px 16px
+            );
             opacity: 0.5;
         }
     }
@@ -295,7 +337,28 @@ function increaseCount() {
         align-items: center;
         justify-content: center;
         position: relative;
-        background-image: radial-gradient(circle 2px at 10px 10px, var(--dr-line-bright) 95%, transparent 100%), radial-gradient(circle 2px at calc(100% - 10px) 10px, var(--dr-line-bright) 95%, transparent 100%), radial-gradient(circle 2px at 10px calc(100% - 10px), var(--dr-line-bright) 95%, transparent 100%), radial-gradient(circle 2px at calc(100% - 10px) calc(100% - 10px), var(--dr-line-bright) 95%, transparent 100%), var(--dr-plate);
+        background-image:
+            radial-gradient(
+                circle 2px at 10px 10px,
+                var(--dr-line-bright) 95%,
+                transparent 100%
+            ),
+            radial-gradient(
+                circle 2px at calc(100% - 10px) 10px,
+                var(--dr-line-bright) 95%,
+                transparent 100%
+            ),
+            radial-gradient(
+                circle 2px at 10px calc(100% - 10px),
+                var(--dr-line-bright) 95%,
+                transparent 100%
+            ),
+            radial-gradient(
+                circle 2px at calc(100% - 10px) calc(100% - 10px),
+                var(--dr-line-bright) 95%,
+                transparent 100%
+            ),
+            var(--dr-plate);
     }
 
     .dr-btn {
@@ -310,7 +373,10 @@ function increaseCount() {
         padding: 7px 14px;
         border-radius: 2px;
         cursor: pointer;
-        transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+        transition:
+            background 0.15s ease,
+            transform 0.1s ease,
+            border-color 0.15s ease;
 
         &:hover {
             background: var(--dr-white);
@@ -349,7 +415,9 @@ function increaseCount() {
         padding: 15px 46px;
         border-radius: 4px;
         cursor: pointer;
-        transition: transform 0.12s ease, background 0.12s ease;
+        transition:
+            transform 0.12s ease,
+            background 0.12s ease;
     }
 
     @keyframes dr-die-animation {
@@ -363,7 +431,8 @@ function increaseCount() {
         }
         45% {
             transform: rotate(16deg) scale(1.08);
-            filter: brightness(1.25) drop-shadow(0 12px 14px rgba(0, 0, 0, 0.65));
+            filter: brightness(1.25)
+                drop-shadow(0 12px 14px rgba(0, 0, 0, 0.65));
         }
         70% {
             transform: rotate(-10deg) scale(0.95);
@@ -379,5 +448,4 @@ function increaseCount() {
         animation: dr-die-animation 0.5s ease-in-out;
     }
 }
-
 </style>

@@ -64,11 +64,13 @@ function makeDraft(): LocalArmyList {
         custom_max_points: null,
         public: false,
         commands: [],
-        faction_id: FACTIONS.UNAFFILIATED.id
+        faction_id: FACTIONS.UNAFFILIATED.id,
     }
 }
 
-export function toLocalArmyList(armyList: ArmyList | LocalArmyList): LocalArmyList {
+export function toLocalArmyList(
+    armyList: ArmyList | LocalArmyList,
+): LocalArmyList {
     return {
         display_name: armyList.display_name,
         units: armyList.units.map((u) => ({ ...u })),
@@ -76,6 +78,6 @@ export function toLocalArmyList(armyList: ArmyList | LocalArmyList): LocalArmyLi
         custom_max_points: armyList.custom_max_points,
         public: armyList.public,
         faction_id: armyList.faction_id,
-        commands: []
+        commands: [],
     }
 }

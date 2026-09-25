@@ -3,9 +3,9 @@ import { PhWarningCircle } from '@phosphor-icons/vue'
 import { computed } from 'vue'
 
 type Props = {
-    errors: string[];
-    title?: string;
-};
+    errors: string[]
+    title?: string
+}
 
 const props = withDefaults(defineProps<Props>(), {
     title: 'Something went wrong.',

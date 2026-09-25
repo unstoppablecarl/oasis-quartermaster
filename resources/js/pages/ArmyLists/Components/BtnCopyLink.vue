@@ -13,19 +13,14 @@ async function copy() {
         await navigator.clipboard.writeText(url)
 
         toast.success('Army List Coppied')
-
     } catch (err) {
         console.error('Failed to copy text: ', err)
         toast.error('Failed to copy')
     }
 }
-
 </script>
 <template>
-    <button role="button"
-            class="btn btn-outline-info"
-            @click="copy"
-    >
+    <button role="button" class="btn btn-outline-info" @click="copy">
         <PhCopy :size="16" />
     </button>
 </template>

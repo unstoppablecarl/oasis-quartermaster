@@ -1,9 +1,10 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 <template>
     <div class="dr-header">
-        <p class="dr-id-tag"><span class="dr-dot"></span>UNIT-08 /// SALVAGE SUCCESS SIMULATION SYSTEM</p>
+        <p class="dr-id-tag">
+            <span class="dr-dot"></span>UNIT-08 /// SALVAGE SUCCESS SIMULATION
+            SYSTEM
+        </p>
         <div class="dr-hazard-rule"></div>
     </div>
 </template>
@@ -18,7 +19,8 @@
 }
 
 @keyframes dr-blink {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
     }
     50% {

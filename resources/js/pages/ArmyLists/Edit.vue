@@ -55,8 +55,8 @@ function save() {
 
     http.put(ArmyListController.update.url(armyList), {
         onBefore: () => {
-            if (http.units.some(u => u.quantity <= 0)) {
-                http.units = http.units.filter(u => u.quantity > 0)
+            if (http.units.some((u) => u.quantity <= 0)) {
+                http.units = http.units.filter((u) => u.quantity > 0)
             }
             lastSentSnapshot = snapshot()
         },
@@ -70,7 +70,11 @@ function save() {
         },
         onError: (errors) => {
             const messages = Object.values(errors).flat()
-            toast.error(messages.length ? messages.join('\n') : 'Failed to save army list')
+            toast.error(
+                messages.length
+                    ? messages.join('\n')
+                    : 'Failed to save army list',
+            )
         },
         onFinish: () => {
             if (snapshot() !== lastSentSnapshot) {
@@ -133,7 +137,7 @@ watch(
     <ArmyListSaveBar
         :name="armyList.display_name"
         :faction-id="armyList.faction_id"
-        :command-ids="armyList.commands.map(({id}) => id)"
+        :command-ids="armyList.commands.map(({ id }) => id)"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="http.processing"

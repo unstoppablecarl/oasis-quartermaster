@@ -9,12 +9,11 @@ import UnitCard from '../ui/UnitCard.vue'
 defineOptions({ inheritAttrs: false })
 
 const { unitId } = defineProps<{
-    unitId: number;
+    unitId: number
 }>()
 
 const unitInfo = computed(() => UNITS_BY_ID[unitId])
 const visible = ref(false)
-
 </script>
 <template>
     <button
@@ -48,7 +47,6 @@ const visible = ref(false)
                         width="400"
                     />
                 </p>
-
             </div>
             <div>
                 <h5>Back</h5>

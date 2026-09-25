@@ -9,16 +9,29 @@ import FactionSelectModal from '../../../components/army-lists/FactionSelectModa
 import InputError from '../../../components/InputError.vue'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import BtnCopyLink from './BtnCopyLink.vue'
-import ButtonToggle from './ButtonToggle.vue'
 
-const { armyList, errors, isCreating = false } = defineProps<{
+const {
+    armyList,
+    errors,
+    isCreating = false,
+} = defineProps<{
     armyList: Pick<
         LocalArmyList,
-        'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'uuid' | 'faction_id' | 'commands'
+        | 'display_name'
+        | 'army_list_type_id'
+        | 'custom_max_points'
+        | 'public'
+        | 'uuid'
+        | 'faction_id'
+        | 'commands'
     >
     errors?: Partial<
         Record<
-            'display_name' | 'army_list_type_id' | 'custom_max_points' | 'public' | 'commands',
+            | 'display_name'
+            | 'army_list_type_id'
+            | 'custom_max_points'
+            | 'public'
+            | 'commands',
             string
         >
     >
@@ -36,10 +49,10 @@ watch(isCustomArmyListType, (isCustom) => {
 
 const commands = computed({
     get() {
-        return armyList.commands.map(c => c.id)
+        return armyList.commands.map((c) => c.id)
     },
     set(value: CommandId[]) {
-        armyList.commands = value.map(v => {
+        armyList.commands = value.map((v) => {
             return {
                 id: v,
             }
@@ -86,7 +99,10 @@ const commands = computed({
             <InputError class="mt-2" :message="errors?.army_list_type_id" />
         </div>
 
-        <div class="col-md-4 col-sm-6 mb-2" :class="{'lg-invisible': !isCustomArmyListType}">
+        <div
+            class="col-md-4 col-sm-6 mb-2"
+            :class="{ 'lg-invisible': !isCustomArmyListType }"
+        >
             <label for="custom_max_points" class="form-label title-font">
                 Max Points
             </label>
@@ -129,8 +145,7 @@ const commands = computed({
                 >
                     <PhCheck v-if="armyList.public" />
                     <PhX v-else />
-                    &nbsp;
-                    Publicly Visible
+                    &nbsp; Publicly Visible
                 </BFormCheckbox>
 
                 <BtnCopyLink
@@ -143,6 +158,4 @@ const commands = computed({
         </div>
     </div>
 </template>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

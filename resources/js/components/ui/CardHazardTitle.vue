@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
 const { variant, title } = defineProps<{
-    title: string,
+    title: string
     variant: string
 }>()
 </script>
@@ -22,6 +21,4 @@ const { variant, title } = defineProps<{
         <slot />
     </div>
 </template>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

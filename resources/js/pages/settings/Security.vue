@@ -41,7 +41,7 @@ const props = defineProps<Props>()
         >
             <div>
                 <label for="current_password" class="form-label"
-                >Current password</label
+                    >Current password</label
                 >
                 <PasswordInput
                     id="current_password"
@@ -66,7 +66,7 @@ const props = defineProps<Props>()
 
             <div>
                 <label for="password_confirmation" class="form-label"
-                >Confirm password</label
+                    >Confirm password</label
                 >
                 <PasswordInput
                     id="password_confirmation"

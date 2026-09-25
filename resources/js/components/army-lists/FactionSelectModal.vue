@@ -10,7 +10,6 @@ const factionId = defineModel<FactionId>({ required: true })
 
 const allFactions = computed(() => {
     return Object.values(FACTIONS).map((f) => {
-
         return {
             ...f,
             selected: f.id === factionId.value,
@@ -37,7 +36,6 @@ function select(id: FactionId) {
             {{ faction.display_name }}
         </button>
         <button
-
             type="button"
             class="btn btn-primary flex-grow-0"
             @click="visible = true"
@@ -78,16 +76,12 @@ function select(id: FactionId) {
                     class="btn p-1 w-100 btn-card-choice"
                     :class="{
                         'btn-danger': faction.selected,
-                        'btn-primary': !faction.selected
+                        'btn-primary': !faction.selected,
                     }"
                     @click="select(faction.id)"
                 >
-                    <template v-if="faction.selected">
-                        Current
-                    </template>
-                    <template v-else>
-                        Select
-                    </template>
+                    <template v-if="faction.selected"> Current </template>
+                    <template v-else> Select </template>
                 </button>
             </div>
         </div>

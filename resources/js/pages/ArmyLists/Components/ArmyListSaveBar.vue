@@ -3,7 +3,10 @@ import { computed, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import type { CommandId } from '../../../../data/commands'
 import type { FactionId } from '../../../../data/factions'
 import Fraction from '../../../components/Fraction.vue'
-import { COMMANDS_BY_ID, getFactionName } from '../../../lib/static-data-helpers'
+import {
+    COMMANDS_BY_ID,
+    getFactionName,
+} from '../../../lib/static-data-helpers'
 
 const {
     name,
@@ -18,8 +21,8 @@ const {
     saveStatus = 'idle',
 } = defineProps<{
     name: string
-    factionId: FactionId,
-    commandIds: CommandId[],
+    factionId: FactionId
+    commandIds: CommandId[]
     totalCost: number
     maxPoints?: number | null
     processing?: boolean
@@ -43,7 +46,10 @@ let resizeObserver: ResizeObserver | null = null
 onMounted(() => {
     resizeObserver = new ResizeObserver(() => {
         if (saveBarRef.value) {
-            document.documentElement.style.setProperty('--save-bar-height', `${saveBarRef.value.offsetHeight}px`)
+            document.documentElement.style.setProperty(
+                '--save-bar-height',
+                `${saveBarRef.value.offsetHeight}px`,
+            )
         }
     })
     resizeObserver.observe(saveBarRef.value as HTMLElement)
@@ -54,7 +60,9 @@ onBeforeUnmount(() => {
     document.documentElement.style.removeProperty('--save-bar-height')
 })
 
-const commands = computed(() => commandIds.map(id => COMMANDS_BY_ID[id].display_name))
+const commands = computed(() =>
+    commandIds.map((id) => COMMANDS_BY_ID[id].display_name),
+)
 const saveStatusText = computed(() => {
     switch (saveStatus) {
         case 'saving':
@@ -75,29 +83,47 @@ const saveStatusText = computed(() => {
                 <div class="hstack save-bar-info">
                     <div class="hstack me-auto save-bar-fields">
                         <div class="save-bar-name">
-                            <strong class="text-body-emphasis">Name:&nbsp;</strong>
-                            <span v-if="name" class="text-truncate">{{ name }}</span>
-                            <span v-else class="text-danger-emphasis">Unnamed</span>
+                            <strong class="text-body-emphasis"
+                                >Name:&nbsp;</strong
+                            >
+                            <span v-if="name" class="text-truncate">{{
+                                name
+                            }}</span>
+                            <span v-else class="text-danger-emphasis"
+                                >Unnamed</span
+                            >
                         </div>
                         <div>
-                            <strong class="text-body-emphasis">Faction: </strong>
+                            <strong class="text-body-emphasis"
+                                >Faction:
+                            </strong>
                             <span>{{ faction }}</span>
                         </div>
                         <div>
-                            <strong class="text-body-emphasis">Commands: </strong>
-                            <span v-if="commands.length">{{ commands.join(', ') }}</span>
-                            <span v-else class="text-danger-emphasis">None Selected</span>
+                            <strong class="text-body-emphasis"
+                                >Commands:
+                            </strong>
+                            <span v-if="commands.length">{{
+                                commands.join(', ')
+                            }}</span>
+                            <span v-else class="text-danger-emphasis"
+                                >None Selected</span
+                            >
                         </div>
 
                         <div>
-                            <strong class="text-body-emphasis"> Unit Count: </strong>
+                            <strong class="text-body-emphasis">
+                                Unit Count:
+                            </strong>
                             <span>
                                 {{ unitCount }}
                             </span>
                         </div>
 
                         <div>
-                            <strong class="text-body-emphasis"> Total Points: </strong>
+                            <strong class="text-body-emphasis">
+                                Total Points:
+                            </strong>
                             <Fraction :a="totalCost" :b="maxPoints" />
                         </div>
                     </div>

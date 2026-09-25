@@ -28,7 +28,8 @@ function print() {
 
 const PRINT_MODE_UNIT_CARDS = 'PRINT_MODE_UNIT_CARDS'
 const PRINT_MODE_LIST = 'PRINT_MODE_LIST'
-const PRINT_MODE_FACTION_AND_COMMAND_CARDS = 'PRINT_MODE_FACTION_AND_COMMAND_CARDS'
+const PRINT_MODE_FACTION_AND_COMMAND_CARDS =
+    'PRINT_MODE_FACTION_AND_COMMAND_CARDS'
 
 const PRINT_MODES: Record<string, { display_name: string }> = {
     [PRINT_MODE_UNIT_CARDS]: {
@@ -43,29 +44,33 @@ const PRINT_MODES: Record<string, { display_name: string }> = {
 }
 
 const printMode = ref(PRINT_MODE_UNIT_CARDS)
-const printModeDisplayName = computed(() => PRINT_MODES[printMode.value].display_name)
+const printModeDisplayName = computed(
+    () => PRINT_MODES[printMode.value].display_name,
+)
 
 const printCardsInColor = ref(true)
 const printCardBacks = ref(true)
 const printFactionCard = ref(true)
 const printCommandCards = ref(true)
-
 </script>
 <template>
     <ArmyListItemLayout title="Print" :army-list="armyList">
         <Head title="Print" />
 
-            <ArmyListInfoSummary :army-list="armyList" />
-            <ArmyListValidationSummary :army-list="armyList" heading-class="text-teal" />
+        <ArmyListInfoSummary :army-list="armyList" />
+        <ArmyListValidationSummary
+            :army-list="armyList"
+            heading-class="text-teal"
+        />
 
         <PrintSettings>
             <template #nav>
                 <template v-for="(item, key) in PRINT_MODES">
                     <button
                         :class="{
-                        'btn btn-sm btn-default': true,
-                        'active': printMode === key
-                      }"
+                            'btn btn-sm btn-default': true,
+                            active: printMode === key,
+                        }"
                         @click="printMode = key"
                     >
                         {{ item.display_name }}
@@ -74,29 +79,36 @@ const printCommandCards = ref(true)
             </template>
 
             <template #body>
-
                 <div class="mb-1">
-                    <template v-if="printMode === PRINT_MODE_FACTION_AND_COMMAND_CARDS || printMode === PRINT_MODE_UNIT_CARDS">
-                    <div class="fw-bold mt-1 mb-2">
-                        Card Settings
-                    </div>
+                    <template
+                        v-if="
+                            printMode ===
+                                PRINT_MODE_FACTION_AND_COMMAND_CARDS ||
+                            printMode === PRINT_MODE_UNIT_CARDS
+                        "
+                    >
+                        <div class="fw-bold mt-1 mb-2">Card Settings</div>
 
-                    <BFormCheckbox
-                        v-model="printCardsInColor"
-                        id="print_cards_in_color"
-                        :unchecked-value="false"
-                    >
-                        Print Cards in Color
-                    </BFormCheckbox>
-                    <BFormCheckbox
-                        v-model="printCardBacks"
-                        id="print_card_backs"
-                        :unchecked-value="false"
-                    >
-                        Print Card Backs
-                    </BFormCheckbox>
+                        <BFormCheckbox
+                            v-model="printCardsInColor"
+                            id="print_cards_in_color"
+                            :unchecked-value="false"
+                        >
+                            Print Cards in Color
+                        </BFormCheckbox>
+                        <BFormCheckbox
+                            v-model="printCardBacks"
+                            id="print_card_backs"
+                            :unchecked-value="false"
+                        >
+                            Print Card Backs
+                        </BFormCheckbox>
                     </template>
-                    <template v-if="printMode === PRINT_MODE_FACTION_AND_COMMAND_CARDS">
+                    <template
+                        v-if="
+                            printMode === PRINT_MODE_FACTION_AND_COMMAND_CARDS
+                        "
+                    >
                         <div class="fw-bold mt-1 mb-2">
                             Faction + Command Card Settings
                         </div>
@@ -118,7 +130,11 @@ const printCommandCards = ref(true)
                 </div>
             </template>
             <template #footer>
-                <button role="button" class="btn btn-primary btn-sm me-4" @click="print">
+                <button
+                    role="button"
+                    class="btn btn-primary btn-sm me-4"
+                    @click="print"
+                >
                     {{ printModeDisplayName }}
                     <PhPrinter size="16" />
                 </button>

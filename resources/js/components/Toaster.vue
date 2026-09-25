@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { PhCheckCircle, PhInfo, PhSpinner, PhWarning, PhWarningOctagon, PhX } from '@phosphor-icons/vue'
+import {
+    PhCheckCircle,
+    PhInfo,
+    PhSpinner,
+    PhWarning,
+    PhWarningOctagon,
+    PhX,
+} from '@phosphor-icons/vue'
 import { Toaster as Sonner } from 'vue-sonner'
 </script>
 

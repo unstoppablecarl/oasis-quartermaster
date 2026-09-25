@@ -6,8 +6,14 @@ import { useArmyList } from '../../../composables/useArmyList'
 import { chunk } from '../../../lib/utils'
 import type { ArmyList } from '../../../types/army-list'
 
-const { armyList, printCardBacks, printCardsInColor, printCommandCards, printFactionCard } = defineProps<{
-    armyList: ArmyList,
+const {
+    armyList,
+    printCardBacks,
+    printCardsInColor,
+    printCommandCards,
+    printFactionCard,
+} = defineProps<{
+    armyList: ArmyList
     printCardBacks: boolean
     printCardsInColor: boolean
     printCommandCards: boolean
@@ -25,7 +31,7 @@ const pages = computed(() => {
         cards.push(...commandCards.value)
     }
     if (!printCardBacks) {
-        cards = cards.filter(c => c.side === 'Front')
+        cards = cards.filter((c) => c.side === 'Front')
     }
 
     return chunk(cards, cardsPerPage)
@@ -35,10 +41,12 @@ const pages = computed(() => {
     <div
         v-for="(page, index) in pages"
         class="page-preview page-letter"
-        style="background-color:white"
+        style="background-color: white"
     >
         <div class="page-card-grid">
-            <div class="page-number">Page {{ index + 1 }}/{{ pages.length }}</div>
+            <div class="page-number">
+                Page {{ index + 1 }}/{{ pages.length }}
+            </div>
             <div class="game-card" v-for="card in page">
                 <FactionCard
                     v-if="card.type === 'Faction'"

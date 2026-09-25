@@ -1,11 +1,20 @@
 <script setup lang="ts">
-
 import { computed } from 'vue'
 import type { CardSide } from '../../composables/useArmyList'
-import { CARD_DEFAULT_WIDTH, factionCardBlackWhite, factionCardColor } from '../../lib/static-data-helpers'
+import {
+    CARD_DEFAULT_WIDTH,
+    factionCardBlackWhite,
+    factionCardColor,
+} from '../../lib/static-data-helpers'
 import Card from './Card.vue'
 
-const { cardImage, displayName, color = true, side, width = CARD_DEFAULT_WIDTH } = defineProps<{
+const {
+    cardImage,
+    displayName,
+    color = true,
+    side,
+    width = CARD_DEFAULT_WIDTH,
+} = defineProps<{
     cardImage: string
     color?: boolean
     displayName: string

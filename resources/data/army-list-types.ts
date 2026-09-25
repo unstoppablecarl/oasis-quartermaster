@@ -1,6 +1,6 @@
 export type ArmyListType = {
-    id: number,
-    display_name: string,
+    id: number
+    display_name: string
     max_points: number
 }
 
@@ -12,4 +12,5 @@ export const ARMY_LIST_TYPES: Record<string, ArmyListType> = {
     },
 }
 
-export type ArmyListTypeId = (typeof ARMY_LIST_TYPES)[keyof typeof ARMY_LIST_TYPES]['id']
+export type ArmyListTypeId =
+    (typeof ARMY_LIST_TYPES)[keyof typeof ARMY_LIST_TYPES]['id']

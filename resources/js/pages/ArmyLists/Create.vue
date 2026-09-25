@@ -3,7 +3,11 @@ import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 import { computed, watch } from 'vue'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
-import { clearArmyListDraft, loadArmyListDraft, saveArmyListDraft } from '../../lib/armyListDraft'
+import {
+    clearArmyListDraft,
+    loadArmyListDraft,
+    saveArmyListDraft,
+} from '../../lib/armyListDraft'
 import { login, register } from '../../routes'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
@@ -17,7 +21,8 @@ const auth = computed(() => page.props.auth)
 const draft = loadArmyListDraft()
 const form = useForm(draft)
 
-const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } = useArmyList(form)
+const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } =
+    useArmyList(form)
 
 watch(
     [
@@ -54,7 +59,11 @@ function save() {
 
     <ArmyListItemHeader title="Create" description="Army List" />
 
-    <ArmyListFields :is-creating="true" :army-list="form" :errors="form.errors" />
+    <ArmyListFields
+        :is-creating="true"
+        :army-list="form"
+        :errors="form.errors"
+    />
 
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
@@ -71,7 +80,7 @@ function save() {
         :processing="form.processing"
         :save-disabled="!auth.user"
         :unit-count="unitCount"
-        :command-ids="form.commands.map(({id}) => id)"
+        :command-ids="form.commands.map(({ id }) => id)"
         @save="save"
         :autosave="false"
     >

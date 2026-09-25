@@ -7,7 +7,6 @@ const hasFooter = computed(() => {
         return slots.footer({}).length > 0
     }
 })
-
 </script>
 <template>
     <div class="card my-3">
@@ -33,5 +32,4 @@ const hasFooter = computed(() => {
             </div>
         </div>
     </div>
-
 </template>

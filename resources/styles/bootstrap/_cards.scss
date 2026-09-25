@@ -1,5 +1,4 @@
 .card {
-
     //.card-header {
     //    font-family: $title-font;
     //    text-transform: uppercase;
@@ -14,8 +13,12 @@
 
     corner-shape: bevel;
     $multiplier: 3;
-    border-bottom-left-radius: calc(var(--#{$prefix}card-border-radius) * $multiplier);
-    border-bottom-right-radius: calc(var(--#{$prefix}card-border-radius) * $multiplier);
+    border-bottom-left-radius: calc(
+        var(--#{$prefix}card-border-radius) * $multiplier
+    );
+    border-bottom-right-radius: calc(
+        var(--#{$prefix}card-border-radius) * $multiplier
+    );
 }
 
 .card .card {

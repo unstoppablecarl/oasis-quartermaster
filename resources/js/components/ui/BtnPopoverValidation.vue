@@ -5,7 +5,13 @@ import { computed } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import ValidationMessages from './ValidationMessages.vue'
 
-const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass, factionId } = defineProps<{
+const {
+    messages,
+    factionMessages,
+    headingClass = 'text-danger fw-bold',
+    textClass,
+    factionId,
+} = defineProps<{
     messages?: string[]
     factionMessages?: string[]
     headingClass?: string
@@ -33,6 +39,5 @@ const hasMessages = computed(() => messages?.length || factionMessages?.length)
             :heading-class="headingClass"
             :text-class="textClass"
         />
-
     </BPopover>
 </template>

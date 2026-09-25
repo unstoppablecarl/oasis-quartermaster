@@ -9,7 +9,7 @@ import { ref } from 'vue'
 defineOptions({ inheritAttrs: false })
 
 const { armyList } = defineProps<{
-    armyList: ArmyList;
+    armyList: ArmyList
 }>()
 
 const visible = ref(false)

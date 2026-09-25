@@ -45,16 +45,18 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
     <div class="app-header">
         <div class="container d-flex navbar pb-0">
             <div class="container">
-                <Link
-                    :href="home()"
-                    class="navbar-brand me-auto"
-                >
-                    <img src="/images/logo.svg" alt="Oasis Logo" class="logo-img">
+                <Link :href="home()" class="navbar-brand me-auto">
+                    <img
+                        src="/images/logo.svg"
+                        alt="Oasis Logo"
+                        class="logo-img"
+                    />
 
                     <span class="text-sulfur title fs-2 ms-2 logo-subheading">
                         Quartermaster
                     </span>
                 </Link>
+
 
                 <div v-if="auth.user" class="dropdown">
                     <button
@@ -65,7 +67,9 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                     >
                         <UserInfo :user="auth.user" />
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-user-context">
+                    <ul
+                        class="dropdown-menu dropdown-menu-end dropdown-user-context"
+                    >
                         <UserMenuContent :user="auth.user" />
                     </ul>
                 </div>
@@ -104,18 +108,31 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                             <template v-if="item.children?.length">
                                 <a
                                     class="nav-link dropdown-toggle"
-
-                                    :class="{'active': isCurrentOrParentUrl(item.href)}"
-                                    href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                    :class="{
+                                        active: isCurrentOrParentUrl(item.href),
+                                    }"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
                                     Army Lists
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li v-for="child in item.children?.filter(isVisible)" :key="child.title">
+                                    <li
+                                        v-for="child in item.children?.filter(
+                                            isVisible,
+                                        )"
+                                        :key="child.title"
+                                    >
                                         <Link
                                             :href="child.href"
                                             class="dropdown-item"
-                                            :class="{ active: isCurrentUrl(child.href) }"
+                                            :class="{
+                                                active: isCurrentUrl(
+                                                    child.href,
+                                                ),
+                                            }"
                                         >
                                             {{ child.title }}
                                         </Link>
@@ -131,6 +148,10 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                                 {{ item.title }}
                             </Link>
                         </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="https://oasiswargame.com" target="_blank">oasiswargame.com</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -141,5 +162,4 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
 .logo-subheading {
     vertical-align: middle;
 }
-
 </style>

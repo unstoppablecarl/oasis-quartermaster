@@ -2,9 +2,8 @@ import type { InertiaLinkProps } from '@inertiajs/vue3'
 import { formatDistanceToNow } from 'date-fns'
 
 export function toUrl(href: NonNullable<InertiaLinkProps['href']>) {
-    return typeof href === 'string' ? href : href?.url;
+    return typeof href === 'string' ? href : href?.url
 }
-
 
 export function chunk<T>(collection: T[], size: number): T[][] {
     let result = []
@@ -20,14 +19,14 @@ export function chunk<T>(collection: T[], size: number): T[][] {
 }
 
 export function timeAgo(val: Date | undefined | null) {
-  if (!val) return null
-  return formatDistanceToNow(val, { addSuffix: true })
+    if (!val) return null
+    return formatDistanceToNow(val, { addSuffix: true })
 }
 
 export function localize(val: Date | undefined | null) {
-  if (!val) return null
+    if (!val) return null
 
-  return val.toLocaleDateString() + ' ' + val.toLocaleTimeString()
+    return val.toLocaleDateString() + ' ' + val.toLocaleTimeString()
 }
 
 export function sort<T>(getter: (v: T) => number) {

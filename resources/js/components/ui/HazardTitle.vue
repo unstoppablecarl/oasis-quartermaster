@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { variant } = defineProps<{
     variant: string
 }>()
@@ -9,10 +8,11 @@ const { variant } = defineProps<{
         <div class="title pb-2 hazard-title" :class="`text-${variant}`">
             <slot />
         </div>
-        <div class="flex-grow-1 ms-2 hazard hazard-title-strip" :class="`hazard-${variant}`"></div>
-        <slot name="after"/>
+        <div
+            class="flex-grow-1 ms-2 hazard hazard-title-strip"
+            :class="`hazard-${variant}`"
+        ></div>
+        <slot name="after" />
     </div>
 </template>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

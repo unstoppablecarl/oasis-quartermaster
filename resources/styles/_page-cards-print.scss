@@ -9,7 +9,6 @@ $bleed: 4mm;
 $card-bleed-width: $card-inner-width + $bleed * 2;
 $card-bleed-height: $card-inner-height + $bleed * 2;
 
-
 $page-width: 8.5 * $oneInch;
 $page-height: 11 * $oneInch;
 
@@ -69,7 +68,6 @@ $bleed-mark-size: 18px;
             top: 0;
             left: 0;
         }
-
 
         %game-card-bleed-outline {
             border-style: solid;

@@ -3,7 +3,14 @@ import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { Plus } from '@lucide/vue'
-import { BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem, vBTooltip } from 'bootstrap-vue-next'
+import {
+    BTable,
+    type BTableSortBy,
+    BTooltip,
+    type TableFieldRaw,
+    type TableItem,
+    vBTooltip,
+} from 'bootstrap-vue-next'
 import { computed, ref, toValue } from 'vue'
 import Fraction from '../../components/Fraction.vue'
 import TableSortHeader from '../../components/ui/TableSortHeader.vue'
@@ -13,7 +20,7 @@ import ArmyListControls from './Components/ArmyListControls.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 
 const { armyLists } = defineProps<{
-    armyLists: ArmyList[];
+    armyLists: ArmyList[]
 }>()
 
 function armyListRow(armyList: ArmyList) {
@@ -35,7 +42,7 @@ function armyListRow(armyList: ArmyList) {
         unitCount,
         createdAt,
         updatedAt,
-        commands: commands.value.map(c => c.display_name),
+        commands: commands.value.map((c) => c.display_name),
         faction: faction.value.display_name,
     }
 }
@@ -102,15 +109,18 @@ function sortMode(key: string) {
 <template>
     <Head title="Army Lists" />
     <ArmyListItemHeader title="All" description="Army Lists">
-        <Link :href="create()" class="btn btn-sm btn-primary" v-b-tooltip.hover.top title="Create New Army List">
+        <Link
+            :href="create()"
+            class="btn btn-sm btn-primary"
+            v-b-tooltip.hover.top
+            title="Create New Army List"
+        >
             <Plus :strokeWidth="2.5" :size="16" />
         </Link>
     </ArmyListItemHeader>
 
-
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
-
             <BTable
                 striped
                 hover
@@ -136,7 +146,10 @@ function sortMode(key: string) {
                 </template>
 
                 <template #cell(points)="data">
-                    <Fraction :a="toValue(data.item.totalCost)" :b="toValue(data.item.maxPoints)" />
+                    <Fraction
+                        :a="toValue(data.item.totalCost)"
+                        :b="toValue(data.item.maxPoints)"
+                    />
                 </template>
 
                 <template #cell(createdAt)="data">

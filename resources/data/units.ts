@@ -1,16 +1,16 @@
 export type Weapon = {
-    name: string,
+    name: string
     range: string
     accuracy: string
     damage: string
-    keywords: string[],
+    keywords: string[]
 }
 
 export type Unit = {
     id: number
     display_name: string
     class: string | null
-    prefix: string | null,
+    prefix: string | null
     manufacturer: string | null
     qty_in_base_set: number | null
     base_size: string | null
@@ -31,7 +31,7 @@ export type Unit = {
     abilities: string[]
     traits: string[]
     cards_front: string[]
-    card_back: string,
+    card_back: string
 }
 
 export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']
@@ -64,39 +64,28 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '4',
                 damage: '6',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
                 range: '14',
                 accuracy: '4+2',
                 damage: '4+2',
-                keywords: [
-                    '2x',
-                    'AP',
-                ],
+                keywords: ['2x', 'AP'],
             },
             {
                 name: 'unnamed',
                 range: '18',
                 accuracy: '4',
                 damage: '6+1',
-                keywords: [
-                    '2x',
-                    'Spl',
-                    'AP',
-                ],
+                keywords: ['2x', 'Spl', 'AP'],
             },
             {
                 name: 'unnamed',
                 range: '6',
                 accuracy: '6+1',
                 damage: '4',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
         abilities: [
@@ -110,10 +99,7 @@ export const UNITS: Record<string, Unit> = {
             'Large Craft: Degradation',
             'Armored',
         ],
-        cards_front: [
-            'Tigershark.png',
-            'Tigershark 2.png',
-        ],
+        cards_front: ['Tigershark.png', 'Tigershark 2.png'],
         card_back: 'Tigershark Back.png',
     },
     TYPE_92: {
@@ -139,11 +125,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '10',
         weapons: [],
         abilities: [],
-        traits: [
-            'Aircraft',
-            'Clumsy',
-            'Armored',
-        ],
+        traits: ['Aircraft', 'Clumsy', 'Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -174,29 +156,18 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '5',
                 damage: '6',
-                keywords: [
-                    '4x',
-                ],
+                keywords: ['4x'],
             },
             {
                 name: 'unnamed',
                 range: '6',
                 accuracy: '6+2',
                 damage: '4+1',
-                keywords: [
-                    '2x',
-                    'Air',
-                ],
+                keywords: ['2x', 'Air'],
             },
         ],
-        abilities: [
-            'Reposition [4"]',
-            'Escort [1"]',
-        ],
-        traits: [
-            'Aircraft',
-            'Armored',
-        ],
+        abilities: ['Reposition [4"]', 'Escort [1"]'],
+        traits: ['Aircraft', 'Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -222,13 +193,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 4,
         speed: '10 + R6',
         weapons: [],
-        abilities: [
-            'Reposition [6"]',
-        ],
-        traits: [
-            'Aircraft',
-            'Transport [1]',
-        ],
+        abilities: ['Reposition [6"]'],
+        traits: ['Aircraft', 'Transport [1]'],
         cards_front: [],
         card_back: '',
     },
@@ -259,32 +225,19 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '4',
                 damage: '6',
-                keywords: [
-                    '2x',
-                    'AP',
-                ],
+                keywords: ['2x', 'AP'],
             },
             {
                 name: 'unnamed',
                 range: '8',
                 accuracy: '6',
                 damage: '4',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
-        abilities: [
-            'Reposition [6"]',
-        ],
-        traits: [
-            'Aircraft: VTOL',
-            'Transport [2]',
-            'Armored',
-        ],
-        cards_front: [
-            'Roc.png',
-        ],
+        abilities: ['Reposition [6"]'],
+        traits: ['Aircraft: VTOL', 'Transport [2]', 'Armored'],
+        cards_front: ['Roc.png'],
         card_back: 'Roc Back.png',
     },
     ALBATROSS: {
@@ -314,9 +267,7 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '5',
                 damage: '6+1',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
@@ -331,12 +282,8 @@ export const UNITS: Record<string, Unit> = {
             'Weapon Cycling',
             'Precision Support: Ground',
         ],
-        traits: [
-            'Aircraft: Fixed Wing',
-        ],
-        cards_front: [
-            'Albatross.png',
-        ],
+        traits: ['Aircraft: Fixed Wing'],
+        cards_front: ['Albatross.png'],
         card_back: 'Albatross Back.png',
     },
     COBRA: {
@@ -366,9 +313,7 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '6+2',
                 damage: '3+1',
-                keywords: [
-                    'Air',
-                ],
+                keywords: ['Air'],
             },
             {
                 name: 'unnamed',
@@ -378,12 +323,8 @@ export const UNITS: Record<string, Unit> = {
                 keywords: [],
             },
         ],
-        abilities: [
-            'Reposition [10"]',
-        ],
-        traits: [
-            'Aircraft: Fixed Wing',
-        ],
+        abilities: ['Reposition [10"]'],
+        traits: ['Aircraft: Fixed Wing'],
         cards_front: [],
         card_back: '',
     },
@@ -409,14 +350,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 4,
         speed: '12 + R4',
         weapons: [],
-        abilities: [
-            'Reposition [4"]',
-        ],
-        traits: [
-            'Aircraft: VTOL',
-            'Heavy Lift Transport [1]',
-            'Armored',
-        ],
+        abilities: ['Reposition [4"]'],
+        traits: ['Aircraft: VTOL', 'Heavy Lift Transport [1]', 'Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -447,9 +382,7 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '5',
                 damage: '6',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
@@ -459,16 +392,9 @@ export const UNITS: Record<string, Unit> = {
                 keywords: [],
             },
         ],
-        abilities: [
-            'Reposition [8"]',
-            'Precision Support: Ground',
-        ],
-        traits: [
-            'Aircraft: VTOL',
-        ],
-        cards_front: [
-            'Raven.png',
-        ],
+        abilities: ['Reposition [8"]', 'Precision Support: Ground'],
+        traits: ['Aircraft: VTOL'],
+        cards_front: ['Raven.png'],
         card_back: 'Raven Back.png',
     },
     BANDIT: {
@@ -498,22 +424,12 @@ export const UNITS: Record<string, Unit> = {
                 range: '8',
                 accuracy: '6',
                 damage: '4',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
-        abilities: [
-            'Reposition [8"]',
-        ],
-        traits: [
-            'Aircraft: VTOL',
-            'Transport [1]',
-            'Laser Dazzler',
-        ],
-        cards_front: [
-            'Bandit.png',
-        ],
+        abilities: ['Reposition [8"]'],
+        traits: ['Aircraft: VTOL', 'Transport [1]', 'Laser Dazzler'],
+        cards_front: ['Bandit.png'],
         card_back: 'Bandit Back.png',
     },
     MAMMOTH: {
@@ -543,28 +459,18 @@ export const UNITS: Record<string, Unit> = {
                 range: '18',
                 accuracy: '4',
                 damage: '6',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
             {
                 name: 'unnamed',
                 range: '8',
                 accuracy: '6',
                 damage: '4',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
-        abilities: [
-            'Surveyor',
-            'Smoke Grenades [2]',
-        ],
-        traits: [
-            'Transport [2]',
-            'Armored',
-        ],
+        abilities: ['Surveyor', 'Smoke Grenades [2]'],
+        traits: ['Transport [2]', 'Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -595,37 +501,25 @@ export const UNITS: Record<string, Unit> = {
                 range: '16',
                 accuracy: '5',
                 damage: '6+2',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
                 range: '12',
                 accuracy: '4',
                 damage: '6',
-                keywords: [
-                    '2x',
-                    'AP',
-                ],
+                keywords: ['2x', 'AP'],
             },
             {
                 name: 'unnamed',
                 range: '6',
                 accuracy: '6',
                 damage: '3',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
-        abilities: [
-            'Smoke Grenades [1]',
-        ],
-        traits: [
-            'Grav Drive',
-            'Armored',
-        ],
+        abilities: ['Smoke Grenades [1]'],
+        traits: ['Grav Drive', 'Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -656,9 +550,7 @@ export const UNITS: Record<string, Unit> = {
                 range: '16',
                 accuracy: '5',
                 damage: '6+1',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
@@ -668,16 +560,9 @@ export const UNITS: Record<string, Unit> = {
                 keywords: [],
             },
         ],
-        abilities: [
-            'Smoke Grenades [1]',
-        ],
-        traits: [
-            'Grav Drive',
-            'Armored',
-        ],
-        cards_front: [
-            'Nyx.png',
-        ],
+        abilities: ['Smoke Grenades [1]'],
+        traits: ['Grav Drive', 'Armored'],
+        cards_front: ['Nyx.png'],
         card_back: 'Nyx Back.png',
     },
     BRIGAND: {
@@ -702,12 +587,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '12 + R8',
         weapons: [],
-        abilities: [
-            'Reposition [8"]',
-        ],
-        traits: [
-            'Grav Drive',
-        ],
+        abilities: ['Reposition [8"]'],
+        traits: ['Grav Drive'],
         cards_front: [],
         card_back: '',
     },
@@ -733,17 +614,9 @@ export const UNITS: Record<string, Unit> = {
         hp: 2,
         speed: '8 + R6',
         weapons: [],
-        abilities: [
-            'Reposition [6"]',
-            'Surveyor',
-        ],
-        traits: [
-            'Grav Drive',
-            'Transport [2]',
-        ],
-        cards_front: [
-            'Buffalo.png',
-        ],
+        abilities: ['Reposition [6"]', 'Surveyor'],
+        traits: ['Grav Drive', 'Transport [2]'],
+        cards_front: ['Buffalo.png'],
         card_back: 'Buffalo Back.png',
     },
     BUFFALO_Q_CRAFT: {
@@ -773,28 +646,18 @@ export const UNITS: Record<string, Unit> = {
                 range: '10',
                 accuracy: '5',
                 damage: '6+1',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
             {
                 name: 'unnamed',
                 range: '6',
                 accuracy: '4',
                 damage: '4',
-                keywords: [
-                    'Gnd',
-                    'Spl',
-                ],
+                keywords: ['Gnd', 'Spl'],
             },
         ],
-        abilities: [
-            'Reposition [6"]',
-        ],
-        traits: [
-            'Grav Drive',
-            'Q-Craft',
-        ],
+        abilities: ['Reposition [6"]'],
+        traits: ['Grav Drive', 'Q-Craft'],
         cards_front: [],
         card_back: '',
     },
@@ -821,9 +684,7 @@ export const UNITS: Record<string, Unit> = {
         speed: null,
         weapons: [],
         abilities: [],
-        traits: [
-            'Armored',
-        ],
+        traits: ['Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -849,12 +710,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '10 + R6',
         weapons: [],
-        abilities: [
-            'Reposition [6"]',
-        ],
-        traits: [
-            'Transport [2]',
-        ],
+        abilities: ['Reposition [6"]'],
+        traits: ['Transport [2]'],
         cards_front: [],
         card_back: '',
     },
@@ -888,13 +745,8 @@ export const UNITS: Record<string, Unit> = {
                 keywords: [],
             },
         ],
-        abilities: [
-            'Smartburst Rounds',
-            'Escort [8"]',
-        ],
-        traits: [
-            'Transport [1]',
-        ],
+        abilities: ['Smartburst Rounds', 'Escort [8"]'],
+        traits: ['Transport [1]'],
         cards_front: [],
         card_back: '',
     },
@@ -925,15 +777,11 @@ export const UNITS: Record<string, Unit> = {
                 range: '12',
                 accuracy: '5',
                 damage: '5+1',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
         ],
         abilities: [],
-        traits: [
-            'Armored',
-        ],
+        traits: ['Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -959,9 +807,7 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '8',
         weapons: [],
-        abilities: [
-            'Escort [1"]',
-        ],
+        abilities: ['Escort [1"]'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -989,9 +835,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8',
         weapons: [],
         abilities: [],
-        traits: [
-            'Transport [1]',
-        ],
+        traits: ['Transport [1]'],
         cards_front: [],
         card_back: '',
     },
@@ -1022,14 +866,10 @@ export const UNITS: Record<string, Unit> = {
                 range: '8',
                 accuracy: '3',
                 damage: '6',
-                keywords: [
-                    'AP',
-                ],
+                keywords: ['AP'],
             },
         ],
-        abilities: [
-            'Reposition [4"]',
-        ],
+        abilities: ['Reposition [4"]'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -1061,14 +901,10 @@ export const UNITS: Record<string, Unit> = {
                 range: '8',
                 accuracy: '6+1',
                 damage: '3',
-                keywords: [
-                    '2x',
-                ],
+                keywords: ['2x'],
             },
         ],
-        abilities: [
-            'Escort [4"]',
-        ],
+        abilities: ['Escort [4"]'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -1095,11 +931,7 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '12 + R4',
         weapons: [],
-        abilities: [
-            'Reposition [4"]',
-            'Surveyor',
-            'Target Designator',
-        ],
+        abilities: ['Reposition [4"]', 'Surveyor', 'Target Designator'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -1134,13 +966,8 @@ export const UNITS: Record<string, Unit> = {
                 keywords: [],
             },
         ],
-        abilities: [
-            'Embark / Disembark',
-        ],
-        traits: [
-            'Squad',
-            'Networked Automation',
-        ],
+        abilities: ['Embark / Disembark'],
+        traits: ['Squad', 'Networked Automation'],
         cards_front: [],
         card_back: '',
     },
@@ -1178,23 +1005,12 @@ export const UNITS: Record<string, Unit> = {
                 range: '0',
                 accuracy: '6',
                 damage: '4',
-                keywords: [
-                    'AP',
-                    'GND',
-                ],
+                keywords: ['AP', 'GND'],
             },
         ],
-        abilities: [
-            'Hitchhiker',
-            'Embark / Disembark',
-        ],
-        traits: [
-            'Jump Packs',
-            'Squad',
-        ],
-        cards_front: [
-            'Oni.png',
-        ],
+        abilities: ['Hitchhiker', 'Embark / Disembark'],
+        traits: ['Jump Packs', 'Squad'],
+        cards_front: ['Oni.png'],
         card_back: 'Oni Back.png',
     },
     ONI_P: {
@@ -1219,14 +1035,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '10',
         weapons: [],
-        abilities: [
-            'Embark / Disembark',
-            'Surveyor',
-        ],
-        traits: [
-            'Jump Packs',
-            'Squad',
-        ],
+        abilities: ['Embark / Disembark', 'Surveyor'],
+        traits: ['Jump Packs', 'Squad'],
         cards_front: [],
         card_back: '',
     },
@@ -1252,13 +1062,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '6',
         weapons: [],
-        abilities: [
-            'Embark / Disembark',
-        ],
-        traits: [
-            'Jump Packs',
-            'Squad',
-        ],
+        abilities: ['Embark / Disembark'],
+        traits: ['Jump Packs', 'Squad'],
         cards_front: [],
         card_back: '',
     },
@@ -1284,12 +1089,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '4',
         weapons: [],
-        abilities: [
-            'Embark / Disembark',
-        ],
-        traits: [
-            'Squad',
-        ],
+        abilities: ['Embark / Disembark'],
+        traits: ['Squad'],
         cards_front: [],
         card_back: '',
     },
@@ -1342,9 +1143,7 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '4',
         weapons: [],
-        abilities: [
-            'Surveyor',
-        ],
+        abilities: ['Surveyor'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -1371,12 +1170,8 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '10 + R8',
         weapons: [],
-        abilities: [
-            'Reposition [8"]',
-        ],
-        traits: [
-            'Networked Automation',
-        ],
+        abilities: ['Reposition [8"]'],
+        traits: ['Networked Automation'],
         cards_front: [],
         card_back: '',
     },
@@ -1403,9 +1198,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '10',
         weapons: [],
         abilities: [],
-        traits: [
-            'Armored',
-        ],
+        traits: ['Armored'],
         cards_front: [],
         card_back: '',
     },
@@ -1431,9 +1224,7 @@ export const UNITS: Record<string, Unit> = {
         hp: 1,
         speed: '18 + R10',
         weapons: [],
-        abilities: [
-            'Reposition [10"]',
-        ],
+        abilities: ['Reposition [10"]'],
         traits: [],
         cards_front: [],
         card_back: '',
@@ -1461,9 +1252,7 @@ export const UNITS: Record<string, Unit> = {
         speed: '8',
         weapons: [],
         abilities: [],
-        traits: [
-            'Armored',
-        ],
+        traits: ['Armored'],
         cards_front: [],
         card_back: '',
     },

@@ -6,7 +6,7 @@ import { ref, useTemplateRef } from 'vue'
 defineOptions({ inheritAttrs: false })
 
 const props = defineProps<{
-    class?: HTMLAttributes['class'];
+    class?: HTMLAttributes['class']
 }>()
 
 const showPassword = ref(false)

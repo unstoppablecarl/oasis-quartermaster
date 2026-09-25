@@ -8,36 +8,41 @@ const { armyList } = defineProps<{
     armyList: ArmyList
 }>()
 
-const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } = useArmyList(armyList)
-
+const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
+    useArmyList(armyList)
 </script>
 <template>
-
     <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex">
                 <div class="me-3 me-auto">
-
                     <span>
                         <strong class="text-body-emphasis">Game Mode: </strong>
                         {{ armyListTypeName }}
                     </span>
                     <span class="ms-4">
-                        <strong class="text-body-emphasis">Faction: </strong> {{ faction.display_name }}
+                        <strong class="text-body-emphasis">Faction: </strong>
+                        {{ faction.display_name }}
                     </span>
 
                     <span class="ms-4">
                         <strong class="text-body-emphasis">Commands: </strong>
-                        {{ commands.map(c => c.display_name).join(', ') }}
-                        <span v-if="!commands.length" class="text-danger-emphasis">
+                        {{ commands.map((c) => c.display_name).join(', ') }}
+                        <span
+                            v-if="!commands.length"
+                            class="text-danger-emphasis"
+                        >
                             No Command Cards Selected
                         </span>
                     </span>
 
                     <span class="ms-4">
                         <strong class="text-body-emphasis">Faction: </strong>
-                        <span class="text-teal">{{ faction.display_name }}
-                            <FactionCardViewModal :faction-id="armyList.faction_id" />
+                        <span class="text-teal"
+                            >{{ faction.display_name }}
+                            <FactionCardViewModal
+                                :faction-id="armyList.faction_id"
+                            />
                         </span>
                     </span>
                 </div>

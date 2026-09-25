@@ -19,7 +19,9 @@ const allCommands = computed(() => {
     })
 })
 
-const commands = computed(() => commandIds.value.map(id => COMMANDS_BY_ID[id].display_name))
+const commands = computed(() =>
+    commandIds.value.map((id) => COMMANDS_BY_ID[id].display_name),
+)
 const visible = ref(false)
 
 function select(id: CommandId) {
@@ -54,12 +56,11 @@ function select(id: CommandId) {
             Change
         </button>
     </div>
-    <div v-if="commands.length < 2" class="ms-2 mt-1 text-danger-emphasis"> ({{ commands.length }}/2 Selected)</div>
+    <div v-if="commands.length < 2" class="ms-2 mt-1 text-danger-emphasis">
+        ({{ commands.length }}/2 Selected)
+    </div>
 
-    <BModal
-        v-model="visible"
-        size="fluid"
-    >
+    <BModal v-model="visible" size="fluid">
         <template #title>Select Commands ({{ commands.length }}/2)</template>
         <template #cancel>&nbsp;</template>
         <div class="d-flex flex-wrap justify-content-center">
@@ -89,24 +90,19 @@ function select(id: CommandId) {
                     class="btn p-1 w-100 btn-card-choice"
                     :class="{
                         'btn-danger': command.selected,
-                        'btn-primary': !command.selected
+                        'btn-primary': !command.selected,
                     }"
                     :disabled="command.disabled"
                     @click="select(command.id)"
                 >
-                    <template v-if="command.selected">
-                        Remove
-                    </template>
-                    <template v-else>
-                        Select
-                    </template>
+                    <template v-if="command.selected"> Remove </template>
+                    <template v-else> Select </template>
                 </button>
             </div>
         </div>
     </BModal>
 </template>
 <style lang="scss">
-
 .border-disabled {
     --bs-border-opacity: #{$btn-disabled-opacity};
 }

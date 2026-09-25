@@ -2,7 +2,7 @@ import type { CommandId } from '../../data/commands'
 import type { FactionId } from '../../data/factions'
 
 type Command = {
-    id: CommandId,
+    id: CommandId
 }
 
 export type ArmyList = {
@@ -11,10 +11,10 @@ export type ArmyList = {
     army_list_type_id: number | null
     custom_max_points: number | null
     public: boolean
-    faction_id: FactionId,
-    commands: Command[],
-    created_at: string,
-    updated_at: string,
+    faction_id: FactionId
+    commands: Command[]
+    created_at: string
+    updated_at: string
     units: {
         id: number
         quantity: number
@@ -22,5 +22,5 @@ export type ArmyList = {
     can: {
         update: boolean
         delete: boolean
-    };
-};
+    }
+}

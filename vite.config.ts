@@ -7,7 +7,10 @@ import { google } from 'laravel-vite-plugin/fonts'
 import { defineConfig, lazyPlugins } from 'vite-plus'
 import { staticDataPlugin } from './resources/js/lib/vite-static-data-plugin'
 
-const scssVariablesPath = path.resolve(import.meta.dirname, 'resources/styles/variables')
+const scssVariablesPath = path.resolve(
+    import.meta.dirname,
+    'resources/styles/variables',
+)
 
 export default defineConfig({
     plugins: lazyPlugins(() => [
@@ -15,9 +18,7 @@ export default defineConfig({
         laravel({
             input: ['resources/styles/main.scss', 'resources/js/main.ts'],
             refresh: true,
-            fonts: [
-                google('Oswald', {}),
-            ],
+            fonts: [google('Oswald', {})],
         }),
         inertia(),
         vue({

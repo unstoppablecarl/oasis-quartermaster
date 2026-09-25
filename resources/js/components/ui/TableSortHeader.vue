@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { PhCaretDown, PhCaretUp, PhCaretUpDown } from '@phosphor-icons/vue'
+import { ChevronDown, ChevronsUpDown, ChevronUp } from '@lucide/vue'
 import type { TableField } from 'bootstrap-vue-next'
-import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical, Minus, Plus, RotateCcw, X } from '@lucide/vue'
 
 defineOptions({
     inheritAttrs: false,
 })
 
 const { mode, scope } = defineProps<{
-    mode: 'asc' | 'desc' | undefined,
+    mode: 'asc' | 'desc' | undefined
     scope: {
-        label?: string,
-        column: string,
+        label?: string
+        column: string
         field: TableField
     }
 }>()
@@ -19,7 +18,6 @@ const { mode, scope } = defineProps<{
 function capitalizeFirstLetter(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
-
 </script>
 <template>
     {{ scope.label ?? capitalizeFirstLetter(scope.column) }}&nbsp;

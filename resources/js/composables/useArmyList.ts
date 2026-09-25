@@ -2,9 +2,19 @@ import { computed, toRef, toValue } from 'vue'
 import type { Command } from '../../data/commands'
 import type { FactionId } from '../../data/factions'
 import { getArmyListFactionValidator } from '../lib/faction-validators'
-import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
+import {
+    ARMY_LIST_TYPES_BY_ID,
+    COMMANDS_BY_ID,
+    FACTIONS_BY_ID,
+    UNITS_BY_ID,
+} from '../lib/static-data-helpers'
 import type { ArmyList } from '../types/army-list'
-import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
+import {
+    type LocalArmyList,
+    type UnitEntry,
+    type UnitEntryInfo,
+    useUnitsInfo,
+} from './useUnitsInfo'
 
 export type { UnitEntry }
 
@@ -15,7 +25,9 @@ export function useArmyList(armyList: LocalArmyList) {
     const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units, maxPoints)
 
     const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
-    const commands = computed(() => armyList.commands.map(c => COMMANDS_BY_ID[c.id]))
+    const commands = computed(() =>
+        armyList.commands.map((c) => COMMANDS_BY_ID[c.id]),
+    )
     const armyListTypeName = computed(() => getArmyListTypeName(armyList))
 
     const createdAt = computed(() => toTimestamp(armyList.created_at))
@@ -55,12 +67,14 @@ export function useArmyList(armyList: LocalArmyList) {
     function reorder(orderedUnitIds: number[]) {
         const byId = new Map(units.value.map((unit) => [unit.id, unit]))
 
-        units.value = orderedUnitIds.map((id) => byId.get(id)).filter((unit) => unit !== undefined)
+        units.value = orderedUnitIds
+            .map((id) => byId.get(id))
+            .filter((unit) => unit !== undefined)
     }
 
     const unitsInfoFinal = computed(() => {
         const validator = getArmyListFactionValidator(armyList.faction_id)
-        return unitsInfo.value.map(u => {
+        return unitsInfo.value.map((u) => {
             return {
                 ...u,
                 factionValidation: validator.validateUnitInList(armyList, u),
@@ -155,17 +169,20 @@ export function getCommandCards(commands: Command[]): Card[] {
 
 export function getFactionCards(factionId: FactionId): Card[] {
     const faction = FACTIONS_BY_ID[factionId]
-    return [{
-        display_name: faction.display_name,
-        side: 'Front',
-        cardImage: faction.card_front!,
-        type: 'Faction',
-    }, {
-        display_name: faction.display_name,
-        side: 'Back',
-        cardImage: faction.card_back!,
-        type: 'Faction',
-    }]
+    return [
+        {
+            display_name: faction.display_name,
+            side: 'Front',
+            cardImage: faction.card_front!,
+            type: 'Faction',
+        },
+        {
+            display_name: faction.display_name,
+            side: 'Back',
+            cardImage: faction.card_back!,
+            type: 'Faction',
+        },
+    ]
 }
 
 export function getArmyListMaxPoints(armyList: {

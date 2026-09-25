@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Form } from '@inertiajs/vue3';
-import { useTemplateRef } from 'vue';
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
-import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
+import { Form } from '@inertiajs/vue3'
+import { useTemplateRef } from 'vue'
+import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController'
+import Heading from '@/components/Heading.vue'
+import InputError from '@/components/InputError.vue'
+import PasswordInput from '@/components/PasswordInput.vue'
 
-const passwordInput = useTemplateRef('passwordInput');
+const passwordInput = useTemplateRef('passwordInput')
 </script>
 
 <template>
@@ -60,8 +60,8 @@ const passwordInput = useTemplateRef('passwordInput');
                                 aria-label="Close"
                                 @click="
                                     () => {
-                                        clearErrors();
-                                        reset();
+                                        clearErrors()
+                                        reset()
                                     }
                                 "
                             ></button>
@@ -94,8 +94,8 @@ const passwordInput = useTemplateRef('passwordInput');
                                 data-bs-dismiss="modal"
                                 @click="
                                     () => {
-                                        clearErrors();
-                                        reset();
+                                        clearErrors()
+                                        reset()
                                     }
                                 "
                             >

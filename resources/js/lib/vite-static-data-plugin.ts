@@ -3,9 +3,14 @@ import path from 'node:path'
 import { type Plugin, transformWithOxc } from 'vite'
 
 const dataDir = path.resolve(import.meta.dirname, '../../data')
-const dataOutputFile = path.resolve(import.meta.dirname, '../../../static-data/data.json')
+const dataOutputFile = path.resolve(
+    import.meta.dirname,
+    '../../../static-data/data.json',
+)
 
-async function importTsModule(filePath: string): Promise<Record<string, unknown>> {
+async function importTsModule(
+    filePath: string,
+): Promise<Record<string, unknown>> {
     const source = await readFile(filePath, 'utf8')
     const { code } = await transformWithOxc(source, filePath)
     const dataUrl = `data:text/javascript,${encodeURIComponent(code)}`
@@ -14,7 +19,9 @@ async function importTsModule(filePath: string): Promise<Record<string, unknown>
 }
 
 async function buildDataJson(): Promise<void> {
-    const files = (await readdir(dataDir)).filter((file) => file.endsWith('.ts'))
+    const files = (await readdir(dataDir)).filter((file) =>
+        file.endsWith('.ts'),
+    )
 
     const data: Record<string, unknown> = {}
 
@@ -28,7 +35,9 @@ async function buildDataJson(): Promise<void> {
 
             const duplicates = getDuplicateIds(v as any)
             if (duplicates.size) {
-                throw new Error(`${duplicates.size} duplicate id(s) found in: ${k}. Ids: ${[...duplicates.values()].map(v => `"${v}"`).join(', ')}`)
+                throw new Error(
+                    `${duplicates.size} duplicate id(s) found in: ${k}. Ids: ${[...duplicates.values()].map((v) => `"${v}"`).join(', ')}`,
+                )
             }
         }
 
@@ -36,7 +45,11 @@ async function buildDataJson(): Promise<void> {
     }
 
     await mkdir(path.dirname(dataOutputFile), { recursive: true })
-    await writeFile(dataOutputFile, `${JSON.stringify(data, null, 2)}\n`, 'utf8')
+    await writeFile(
+        dataOutputFile,
+        `${JSON.stringify(data, null, 2)}\n`,
+        'utf8',
+    )
 }
 
 export function staticDataPlugin(): Plugin {
@@ -49,7 +62,11 @@ export function staticDataPlugin(): Plugin {
             server.watcher.add(dataDir)
 
             server.watcher.on('all', async (event, file) => {
-                if (file.startsWith(dataDir) && file.endsWith('.ts') && event !== 'unlinkDir') {
+                if (
+                    file.startsWith(dataDir) &&
+                    file.endsWith('.ts') &&
+                    event !== 'unlinkDir'
+                ) {
                     await buildDataJson()
                 }
             })

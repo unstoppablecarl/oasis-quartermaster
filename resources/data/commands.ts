@@ -39,4 +39,3 @@ export const COMMANDS = {
 } as const satisfies Record<string, Command>
 
 export type CommandId = (typeof COMMANDS)[keyof typeof COMMANDS]['id']
-

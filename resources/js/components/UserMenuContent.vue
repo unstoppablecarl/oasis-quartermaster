@@ -8,8 +8,8 @@ import { Settings } from '@lucide/vue'
 import { PhSignOut } from '@phosphor-icons/vue'
 
 type Props = {
-    user: User;
-};
+    user: User
+}
 
 const handleLogout = () => {
     router.flushAll()

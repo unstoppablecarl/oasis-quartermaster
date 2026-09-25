@@ -23,43 +23,6 @@ async function loadAbilitiesModule(filePath) {
     return import(dataUrl)
 }
 
-function validateAbilities(units, findAbilityOrTrait) {
-    const unmatched = new Map()
-
-    for (const unit of Object.values(units)) {
-        const abilities = []
-        const traits = []
-
-        for (const raw of unit.abilities) {
-            const match = findAbilityOrTrait(raw)
-
-            if (!match) {
-                if (!unmatched.has(raw)) {
-                    unmatched.set(raw, new Set())
-                }
-                unmatched.get(raw).add(unit.display_name)
-                continue
-            }
-
-            ;(match.type === 'trait' ? traits : abilities).push(raw)
-        }
-
-        unit.abilities = abilities
-        unit.traits = traits
-    }
-
-    if (unmatched.size === 0) {
-        return
-    }
-
-    const lines = [...unmatched.entries()]
-        .map(([raw, unitNames]) => `  "${raw}" (${[...unitNames].join(', ')})`)
-        .join('\n')
-    throw new Error(
-        `Found ${unmatched.size} ability/trait value(s) in the CSV that don't match anything in abilities.ts:\n${lines}`,
-    )
-}
-
 // The grid has two header rows: a grouping row ("WEAPON 1", "WEAPON 2", ...)
 // followed by the real column names. Several names repeat (RNG/ACC/DMG/KEY
 // once per weapon, Ability/Trait once per ability slot), so columns are
@@ -82,7 +45,9 @@ function indexColumns(headerRow) {
 function columnIndex(positions, name, occurrence = 0) {
     const index = positions[name]?.[occurrence]
     if (index === undefined) {
-        throw new Error(`CSV is missing expected column "${name}"${occurrence > 0 ? ` (occurrence ${occurrence + 1})` : ''}`)
+        throw new Error(
+            `CSV is missing expected column "${name}"${occurrence > 0 ? ` (occurrence ${occurrence + 1})` : ''}`,
+        )
     }
     return index
 }
@@ -215,7 +180,11 @@ function parseWeapon(row, weaponCols) {
         range: str(range) ?? '',
         accuracy: str(accuracy) ?? '',
         damage: str(damage) ?? '',
-        keywords: str(keywords)?.split('/').map((k) => k.trim()).filter(Boolean) ?? [],
+        keywords:
+            str(keywords)
+                ?.split('/')
+                .map((k) => k.trim())
+                .filter(Boolean) ?? [],
     }
 }
 
@@ -224,7 +193,7 @@ function parseUnit(row, id, columns) {
     let cardFrontRaw = str(row[COL.CARDS_FRONT])
     let cardsFront = []
     if (cardFrontRaw) {
-        cardsFront = cardFrontRaw.split(',').map(s => s.trim())
+        cardsFront = cardFrontRaw.split(',').map((s) => s.trim())
     }
 
     return {
@@ -248,10 +217,12 @@ function parseUnit(row, id, columns) {
         defense: num(row[COL.DEFENSE]),
         hp: num(row[COL.HP]),
         speed: str(row[COL.SPEED]),
-        weapons: WEAPON_COLS.map((weaponCols) => parseWeapon(row, weaponCols)).filter(Boolean),
+        weapons: WEAPON_COLS.map((weaponCols) =>
+            parseWeapon(row, weaponCols),
+        ).filter(Boolean),
         abilities: ABILITY_COLS.map((col) => str(row[col])).filter(Boolean),
         traits: TRAIT_COLS.map((col) => str(row[col])).filter(Boolean),
-        cards_front: cardsFront.map(s => s + '.png'),
+        cards_front: cardsFront.map((s) => s + '.png'),
         card_back: cardsFront.length ? cardsFront[0] + ' Back.png' : '',
     }
 }
@@ -274,20 +245,27 @@ function formatLiteral(value, depth) {
     }
 
     if (typeof value === 'string') {
-        return `'${value.replace(/\\/g, '\\\\').replace(/'/g, '\\\'')}'`
+        return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
     }
 
     if (Array.isArray(value)) {
         if (value.length === 0) {
             return '[]'
         }
-        const items = value.map((item) => `${pad(depth + 1)}${formatLiteral(item, depth + 1)},`).join('\n')
+        const items = value
+            .map(
+                (item) => `${pad(depth + 1)}${formatLiteral(item, depth + 1)},`,
+            )
+            .join('\n')
         return `[\n${items}\n${pad(depth)}]`
     }
 
     const keys = Object.keys(value)
     const props = keys
-        .map((key) => `${pad(depth + 1)}${formatKey(key)}: ${formatLiteral(value[key], depth + 1)},`)
+        .map(
+            (key) =>
+                `${pad(depth + 1)}${formatKey(key)}: ${formatLiteral(value[key], depth + 1)},`,
+        )
         .join('\n')
     return `{\n${props}\n${pad(depth)}}`
 }
@@ -296,7 +274,9 @@ async function main() {
     const csv = readFileSync(csvPath, 'utf8')
     const allRows = parseCsv(csv)
     const columns = resolveColumns(allRows[HEADER_ROW_INDEX])
-    const rows = allRows.slice(HEADER_ROW_INDEX + 1).filter((row) => str(row[columns.COL.NAME]))
+    const rows = allRows
+        .slice(HEADER_ROW_INDEX + 1)
+        .filter((row) => str(row[columns.COL.NAME]))
 
     const usedKeys = new Set()
     const usedIds = new Set()
@@ -330,7 +310,9 @@ async function main() {
     const content = generate(units)
 
     writeFileSync(outPath, content, 'utf8')
-    console.log(`Wrote ${Object.keys(units).length} units to ${path.relative(process.cwd(), outPath)}`)
+    console.log(
+        `Wrote ${Object.keys(units).length} units to ${path.relative(process.cwd(), outPath)}`,
+    )
 }
 
 main().catch((error) => {

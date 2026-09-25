@@ -90,6 +90,6 @@ export function useFilterSettings() {
         showManufacturer,
         showClass,
         filterWithinBudgetUnits,
-        filterFactionValidUnits
+        filterFactionValidUnits,
     }
 }
