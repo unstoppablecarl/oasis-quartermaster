@@ -51,7 +51,7 @@ function select(id: FactionId) {
         title="Select Faction"
         :hide-footer="true"
         no-footer
-        size="xl"
+        size="fluid"
     >
         <div class="row">
             <div

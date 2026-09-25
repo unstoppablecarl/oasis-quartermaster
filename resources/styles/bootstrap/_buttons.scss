@@ -120,12 +120,10 @@
     vertical-align: middle;
 }
 
-
-// Bootstrap's .btn-group is display:inline-flex without align-items set, so it
-// defaults to stretch: any button taller than its siblings stretches the rest,
-// and their icon/text content stays pinned to the top instead of recentering.
-.btn-group {
+.btn-group > .btn {
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .btn-outline-hover {

@@ -129,7 +129,6 @@ const saveStatusText = computed(() => {
         </div>
     </Teleport>
 </template>
-
 <style lang="scss">
 .save-bar-info {
     flex-wrap: wrap;
