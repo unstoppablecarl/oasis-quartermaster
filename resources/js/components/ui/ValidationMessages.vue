@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import { getFactionName } from '../../lib/static-data-helpers'
 
-const { messages, factionMessages, headingClass = 'text-danger fw-bold', textClass, factionId } = defineProps<{
+const { messages, factionMessages, headingClass = 'text-warning fw-bold', textClass, factionId } = defineProps<{
     messages?: string[]
     factionMessages?: string[]
     headingClass?: string
@@ -25,28 +25,26 @@ const factionName = computed(() => getFactionName(factionId))
             </template>
         </div>
         <div :class="textClass">
-            <ul v-if="messages.length > 1">
+            <ul class="mb-0">
                 <li v-for="item in messages">
                     {{ item }}
                 </li>
             </ul>
-            <template v-else>{{ messages[0] }}</template>
         </div>
     </template>
     <template v-if="factionMessages?.length">
         <div :class="headingClass">
             <div class="text-warning fw-bold">
+                Faction Requirements:
                 <span class="text-teal">{{ factionName }}</span>
-                Faction Requirements
             </div>
         </div>
         <div :class="textClass">
-            <ul v-if="factionMessages.length > 1">
+            <ul class="mb-0">
                 <li v-for="item in factionMessages">
                     {{ item }}
                 </li>
             </ul>
-            <template v-else>{{ factionMessages[0] }}</template>
         </div>
     </template>
 </template>

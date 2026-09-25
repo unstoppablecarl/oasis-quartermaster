@@ -40,7 +40,7 @@ const valid = computed(() => !factionRequirementMessages.value.length && !unitsW
             </div>
             <div v-if="unitsWithIssues.length">
                 <div class="title text-warning">Invalid Units</div>
-                <div v-for="unit in unitsWithIssues" :key="unit.id">
+                <div v-for="unit in unitsWithIssues" :key="unit.id" class="invalid-unit">
                     <div>
                         <strong>{{ unit.display_name }}</strong>
                         <template v-if="unit.quantity > 1"> &times; {{ unit.quantity }}</template>
@@ -57,3 +57,8 @@ const valid = computed(() => !factionRequirementMessages.value.length && !unitsW
         </div>
     </div>
 </template>
+<style lang="scss">
+.invalid-unit:not(:last-child) {
+    margin-bottom: 1rem;
+}
+</style>
