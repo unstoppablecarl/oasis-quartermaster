@@ -15,9 +15,8 @@ const { getInitials } = useInitials()
 
 </script>
 <template>
-
     <div
-        class="d-flex align-items-center justify-content-center rounded-circle bg-secondary text-white fw-semibold flex-shrink-0"
+        class="d-flex align-items-center justify-content-center rounded-circle bg-primary text-black fw-semibold flex-shrink-0"
         style="width: 2rem; height: 2rem; font-size: 0.75rem"
     >
         {{ getInitials(user.name) }}
