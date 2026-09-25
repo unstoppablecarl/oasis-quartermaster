@@ -173,7 +173,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         class="card mb-3"
         :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px` }"
     >
-        <div class="card-body table-units">
+        <div class="card-body table-units pt-0">
             <div ref="toolbar" class="unit-list-toolbar sticky-top">
                 <CardHazardTitle title="Units" variant="sulfur">
 
@@ -402,6 +402,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 
     .unit-list-toolbar {
         background: var(--bs-card-bg);
+        padding-top: var(--bs-card-spacer-y);
         z-index: 3;
     }
 

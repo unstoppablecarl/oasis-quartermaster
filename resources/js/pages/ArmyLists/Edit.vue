@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, setLayoutProps, useHttp } from '@inertiajs/vue3'
-import { reactive } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
+import { computed, reactive, watch } from 'vue'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
@@ -41,7 +42,11 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
 
 const { add, totalCost, unitCount, maxPoints } = useArmyList(http)
 
-function update() {
+function save() {
+    if (http.processing) {
+        return
+    }
+
     http.put(ArmyListController.update.url(armyList), {
         onBefore: () => {
             http.units = http.units.filter(u => u.quantity > 0)
@@ -53,13 +58,52 @@ function update() {
             armyList.units = response.armyList.units.map((u) => ({ ...u }))
             armyList.public = response.armyList.public
             armyList.faction_id = response.armyList.faction_id
-            toast.success(response.message)
         },
         onError: () => {
-            toast.error('Failed to update army list')
+            toast.error('Failed to save army list')
+        },
+        onFinish: () => {
+            if (http.isDirty) {
+                saveDebounced()
+            }
         },
     })
 }
+
+const saveDebounced = useDebounceFn(save, 800)
+
+const saveStatus = computed(() => {
+    if (http.processing) {
+        return 'saving'
+    }
+    if (http.hasErrors) {
+        return 'error'
+    }
+    if (http.recentlySuccessful) {
+        return 'saved'
+    }
+    return 'idle'
+})
+
+watch(
+    [
+        () => http.display_name,
+        () => http.army_list_type_id,
+        () => http.custom_max_points,
+        () => http.units,
+        () => http.public,
+        () => http.faction_id,
+        () => http.commands,
+    ],
+    () => {
+        if (!http.isDirty) {
+            return
+        }
+
+        saveDebounced()
+    },
+    { deep: true },
+)
 </script>
 <template>
     <ArmyListItemLayout title="Edit" :army-list="armyList">
@@ -79,10 +123,12 @@ function update() {
     <ArmyListSaveBar
         :name="armyList.display_name"
         :faction-id="armyList.faction_id"
+        :command-ids="armyList.commands.map(({id}) => id)"
         :total-cost="totalCost"
         :max-points="maxPoints"
         :processing="http.processing"
         :unit-count="unitCount"
-        @save="update"
+        :autosave="true"
+        :save-status="saveStatus"
     />
 </template>

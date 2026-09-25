@@ -19,7 +19,7 @@ const {
     <div class="d-flex flex-column" :class="{'no-print': printMode, 'min-vh-100': !printMode}">
         <AppHeader />
         <div class="bg-main flex-grow-1">
-            <main class="flex-grow-1 py-4" :class="{
+            <main class="flex-grow-1 pt-4" :class="{
                 'container-fluid': containerFluid,
                 'container': !containerFluid,
             }">

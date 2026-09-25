@@ -11,7 +11,13 @@
     height: 1rem;
     opacity: 0.85;
     background: repeating-linear-gradient(135deg, var(--hazard-bg) 0 10px, rgba(0, 0, 0, 0) 10px 20px);
+}
 
+.hazard-title {
+    line-height: 1;
+}
+.hazard-title-strip {
+    opacity: 0.15;
 }
 
 @mixin hazard-variant($name, $background) {

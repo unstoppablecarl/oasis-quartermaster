@@ -4,8 +4,6 @@ import { computed, watch } from 'vue'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
 import { clearArmyListDraft, loadArmyListDraft, saveArmyListDraft } from '../../lib/armyListDraft'
-import { getArmyListFactionValidator } from '../../lib/faction-validators'
-import { getFactionName } from '../../lib/static-data-helpers'
 import { login, register } from '../../routes'
 import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
@@ -57,8 +55,13 @@ function save() {
     <ArmyListItemHeader title="Create" description="Army List" />
 
     <ArmyListFields :is-creating="true" :army-list="form" :errors="form.errors" />
-    <ArmyListUnits :army-list="form" />
-    <UnitPicker @add="add" :army-list="form" />
+
+    <Teleport to="#before-page-footer-teleport" defer>
+        <div class="container-fluid">
+            <ArmyListUnits :army-list="form" />
+            <UnitPicker @add="add" :army-list="form" />
+        </div>
+    </Teleport>
 
     <ArmyListSaveBar
         :name="form.display_name"
@@ -68,7 +71,9 @@ function save() {
         :processing="form.processing"
         :save-disabled="!auth.user"
         :unit-count="unitCount"
+        :command-ids="form.commands.map(({id}) => id)"
         @save="save"
+        :autosave="false"
     >
         <template v-if="!auth.user" #note>
             An account is required to save.

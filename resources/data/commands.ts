@@ -5,7 +5,7 @@ export type Command = {
     card_back: string
 }
 
-export const COMMANDS: Record<string, Command> = {
+export const COMMANDS = {
     FIREPOWER: {
         id: 1,
         display_name: 'Firepower',
@@ -36,7 +36,7 @@ export const COMMANDS: Record<string, Command> = {
         card_front: 'Survive.png',
         card_back: 'Command Card Back.png',
     },
-} satisfies Record<string, Command>
+} as const satisfies Record<string, Command>
 
 export type CommandId = (typeof COMMANDS)[keyof typeof COMMANDS]['id']
 

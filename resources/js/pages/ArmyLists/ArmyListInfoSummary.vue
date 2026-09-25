@@ -29,6 +29,9 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
                     <span class="ms-4">
                         <strong class="text-body-emphasis">Commands: </strong>
                         {{ commands.map(c => c.display_name).join(', ') }}
+                        <span v-if="!commands.length" class="text-danger-emphasis">
+                            No Command Cards Selected
+                        </span>
                     </span>
 
                     <span class="ms-4">
@@ -41,10 +44,9 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
 
                 <div class="mx-3">
                     <strong class="text-body-emphasis"> Unit Count: </strong>
-
                     {{ unitCount }}
-
                 </div>
+
                 <div class="ms-3">
                     <strong class="text-body-emphasis"> Total Points: </strong>
                     <Fraction :a="totalCost" :b="maxPoints" />

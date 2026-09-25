@@ -14,10 +14,5 @@ const { variant } = defineProps<{
     </div>
 </template>
 <style lang="scss">
-.hazard-title {
-    line-height: 1;
-}
-.hazard-title-strip {
-    opacity: 0.15;
-}
+
 </style>

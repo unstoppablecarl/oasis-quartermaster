@@ -13,7 +13,7 @@ export const UNITS_BY_ID = Object.values(UNITS).reduce((acc, unit) => {
     return acc
 }, {} as Record<UnitId, Unit>)
 
-export const COMMANDS_BY_ID = Object.values(COMMANDS).reduce((acc, command) => {
+export const COMMANDS_BY_ID: Record<CommandId, Command> = Object.values(COMMANDS).reduce((acc, command) => {
     acc[command.id] = command
     return acc
 }, {} as Record<CommandId, Command>)
