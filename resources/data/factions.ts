@@ -27,7 +27,7 @@ export const FACTIONS = {
     SURVEYFI: {
         id: 4,
         display_name: 'SurveyFI',
-        card_front: 'SurveyFI.png',
+        card_front: 'SurveyFi.png',
         card_back: 'Faction Card Back.png',
     },
 } as const satisfies Record<string, Faction>
