@@ -19,24 +19,24 @@ export const ABILITIES: Record<string, Ability> = {
         display_name: 'Remote Surveyor',
     },
     REPOSITION: {
-        display_name: 'Reposition [X"]',
-        matcher: /^Reposition \[\d+"]?$/i,
+        display_name: 'Reposition [X]',
+        matcher: /^Reposition \[\d+]?$/i,
     },
     REPOSITION_FIXED_WING: {
-        display_name: 'Reposition: Fixed Wing',
+        display_name: 'Reposition: Fixed Wing [X]',
+        matcher: /^Reposition: Fixed Wing \[\d+]?$/i,
     },
     SMOKE_GRENADES: {
         display_name: 'Smoke Grenades [X]',
         matcher: /^Smoke Grenades \[\d+]?$/i,
     },
-    SURVEYOR: {
-        display_name: 'Surveyor',
-    },
     TARGET_DESIGNATOR: {
         display_name: 'Target Designator',
     },
     WEAPON_CYCLING: {
-        display_name: 'Weapon Cycling',
+        display_name: 'Weapon Cycling: X',
+        matcher: /^Weapon Cycling: .*?$/i,
+
     },
     FLEXIBLE_DEPLOYMENT: {
         display_name: 'Flexible Deployment',
@@ -75,8 +75,8 @@ export const ABILITIES: Record<string, Ability> = {
         display_name: 'Active Countermeasures',
     },
     ESCORT: {
-        display_name: 'Escort [X"]',
-        matcher: /^Escort \[\d+"]?$/i,
+        display_name: 'Escort [X]',
+        matcher: /^Escort \[\d+]?$/i,
     },
     MODULAR_PAYLOAD: {
         display_name: 'Modular Payload',
@@ -96,6 +96,9 @@ export type Trait = {
 export const TRAITS: Record<string, Trait> = {
     ARMORED: {
         display_name: 'Armored',
+    },
+    SURVEYOR: {
+        display_name: 'Surveyor',
     },
     AIRCRAFT: {
         display_name: 'Aircraft',

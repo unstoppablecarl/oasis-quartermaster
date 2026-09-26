@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 import { computed, watch } from 'vue'
+import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
 import { useArmyList } from '../../composables/useArmyList'
 import {
@@ -50,6 +51,14 @@ function save() {
     form.post(ArmyListController.store.url(), {
         onSuccess: () => {
             clearArmyListDraft()
+        },
+        onError: (errors) => {
+            const messages = Object.values(errors).flat()
+            toast.error(
+                messages.length
+                    ? messages.join('\n')
+                    : 'Failed to save army list',
+            )
         },
     })
 }

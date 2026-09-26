@@ -60,7 +60,7 @@ function resolveColumns(headerRow) {
     return {
         COL: {
             ID: col('Unique ID'),
-            QTY_IN_BASE_SET: col('Qty in Base Set'),
+            WAVE: col('Wave'),
             NAME: col('Name'),
             PREFIX: col('Prefix'),
             CLASS: col('Class'),
@@ -78,11 +78,11 @@ function resolveColumns(headerRow) {
             DODGE: col('Dod'),
             DEFENSE: col('Def'),
             HP: col('HP'),
-            SPEED: col('Speed'),
+            SPEED: col('Move'),
             CARDS_FRONT: col('Card File Names'),
         },
         WEAPON_COLS: (positions.RNG ?? []).map((_, i) => ({
-            name: columnIndex(positions, 'NAME', i),
+            name: columnIndex(positions, 'Name', i + 1),
             range: columnIndex(positions, 'RNG', i),
             accuracy: columnIndex(positions, 'ACC', i),
             damage: columnIndex(positions, 'DMG', i),
@@ -202,7 +202,6 @@ function parseUnit(row, id, columns) {
         class: str(row[COL.CLASS]),
         prefix: str(row[COL.PREFIX]),
         manufacturer: str(row[COL.MANUFACTURER]),
-        qty_in_base_set: num(row[COL.QTY_IN_BASE_SET]),
         base_size: str(row[COL.BASE_SIZE]),
         base_qty: num(row[COL.BASE_QTY]),
         models_per_squad: num(row[COL.MODELS_PER_SQUAD]),
@@ -216,7 +215,7 @@ function parseUnit(row, id, columns) {
         dodge: num(row[COL.DODGE]),
         defense: num(row[COL.DEFENSE]),
         hp: num(row[COL.HP]),
-        speed: str(row[COL.SPEED]),
+        move: str(row[COL.SPEED]),
         weapons: WEAPON_COLS.map((weaponCols) =>
             parseWeapon(row, weaponCols),
         ).filter(Boolean),
@@ -283,15 +282,16 @@ async function main() {
     const units = {}
 
     for (const row of rows) {
-        const name = str(row[columns.COL.NAME])
-        const key = slugKey(name)
-
-        if (usedKeys.has(key)) {
-            throw new Error(`duplicate unit key generated from name: ${name}`)
+        if (num(row[columns.COL.WAVE]) !== 1) {
+            continue
         }
-        usedKeys.add(key)
-
+        const name = str(row[columns.COL.NAME])
         const id = num(row[columns.COL.ID])
+        if (usedKeys.has(id)) {
+            throw new Error(`duplicate unit id found for : ${name}`)
+        }
+        usedKeys.add(id)
+
         if (id === null) {
             throw new Error(`missing Unique ID for unit: ${name}`)
         }
@@ -300,6 +300,7 @@ async function main() {
         }
         usedIds.add(id)
 
+        const key = slugKey(name) + '_' + id
         units[key] = parseUnit(row, id, columns)
     }
 
@@ -316,7 +317,7 @@ async function main() {
 }
 
 main().catch((error) => {
-    console.error(error.message)
+    console.error(error.stack ?? error.message)
     process.exitCode = 1
 })
 
@@ -335,7 +336,6 @@ export type Unit = {
     class: string | null
     prefix: string | null,
     manufacturer: string | null
-    qty_in_base_set: number | null
     base_size: string | null
     base_qty: number | null
     models_per_squad: number | null
@@ -349,7 +349,7 @@ export type Unit = {
     dodge: number | null
     defense: number | null
     hp: number | null
-    speed: string | null
+    move: string | null
     weapons: Weapon[]
     abilities: string[]
     traits: string[]

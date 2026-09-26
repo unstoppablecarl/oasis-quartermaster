@@ -47,7 +47,7 @@ type SortKey =
     | 'dodge'
     | 'defense'
     | 'hp'
-    | 'speed'
+    | 'move'
     | 'cost'
     | 'quantity'
     | 'totalCost'
@@ -63,7 +63,7 @@ const sortAccessors: Record<SortKey, (unit: Row) => string | number | null> = {
     dodge: (unit) => unit.dodge,
     defense: (unit) => unit.defense,
     hp: (unit) => unit.hp,
-    speed: (unit) => unit.speed,
+    move: (unit) => unit.move,
     cost: (unit) => unit.cost,
     quantity: (unit) => unit.quantity,
     totalCost: (unit) => unit.quantity * unit.cost,
@@ -322,12 +322,12 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         <div
                             class="number-cell sort-header"
                             :class="{
-                                'sort-header-active': sortKey === 'speed',
+                                'sort-header-active': sortKey === 'move',
                             }"
-                            @click="toggleSort('speed')"
+                            @click="toggleSort('move')"
                         >
                             Move
-                            <component :is="sortIconFor('speed')" :size="14" />
+                            <component :is="sortIconFor('move')" :size="14" />
                         </div>
                         <div>Weapons</div>
                         <div>Traits</div>
@@ -420,7 +420,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         </div>
                         <div class="number-cell-sortable">{{ unit.hp }}</div>
                         <div class="number-cell-sortable ws-nowrap">
-                            {{ unit.speed }}
+                            {{ unit.move }}
                         </div>
                         <div>
                             {{

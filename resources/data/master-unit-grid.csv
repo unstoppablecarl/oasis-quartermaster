@@ -1,39 +1,39 @@
-,,,,,,,,,,,,,,,,,,,,,WEAPON 1,,,,,WEAPON 2,,,,,WEAPON 3,,,,,WEAPON 4,,,,,,,,,,,,
-Qty in Base Set,Unique ID,Prefix,Name,Class Abr,Class,Manufacturer,Base Size,Base Qty,Models per Squad,Models per Pack,Magnets,Flight Stand,Stand Length,Flight Connector,Pts,Init,Dod,Def,HP,Speed,NAME,RNG,ACC,DMG,KEY,NAME,RNG,ACC,DMG,KEY,NAME,RNG,ACC,DMG,KEY,NAME,RNG,ACC,DMG,KEY,Trait,Trait,Trait,Ability,Ability,Ability,Ability,Card File Names
-,1,GVX-II,Tigershark,,Gravfrigate,General Kinetics,45F,1,1,1,2,4mm,90mm,n/a,190,2,2,8,7,8,,10,4,6,AP,,14,4+2,4+2,2x/AP,,18,4,6+1,2x/Spl/AP,,6,6+1,4,2x,Aircraft: Heavy Grav Drive,Large Craft: Degradation,Armored,Active Countermeasures,"Escort [6""]",Modular Payload,Repair Systems,"Tigershark, Tigershark 2"
-,2,,Type-92,,Siege Frigate,Hibiki Heavy Industries,45F,1,1,1,0,4mm,90mm,n/a,,2,3,8,6,10,,,,,,,,,,,,,,,,,,,,,Aircraft,Clumsy,Armored,,,,,
-,3,,Gorgon,,Grav Corvette,Karkov Design Bureau,2875F,1,1,1,3,1.5mm,73mm,Flat,,3,3,8,5,12 + R4,,10,5,6,4x,,6,6+2,4+1,2x/Air,,,,,,,,,,,Aircraft,,Armored,"Reposition [4""]","Escort [1""]",,,
-,4,,Condor,,Heavy Lift VTOL,Sturmlanze AG,2875F,1,1,1,0,1.5mm,73mm,Angled,,3,5,6,4,10 + R6,,,,,,,,,,,,,,,,,,,,,Aircraft,Transport [1],,"Reposition [6""]",,,,
-,5,V292,Roc,,Assault Transport VTOL,Keystone Extraction,25F,1,1,1,0,1.5mm,70mm,Angled,82,3,7,6,3,14 + R6,,10,4,6,2x/AP,,8,6,4,2x,,,,,,,,,,,Aircraft: VTOL,Transport [2],Armored,"Reposition [6""]",,,,Roc
-,6,OA-10-J ,Albatross,,Tactical Gunship,Horizon Systems,25F,1,1,1,0,1.5mm,90mm,Flat,55,6,8,4,2,22 + R8,,10,5,6+1,AP,,6,6+1,2,,,,,,,,,,,,Aircraft: Fixed Wing,,,"Reposition [8""]",Weapon Cycling,Precision Support: Ground,,Albatross
-,7,,Cobra,,Fighter,MK Ostlund,2125F,1,1,1,0,1.5mm,90mm,Flat,,6,9,3,1,28 + R10,,10,6+2,3+1,Air,,6,5,3,,,,,,,,,,,,Aircraft: Fixed Wing,,,"Reposition [10""]",,,,
-,8,L-24B,Titan,,Heavy Lift VTOL,Midland Fabrication,25F,1,1,1,0,1.5mm,50mm,Angled,65,3,5,6,4,12 + R4,,,,,,,,,,,,,,,,,,,,,Aircraft: VTOL,Heavy Lift Transport [1],Armored,"Reposition [4""]",,,,
-,9,V212,Raven,,Attack VTOL,Keystone-Ostlund,2125F,1,1,1,0,1.5mm,70mm,Angled,38,5,8,5,1,20 + R8,,10,5,6,AP,,8,6,3,,,,,,,,,,,,Aircraft: VTOL,,,"Reposition [8""]",Precision Support: Ground,,,Raven
-,10,UHB, Bandit,,Support VTOL,Sturmlanze AG,2125F,1,1,1,0,1.5mm,70mm,Angled,50,4,8,4,2,18 + R8,,8,6,4,2x,,,,,,,,,,,,,,,,Aircraft: VTOL,Transport [1],Laser Dazzler,"Reposition [8""]",,,,Bandit
-,11,V312, Mammoth,,Expeditonary Platform,Keystone Extraction,25,1,1,1,0,n/a,,n/a,69,2,4,7,3,8,,18,4,6,2x,,8,6,4,2x,,,,,,,,,,,,Transport [2],Armored,Surveyor,Smoke Grenades [2],,,
-,12,GV-18,Zeus,,Superheavy Gravtank,General Kinetics,2125F,1,1,1,1,n/a,,n/a,77,2,4,8,3,8,,16,5,6+2,AP,,12,4,6,2x/AP,,6,6,3,2x,,,,,,Grav Drive,,Armored,,Smoke Grenades [1],,,
-,13,GV-15, Nyx,,Heavy Gravtank,General Kinetics,175F,1,1,1,1,n/a,,n/a,34,3,4,7,2,8,,16,5,6+1,AP,,4,6,1,,,,,,,,,,,,Grav Drive,,Armored,,Smoke Grenades [1],,,Nyx
-,14,,Brigand,,Strike Craft,Hibiki Heavy Industries,175F,1,1,1,0,n/a,,n/a,,4,7,5,1,12 + R8,,,,,,,,,,,,,,,,,,,,,Grav Drive,,,"Reposition [8""]",,,,
-,15,AEGV-18,Buffalo,,Salvage Recovery Vehicle,General Kinetics-Keystone,175F,1,1,1,1,n/a,,n/a,30,3,4,3,2,8 + R6,,,,,,,,,,,,,,,,,,,,,Grav Drive,Transport [2],,"Reposition [6""]",Surveyor,,,Buffalo
-,16,,Buffalo Q-Craft,,Q-Craft,General Kinetics-Keystone,175F,1,1,1,1,n/a,,n/a,25,3,4,3,2,8 + R6,,10,5,6+1,AP,,6,4,4,Gnd/Spl,,,,,,,,,,,Grav Drive,Q-Craft,,"Reposition [6""]",,,,
-,17,,Drake,,Heavy Battle Hovertank,Burnside-Mason Engineering,175F,1,1,1,1,n/a,,n/a,,3,6,6,1,,,,,,,,,,,,,,,,,,,,,,,,Armored,,,,,
-,18,,Hercules,,Fast Transport,Keystone Extraction,175,1,1,1,0,n/a,,n/a,,4,5,3,1,10 + R6,,,,,,,,,,,,,,,,,,,,,,Transport [2],,"Reposition [6""]",,,,
-,19,V323,Chariot,L.A.V.,Light Attack Vehicle,Keystone-Ostlund,1375,1,1,1,1,n/a,,n/a,25,4,6,4,1,10,,12,6+2,4,,,,,,,,,,,,,,,,,,Transport [1],,Smartburst Rounds,"Escort [8""]",,,
-,20,KF152,Rhino,MBT,Main Battle Tank,Sturmlanze AG,1375,1,1,1,1,n/a,,n/a,20,3,5,6,1,8,,12,5,5+1,AP,,,,,,,,,,,,,,,,,,Armored,,,,,
-,21,,Weasel,,Missile Platform,Sturmlanze AG,1375,1,1,1,1,n/a,,n/a,,3,5,5,1,8,,,,,,,,,,,,,,,,,,,,,,,,,"Escort [1""]",,,
-,22,,Scarab,,Armored Personel Carrier,Sturmlanze AG,1375,1,1,1,0,n/a,,n/a,,3,5,4,1,8,,,,,,,,,,,,,,,,,,,,,,Transport [1],,,,,,
-,23,V217-C ,Coyote,F.A.V.,Fast Attack Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,14,5,6,3,1,12 + R4,,8,3,6,AP,,,,,,,,,,,,,,,,,,,"Reposition [4""]",,,,
-,24,V217-A,Fox,Escort,Fast Escort Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,17,5,6,3,1,"14""",,8,6+1,3,2x,,,,,,,,,,,,,,,,,,,,"Escort [4""]",,,
-no stats,25,V217-B,Hound,Scout,Scout Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,,5,6,3,1,12 + R4,,,,,,,,,,,,,,,,,,,,,,,,"Reposition [4""]",Surveyor,Target Designator,,
-,26,GH54 ,Mantis,,Combat Drones,Sturmlanze AG,1S,4,2,8,0,n/a,,n/a,13,3,6,3,1,6,,8,6,3,,,,,,,,,,,,,,,,,,Squad,Networked Automation,,Embark / Disembark,,,
-,27,AES-16A, Oni,,Power Armor,Burnside-Mason Engineering,1S,3,3,9,0,n/a,,n/a,22,4,8,2,1,8,,6,5,2,,,0,6,4,AP/GND,,,,,,,,,,,Jump Packs,Squad,,Hitchhiker,Embark / Disembark,,,Oni
-,28,,Oni-P,,Pathfinder Armor,Burnside-Mason Engineering,1S,3,2,6,0,n/a,,n/a,,4,8,2,1,10,,,,,,,,,,,,,,,,,,,,,Jump Packs,Squad,,,Embark / Disembark,Surveyor,,
-,29,,Oni-H,,Assault Armor,Burnside-Mason Engineering,1S,3,2,6,0,n/a,,n/a,,3,7,3,1,6,,,,,,,,,,,,,,,,,,,,,Jump Packs,Squad,,,Embark / Disembark,,,
-,30,,Infantry,,Standard Unaugmented Squad,Various,1S,4,4,16,0,n/a,,n/a,,3,7,1,1,4,,,,,,,,,,,,,,,,,,,,,,Squad,,,Embark / Disembark,,,
-,31,,Narwhal,,Cargo Interface Drone,Keystone Orbital,175,1,1,1,0,n/a,,n/a,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,32,,Mole,,Heavy Power Suit,,,3,2,6,0,n/a,,,,3,6,3,1,4,,,,,,,,,,,,,,,,,,,,,,,,,,Surveyor,,
-,33,,Hawkmoth,,Hunter-Killer UAV,,,3,1,3,0,.5mm,,,,4,8,2,1,10 + R8,,,,,,,,,,,,,,,,,,,,,,Networked Automation,,"Reposition [8""]",,,,
-,34,,T-174 ,,MBT,Karkov Design Bureau,,1,1,1,1,n/a,,,,3,6,5,1,10,,,,,,,,,,,,,,,,,,,,,,,Armored,,,,,
-,35,,Orca,,Light Strike VTOL,,,1,1,1,0,1.5mm,,Angled,,5,9,3,1,18 + R10,,,,,,,,,,,,,,,,,,,,,,,,"Reposition [10""]",,,,
-,36,,Hammerhead,,Grav Destroyer,,,1,1,1,?,4mm,,,,1,1,10,10,8,,,,,,,,,,,,,,,,,,,,,,,Armored,,,,,
-,37,,Yokai,,Drone Interceptor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,WEAPON 1,,,,,WEAPON 2,,,,,WEAPON 3,,,,,WEAPON 4,,,,,,,,,,,,,
+Wave,Unique ID,Prefix,Name,Class Abr,Class,Manufacturer,Base Size,Base Qty,Models per Squad,Models per Pack,Magnets,Flight Stand,Stand Length,Flight Connector,Pts,Init,Dod,Def,HP,Move,Name,RNG,ACC,DMG,KEY,Name,RNG,ACC,DMG,KEY,Name,RNG,ACC,DMG,KEY,Name,RNG,ACC,DMG,KEY,Trait,Trait,Trait,Ability,Ability,Ability,Ability,Card File Names,Speed Plus Repo (reference only)
+1,1,OA-10-J ,Albatross,,Tactical Gunship,Horizon Systems,25F,1,1,1,0,1.5mm,90mm,Flat,55,6,8,4,2,22,50MM Railgun [AP],10,5,6+1,AP,30MM Autocannons,6,6+1,2,,,,,,,,,,,,Aircraft: Fixed Wing,,,Precision Support: Ground,Weapon Cycling: 50mm Raillgun,Reposition: Fixed Wing [8],,Albatross,22 + R8
+1,2,UHB,Bandit,,Utility VTOL,Sturmlanze AG,2125F,1,1,1,0,1.5mm,70mm,Angled,50,4,8,4,2,18,30MM Rotary Autocannon [2 ATKS],8,6,4,2x,,,,,,,,,,,,,,,,Aircraft: VTOL,Laser Dazzler,Transport [1],,Reposition [8],,,Bandit,18 + R8
+,,,Brigand,,Strike Craft,Hibiki Heavy Industries,175F,1,1,1,0,n/a,,n/a,,4,7,5,1,12 + R8,,,,,,,,,,,,,,,,,,,,,Grav Drive,Reposition [8],,,,,,,12 + R8
+1,3,AEGV-18,Buffalo,,Salvage Recovery Vehicle,General Kinetics-Keystone,175F,1,1,1,1,n/a,,n/a,30,3,4,3,2,8,,,,,,,,,,,,,,,,,,,,,Grav Drive,Surveyor,Transport [2],Reposition [6],,,,Buffalo,8 + R6
+1,4,,Buffalo,,Q-Craft,General Kinetics-Keystone,175F,1,1,1,1,n/a,,n/a,25,3,4,3,2,8,120MM Recoilless Rifle [AP],10,5,6+1,AP,"Broadside Rockets [GND] [SPLASH 2""]",6,4,4,Gnd/Spl,,,,,,,,,,,Grav Drive,Q-Craft,,Reposition [6],,,,,8 + R6
+1,5,V323,Chariot,L.A.V.,Light Attack Vehicle,Keystone-Ostlund,1375,1,1,1,1,n/a,,n/a,25,4,6,4,1,10,50MM Smart Munitions Autocannon,12,6+2,4,,,,,,,,,,,,,,,,,Transport [1],,,Escort [8],Smartburst Rounds,,,,10
+,,,Cobra,,Fighter,MK Ostlund,2125F,1,1,1,0,1.5mm,90mm,Flat,,6,9,3,1,28 + R10,,10,6+2,3+1,Air,,6,5,3,,,,,,,,,,,,Aircraft: Fixed Wing,Reposition [10],,,,,,,28 + R10
+,,,Condor,,Heavy Lift VTOL,Sturmlanze AG,2875F,1,1,1,0,1.5mm,73mm,Angled,,3,5,6,4,10 + R6,,,,,,,,,,,,,,,,,,,,,Aircraft,Reposition [6],Transport,,,,,,10 + R6
+1,6,V217-C ,Coyote,F.A.V.,Fast Attack Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,14,5,6,3,1,12,Guided Missiles [AP],8,3,6,AP,,,,,,,,,,,,,,,,,,,Reposition [4],,,,,12 + R4
+,,,Drake,,Heavy Battle Hovertank,Burnside-Mason Engineering,175F,1,1,1,1,n/a,,n/a,,3,6,6,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,7,V217-A,Fox,Escort,Fast Escort Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,17,5,6,3,1,14,25MM CIWS [2 ATKS],8,6+1,3,2x,,,,,,,,,,,,,,,,,,,Escort [4],,,,,"14"""
+,,,Gorgon,,Grav Corvette,Karkov Design Bureau,2875F,1,1,1,3,1.5mm,73mm,Flat,,3,3,8,5,12 + R4,,10,5,6,4x,,6,6+2,4+1,2x/Air,,,,,,,,,,,Aircraft,Reposition [4],Escort,,,,,,12 + R4
+,,,Hammerhead,,Grav Destroyer,,,1,1,1,?,4mm,,,,1,1,10,10,8,,,,,,,,,,,,,,,,,,,,,,,,,,,,,8
+,,,Hawkmoth,,Hunter-Killer UAV,,,3,1,3,0,.5mm,,,,4,8,2,1,10 + R8,,,,,,,,,,,,,,,,,,,,,,Reposition, ,Networked Automation,,,,,10 + R8
+,,,Hercules,,Fast Transport,Keystone Extraction,175,1,1,1,0,n/a,,n/a,,4,5,3,1,10 + R6,,,,,,,,,,,,,,,,,,,,,,Reposition [6],Transport [2],,,,,,10 + R6
+1,8,V217-B,Hound,Scout,Scout Vehicle,Keystone Extraction,1,2,1,2,0,n/a,,n/a,,5,6,3,1,12,,,,,,,,,,,,,,,,,,,,,Surveyor,,,Reposition [4],Target Designator,,,,12 + R4
+,,,Infantry,,Standard Unaugmented Squad,Various,1S,4,4,16,0,n/a,,n/a,,3,7,1,1,4,,,,,,,,,,,,,,,,,,,,,,,Embark / Disembark,,Squad,,,,4
+1,9,V312,Mammoth,,Expeditonary Platform,Keystone Extraction,25,1,1,1,0,n/a,,n/a,69,2,4,7,3,8,Thermobaric Rocket Battery [2 ATKS],18,4,6,2x,20mm CIWS [2 ATKS],8,6,4,2x,,,,,,,,,,,Surveyor,Armored,Transport [2],Smoke Grenades [2],,,,,8
+1,10,GH54 ,Mantis,,Defense Drones,Sturmlanze AG,1S,4,2,8,0,n/a,,n/a,13,3,6,3,1,6,20MM Autocannon,8,6,3,,,,,,,,,,,,,,,,,Squad,Networked Automation,,Embark / Disembark,,,,,6
+,,,Mole,,Heavy Power Suit,,,3,2,6,0,n/a,,,,3,6,3,1,4,,,,,,,,,,,,,,,,,,,,,,,Surveyor,,,,,,4
+,,,Narwhal,,Cargo Interface Drone,Keystone Orbital,175,1,1,1,0,n/a,,n/a,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,11,GV-15,Nyx,,Heavy Gravtank,General Kinetics,175F,1,1,1,1,n/a,,n/a,34,3,4,7,2,8,50MM Railgun [AP],16,5,6+1,AP,Point Defense Turret,4,6,1,,,,,,,,,,,,Grav Drive,Armored,,Smoke Grenades [1],,,,Nyx,8
+1,12,AES-16A,Oni,,Power Armor,Burnside-Mason Engineering,1S,3,3,9,0,n/a,,n/a,22,4,8,2,1,8,Heavy Machine Guns,6,5,2,,Tungsten Claws [AP] [GND],0,6,4,AP/GND,,,,,,,,,,,Squad,Jump Packs,,Hitchhiker,Embark / Disembark,,,Oni,8
+,,,Oni-H,,Assault Armor,Burnside-Mason Engineering,1S,3,2,6,0,n/a,,n/a,,3,7,3,1,6,,,,,,,,,,,,,,,,,,,,,Jump Packs,,Embark / Disembark,,Squad,,,,6
+,,,Oni-P,,Pathfinder Armor,Burnside-Mason Engineering,1S,3,2,6,0,n/a,,n/a,,4,8,2,1,10,,,,,,,,,,,,,,,,,,,,,Jump Packs,Surveyor,Embark / Disembark,,Squad,,,,10
+,,,Orca,,Light Strike VTOL,,,1,1,1,0,1.5mm,,Angled,,5,9,3,1,18 + R10,,,,,,,,,,,,,,,,,,,,,,Reposition,,,,,,,18 + R10
+1,13,V212,Raven,,Attack VTOL,Keystone-Ostlund,2125F,1,1,1,0,1.5mm,70mm,Angled,38,5,8,5,1,20,Guided Missiles [AP],10,5,6,AP,30MM Autocannon,8,6,3,,,,,,,,,,,,Aircraft: VTOL,,,Precision Support: Ground,Reposition [8],,,Raven,20 + R8
+1,14,KF152,Rhino,MBT,Main Battle Tank,Sturmlanze AG,1375,1,1,1,1,n/a,,n/a,20,3,5,6,1,8,140MM Cannon [AP],12,5,5+1,AP,,,,,,,,,,,,,,,,Armored,,,,,,,,8
+1,15,V292,Roc,,Assault Transport VTOL,Keystone Extraction,25F,1,1,1,0,1.5mm,70mm,Angled,82,3,7,6,3,14,Heavy Guided Missiles [2 ATKS] [AP],10,4,6,2x/AP,40MM Autocannon [2 ATKS],8,6,4,2x,,,,,,,,,,,Aircraft: VTOL,Armored,Transport [2],Reposition [6],,,,Roc,14 + R6
+,,,Scarab,,Armored Personel Carrier,Sturmlanze AG,1375,1,1,1,0,n/a,,n/a,,3,5,4,1,8,,,,,,,,,,,,,,,,,,,,,,,Transport,,,,,,8
+,,,T-174 ,,MBT,Karkov Design Bureau,,1,1,1,1,n/a,,,,3,6,5,1,10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,10
+1,16,GVX-II,Tigershark,,Gravfrigate,General Kinetics,45F,1,1,1,2,4mm,90mm,n/a,190,2,2,8,7,8,Heavy Guided Missiles [AP],10,4,6,AP,120MM Cannon [2 ATKS] [AP],14,4+2,4+2,2x/AP,"VLS Battery [2 ATKS] [2"" SPLASH]",18,4,6+1,2x/Spl/AP,Point Defense [2 ATKS],6,6+1,4,2x,Aircraft: Heavy Grav Drive,Large Craft: Degradation,Armored,Modular Payload,Escort [6],Repair Systems,Active Countermeasures,"Tigershark, Tigershark 2",8
+1,17,L-24B,Titan,,Heavy Lift VTOL,Midland Fabrication,25F,1,1,1,0,1.5mm,50mm,Angled,65,3,5,6,4,12,,,,,,,,,,,,,,,,,,,,,Aircraft: VTOL,Armored,Heavy Lift Transport [1],Reposition [4],,,,,12 + R4
+,,,Type-92,,Siege Frigate,Hibiki Heavy Industries,45F,1,1,1,0,4mm,90mm,n/a,,2,3,8,6,10,,,,,,,,,,,,,,,,,,,,,Aircraft,,,,,,Clumsy,,10
+,,,Weasel,,Missile Platform,Sturmlanze AG,1375,1,1,1,1,n/a,,n/a,,3,5,5,1,8,,,,,,,,,,,,,,,,,,,,,,,Escort,,,,,,8
+,,,Yokai,,Drone Interceptor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,18,GV-18,Zeus,,Superheavy Gravtank,General Kinetics,2125F,1,1,1,1,n/a,,n/a,77,2,4,8,3,8,60MM Dual Railgun [AP],16,5,6+2,AP,Heavy Guided Missiles [2 ATKS] [AP],12,4,6,2x/AP,30MM Autocannon [2 ATKS],6,6,3,2x,,,,,,Grav Drive,Armored,,,,Smoke Grenades [1],,,8
