@@ -185,7 +185,7 @@ function sortMode(key: string) {
 </template>
 <style lang="scss">
 .table-army-lists {
-   table > thead > tr {
+    table > thead > tr {
         > th {
             white-space: nowrap;
         }

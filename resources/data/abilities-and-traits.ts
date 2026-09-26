@@ -36,7 +36,6 @@ export const ABILITIES: Record<string, Ability> = {
     WEAPON_CYCLING: {
         display_name: 'Weapon Cycling: X',
         matcher: /^Weapon Cycling: .*?$/i,
-
     },
     FLEXIBLE_DEPLOYMENT: {
         display_name: 'Flexible Deployment',

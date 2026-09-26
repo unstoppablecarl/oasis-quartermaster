@@ -57,7 +57,6 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                     </span>
                 </Link>
 
-
                 <div v-if="auth.user" class="dropdown">
                     <button
                         class="btn d-flex align-items-center gap-2 border-0 shadow-none"
@@ -149,9 +148,13 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                             </Link>
                         </li>
                         <li class="nav-item position-relative">
-                            <a class="nav-link" href="https://oasiswargame.com" target="_blank">oasiswargame.com</a>
+                            <a
+                                class="nav-link"
+                                href="https://oasiswargame.com"
+                                target="_blank"
+                                >oasiswargame.com</a
+                            >
                         </li>
-
                     </ul>
                 </div>
             </div>

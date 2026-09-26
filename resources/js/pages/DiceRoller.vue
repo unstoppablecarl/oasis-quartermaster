@@ -3,11 +3,13 @@ import { Head } from '@inertiajs/vue3'
 import { nextTick, ref } from 'vue'
 import Header from './DiceRoller/Header.vue'
 
-const faces = new Array(8).fill(0).map((v, i) => i)
+const faces = Array.from({ length: 8 }, (e, i) => i)
 
 const diceToRoll = ref(3)
 const diceResults = ref<number[]>([])
-const isRolling = ref<(false | NodeJS.Timeout)[]>(new Array(8).fill(false))
+const isRolling = ref<(false | NodeJS.Timeout)[]>(
+    Array.from({ length: 8 }, () => false),
+)
 const diceRefs = ref<HTMLElement[]>([])
 
 function randomArrayValue<T>(array: T[], rng: () => number = Math.random): T {

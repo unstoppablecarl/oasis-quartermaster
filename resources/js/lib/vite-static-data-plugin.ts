@@ -77,7 +77,7 @@ export function staticDataPlugin(): Plugin {
 function getDuplicateIds(items: Record<string, any>) {
     const duplicates: Set<number> = new Set()
     const ids: number[] = []
-    for (const [key, item] of Object.entries(items)) {
+    for (const item of Object.values(items)) {
         if (ids.includes(item.id)) {
             duplicates.add(item.id)
         }

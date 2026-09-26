@@ -1,1003 +1,866 @@
 {
-  "ABILITIES": {
-    "EMBARK_DISEMBARK": {
-      "display_name": "Embark / Disembark"
+    "ABILITIES": {
+        "EMBARK_DISEMBARK": {
+            "display_name": "Embark / Disembark"
+        },
+        "HITCHHIKER": {
+            "display_name": "Hitchhiker"
+        },
+        "PRECISION": {
+            "display_name": "Precision [X]",
+            "matcher": {}
+        },
+        "REMOTE_SURVEYOR": {
+            "display_name": "Remote Surveyor"
+        },
+        "REPOSITION": {
+            "display_name": "Reposition [X]",
+            "matcher": {}
+        },
+        "REPOSITION_FIXED_WING": {
+            "display_name": "Reposition: Fixed Wing [X]",
+            "matcher": {}
+        },
+        "SMOKE_GRENADES": {
+            "display_name": "Smoke Grenades [X]",
+            "matcher": {}
+        },
+        "TARGET_DESIGNATOR": {
+            "display_name": "Target Designator"
+        },
+        "WEAPON_CYCLING": {
+            "display_name": "Weapon Cycling: X",
+            "matcher": {}
+        },
+        "FLEXIBLE_DEPLOYMENT": {
+            "display_name": "Flexible Deployment"
+        },
+        "DUAL_CORE": {
+            "display_name": "Dual Core"
+        },
+        "MOMENTUM": {
+            "display_name": "Momentum"
+        },
+        "AP": {
+            "display_name": "AP"
+        },
+        "SPLASH": {
+            "display_name": "Splash"
+        },
+        "AIR": {
+            "display_name": "Air"
+        },
+        "GND": {
+            "display_name": "GND"
+        },
+        "INDIRECT_FIRE": {
+            "display_name": "Indirect Fire"
+        },
+        "INDEPENDENT": {
+            "display_name": "Independent"
+        },
+        "CLOSE_QUARTERS": {
+            "display_name": "Close Quarters"
+        },
+        "CQC_SPECIALIST": {
+            "display_name": "CQC Specialist"
+        },
+        "ACTIVE_COUNTERMEASURES": {
+            "display_name": "Active Countermeasures"
+        },
+        "ESCORT": {
+            "display_name": "Escort [X]",
+            "matcher": {}
+        },
+        "MODULAR_PAYLOAD": {
+            "display_name": "Modular Payload"
+        },
+        "REPAIR_SYSTEMS": {
+            "display_name": "Repair Systems"
+        },
+        "SMART_BURST_ROUNDS": {
+            "display_name": "Smartburst Rounds"
+        }
     },
-    "HITCHHIKER": {
-      "display_name": "Hitchhiker"
+    "TRAITS": {
+        "ARMORED": {
+            "display_name": "Armored"
+        },
+        "SURVEYOR": {
+            "display_name": "Surveyor"
+        },
+        "AIRCRAFT": {
+            "display_name": "Aircraft"
+        },
+        "AIRCRAFT_FIXED_WING": {
+            "display_name": "Aircraft: Fixed Wing"
+        },
+        "AIRCRAFT_VTOL": {
+            "display_name": "Aircraft: VTOL"
+        },
+        "AIRCRAFT_HEAVY_GRAV_DRIVE": {
+            "display_name": "Aircraft: Heavy Grav Drive"
+        },
+        "SQUAD": {
+            "display_name": "Squad"
+        },
+        "GRAV_DRIVE": {
+            "display_name": "Grav Drive"
+        },
+        "Q_CRAFT": {
+            "display_name": "Q-Craft"
+        },
+        "NETWORKED_AUTOMATION": {
+            "display_name": "Networked Automation"
+        },
+        "LARGE_CRAFT_DEGRADATION": {
+            "display_name": "Large Craft: Degradation"
+        },
+        "CLUMSY": {
+            "display_name": "CLUMSY"
+        },
+        "TRANSPORT_SALVAGE": {
+            "display_name": "Transport [Salvage]"
+        },
+        "HEAVY_LIFT_TRANSPORT": {
+            "display_name": "Heavy Lift Transport [X]",
+            "matcher": {}
+        },
+        "TRANSPORT": {
+            "display_name": "Transport [X]",
+            "matcher": {}
+        },
+        "LASER_DAZZLER": {
+            "display_name": "Laser Dazzler"
+        },
+        "JUMP_PACKS": {
+            "display_name": "Jump Packs"
+        }
     },
-    "PRECISION": {
-      "display_name": "Precision [X]",
-      "matcher": {}
+    "ARMY_LIST_TYPES": {
+        "SALVAGE": {
+            "id": 1,
+            "display_name": "Standard Salvage",
+            "max_points": 400
+        }
     },
-    "REMOTE_SURVEYOR": {
-      "display_name": "Remote Surveyor"
+    "COMMANDS": {
+        "FIREPOWER": {
+            "id": 1,
+            "display_name": "Firepower",
+            "card_front": "Firepower.png",
+            "card_back": "Command Card Back.png"
+        },
+        "GENERALIST": {
+            "id": 2,
+            "display_name": "Generalist",
+            "card_front": "Generalist.png",
+            "card_back": "Command Card Back.png"
+        },
+        "MOBILITY": {
+            "id": 3,
+            "display_name": "Mobility",
+            "card_front": "Mobility.png",
+            "card_back": "Command Card Back.png"
+        },
+        "SURVEYOR": {
+            "id": 4,
+            "display_name": "Surveyor",
+            "card_front": "Surveyor.png",
+            "card_back": "Command Card Back.png"
+        },
+        "SURVIVE": {
+            "id": 5,
+            "display_name": "Survive",
+            "card_front": "Survive.png",
+            "card_back": "Command Card Back.png"
+        }
     },
-    "REPOSITION": {
-      "display_name": "Reposition [X]",
-      "matcher": {}
+    "FACTIONS": {
+        "UNAFFILIATED": {
+            "id": 1,
+            "display_name": "Unaffiliated (Default)",
+            "card_front": "Unaffiliated.png",
+            "card_back": "Faction Card Back.png"
+        },
+        "IRON_RAIN": {
+            "id": 2,
+            "display_name": "Iron Rain",
+            "card_front": "IronRain.png",
+            "card_back": "Faction Card Back.png"
+        },
+        "FREELANCE": {
+            "id": 3,
+            "display_name": "Freelance",
+            "card_front": "Freelance.png",
+            "card_back": "Faction Card Back.png"
+        },
+        "SURVEYFI": {
+            "id": 4,
+            "display_name": "SurveyFI",
+            "card_front": "SurveyFi.png",
+            "card_back": "Faction Card Back.png"
+        }
     },
-    "REPOSITION_FIXED_WING": {
-      "display_name": "Reposition: Fixed Wing [X]",
-      "matcher": {}
-    },
-    "SMOKE_GRENADES": {
-      "display_name": "Smoke Grenades [X]",
-      "matcher": {}
-    },
-    "TARGET_DESIGNATOR": {
-      "display_name": "Target Designator"
-    },
-    "WEAPON_CYCLING": {
-      "display_name": "Weapon Cycling: X",
-      "matcher": {}
-    },
-    "FLEXIBLE_DEPLOYMENT": {
-      "display_name": "Flexible Deployment"
-    },
-    "DUAL_CORE": {
-      "display_name": "Dual Core"
-    },
-    "MOMENTUM": {
-      "display_name": "Momentum"
-    },
-    "AP": {
-      "display_name": "AP"
-    },
-    "SPLASH": {
-      "display_name": "Splash"
-    },
-    "AIR": {
-      "display_name": "Air"
-    },
-    "GND": {
-      "display_name": "GND"
-    },
-    "INDIRECT_FIRE": {
-      "display_name": "Indirect Fire"
-    },
-    "INDEPENDENT": {
-      "display_name": "Independent"
-    },
-    "CLOSE_QUARTERS": {
-      "display_name": "Close Quarters"
-    },
-    "CQC_SPECIALIST": {
-      "display_name": "CQC Specialist"
-    },
-    "ACTIVE_COUNTERMEASURES": {
-      "display_name": "Active Countermeasures"
-    },
-    "ESCORT": {
-      "display_name": "Escort [X]",
-      "matcher": {}
-    },
-    "MODULAR_PAYLOAD": {
-      "display_name": "Modular Payload"
-    },
-    "REPAIR_SYSTEMS": {
-      "display_name": "Repair Systems"
-    },
-    "SMART_BURST_ROUNDS": {
-      "display_name": "Smartburst Rounds"
+    "UNITS": {
+        "ALBATROSS": {
+            "id": 1,
+            "display_name": "Albatross",
+            "class": "Tactical Gunship",
+            "prefix": "OA-10-J",
+            "manufacturer": "Horizon Systems",
+            "base_size": "25F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "1.5mm",
+            "flight_stand_length": "90mm",
+            "flight_stand_connector": "Flat",
+            "cost": 55,
+            "init": 6,
+            "dodge": 8,
+            "defense": 4,
+            "hp": 2,
+            "speed": "22",
+            "weapons": [
+                {
+                    "name": "50MM Railgun [AP]",
+                    "range": "10",
+                    "accuracy": "5",
+                    "damage": "6+1",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "30MM Autocannons",
+                    "range": "6",
+                    "accuracy": "6+1",
+                    "damage": "2",
+                    "keywords": []
+                }
+            ],
+            "abilities": [
+                "Precision Support: Ground",
+                "Weapon Cycling: 50mm Raillgun",
+                "Reposition: Fixed Wing [8]"
+            ],
+            "traits": ["Aircraft: Fixed Wing"],
+            "cards_front": ["Albatross.png"],
+            "card_back": "Albatross Back.png"
+        },
+        "BANDIT": {
+            "id": 2,
+            "display_name": "Bandit",
+            "class": "Utility VTOL",
+            "prefix": "UHB",
+            "manufacturer": "Sturmlanze AG",
+            "base_size": "2125F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "1.5mm",
+            "flight_stand_length": "70mm",
+            "flight_stand_connector": "Angled",
+            "cost": 50,
+            "init": 4,
+            "dodge": 8,
+            "defense": 4,
+            "hp": 2,
+            "speed": "18",
+            "weapons": [
+                {
+                    "name": "30MM Rotary Autocannon [2 ATKS]",
+                    "range": "8",
+                    "accuracy": "6",
+                    "damage": "4",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": ["Reposition [8]"],
+            "traits": ["Aircraft: VTOL", "Laser Dazzler", "Transport [1]"],
+            "cards_front": ["Bandit.png"],
+            "card_back": "Bandit Back.png"
+        },
+        "BUFFALO": {
+            "id": 4,
+            "display_name": "Buffalo",
+            "class": "Q-Craft",
+            "prefix": null,
+            "manufacturer": "General Kinetics-Keystone",
+            "base_size": "175F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 1,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 25,
+            "init": 3,
+            "dodge": 4,
+            "defense": 3,
+            "hp": 2,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "120MM Recoilless Rifle [AP]",
+                    "range": "10",
+                    "accuracy": "5",
+                    "damage": "6+1",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "Broadside Rockets [GND] [SPLASH 2\"]",
+                    "range": "6",
+                    "accuracy": "4",
+                    "damage": "4",
+                    "keywords": ["Gnd", "Spl"]
+                }
+            ],
+            "abilities": ["Reposition [6]"],
+            "traits": ["Grav Drive", "Q-Craft"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "CHARIOT": {
+            "id": 5,
+            "display_name": "Chariot",
+            "class": "Light Attack Vehicle",
+            "prefix": "V323",
+            "manufacturer": "Keystone-Ostlund",
+            "base_size": "1375",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 1,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 25,
+            "init": 4,
+            "dodge": 6,
+            "defense": 4,
+            "hp": 1,
+            "speed": "10",
+            "weapons": [
+                {
+                    "name": "50MM Smart Munitions Autocannon",
+                    "range": "12",
+                    "accuracy": "6+2",
+                    "damage": "4",
+                    "keywords": []
+                }
+            ],
+            "abilities": ["Escort [8]", "Smartburst Rounds"],
+            "traits": ["Transport [1]"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "COYOTE": {
+            "id": 6,
+            "display_name": "Coyote",
+            "class": "Fast Attack Vehicle",
+            "prefix": "V217-C",
+            "manufacturer": "Keystone Extraction",
+            "base_size": "1",
+            "base_qty": 2,
+            "models_per_squad": 1,
+            "models_per_pack": 2,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 14,
+            "init": 5,
+            "dodge": 6,
+            "defense": 3,
+            "hp": 1,
+            "speed": "12",
+            "weapons": [
+                {
+                    "name": "Guided Missiles [AP]",
+                    "range": "8",
+                    "accuracy": "3",
+                    "damage": "6",
+                    "keywords": ["AP"]
+                }
+            ],
+            "abilities": ["Reposition [4]"],
+            "traits": [],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "FOX": {
+            "id": 7,
+            "display_name": "Fox",
+            "class": "Fast Escort Vehicle",
+            "prefix": "V217-A",
+            "manufacturer": "Keystone Extraction",
+            "base_size": "1",
+            "base_qty": 2,
+            "models_per_squad": 1,
+            "models_per_pack": 2,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 17,
+            "init": 5,
+            "dodge": 6,
+            "defense": 3,
+            "hp": 1,
+            "speed": "14",
+            "weapons": [
+                {
+                    "name": "25MM CIWS [2 ATKS]",
+                    "range": "8",
+                    "accuracy": "6+1",
+                    "damage": "3",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": ["Escort [4]"],
+            "traits": [],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "HOUND": {
+            "id": 8,
+            "display_name": "Hound",
+            "class": "Scout Vehicle",
+            "prefix": "V217-B",
+            "manufacturer": "Keystone Extraction",
+            "base_size": "1",
+            "base_qty": 2,
+            "models_per_squad": 1,
+            "models_per_pack": 2,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 0,
+            "init": 5,
+            "dodge": 6,
+            "defense": 3,
+            "hp": 1,
+            "speed": "12",
+            "weapons": [],
+            "abilities": ["Reposition [4]", "Target Designator"],
+            "traits": ["Surveyor"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "MAMMOTH": {
+            "id": 9,
+            "display_name": "Mammoth",
+            "class": "Expeditonary Platform",
+            "prefix": "V312",
+            "manufacturer": "Keystone Extraction",
+            "base_size": "25",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 69,
+            "init": 2,
+            "dodge": 4,
+            "defense": 7,
+            "hp": 3,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "Thermobaric Rocket Battery [2 ATKS]",
+                    "range": "18",
+                    "accuracy": "4",
+                    "damage": "6",
+                    "keywords": ["2x"]
+                },
+                {
+                    "name": "20mm CIWS [2 ATKS]",
+                    "range": "8",
+                    "accuracy": "6",
+                    "damage": "4",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": ["Smoke Grenades [2]"],
+            "traits": ["Surveyor", "Armored", "Transport [2]"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "MANTIS": {
+            "id": 10,
+            "display_name": "Mantis",
+            "class": "Defense Drones",
+            "prefix": "GH54",
+            "manufacturer": "Sturmlanze AG",
+            "base_size": "1S",
+            "base_qty": 4,
+            "models_per_squad": 2,
+            "models_per_pack": 8,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 13,
+            "init": 3,
+            "dodge": 6,
+            "defense": 3,
+            "hp": 1,
+            "speed": "6",
+            "weapons": [
+                {
+                    "name": "20MM Autocannon",
+                    "range": "8",
+                    "accuracy": "6",
+                    "damage": "3",
+                    "keywords": []
+                }
+            ],
+            "abilities": ["Embark / Disembark"],
+            "traits": ["Squad", "Networked Automation"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "NYX": {
+            "id": 11,
+            "display_name": "Nyx",
+            "class": "Heavy Gravtank",
+            "prefix": "GV-15",
+            "manufacturer": "General Kinetics",
+            "base_size": "175F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 1,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 34,
+            "init": 3,
+            "dodge": 4,
+            "defense": 7,
+            "hp": 2,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "50MM Railgun [AP]",
+                    "range": "16",
+                    "accuracy": "5",
+                    "damage": "6+1",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "Point Defense Turret",
+                    "range": "4",
+                    "accuracy": "6",
+                    "damage": "1",
+                    "keywords": []
+                }
+            ],
+            "abilities": ["Smoke Grenades [1]"],
+            "traits": ["Grav Drive", "Armored"],
+            "cards_front": ["Nyx.png"],
+            "card_back": "Nyx Back.png"
+        },
+        "ONI": {
+            "id": 12,
+            "display_name": "Oni",
+            "class": "Power Armor",
+            "prefix": "AES-16A",
+            "manufacturer": "Burnside-Mason Engineering",
+            "base_size": "1S",
+            "base_qty": 3,
+            "models_per_squad": 3,
+            "models_per_pack": 9,
+            "magnets": 0,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 22,
+            "init": 4,
+            "dodge": 8,
+            "defense": 2,
+            "hp": 1,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "Heavy Machine Guns",
+                    "range": "6",
+                    "accuracy": "5",
+                    "damage": "2",
+                    "keywords": []
+                },
+                {
+                    "name": "Tungsten Claws [AP] [GND]",
+                    "range": "0",
+                    "accuracy": "6",
+                    "damage": "4",
+                    "keywords": ["AP", "GND"]
+                }
+            ],
+            "abilities": ["Hitchhiker", "Embark / Disembark"],
+            "traits": ["Squad", "Jump Packs"],
+            "cards_front": ["Oni.png"],
+            "card_back": "Oni Back.png"
+        },
+        "RAVEN": {
+            "id": 13,
+            "display_name": "Raven",
+            "class": "Attack VTOL",
+            "prefix": "V212",
+            "manufacturer": "Keystone-Ostlund",
+            "base_size": "2125F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "1.5mm",
+            "flight_stand_length": "70mm",
+            "flight_stand_connector": "Angled",
+            "cost": 38,
+            "init": 5,
+            "dodge": 8,
+            "defense": 5,
+            "hp": 1,
+            "speed": "20",
+            "weapons": [
+                {
+                    "name": "Guided Missiles [AP]",
+                    "range": "10",
+                    "accuracy": "5",
+                    "damage": "6",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "30MM Autocannon",
+                    "range": "8",
+                    "accuracy": "6",
+                    "damage": "3",
+                    "keywords": []
+                }
+            ],
+            "abilities": ["Precision Support: Ground", "Reposition [8]"],
+            "traits": ["Aircraft: VTOL"],
+            "cards_front": ["Raven.png"],
+            "card_back": "Raven Back.png"
+        },
+        "RHINO": {
+            "id": 14,
+            "display_name": "Rhino",
+            "class": "Main Battle Tank",
+            "prefix": "KF152",
+            "manufacturer": "Sturmlanze AG",
+            "base_size": "1375",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 1,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 20,
+            "init": 3,
+            "dodge": 5,
+            "defense": 6,
+            "hp": 1,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "140MM Cannon [AP]",
+                    "range": "12",
+                    "accuracy": "5",
+                    "damage": "5+1",
+                    "keywords": ["AP"]
+                }
+            ],
+            "abilities": [],
+            "traits": ["Armored"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "ROC": {
+            "id": 15,
+            "display_name": "Roc",
+            "class": "Assault Transport VTOL",
+            "prefix": "V292",
+            "manufacturer": "Keystone Extraction",
+            "base_size": "25F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "1.5mm",
+            "flight_stand_length": "70mm",
+            "flight_stand_connector": "Angled",
+            "cost": 82,
+            "init": 3,
+            "dodge": 7,
+            "defense": 6,
+            "hp": 3,
+            "speed": "14",
+            "weapons": [
+                {
+                    "name": "Heavy Guided Missiles [2 ATKS] [AP]",
+                    "range": "10",
+                    "accuracy": "4",
+                    "damage": "6",
+                    "keywords": ["2x", "AP"]
+                },
+                {
+                    "name": "40MM Autocannon [2 ATKS]",
+                    "range": "8",
+                    "accuracy": "6",
+                    "damage": "4",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": ["Reposition [6]"],
+            "traits": ["Aircraft: VTOL", "Armored", "Transport [2]"],
+            "cards_front": ["Roc.png"],
+            "card_back": "Roc Back.png"
+        },
+        "TIGERSHARK": {
+            "id": 16,
+            "display_name": "Tigershark",
+            "class": "Gravfrigate",
+            "prefix": "GVX-II",
+            "manufacturer": "General Kinetics",
+            "base_size": "45F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 2,
+            "flight_stand_diameter": "4mm",
+            "flight_stand_length": "90mm",
+            "flight_stand_connector": "n/a",
+            "cost": 190,
+            "init": 2,
+            "dodge": 2,
+            "defense": 8,
+            "hp": 7,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "Heavy Guided Missiles [AP]",
+                    "range": "10",
+                    "accuracy": "4",
+                    "damage": "6",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "120MM Cannon [2 ATKS] [AP]",
+                    "range": "14",
+                    "accuracy": "4+2",
+                    "damage": "4+2",
+                    "keywords": ["2x", "AP"]
+                },
+                {
+                    "name": "VLS Battery [2 ATKS] [2\" SPLASH]",
+                    "range": "18",
+                    "accuracy": "4",
+                    "damage": "6+1",
+                    "keywords": ["2x", "Spl", "AP"]
+                },
+                {
+                    "name": "Point Defense [2 ATKS]",
+                    "range": "6",
+                    "accuracy": "6+1",
+                    "damage": "4",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": [
+                "Modular Payload",
+                "Escort [6]",
+                "Repair Systems",
+                "Active Countermeasures"
+            ],
+            "traits": [
+                "Aircraft: Heavy Grav Drive",
+                "Large Craft: Degradation",
+                "Armored"
+            ],
+            "cards_front": ["Tigershark.png", "Tigershark 2.png"],
+            "card_back": "Tigershark Back.png"
+        },
+        "TITAN": {
+            "id": 17,
+            "display_name": "Titan",
+            "class": "Heavy Lift VTOL",
+            "prefix": "L-24B",
+            "manufacturer": "Midland Fabrication",
+            "base_size": "25F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 0,
+            "flight_stand_diameter": "1.5mm",
+            "flight_stand_length": "50mm",
+            "flight_stand_connector": "Angled",
+            "cost": 65,
+            "init": 3,
+            "dodge": 5,
+            "defense": 6,
+            "hp": 4,
+            "speed": "12",
+            "weapons": [],
+            "abilities": ["Reposition [4]"],
+            "traits": ["Aircraft: VTOL", "Armored", "Heavy Lift Transport [1]"],
+            "cards_front": [],
+            "card_back": ""
+        },
+        "ZEUS": {
+            "id": 18,
+            "display_name": "Zeus",
+            "class": "Superheavy Gravtank",
+            "prefix": "GV-18",
+            "manufacturer": "General Kinetics",
+            "base_size": "2125F",
+            "base_qty": 1,
+            "models_per_squad": 1,
+            "models_per_pack": 1,
+            "magnets": 1,
+            "flight_stand_diameter": "n/a",
+            "flight_stand_length": null,
+            "flight_stand_connector": "n/a",
+            "cost": 77,
+            "init": 2,
+            "dodge": 4,
+            "defense": 8,
+            "hp": 3,
+            "speed": "8",
+            "weapons": [
+                {
+                    "name": "60MM Dual Railgun [AP]",
+                    "range": "16",
+                    "accuracy": "5",
+                    "damage": "6+2",
+                    "keywords": ["AP"]
+                },
+                {
+                    "name": "Heavy Guided Missiles [2 ATKS] [AP]",
+                    "range": "12",
+                    "accuracy": "4",
+                    "damage": "6",
+                    "keywords": ["2x", "AP"]
+                },
+                {
+                    "name": "30MM Autocannon [2 ATKS]",
+                    "range": "6",
+                    "accuracy": "6",
+                    "damage": "3",
+                    "keywords": ["2x"]
+                }
+            ],
+            "abilities": ["Smoke Grenades [1]"],
+            "traits": ["Grav Drive", "Armored"],
+            "cards_front": [],
+            "card_back": ""
+        }
     }
-  },
-  "TRAITS": {
-    "ARMORED": {
-      "display_name": "Armored"
-    },
-    "SURVEYOR": {
-      "display_name": "Surveyor"
-    },
-    "AIRCRAFT": {
-      "display_name": "Aircraft"
-    },
-    "AIRCRAFT_FIXED_WING": {
-      "display_name": "Aircraft: Fixed Wing"
-    },
-    "AIRCRAFT_VTOL": {
-      "display_name": "Aircraft: VTOL"
-    },
-    "AIRCRAFT_HEAVY_GRAV_DRIVE": {
-      "display_name": "Aircraft: Heavy Grav Drive"
-    },
-    "SQUAD": {
-      "display_name": "Squad"
-    },
-    "GRAV_DRIVE": {
-      "display_name": "Grav Drive"
-    },
-    "Q_CRAFT": {
-      "display_name": "Q-Craft"
-    },
-    "NETWORKED_AUTOMATION": {
-      "display_name": "Networked Automation"
-    },
-    "LARGE_CRAFT_DEGRADATION": {
-      "display_name": "Large Craft: Degradation"
-    },
-    "CLUMSY": {
-      "display_name": "CLUMSY"
-    },
-    "TRANSPORT_SALVAGE": {
-      "display_name": "Transport [Salvage]"
-    },
-    "HEAVY_LIFT_TRANSPORT": {
-      "display_name": "Heavy Lift Transport [X]",
-      "matcher": {}
-    },
-    "TRANSPORT": {
-      "display_name": "Transport [X]",
-      "matcher": {}
-    },
-    "LASER_DAZZLER": {
-      "display_name": "Laser Dazzler"
-    },
-    "JUMP_PACKS": {
-      "display_name": "Jump Packs"
-    }
-  },
-  "ARMY_LIST_TYPES": {
-    "SALVAGE": {
-      "id": 1,
-      "display_name": "Standard Salvage",
-      "max_points": 400
-    }
-  },
-  "COMMANDS": {
-    "FIREPOWER": {
-      "id": 1,
-      "display_name": "Firepower",
-      "card_front": "Firepower.png",
-      "card_back": "Command Card Back.png"
-    },
-    "GENERALIST": {
-      "id": 2,
-      "display_name": "Generalist",
-      "card_front": "Generalist.png",
-      "card_back": "Command Card Back.png"
-    },
-    "MOBILITY": {
-      "id": 3,
-      "display_name": "Mobility",
-      "card_front": "Mobility.png",
-      "card_back": "Command Card Back.png"
-    },
-    "SURVEYOR": {
-      "id": 4,
-      "display_name": "Surveyor",
-      "card_front": "Surveyor.png",
-      "card_back": "Command Card Back.png"
-    },
-    "SURVIVE": {
-      "id": 5,
-      "display_name": "Survive",
-      "card_front": "Survive.png",
-      "card_back": "Command Card Back.png"
-    }
-  },
-  "FACTIONS": {
-    "UNAFFILIATED": {
-      "id": 1,
-      "display_name": "Unaffiliated (Default)",
-      "card_front": "Unaffiliated.png",
-      "card_back": "Faction Card Back.png"
-    },
-    "IRON_RAIN": {
-      "id": 2,
-      "display_name": "Iron Rain",
-      "card_front": "IronRain.png",
-      "card_back": "Faction Card Back.png"
-    },
-    "FREELANCE": {
-      "id": 3,
-      "display_name": "Freelance",
-      "card_front": "Freelance.png",
-      "card_back": "Faction Card Back.png"
-    },
-    "SURVEYFI": {
-      "id": 4,
-      "display_name": "SurveyFI",
-      "card_front": "SurveyFi.png",
-      "card_back": "Faction Card Back.png"
-    }
-  },
-  "UNITS": {
-    "ALBATROSS": {
-      "id": 1,
-      "display_name": "Albatross",
-      "class": "Tactical Gunship",
-      "prefix": "OA-10-J",
-      "manufacturer": "Horizon Systems",
-      "base_size": "25F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "1.5mm",
-      "flight_stand_length": "90mm",
-      "flight_stand_connector": "Flat",
-      "cost": 55,
-      "init": 6,
-      "dodge": 8,
-      "defense": 4,
-      "hp": 2,
-      "speed": "22",
-      "weapons": [
-        {
-          "name": "50MM Railgun [AP]",
-          "range": "10",
-          "accuracy": "5",
-          "damage": "6+1",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "30MM Autocannons",
-          "range": "6",
-          "accuracy": "6+1",
-          "damage": "2",
-          "keywords": []
-        }
-      ],
-      "abilities": [
-        "Precision Support: Ground",
-        "Weapon Cycling: 50mm Raillgun",
-        "Reposition: Fixed Wing [8]"
-      ],
-      "traits": [
-        "Aircraft: Fixed Wing"
-      ],
-      "cards_front": [
-        "Albatross.png"
-      ],
-      "card_back": "Albatross Back.png"
-    },
-    "BANDIT": {
-      "id": 2,
-      "display_name": "Bandit",
-      "class": "Utility VTOL",
-      "prefix": "UHB",
-      "manufacturer": "Sturmlanze AG",
-      "base_size": "2125F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "1.5mm",
-      "flight_stand_length": "70mm",
-      "flight_stand_connector": "Angled",
-      "cost": 50,
-      "init": 4,
-      "dodge": 8,
-      "defense": 4,
-      "hp": 2,
-      "speed": "18",
-      "weapons": [
-        {
-          "name": "30MM Rotary Autocannon [2 ATKS]",
-          "range": "8",
-          "accuracy": "6",
-          "damage": "4",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Reposition [8]"
-      ],
-      "traits": [
-        "Aircraft: VTOL",
-        "Laser Dazzler",
-        "Transport [1]"
-      ],
-      "cards_front": [
-        "Bandit.png"
-      ],
-      "card_back": "Bandit Back.png"
-    },
-    "BUFFALO": {
-      "id": 4,
-      "display_name": "Buffalo",
-      "class": "Q-Craft",
-      "prefix": null,
-      "manufacturer": "General Kinetics-Keystone",
-      "base_size": "175F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 1,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 25,
-      "init": 3,
-      "dodge": 4,
-      "defense": 3,
-      "hp": 2,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "120MM Recoilless Rifle [AP]",
-          "range": "10",
-          "accuracy": "5",
-          "damage": "6+1",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "Broadside Rockets [GND] [SPLASH 2\"]",
-          "range": "6",
-          "accuracy": "4",
-          "damage": "4",
-          "keywords": [
-            "Gnd",
-            "Spl"
-          ]
-        }
-      ],
-      "abilities": [
-        "Reposition [6]"
-      ],
-      "traits": [
-        "Grav Drive",
-        "Q-Craft"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "CHARIOT": {
-      "id": 5,
-      "display_name": "Chariot",
-      "class": "Light Attack Vehicle",
-      "prefix": "V323",
-      "manufacturer": "Keystone-Ostlund",
-      "base_size": "1375",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 1,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 25,
-      "init": 4,
-      "dodge": 6,
-      "defense": 4,
-      "hp": 1,
-      "speed": "10",
-      "weapons": [
-        {
-          "name": "50MM Smart Munitions Autocannon",
-          "range": "12",
-          "accuracy": "6+2",
-          "damage": "4",
-          "keywords": []
-        }
-      ],
-      "abilities": [
-        "Escort [8]",
-        "Smartburst Rounds"
-      ],
-      "traits": [
-        "Transport [1]"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "COYOTE": {
-      "id": 6,
-      "display_name": "Coyote",
-      "class": "Fast Attack Vehicle",
-      "prefix": "V217-C",
-      "manufacturer": "Keystone Extraction",
-      "base_size": "1",
-      "base_qty": 2,
-      "models_per_squad": 1,
-      "models_per_pack": 2,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 14,
-      "init": 5,
-      "dodge": 6,
-      "defense": 3,
-      "hp": 1,
-      "speed": "12",
-      "weapons": [
-        {
-          "name": "Guided Missiles [AP]",
-          "range": "8",
-          "accuracy": "3",
-          "damage": "6",
-          "keywords": [
-            "AP"
-          ]
-        }
-      ],
-      "abilities": [
-        "Reposition [4]"
-      ],
-      "traits": [],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "FOX": {
-      "id": 7,
-      "display_name": "Fox",
-      "class": "Fast Escort Vehicle",
-      "prefix": "V217-A",
-      "manufacturer": "Keystone Extraction",
-      "base_size": "1",
-      "base_qty": 2,
-      "models_per_squad": 1,
-      "models_per_pack": 2,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 17,
-      "init": 5,
-      "dodge": 6,
-      "defense": 3,
-      "hp": 1,
-      "speed": "14",
-      "weapons": [
-        {
-          "name": "25MM CIWS [2 ATKS]",
-          "range": "8",
-          "accuracy": "6+1",
-          "damage": "3",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Escort [4]"
-      ],
-      "traits": [],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "HOUND": {
-      "id": 8,
-      "display_name": "Hound",
-      "class": "Scout Vehicle",
-      "prefix": "V217-B",
-      "manufacturer": "Keystone Extraction",
-      "base_size": "1",
-      "base_qty": 2,
-      "models_per_squad": 1,
-      "models_per_pack": 2,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 0,
-      "init": 5,
-      "dodge": 6,
-      "defense": 3,
-      "hp": 1,
-      "speed": "12",
-      "weapons": [],
-      "abilities": [
-        "Reposition [4]",
-        "Target Designator"
-      ],
-      "traits": [
-        "Surveyor"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "MAMMOTH": {
-      "id": 9,
-      "display_name": "Mammoth",
-      "class": "Expeditonary Platform",
-      "prefix": "V312",
-      "manufacturer": "Keystone Extraction",
-      "base_size": "25",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 69,
-      "init": 2,
-      "dodge": 4,
-      "defense": 7,
-      "hp": 3,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "Thermobaric Rocket Battery [2 ATKS]",
-          "range": "18",
-          "accuracy": "4",
-          "damage": "6",
-          "keywords": [
-            "2x"
-          ]
-        },
-        {
-          "name": "20mm CIWS [2 ATKS]",
-          "range": "8",
-          "accuracy": "6",
-          "damage": "4",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Smoke Grenades [2]"
-      ],
-      "traits": [
-        "Surveyor",
-        "Armored",
-        "Transport [2]"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "MANTIS": {
-      "id": 10,
-      "display_name": "Mantis",
-      "class": "Defense Drones",
-      "prefix": "GH54",
-      "manufacturer": "Sturmlanze AG",
-      "base_size": "1S",
-      "base_qty": 4,
-      "models_per_squad": 2,
-      "models_per_pack": 8,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 13,
-      "init": 3,
-      "dodge": 6,
-      "defense": 3,
-      "hp": 1,
-      "speed": "6",
-      "weapons": [
-        {
-          "name": "20MM Autocannon",
-          "range": "8",
-          "accuracy": "6",
-          "damage": "3",
-          "keywords": []
-        }
-      ],
-      "abilities": [
-        "Embark / Disembark"
-      ],
-      "traits": [
-        "Squad",
-        "Networked Automation"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "NYX": {
-      "id": 11,
-      "display_name": "Nyx",
-      "class": "Heavy Gravtank",
-      "prefix": "GV-15",
-      "manufacturer": "General Kinetics",
-      "base_size": "175F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 1,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 34,
-      "init": 3,
-      "dodge": 4,
-      "defense": 7,
-      "hp": 2,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "50MM Railgun [AP]",
-          "range": "16",
-          "accuracy": "5",
-          "damage": "6+1",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "Point Defense Turret",
-          "range": "4",
-          "accuracy": "6",
-          "damage": "1",
-          "keywords": []
-        }
-      ],
-      "abilities": [
-        "Smoke Grenades [1]"
-      ],
-      "traits": [
-        "Grav Drive",
-        "Armored"
-      ],
-      "cards_front": [
-        "Nyx.png"
-      ],
-      "card_back": "Nyx Back.png"
-    },
-    "ONI": {
-      "id": 12,
-      "display_name": "Oni",
-      "class": "Power Armor",
-      "prefix": "AES-16A",
-      "manufacturer": "Burnside-Mason Engineering",
-      "base_size": "1S",
-      "base_qty": 3,
-      "models_per_squad": 3,
-      "models_per_pack": 9,
-      "magnets": 0,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 22,
-      "init": 4,
-      "dodge": 8,
-      "defense": 2,
-      "hp": 1,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "Heavy Machine Guns",
-          "range": "6",
-          "accuracy": "5",
-          "damage": "2",
-          "keywords": []
-        },
-        {
-          "name": "Tungsten Claws [AP] [GND]",
-          "range": "0",
-          "accuracy": "6",
-          "damage": "4",
-          "keywords": [
-            "AP",
-            "GND"
-          ]
-        }
-      ],
-      "abilities": [
-        "Hitchhiker",
-        "Embark / Disembark"
-      ],
-      "traits": [
-        "Squad",
-        "Jump Packs"
-      ],
-      "cards_front": [
-        "Oni.png"
-      ],
-      "card_back": "Oni Back.png"
-    },
-    "RAVEN": {
-      "id": 13,
-      "display_name": "Raven",
-      "class": "Attack VTOL",
-      "prefix": "V212",
-      "manufacturer": "Keystone-Ostlund",
-      "base_size": "2125F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "1.5mm",
-      "flight_stand_length": "70mm",
-      "flight_stand_connector": "Angled",
-      "cost": 38,
-      "init": 5,
-      "dodge": 8,
-      "defense": 5,
-      "hp": 1,
-      "speed": "20",
-      "weapons": [
-        {
-          "name": "Guided Missiles [AP]",
-          "range": "10",
-          "accuracy": "5",
-          "damage": "6",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "30MM Autocannon",
-          "range": "8",
-          "accuracy": "6",
-          "damage": "3",
-          "keywords": []
-        }
-      ],
-      "abilities": [
-        "Precision Support: Ground",
-        "Reposition [8]"
-      ],
-      "traits": [
-        "Aircraft: VTOL"
-      ],
-      "cards_front": [
-        "Raven.png"
-      ],
-      "card_back": "Raven Back.png"
-    },
-    "RHINO": {
-      "id": 14,
-      "display_name": "Rhino",
-      "class": "Main Battle Tank",
-      "prefix": "KF152",
-      "manufacturer": "Sturmlanze AG",
-      "base_size": "1375",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 1,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 20,
-      "init": 3,
-      "dodge": 5,
-      "defense": 6,
-      "hp": 1,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "140MM Cannon [AP]",
-          "range": "12",
-          "accuracy": "5",
-          "damage": "5+1",
-          "keywords": [
-            "AP"
-          ]
-        }
-      ],
-      "abilities": [],
-      "traits": [
-        "Armored"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "ROC": {
-      "id": 15,
-      "display_name": "Roc",
-      "class": "Assault Transport VTOL",
-      "prefix": "V292",
-      "manufacturer": "Keystone Extraction",
-      "base_size": "25F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "1.5mm",
-      "flight_stand_length": "70mm",
-      "flight_stand_connector": "Angled",
-      "cost": 82,
-      "init": 3,
-      "dodge": 7,
-      "defense": 6,
-      "hp": 3,
-      "speed": "14",
-      "weapons": [
-        {
-          "name": "Heavy Guided Missiles [2 ATKS] [AP]",
-          "range": "10",
-          "accuracy": "4",
-          "damage": "6",
-          "keywords": [
-            "2x",
-            "AP"
-          ]
-        },
-        {
-          "name": "40MM Autocannon [2 ATKS]",
-          "range": "8",
-          "accuracy": "6",
-          "damage": "4",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Reposition [6]"
-      ],
-      "traits": [
-        "Aircraft: VTOL",
-        "Armored",
-        "Transport [2]"
-      ],
-      "cards_front": [
-        "Roc.png"
-      ],
-      "card_back": "Roc Back.png"
-    },
-    "TIGERSHARK": {
-      "id": 16,
-      "display_name": "Tigershark",
-      "class": "Gravfrigate",
-      "prefix": "GVX-II",
-      "manufacturer": "General Kinetics",
-      "base_size": "45F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 2,
-      "flight_stand_diameter": "4mm",
-      "flight_stand_length": "90mm",
-      "flight_stand_connector": "n/a",
-      "cost": 190,
-      "init": 2,
-      "dodge": 2,
-      "defense": 8,
-      "hp": 7,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "Heavy Guided Missiles [AP]",
-          "range": "10",
-          "accuracy": "4",
-          "damage": "6",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "120MM Cannon [2 ATKS] [AP]",
-          "range": "14",
-          "accuracy": "4+2",
-          "damage": "4+2",
-          "keywords": [
-            "2x",
-            "AP"
-          ]
-        },
-        {
-          "name": "VLS Battery [2 ATKS] [2\" SPLASH]",
-          "range": "18",
-          "accuracy": "4",
-          "damage": "6+1",
-          "keywords": [
-            "2x",
-            "Spl",
-            "AP"
-          ]
-        },
-        {
-          "name": "Point Defense [2 ATKS]",
-          "range": "6",
-          "accuracy": "6+1",
-          "damage": "4",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Modular Payload",
-        "Escort [6]",
-        "Repair Systems",
-        "Active Countermeasures"
-      ],
-      "traits": [
-        "Aircraft: Heavy Grav Drive",
-        "Large Craft: Degradation",
-        "Armored"
-      ],
-      "cards_front": [
-        "Tigershark.png",
-        "Tigershark 2.png"
-      ],
-      "card_back": "Tigershark Back.png"
-    },
-    "TITAN": {
-      "id": 17,
-      "display_name": "Titan",
-      "class": "Heavy Lift VTOL",
-      "prefix": "L-24B",
-      "manufacturer": "Midland Fabrication",
-      "base_size": "25F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 0,
-      "flight_stand_diameter": "1.5mm",
-      "flight_stand_length": "50mm",
-      "flight_stand_connector": "Angled",
-      "cost": 65,
-      "init": 3,
-      "dodge": 5,
-      "defense": 6,
-      "hp": 4,
-      "speed": "12",
-      "weapons": [],
-      "abilities": [
-        "Reposition [4]"
-      ],
-      "traits": [
-        "Aircraft: VTOL",
-        "Armored",
-        "Heavy Lift Transport [1]"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    },
-    "ZEUS": {
-      "id": 18,
-      "display_name": "Zeus",
-      "class": "Superheavy Gravtank",
-      "prefix": "GV-18",
-      "manufacturer": "General Kinetics",
-      "base_size": "2125F",
-      "base_qty": 1,
-      "models_per_squad": 1,
-      "models_per_pack": 1,
-      "magnets": 1,
-      "flight_stand_diameter": "n/a",
-      "flight_stand_length": null,
-      "flight_stand_connector": "n/a",
-      "cost": 77,
-      "init": 2,
-      "dodge": 4,
-      "defense": 8,
-      "hp": 3,
-      "speed": "8",
-      "weapons": [
-        {
-          "name": "60MM Dual Railgun [AP]",
-          "range": "16",
-          "accuracy": "5",
-          "damage": "6+2",
-          "keywords": [
-            "AP"
-          ]
-        },
-        {
-          "name": "Heavy Guided Missiles [2 ATKS] [AP]",
-          "range": "12",
-          "accuracy": "4",
-          "damage": "6",
-          "keywords": [
-            "2x",
-            "AP"
-          ]
-        },
-        {
-          "name": "30MM Autocannon [2 ATKS]",
-          "range": "6",
-          "accuracy": "6",
-          "damage": "3",
-          "keywords": [
-            "2x"
-          ]
-        }
-      ],
-      "abilities": [
-        "Smoke Grenades [1]"
-      ],
-      "traits": [
-        "Grav Drive",
-        "Armored"
-      ],
-      "cards_front": [],
-      "card_back": ""
-    }
-  }
 }

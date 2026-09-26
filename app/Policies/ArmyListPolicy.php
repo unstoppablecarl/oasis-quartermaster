@@ -23,7 +23,7 @@ class ArmyListPolicy
             return true;
         }
 
-        throw new NotFoundHttpException();
+        throw new NotFoundHttpException;
     }
 
     public function create(?User $user): bool
@@ -46,6 +46,7 @@ class ArmyListPolicy
         if (!$user) {
             return false;
         }
+
         return $armyList->user_id === $user->id;
     }
 }
