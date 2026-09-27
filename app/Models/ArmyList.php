@@ -22,6 +22,7 @@ use Illuminate\Support\Str;
  * @property int|null $army_list_type_id
  * @property int $faction_id
  * @property int|null $custom_max_points
+ * @property bool $public
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -32,34 +33,52 @@ class ArmyList extends Model
     /** @use HasFactory<ArmyListFactory> */
     use HasFactory;
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsToMany<Unit, $this>
+     */
     public function units(): BelongsToMany
     {
         return $this->belongsToMany(Unit::class)->withPivot(['quantity', 'display_order'])->orderByPivot('display_order');
     }
 
+    /**
+     * @return BelongsTo<ArmyListType, $this>
+     */
     public function armyListType(): BelongsTo
     {
         return $this->belongsTo(ArmyListType::class);
     }
 
+    /**
+     * @return BelongsTo<Faction, $this>
+     */
     public function faction(): BelongsTo
     {
         return $this->belongsTo(Faction::class);
     }
 
+    /**
+     * @return BelongsToMany<Command, $this>
+     */
     public function commands(): BelongsToMany
     {
         return $this->belongsToMany(Command::class, 'army_list_commands');
     }
 
+    /**
+     * @return Attribute<covariant int|null, never>
+     */
     protected function maxPoints(): Attribute
     {
-        return Attribute::get(fn () => $this->custom_max_points ?? $this->armyListType?->max_points);
+        return Attribute::get(fn (): ?int => $this->custom_max_points ?? $this->armyListType?->max_points);
     }
 
     protected static function booted()

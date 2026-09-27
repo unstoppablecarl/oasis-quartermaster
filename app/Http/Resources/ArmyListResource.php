@@ -2,12 +2,34 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ArmyListType;
+use App\Models\Command;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @property string $uuid
+ * @property string $display_name
+ * @property int|null $army_list_type_id
+ * @property ArmyListType|null $armyListType
+ * @property int|null $custom_max_points
+ * @property int|null $maxPoints
+ * @property bool $public
+ * @property int $faction_id
+ * @property Collection<int, Command> $commands
+ * @property Collection<int, Unit> $units
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
 class ArmyListResource extends JsonResource
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(Request $request): array
     {
         $canUpdate = Gate::allows('update', $this->resource);

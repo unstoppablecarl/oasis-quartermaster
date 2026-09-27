@@ -16,27 +16,27 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
         <div class="card-body">
             <div class="d-flex">
                 <div class="me-3 me-auto">
-                    <span>
+                    <span class="ws-nowrap">
                         <strong class="text-body-emphasis">Game Mode: </strong>
                         {{ armyListTypeName }}
                     </span>
-                    <span class="ms-4">
+                    <span class="ms-4 ws-nowrap">
                         <strong class="text-body-emphasis">Faction: </strong>
                         {{ faction.display_name }}
                     </span>
 
-                    <span class="ms-4">
+                    <span class="ms-4 ws-nowrap">
                         <strong class="text-body-emphasis">Commands: </strong>
                         {{ commands.map((c) => c.display_name).join(', ') }}
                         <span
                             v-if="!commands.length"
                             class="text-danger-emphasis"
                         >
-                            No Command Cards Selected
+                            None Selected
                         </span>
                     </span>
 
-                    <span class="ms-4">
+                    <span class="ms-4 ws-nowrap">
                         <strong class="text-body-emphasis">Faction: </strong>
                         <span class="text-teal"
                             >{{ faction.display_name }}
@@ -45,17 +45,18 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
                             />
                         </span>
                     </span>
+
+                    <span class="mx-3 ws-nowrap">
+                        <strong class="text-body-emphasis"> Unit Count: </strong>
+                        {{ unitCount }}
+                    </span>
+
+                    <span class="ws-nowrap">
+                        <strong class="text-body-emphasis"> Total Points: </strong>
+                        <Fraction :a="totalCost" :b="maxPoints" />
+                    </span>
                 </div>
 
-                <div class="mx-3">
-                    <strong class="text-body-emphasis"> Unit Count: </strong>
-                    {{ unitCount }}
-                </div>
-
-                <div class="ms-3">
-                    <strong class="text-body-emphasis"> Total Points: </strong>
-                    <Fraction :a="totalCost" :b="maxPoints" />
-                </div>
             </div>
         </div>
     </div>

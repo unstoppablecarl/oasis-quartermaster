@@ -6,8 +6,9 @@ import ArmyListInfoSummary from './ArmyListInfoSummary.vue'
 import ArmyListPrintPreview from './Components/ArmyListPrintPreview.vue'
 import ArmyListValidationSummary from './Components/ArmyListValidationSummary.vue'
 
-const { armyList } = defineProps<{
+const { armyList, printMode } = defineProps<{
     armyList: ArmyList
+    printMode: string
 }>()
 </script>
 <template>
@@ -15,10 +16,8 @@ const { armyList } = defineProps<{
         <Head title="Print" />
 
         <ArmyListInfoSummary :army-list="armyList" />
-        <ArmyListValidationSummary
-            :army-list="armyList"
-        />
+        <ArmyListValidationSummary :army-list="armyList" />
 
-        <ArmyListPrintPreview :army-list="armyList" />
+        <ArmyListPrintPreview :army-list="armyList" :print-mode="printMode" />
     </ArmyListItemLayout>
 </template>

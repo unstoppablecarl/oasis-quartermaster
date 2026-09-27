@@ -45,6 +45,9 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * @return HasMany<ArmyList, $this>
+     */
     public function armyLists(): HasMany
     {
         return $this->hasMany(ArmyList::class);

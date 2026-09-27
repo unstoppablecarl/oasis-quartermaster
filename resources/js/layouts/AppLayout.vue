@@ -5,12 +5,12 @@ import Toaster from '@/components/Toaster.vue'
 
 const {
     showFooter = true,
-    printMode = false,
+    printLayout = false,
     saveBarPadding = false,
     containerFluid = false,
 } = defineProps<{
     showFooter?: boolean
-    printMode?: boolean
+    printLayout?: boolean
     saveBarPadding?: boolean
     containerFluid?: boolean
 }>()
@@ -18,7 +18,7 @@ const {
 <template>
     <div
         class="d-flex flex-column"
-        :class="{ 'no-print': printMode, 'min-vh-100': !printMode }"
+        :class="{ 'no-print': printLayout, 'min-vh-100': !printLayout }"
     >
         <AppHeader />
         <div class="bg-main flex-grow-1">

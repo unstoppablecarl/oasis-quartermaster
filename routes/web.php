@@ -12,10 +12,14 @@ Route::get('army-lists/create', [ArmyListController::class, 'create'])->name('ar
 
 Route::get('army-lists/draft', [ArmyListController::class, 'draftShow'])->name('army-lists.draft.show');
 Route::get('army-lists/draft/edit', [ArmyListController::class, 'draftEdit'])->name('army-lists.draft.edit');
-Route::get('army-lists/draft/print', [ArmyListController::class, 'draftPrint'])->name('army-lists.draft.print');
+Route::get('army-lists/draft/print/{mode?}', [ArmyListController::class, 'draftPrint'])
+    ->name('army-lists.draft.print')
+    ->whereIn('mode', ArmyListController::OTHER_PRINT_MODES);
 
 Route::get('army-lists/{army_list}', [ArmyListController::class, 'show'])->name('army-lists.show');
-Route::get('army-lists/{army_list}/print', [ArmyListController::class, 'print'])->name('army-lists.print');
+Route::get('army-lists/{army_list}/print/{mode?}', [ArmyListController::class, 'print'])
+    ->name('army-lists.print')
+    ->whereIn('mode', ArmyListController::OTHER_PRINT_MODES);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('army-lists', ArmyListController::class)->except('create', 'show');

@@ -19,7 +19,7 @@ const {
     idPrefix?: string
 }>()
 
-const { isCurrentUrl } = useCurrentUrl()
+const { isCurrentUrl, isCurrentOrParentUrl } = useCurrentUrl()
 </script>
 <template>
     <div class="btn-group btn-group-sm">
@@ -35,7 +35,7 @@ const { isCurrentUrl } = useCurrentUrl()
         <Link
             :href="printHref"
             class="btn btn-sm btn-outline-secondary"
-            :class="{ active: isCurrentUrl(printHref) }"
+            :class="{ active: isCurrentOrParentUrl(printHref) }"
             :id="`${idPrefix}unit-controls-print`"
         >
             <PhPrinter :size="16" />

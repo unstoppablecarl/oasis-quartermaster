@@ -34,8 +34,13 @@ const unitsWithIssues = computed(() => {
     )
 })
 
+const overPointLimit = computed(
+    () => maxPoints.value != null && totalCost.value > maxPoints.value,
+)
+
 const valid = computed(
     () =>
+        !overPointLimit.value &&
         !factionRequirementMessages.value.length &&
         !unitsWithIssues.value.length,
 )
@@ -44,9 +49,10 @@ const valid = computed(
     <div class="card mb-3" v-if="!valid">
         <div class="card-body">
             <HazardTitle variant="danger"> Validation</HazardTitle>
-            <div v-if="totalCost > (maxPoints ?? 0)" class="mb-3">
+            <div v-if="overPointLimit" class="mb-3">
                 <div class="text-warning title">Invalid Army List</div>
-                <span class="text-danger-emphasis">Over Point Limit:</span> <Fraction :a="totalCost" :b="maxPoints" />
+                <span class="text-danger-emphasis">Over Point Limit:</span>
+                <Fraction :a="totalCost" :b="maxPoints" />
             </div>
 
             <div v-if="factionRequirementMessages.length">

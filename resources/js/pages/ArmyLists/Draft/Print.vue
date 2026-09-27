@@ -8,6 +8,10 @@ import ArmyListPrintPreview from '../Components/ArmyListPrintPreview.vue'
 import ArmyListValidationSummary from '../Components/ArmyListValidationSummary.vue'
 import DraftControls from '../Components/DraftControls.vue'
 
+const { printMode } = defineProps<{
+    printMode: string
+}>()
+
 const armyList = reactive(loadArmyListDraft())
 </script>
 <template>
@@ -23,5 +27,5 @@ const armyList = reactive(loadArmyListDraft())
         heading-class="text-teal"
     />
 
-    <ArmyListPrintPreview :army-list="armyList" />
+    <ArmyListPrintPreview :army-list="armyList" :print-mode="printMode" />
 </template>

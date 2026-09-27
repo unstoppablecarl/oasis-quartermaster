@@ -21,6 +21,9 @@ class ArmyListType extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return HasMany<ArmyList, $this>
+     */
     public function armyLists(): HasMany
     {
         return $this->hasMany(ArmyList::class);

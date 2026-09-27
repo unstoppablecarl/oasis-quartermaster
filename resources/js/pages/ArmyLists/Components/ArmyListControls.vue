@@ -23,13 +23,14 @@ const { armyList, idPrefix } = defineProps<{
 
     <ArmyListViewPrintEditLinks
         :show-href="show(armyList.uuid)"
-        :print-href="print(armyList.uuid)"
+        :print-href="print({ army_list: armyList.uuid })"
         :edit-href="edit(armyList.uuid)"
         :edit-disabled="!armyList.can.update"
         :id-prefix="idPrefix"
     />
 
     <Link
+        v-if="armyList.public || armyList.can.update"
         :href="duplicate(armyList.uuid)"
         method="post"
         as="button"

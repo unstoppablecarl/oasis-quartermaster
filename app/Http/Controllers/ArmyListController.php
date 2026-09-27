@@ -6,14 +6,21 @@ use App\Http\Requests\StoreArmyListRequest;
 use App\Http\Requests\UpdateArmyListRequest;
 use App\Http\Resources\ArmyListResource;
 use App\Models\ArmyList;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ArmyListController
 {
-    public function index(Request $request)
+    public const string DEFAULT_PRINT_MODE = 'list';
+
+    public const array OTHER_PRINT_MODES = ['cards', 'faction-and-command-cards'];
+
+    public function index(Request $request): Response
     {
         Gate::authorize('viewAny', ArmyList::class);
         $armyLists = $request->user()->armyLists()->with('armyListType', 'units', 'commands')->get();
@@ -27,29 +34,31 @@ class ArmyListController
         return Inertia::render('ArmyLists/Index', $data);
     }
 
-    public function create()
+    public function create(): Response
     {
         Gate::authorize('create', ArmyList::class);
 
         return Inertia::render('ArmyLists/Create');
     }
 
-    public function draftShow()
+    public function draftShow(): Response
     {
         return Inertia::render('ArmyLists/Draft/Show');
     }
 
-    public function draftEdit()
+    public function draftEdit(): Response
     {
         return Inertia::render('ArmyLists/Create');
     }
 
-    public function draftPrint()
+    public function draftPrint(string $mode = self::DEFAULT_PRINT_MODE): Response
     {
-        return Inertia::render('ArmyLists/Draft/Print');
+        return Inertia::render('ArmyLists/Draft/Print', [
+            'printMode' => $mode,
+        ]);
     }
 
-    public function store(StoreArmyListRequest $request)
+    public function store(StoreArmyListRequest $request): RedirectResponse
     {
         Gate::authorize('create', ArmyList::class);
 
@@ -72,7 +81,7 @@ class ArmyListController
         return redirect()->route('army-lists.edit', $armyList);
     }
 
-    public function show(ArmyList $armyList)
+    public function show(ArmyList $armyList): Response
     {
         Gate::authorize('view', $armyList);
 
@@ -83,7 +92,7 @@ class ArmyListController
         return Inertia::render('ArmyLists/Show', $data);
     }
 
-    public function edit(ArmyList $armyList)
+    public function edit(ArmyList $armyList): Response
     {
         Gate::authorize('update', $armyList);
 
@@ -94,7 +103,7 @@ class ArmyListController
         return Inertia::render('ArmyLists/Edit', $data);
     }
 
-    public function update(UpdateArmyListRequest $request, ArmyList $armyList)
+    public function update(UpdateArmyListRequest $request, ArmyList $armyList): JsonResponse
     {
         Gate::authorize('update', $armyList);
 
@@ -115,7 +124,7 @@ class ArmyListController
         ]);
     }
 
-    public function destroy(ArmyList $armyList)
+    public function destroy(ArmyList $armyList): RedirectResponse
     {
         Gate::authorize('delete', $armyList);
 
@@ -126,9 +135,10 @@ class ArmyListController
         return redirect()->route('army-lists.index');
     }
 
-    public function duplicate(Request $request, ArmyList $armyList)
+    public function duplicate(Request $request, ArmyList $armyList): RedirectResponse
     {
-        Gate::authorize('update', $armyList);
+        Gate::authorize('view', $armyList);
+        Gate::authorize('create', ArmyList::class);
 
         $armyList->loadMissing(['units', 'commands']);
 
@@ -151,12 +161,13 @@ class ArmyListController
         return redirect()->route('army-lists.edit', $duplicate);
     }
 
-    public function print(ArmyList $armyList)
+    public function print(ArmyList $armyList, string $mode = self::DEFAULT_PRINT_MODE): Response
     {
         Gate::authorize('view', $armyList);
 
         $data = [
             'armyList' => $armyList->load(['units', 'armyListType', 'commands'])->toResource(),
+            'printMode' => $mode,
         ];
 
         return Inertia::render('ArmyLists/Print', $data);
@@ -165,12 +176,12 @@ class ArmyListController
     /**
      * @return Collection<int, array{quantity: int, display_order: int}>
      */
-    private function unitsForSync(StoreArmyListRequest $request)
+    private function unitsForSync(StoreArmyListRequest $request): Collection
     {
         return collect($request->safe()->array('units'))
             ->values()
-            ->mapWithKeys(fn (array $unit, int $index) => [$unit['id'] => [
-                'quantity' => $unit['quantity'],
+            ->mapWithKeys(fn (array $unit, int $index) => [(int) $unit['id'] => [
+                'quantity' => (int) $unit['quantity'],
                 'display_order' => $index,
             ]]);
     }
@@ -178,7 +189,7 @@ class ArmyListController
     /**
      * @return Collection<int, int>
      */
-    private function commandsForSync(StoreArmyListRequest $request)
+    private function commandsForSync(StoreArmyListRequest $request): Collection
     {
         return collect($request->safe()->array('commands'))
             ->pluck('id');

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $display_name
+ */
 #[Fillable(['display_name'])]
 class Faction extends Model
 {
@@ -16,6 +20,9 @@ class Faction extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return HasMany<ArmyList, $this>
+     */
     public function armyLists(): HasMany
     {
         return $this->hasMany(ArmyList::class);

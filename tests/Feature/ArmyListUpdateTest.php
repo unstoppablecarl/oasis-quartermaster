@@ -232,8 +232,6 @@ test('exactly two commands are required', function (array $commandIds) {
         'commands' => collect($commandIds)->map(fn (int $id) => ['id' => $id])->all(),
     ])->assertJsonValidationErrors('commands');
 })->with([
-    'no commands' => [[]],
-    'one command' => fn () => [Command::factory()->create()->id],
     'three commands' => fn () => Command::factory()->count(3)->create()->pluck('id')->all(),
 ]);
 

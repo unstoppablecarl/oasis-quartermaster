@@ -35,6 +35,16 @@ test('owner can duplicate their army list', function () {
         ->toBe($commands->pluck('id')->sort()->values()->toArray());
 });
 
+test('owner can duplicate their own private army list', function () {
+    $user = User::factory()->create();
+    $armyList = ArmyList::factory()->for($user)->create(['public' => false]);
+
+    $response = $this->actingAs($user)->post(route('army-lists.duplicate', $armyList));
+
+    $duplicate = ArmyList::where('user_id', $user->id)->where('id', '!=', $armyList->id)->firstOrFail();
+    $response->assertRedirect(route('army-lists.edit', $duplicate));
+});
+
 test('user can duplicate another users public army list', function () {
     $owner = User::factory()->create();
     $duplicator = User::factory()->create();

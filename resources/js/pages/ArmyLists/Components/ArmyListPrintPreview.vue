@@ -1,49 +1,59 @@
 <script setup lang="ts">
-import { setLayoutProps } from '@inertiajs/vue3'
+import { Link, setLayoutProps } from '@inertiajs/vue3'
 import { PhPrinter } from '@phosphor-icons/vue'
 import { BFormCheckbox } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import AppFooter from '../../../components/AppFooter.vue'
+import { useCurrentUrl } from '../../../composables/useCurrentUrl'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { print as printRoute } from '../../../routes/army-lists'
+import { print as draftPrintRoute } from '../../../routes/army-lists/draft'
 import PrintFactionAndCommandCards from '../Print/PrintFactionAndCommandCards.vue'
 import PrintSettings from '../Print/PrintSettings.vue'
 import PrintUnitCards from '../Print/PrintUnitCards.vue'
 import PrintUnitList from '../Print/PrintUnitList.vue'
 
-const { armyList } = defineProps<{
+const { armyList, printMode } = defineProps<{
     armyList: LocalArmyList
+    printMode: string
 }>()
 
 setLayoutProps({
     showFooter: false,
-    printMode: true,
+    printLayout: true,
 })
 
 function print() {
     window.print()
 }
 
-const PRINT_MODE_UNIT_CARDS = 'PRINT_MODE_UNIT_CARDS'
-const PRINT_MODE_LIST = 'PRINT_MODE_LIST'
-const PRINT_MODE_FACTION_AND_COMMAND_CARDS =
-    'PRINT_MODE_FACTION_AND_COMMAND_CARDS'
+const PRINT_MODE_UNIT_CARDS = 'cards'
+const PRINT_MODE_LIST = 'list'
+const PRINT_MODE_FACTION_AND_COMMAND_CARDS = 'faction-and-command-cards'
 
 const PRINT_MODES: Record<string, { display_name: string }> = {
+    [PRINT_MODE_LIST]: {
+        display_name: 'Army List',
+    },
     [PRINT_MODE_UNIT_CARDS]: {
         display_name: 'Unit Cards',
     },
     [PRINT_MODE_FACTION_AND_COMMAND_CARDS]: {
         display_name: 'Faction + Command Cards',
     },
-    [PRINT_MODE_LIST]: {
-        display_name: 'Unit List',
-    },
 }
 
-const printMode = ref(PRINT_MODE_UNIT_CARDS)
-const printModeDisplayName = computed(
-    () => PRINT_MODES[printMode.value].display_name,
-)
+const printModeDisplayName = computed(() => PRINT_MODES[printMode].display_name)
+
+function printModeHref(mode: string) {
+    const routeMode = mode === PRINT_MODE_LIST ? undefined : mode
+
+    return armyList.uuid
+        ? printRoute({ army_list: armyList.uuid, mode: routeMode })
+        : draftPrintRoute(routeMode)
+}
+
+const { isCurrentUrl } = useCurrentUrl()
 
 const printCardsInColor = ref(true)
 const printCardBacks = ref(true)
@@ -53,16 +63,17 @@ const printCommandCards = ref(true)
 <template>
     <PrintSettings>
         <template #nav>
-            <template v-for="(item, key) in PRINT_MODES">
-                <button
+            <template v-for="(item, key) in PRINT_MODES" :key="key">
+                <Link
+                    :href="printModeHref(key)"
+                    preserve-scroll
                     :class="{
                         'btn btn-sm btn-default': true,
-                        active: printMode === key,
+                        active: isCurrentUrl(printModeHref(key)),
                     }"
-                    @click="printMode = key"
                 >
                     {{ item.display_name }}
-                </button>
+                </Link>
             </template>
         </template>
 
