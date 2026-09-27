@@ -14,6 +14,7 @@ import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
 import ArmyListUnits from './Components/ArmyListUnits.vue'
+import DraftControls from './Components/DraftControls.vue'
 import UnitPicker from './Components/UnitPicker.vue'
 
 const page = usePage()
@@ -22,8 +23,7 @@ const auth = computed(() => page.props.auth)
 const draft = loadArmyListDraft()
 const form = useForm(draft)
 
-const { add, subtract, remove, reorder, totalCost, unitCount, maxPoints } =
-    useArmyList(form)
+const { add, totalCost, unitCount, maxPoints } = useArmyList(form)
 
 watch(
     [
@@ -66,7 +66,9 @@ function save() {
 <template>
     <Head title="Create" />
 
-    <ArmyListItemHeader title="Create" description="Army List" />
+    <ArmyListItemHeader title="Create" description="Army List">
+        <DraftControls v-if="!auth.user" />
+    </ArmyListItemHeader>
 
     <ArmyListFields
         :is-creating="true"

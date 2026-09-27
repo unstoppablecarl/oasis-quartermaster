@@ -9,6 +9,11 @@ Route::inertia('rules', 'Rules')->name('rules');
 Route::inertia('dice-roller', 'DiceRoller')->name('dice-roller');
 
 Route::get('army-lists/create', [ArmyListController::class, 'create'])->name('army-lists.create');
+
+Route::get('army-lists/draft', [ArmyListController::class, 'draftShow'])->name('army-lists.draft.show');
+Route::get('army-lists/draft/edit', [ArmyListController::class, 'draftEdit'])->name('army-lists.draft.edit');
+Route::get('army-lists/draft/print', [ArmyListController::class, 'draftPrint'])->name('army-lists.draft.print');
+
 Route::get('army-lists/{army_list}', [ArmyListController::class, 'show'])->name('army-lists.show');
 Route::get('army-lists/{army_list}/print', [ArmyListController::class, 'print'])->name('army-lists.print');
 

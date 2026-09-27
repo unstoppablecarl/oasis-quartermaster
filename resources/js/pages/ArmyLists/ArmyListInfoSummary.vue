@@ -2,10 +2,10 @@
 import FactionCardViewModal from '../../components/army-lists/FactionCardViewModal.vue'
 import Fraction from '../../components/Fraction.vue'
 import { useArmyList } from '../../composables/useArmyList'
-import type { ArmyList } from '../../types/army-list'
+import type { LocalArmyList } from '../../composables/useUnitsInfo'
 
 const { armyList } = defineProps<{
-    armyList: ArmyList
+    armyList: LocalArmyList
 }>()
 
 const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =

@@ -3,8 +3,8 @@ import { computed } from 'vue'
 import CommandCard from '../../../components/ui/CommandCard.vue'
 import FactionCard from '../../../components/ui/FactionCard.vue'
 import { useArmyList } from '../../../composables/useArmyList'
+import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { chunk } from '../../../lib/utils'
-import type { ArmyList } from '../../../types/army-list'
 
 const {
     armyList,
@@ -13,7 +13,7 @@ const {
     printCommandCards,
     printFactionCard,
 } = defineProps<{
-    armyList: ArmyList
+    armyList: LocalArmyList
     printCardBacks: boolean
     printCardsInColor: boolean
     printCommandCards: boolean

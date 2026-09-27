@@ -2,11 +2,11 @@
 import { computed } from 'vue'
 import UnitCard from '../../../components/ui/UnitCard.vue'
 import { useArmyList } from '../../../composables/useArmyList'
+import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { chunk } from '../../../lib/utils'
-import type { ArmyList } from '../../../types/army-list'
 
 const { armyList, printCardBacks, printCardsInColor } = defineProps<{
-    armyList: ArmyList
+    armyList: LocalArmyList
     printCardBacks: boolean
     printCardsInColor: boolean
 }>()

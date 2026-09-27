@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { useArmyList } from '../../../composables/useArmyList'
@@ -8,7 +9,7 @@ import { getArmyListFactionValidator } from '../../../lib/faction-validators'
 
 const {
     armyList,
-    headingClass,
+    headingClass = 'text-teal',
     textClass = 'text-danger-emphasis',
 } = defineProps<{
     armyList: LocalArmyList
@@ -16,7 +17,7 @@ const {
     textClass?: string
 }>()
 
-const { unitsInfo, faction } = useArmyList(armyList)
+const { unitsInfo, faction, maxPoints, totalCost } = useArmyList(armyList)
 
 const validator = computed(() =>
     getArmyListFactionValidator(armyList.faction_id),
@@ -42,7 +43,12 @@ const valid = computed(
 <template>
     <div class="card mb-3" v-if="!valid">
         <div class="card-body">
-            <HazardTitle variant="danger"> Validation </HazardTitle>
+            <HazardTitle variant="danger"> Validation</HazardTitle>
+            <p v-if="totalCost > (maxPoints ?? 0)">
+                <div class="text-warning fw-bold">Over Point Limit</div>
+                <Fraction :a="totalCost" :b="maxPoints" />
+            </p>
+
             <div v-if="factionRequirementMessages.length">
                 <div class="text-warning fw-bold">
                     <span class="text-teal">{{ faction.display_name }}</span>
@@ -67,8 +73,8 @@ const valid = computed(
                     <div>
                         <strong>{{ unit.display_name }}</strong>
                         <template v-if="unit.quantity > 1">
-                            &times; {{ unit.quantity }}</template
-                        >
+                            &times; {{ unit.quantity }}
+                        </template>
                     </div>
                     <ValidationMessages
                         :faction-id="armyList.faction_id"

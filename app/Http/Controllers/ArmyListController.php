@@ -34,6 +34,21 @@ class ArmyListController
         return Inertia::render('ArmyLists/Create');
     }
 
+    public function draftShow()
+    {
+        return Inertia::render('ArmyLists/Draft/Show');
+    }
+
+    public function draftEdit()
+    {
+        return Inertia::render('ArmyLists/Create');
+    }
+
+    public function draftPrint()
+    {
+        return Inertia::render('ArmyLists/Draft/Print');
+    }
+
     public function store(StoreArmyListRequest $request)
     {
         Gate::authorize('create', ArmyList::class);

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { useArmyList } from '../../../composables/useArmyList'
+import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getFactionName } from '../../../lib/static-data-helpers'
-import type { ArmyList } from '../../../types/army-list'
 
 const { armyList } = defineProps<{
-    armyList: ArmyList
+    armyList: LocalArmyList
 }>()
 
 const { maxPoints, unitsInfo, totalCost, unitCount, commands } =
