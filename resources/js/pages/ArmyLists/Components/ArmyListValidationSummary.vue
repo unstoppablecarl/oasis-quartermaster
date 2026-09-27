@@ -44,10 +44,10 @@ const valid = computed(
     <div class="card mb-3" v-if="!valid">
         <div class="card-body">
             <HazardTitle variant="danger"> Validation</HazardTitle>
-            <p v-if="totalCost > (maxPoints ?? 0)">
-                <div class="text-warning fw-bold">Over Point Limit</div>
-                <Fraction :a="totalCost" :b="maxPoints" />
-            </p>
+            <div v-if="totalCost > (maxPoints ?? 0)" class="mb-3">
+                <div class="text-warning title">Invalid Army List</div>
+                <span class="text-danger-emphasis">Over Point Limit:</span> <Fraction :a="totalCost" :b="maxPoints" />
+            </div>
 
             <div v-if="factionRequirementMessages.length">
                 <div class="text-warning fw-bold">
