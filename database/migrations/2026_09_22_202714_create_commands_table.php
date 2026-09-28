@@ -17,7 +17,7 @@ return new class extends Migration
 
         Schema::create('army_list_commands', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ArmyList::class)->index()->constrained();
+            $table->foreignIdFor(ArmyList::class)->index()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Command::class)->index()->constrained();
         });
     }
