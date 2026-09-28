@@ -34,6 +34,18 @@ class ArmyList extends Model
     use HasFactory;
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'public' => 'boolean',
+        ];
+    }
+
+    /**
      * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo

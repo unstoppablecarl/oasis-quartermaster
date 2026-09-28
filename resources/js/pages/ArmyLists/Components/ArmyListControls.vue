@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { PhCopySimple } from '@phosphor-icons/vue'
 import { BTooltip } from 'bootstrap-vue-next'
+import { computed } from 'vue'
 import DeleteArmyListModal from '../../../components/army-lists/DeleteArmyListModal.vue'
 import { duplicate, edit, print, show } from '../../../routes/army-lists'
 import type { ArmyList } from '../../../types/army-list'
@@ -12,6 +13,9 @@ const { armyList, idPrefix } = defineProps<{
     armyList: ArmyList
     idPrefix?: string
 }>()
+
+const page = usePage()
+const auth = computed(() => page.props.auth)
 </script>
 <template>
     <BtnCopyLink
@@ -30,7 +34,7 @@ const { armyList, idPrefix } = defineProps<{
     />
 
     <Link
-        v-if="armyList.public || armyList.can.update"
+        v-if="auth.user && (armyList.public || armyList.can.update)"
         :href="duplicate(armyList.uuid)"
         method="post"
         as="button"

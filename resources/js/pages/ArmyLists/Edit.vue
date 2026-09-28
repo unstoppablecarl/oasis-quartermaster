@@ -67,6 +67,9 @@ function save() {
             armyList.units = response.armyList.units.map((u) => ({ ...u }))
             armyList.public = response.armyList.public
             armyList.faction_id = response.armyList.faction_id
+            armyList.commands = response.armyList.commands.map((c) => ({
+                ...c,
+            }))
         },
         onError: (errors) => {
             const messages = Object.values(errors).flat()

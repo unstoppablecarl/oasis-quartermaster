@@ -22,3 +22,9 @@ it('belongs to many commands', function () {
     expect($armyList->commands->pluck('id')->sort()->values()->all())
         ->toBe($commands->pluck('id')->sort()->values()->all());
 });
+
+it('casts the public column to a boolean', function () {
+    $armyList = ArmyList::factory()->create(['public' => 1]);
+
+    expect($armyList->fresh()->public)->toBeBool()->toBeTrue();
+});

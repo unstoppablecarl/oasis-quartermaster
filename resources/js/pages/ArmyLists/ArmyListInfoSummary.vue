@@ -23,6 +23,9 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
                     <span class="ms-4 ws-nowrap">
                         <strong class="text-body-emphasis">Faction: </strong>
                         {{ faction.display_name }}
+                        <FactionCardViewModal
+                            :faction-id="armyList.faction_id"
+                        />
                     </span>
 
                     <span class="ms-4 ws-nowrap">
@@ -33,16 +36,6 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
                             class="text-danger-emphasis"
                         >
                             None Selected
-                        </span>
-                    </span>
-
-                    <span class="ms-4 ws-nowrap">
-                        <strong class="text-body-emphasis">Faction: </strong>
-                        <span class="text-teal"
-                            >{{ faction.display_name }}
-                            <FactionCardViewModal
-                                :faction-id="armyList.faction_id"
-                            />
                         </span>
                     </span>
 

@@ -100,7 +100,7 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
     },
 ]
 
-const sortBy = ref<BTableSortBy[]>([{ key: 'name', order: 'desc' }])
+const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'desc' }])
 
 function sortMode(key: string) {
     return sortBy.value.find((s) => s.key === key)?.order

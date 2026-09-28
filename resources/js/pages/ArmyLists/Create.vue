@@ -32,6 +32,8 @@ watch(
         () => form.custom_max_points,
         () => form.units,
         () => form.public,
+        () => form.faction_id,
+        () => form.commands,
     ],
     () => {
         if (auth.value.user) {
@@ -46,6 +48,10 @@ watch(
 function save() {
     if (!auth.value.user) {
         return
+    }
+
+    if (form.units.some((u) => u.quantity <= 0)) {
+        form.units = form.units.filter((u) => u.quantity > 0)
     }
 
     form.post(ArmyListController.store.url(), {

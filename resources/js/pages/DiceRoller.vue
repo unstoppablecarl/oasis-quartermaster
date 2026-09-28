@@ -45,6 +45,13 @@ async function startRollingAnimation(index: number, result: number) {
 }
 
 function rollDice() {
+    for (const existing of isRolling.value) {
+        if (existing) {
+            clearTimeout(existing)
+        }
+    }
+    isRolling.value = Array.from({ length: 8 }, () => false)
+
     diceResults.value.length = 0
 
     for (let i = 0; i < diceToRoll.value; i++) {
