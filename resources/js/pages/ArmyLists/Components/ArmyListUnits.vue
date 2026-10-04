@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import {
-    ChevronDown,
-    ChevronsUpDown,
-    ChevronUp,
-    GripVertical,
-    Minus,
-    Plus,
-    RotateCcw,
-    X,
-} from '@lucide/vue'
+import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical, Minus, Plus, RotateCcw, X } from '@lucide/vue'
 import { PhEquals, PhX } from '@phosphor-icons/vue'
 import { useElementSize } from '@vueuse/core'
 import { BTooltip } from 'bootstrap-vue-next'
@@ -20,10 +11,7 @@ import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { useArmyList } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
-import {
-    type LocalArmyList,
-    type UnitEntry,
-} from '../../../composables/useUnitsInfo'
+import { type LocalArmyList, type UnitEntry } from '../../../composables/useUnitsInfo'
 import UnitGridFilters from './UnitGridFilters.vue'
 
 const { armyList } = defineProps<{
@@ -39,6 +27,8 @@ const {
     unitCount,
     maxPoints,
     unitsInfo,
+    valid,
+    overPointLimit,
 } = useArmyList(armyList)
 
 type SortKey =
@@ -191,7 +181,10 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 <template>
     <div
         class="card mb-3"
-        :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px` }"
+        :class="{
+            'border-danger': !valid
+        }"
+        :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px`, }"
     >
         <div class="card-body table-units pt-0">
             <div ref="toolbar" class="unit-list-toolbar sticky-top">
@@ -405,7 +398,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                             <span
                                 v-if="showPrefix"
                                 class="text-muted fw-light"
-                                >{{ unit.prefix }}</span
+                            >{{ unit.prefix }}</span
                             >
                             {{ unit.display_name }}
                         </div>
@@ -523,12 +516,17 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
             >
                 No units added yet
             </div>
-            <div class="px-2 pt-3 pb-0 fs-5 text-end">
-                <strong>Unit Count: </strong>
-                <span class="text-body-emphasis me-3">{{ unitCount }}</span>
-                <strong>Total Cost: </strong>
-                <Fraction :a="totalCost" :b="maxPoints" />
-            </div>
+        </div>
+        <div
+            class="card-footer fs-5 text-end"
+            :class="{
+                'card-footer-error': overPointLimit
+            }"
+        >
+            <strong>Unit Count: </strong>
+            <span class="text-body-emphasis me-3">{{ unitCount }}</span>
+            <strong>Total Cost: </strong>
+            <Fraction :a="totalCost" :b="maxPoints" />
         </div>
     </div>
 </template>
@@ -577,9 +575,8 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     }
 
     .btn-minus {
-        transition:
-            border-color 0.3s,
-            background-color 0.3s;
+        transition: border-color 0.3s,
+        background-color 0.3s;
     }
 
     .grid-header {
@@ -665,7 +662,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     .row-error {
         --bs-border-color: var(--bs-danger);
         border-width: 1px;
-        background: mix($danger, $body-bg-dark, 10%);
+        background: $table-bg-error;
 
         /* Selects the .row-error that is immediately followed by a .row-error */
         &:has(+ .row-error):not(:first-child) {

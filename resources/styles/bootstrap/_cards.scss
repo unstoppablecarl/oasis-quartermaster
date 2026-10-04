@@ -1,24 +1,37 @@
 .card {
-    //.card-header {
-    //    font-family: $title-font;
-    //    text-transform: uppercase;
-    //    background: transparent;
-    //    margin: var(--#{$prefix}card-spacer-y) var(--#{$prefix}card-spacer-x);
-    //    padding: 0 0 7px;
-    //    color: $ink;
-    //    font-size: 13px;
-    //    letter-spacing: 2px;
-    //    font-weight: bold;
-    //}
+    $multiplier: 3;
 
     corner-shape: bevel;
-    $multiplier: 3;
+
     border-bottom-left-radius: calc(
         var(--#{$prefix}card-border-radius) * $multiplier
     );
     border-bottom-right-radius: calc(
         var(--#{$prefix}card-border-radius) * $multiplier
     );
+
+    .card-footer:last-child {
+
+        corner-shape: bevel;
+
+        border-bottom-left-radius: calc(
+            calc(var(--#{$prefix}card-border-radius) * $multiplier - (1px))
+        );
+        border-bottom-right-radius: calc(
+            calc(var(--#{$prefix}card-border-radius) * $multiplier - (1px))
+        );
+
+
+        &.card-footer-error {
+            border-top: 1px solid $danger;
+            background: $table-bg-error;
+        }
+    }
+}
+
+.card-footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .card .card {

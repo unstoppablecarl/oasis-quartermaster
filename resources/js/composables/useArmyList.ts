@@ -82,8 +82,39 @@ export function useArmyList(armyList: LocalArmyList) {
         })
     })
 
+
+    const validator = computed(() =>
+        getArmyListFactionValidator(armyList.faction_id),
+    )
+    const factionRequirementMessages = computed(() =>
+        validator.value.validateArmyList(armyList),
+    )
+
+    const unitsWithIssues = computed(() => {
+        return unitsInfoFinal.value.filter(
+            (u) =>
+                u.validationMessages.length ||
+                u.factionValidation?.validationMessages?.length,
+        )
+    })
+
+    const overPointLimit = computed(
+        () => maxPoints.value != null && totalCost.value > maxPoints.value,
+    )
+
+    const valid = computed(
+        () =>
+            !overPointLimit.value &&
+            !factionRequirementMessages.value.length &&
+            !unitsWithIssues.value.length,
+    )
+
     return {
         unitsInfo: unitsInfoFinal,
+        valid,
+        overPointLimit,
+        unitsWithIssues,
+        factionRequirementMessages,
         totalCost,
         unitCount,
         add,

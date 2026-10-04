@@ -116,3 +116,5 @@ $guide-colors: (
 
 $table-th-sortable-hover-color: mix($primary, #fff, 33%);
 $table-th-sortable-hover-bg: mix($carbon, #fff, 95%);
+
+$table-bg-error: mix($danger, $body-bg-dark, 10%);

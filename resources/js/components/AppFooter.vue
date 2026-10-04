@@ -19,7 +19,7 @@ const { isPrintView = false, saveBarPadding = false } = defineProps<{
                 <a href="https://github.com/unstoppablecarl">UnstoppableCarl</a>
             </p>
             <p>
-                <a href="https://oasis-game.com/">Oasis Site</a>
+                <a href="https://oasiswargame.com/">Oasis Site</a>
                 -
                 <a href="https://www.collinsepicwargames.com/privacy.html"
                     >Privacy Policy</a
@@ -35,7 +35,7 @@ const { isPrintView = false, saveBarPadding = false } = defineProps<{
             </p>
 
             <p class="text-secondary">
-                Oasis Copyright © 2026 Collins Epic Wargames, LLC. All Rights
+                Oasis: Tactical Salvage Reclamation Copyright © 2026 Collins Epic Wargames, LLC. All Rights
                 Reserved.
             </p>
         </div>

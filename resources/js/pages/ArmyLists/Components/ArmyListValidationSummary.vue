@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { useArmyList } from '../../../composables/useArmyList'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
-import { getArmyListFactionValidator } from '../../../lib/faction-validators'
 
 const {
     armyList,
@@ -17,33 +15,16 @@ const {
     textClass?: string
 }>()
 
-const { unitsInfo, faction, maxPoints, totalCost } = useArmyList(armyList)
+const {
+    faction,
+    maxPoints,
+    totalCost,
+    valid,
+    overPointLimit,
+    factionRequirementMessages,
+    unitsWithIssues,
+} = useArmyList(armyList)
 
-const validator = computed(() =>
-    getArmyListFactionValidator(armyList.faction_id),
-)
-const factionRequirementMessages = computed(() =>
-    validator.value.validateArmyList(armyList),
-)
-
-const unitsWithIssues = computed(() => {
-    return unitsInfo.value.filter(
-        (u) =>
-            u.validationMessages.length ||
-            u.factionValidation?.validationMessages?.length,
-    )
-})
-
-const overPointLimit = computed(
-    () => maxPoints.value != null && totalCost.value > maxPoints.value,
-)
-
-const valid = computed(
-    () =>
-        !overPointLimit.value &&
-        !factionRequirementMessages.value.length &&
-        !unitsWithIssues.value.length,
-)
 </script>
 <template>
     <div class="card mb-3" v-if="!valid">
