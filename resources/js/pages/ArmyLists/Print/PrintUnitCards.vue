@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import UnitCard from '../../../components/ui/UnitCard.vue'
-import { useArmyList } from '../../../composables/useArmyList'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { injectArmyList } from '../../../composables/useArmyList'
 import { chunk } from '../../../lib/utils'
 
-const { armyList, printCardBacks, printCardsInColor } = defineProps<{
-    armyList: LocalArmyList
+const { printCardBacks, printCardsInColor } = defineProps<{
     printCardBacks: boolean
     printCardsInColor: boolean
 }>()
-const { unitCards } = useArmyList(armyList)
+const { unitCards } = injectArmyList()
 
 const cardsPerPage = 4
 const pages = computed(() => {

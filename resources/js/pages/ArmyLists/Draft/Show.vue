@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
+import { provideArmyList } from '../../../composables/useArmyList'
 import { loadArmyListDraft } from '../../../lib/armyListDraft'
 import ArmyListInfoSummary from '../ArmyListInfoSummary.vue'
 import ArmyListCardsPreview from '../Components/ArmyListCardsPreview.vue'
@@ -9,6 +10,8 @@ import ArmyListValidationSummary from '../Components/ArmyListValidationSummary.v
 import DraftControls from '../Components/DraftControls.vue'
 
 const armyList = reactive(loadArmyListDraft())
+
+provideArmyList(armyList)
 </script>
 <template>
     <Head title="View Draft" />
@@ -17,8 +20,8 @@ const armyList = reactive(loadArmyListDraft())
         <DraftControls />
     </ArmyListItemHeader>
 
-    <ArmyListInfoSummary :army-list="armyList" />
-    <ArmyListValidationSummary :army-list="armyList" />
+    <ArmyListInfoSummary />
+    <ArmyListValidationSummary />
 
-    <ArmyListCardsPreview :army-list="armyList" />
+    <ArmyListCardsPreview />
 </template>

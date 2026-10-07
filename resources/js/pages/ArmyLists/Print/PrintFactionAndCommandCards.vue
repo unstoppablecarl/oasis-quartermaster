@@ -2,24 +2,21 @@
 import { computed } from 'vue'
 import CommandCard from '../../../components/ui/CommandCard.vue'
 import FactionCard from '../../../components/ui/FactionCard.vue'
-import { useArmyList } from '../../../composables/useArmyList'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { injectArmyList } from '../../../composables/useArmyList'
 import { chunk } from '../../../lib/utils'
 
 const {
-    armyList,
     printCardBacks,
     printCardsInColor,
     printCommandCards,
     printFactionCard,
 } = defineProps<{
-    armyList: LocalArmyList
     printCardBacks: boolean
     printCardsInColor: boolean
     printCommandCards: boolean
     printFactionCard: boolean
 }>()
-const { commandCards, factionCards } = useArmyList(armyList)
+const { commandCards, factionCards } = injectArmyList()
 
 const cardsPerPage = 4
 const pages = computed(() => {

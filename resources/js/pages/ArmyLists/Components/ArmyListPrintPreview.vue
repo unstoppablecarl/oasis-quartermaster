@@ -5,7 +5,7 @@ import { BFormCheckbox } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import AppFooter from '../../../components/AppFooter.vue'
 import { useCurrentUrl } from '../../../composables/useCurrentUrl'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { injectArmyList } from '../../../composables/useArmyList'
 import { print as printRoute } from '../../../routes/army-lists'
 import { print as draftPrintRoute } from '../../../routes/army-lists/draft'
 import PrintFactionAndCommandCards from '../Print/PrintFactionAndCommandCards.vue'
@@ -13,10 +13,11 @@ import PrintSettings from '../Print/PrintSettings.vue'
 import PrintUnitCards from '../Print/PrintUnitCards.vue'
 import PrintUnitList from '../Print/PrintUnitList.vue'
 
-const { armyList, printMode } = defineProps<{
-    armyList: LocalArmyList
+const { printMode } = defineProps<{
     printMode: string
 }>()
+
+const { armyList } = injectArmyList()
 
 setLayoutProps({
     showFooter: false,
@@ -142,19 +143,14 @@ const printCommandCards = ref(true)
             <div class="output-container">
                 <PrintUnitCards
                     v-if="printMode === PRINT_MODE_UNIT_CARDS"
-                    :army-list="armyList"
                     :print-card-backs="printCardBacks"
                     :print-cards-in-color="printCardsInColor"
                 />
 
-                <PrintUnitList
-                    v-if="printMode === PRINT_MODE_LIST"
-                    :army-list="armyList"
-                />
+                <PrintUnitList v-if="printMode === PRINT_MODE_LIST" />
 
                 <PrintFactionAndCommandCards
                     v-if="printMode === PRINT_MODE_FACTION_AND_COMMAND_CARDS"
-                    :army-list="armyList"
                     :print-card-backs="printCardBacks"
                     :print-cards-in-color="printCardsInColor"
                     :print-faction-card="printFactionCard"

@@ -4,7 +4,7 @@ import { useDebounceFn } from '@vueuse/core'
 import { computed, reactive, watch } from 'vue'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
-import { useArmyList } from '../../composables/useArmyList'
+import { provideArmyList } from '../../composables/useArmyList'
 import type { LocalArmyList } from '../../composables/useUnitsInfo'
 import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
@@ -40,7 +40,7 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
     commands: armyList.commands,
 })
 
-const { add, totalCost, unitCount, maxPoints } = useArmyList(http)
+const { add, totalCost, unitCount, maxPoints } = provideArmyList(http)
 
 function snapshot() {
     return JSON.stringify(http.data())
@@ -127,12 +127,12 @@ watch(
         <Head title="Edit" />
 
         <ArmyListFields :army-list="http" :errors="http.errors" />
-        <ArmyListValidationSummary :army-list="http" />
+        <ArmyListValidationSummary />
     </ArmyListItemLayout>
 
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
-            <ArmyListUnits :army-list="http" />
+            <ArmyListUnits />
 
             <UnitPicker @add="add" :army-list="http" />
         </div>

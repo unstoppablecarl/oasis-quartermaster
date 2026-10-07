@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
+import { provideArmyList } from '../../../composables/useArmyList'
 import { loadArmyListDraft } from '../../../lib/armyListDraft'
 import ArmyListInfoSummary from '../ArmyListInfoSummary.vue'
 import ArmyListItemHeader from '../Components/ArmyListItemHeader.vue'
@@ -13,6 +14,8 @@ const { printMode } = defineProps<{
 }>()
 
 const armyList = reactive(loadArmyListDraft())
+
+provideArmyList(armyList)
 </script>
 <template>
     <Head title="Print Draft" />
@@ -21,11 +24,8 @@ const armyList = reactive(loadArmyListDraft())
         <DraftControls />
     </ArmyListItemHeader>
 
-    <ArmyListInfoSummary :army-list="armyList" />
-    <ArmyListValidationSummary
-        :army-list="armyList"
-        heading-class="text-teal"
-    />
+    <ArmyListInfoSummary />
+    <ArmyListValidationSummary heading-class="text-teal" />
 
-    <ArmyListPrintPreview :army-list="armyList" :print-mode="printMode" />
+    <ArmyListPrintPreview :print-mode="printMode" />
 </template>

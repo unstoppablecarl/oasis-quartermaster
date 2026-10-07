@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import FactionCardViewModal from '../../components/army-lists/FactionCardViewModal.vue'
 import Fraction from '../../components/Fraction.vue'
-import { useArmyList } from '../../composables/useArmyList'
-import type { LocalArmyList } from '../../composables/useUnitsInfo'
+import { injectArmyList } from '../../composables/useArmyList'
 
-const { armyList } = defineProps<{
-    armyList: LocalArmyList
-}>()
-
-const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
-    useArmyList(armyList)
+const {
+    armyList,
+    unitCount,
+    totalCost,
+    maxPoints,
+    faction,
+    commands,
+    armyListTypeName,
+} = injectArmyList()
 </script>
 <template>
     <div class="card mb-3">
@@ -49,7 +51,6 @@ const { unitCount, totalCost, maxPoints, faction, commands, armyListTypeName } =
                         <Fraction :a="totalCost" :b="maxPoints" />
                     </span>
                 </div>
-
             </div>
         </div>
     </div>

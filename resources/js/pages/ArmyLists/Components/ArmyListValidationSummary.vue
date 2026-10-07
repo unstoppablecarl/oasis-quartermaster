@@ -2,20 +2,16 @@
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
-import { useArmyList } from '../../../composables/useArmyList'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import { injectArmyList } from '../../../composables/useArmyList'
+
+const { headingClass = 'text-teal', textClass = 'text-danger-emphasis' } =
+    defineProps<{
+        headingClass?: string
+        textClass?: string
+    }>()
 
 const {
     armyList,
-    headingClass = 'text-teal',
-    textClass = 'text-danger-emphasis',
-} = defineProps<{
-    armyList: LocalArmyList
-    headingClass?: string
-    textClass?: string
-}>()
-
-const {
     faction,
     maxPoints,
     totalCost,
@@ -23,8 +19,7 @@ const {
     overPointLimit,
     factionRequirementMessages,
     unitsWithIssues,
-} = useArmyList(armyList)
-
+} = injectArmyList()
 </script>
 <template>
     <div class="card mb-3" v-if="!valid">

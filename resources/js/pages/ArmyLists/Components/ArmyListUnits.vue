@@ -9,16 +9,13 @@ import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
-import { useArmyList } from '../../../composables/useArmyList'
+import { injectArmyList } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
-import { type LocalArmyList, type UnitEntry } from '../../../composables/useUnitsInfo'
+import { type UnitEntry } from '../../../composables/useUnitsInfo'
 import UnitGridFilters from './UnitGridFilters.vue'
 
-const { armyList } = defineProps<{
-    armyList: LocalArmyList
-}>()
-
 const {
+    armyList,
     add,
     subtract,
     remove,
@@ -29,7 +26,7 @@ const {
     unitsInfo,
     valid,
     overPointLimit,
-} = useArmyList(armyList)
+} = injectArmyList()
 
 type SortKey =
     | 'display_name'

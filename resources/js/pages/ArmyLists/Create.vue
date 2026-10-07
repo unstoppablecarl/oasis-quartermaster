@@ -3,7 +3,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 import { computed, watch } from 'vue'
 import { toast } from 'vue-sonner'
 import ArmyListController from '../../actions/App/Http/Controllers/ArmyListController'
-import { useArmyList } from '../../composables/useArmyList'
+import { provideArmyList } from '../../composables/useArmyList'
 import {
     clearArmyListDraft,
     loadArmyListDraft,
@@ -23,7 +23,7 @@ const auth = computed(() => page.props.auth)
 const draft = loadArmyListDraft()
 const form = useForm(draft)
 
-const { add, totalCost, unitCount, maxPoints } = useArmyList(form)
+const { add, totalCost, unitCount, maxPoints } = provideArmyList(form)
 
 watch(
     [
@@ -84,7 +84,7 @@ function save() {
 
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
-            <ArmyListUnits :army-list="form" />
+            <ArmyListUnits />
             <UnitPicker @add="add" :army-list="form" />
         </div>
     </Teleport>

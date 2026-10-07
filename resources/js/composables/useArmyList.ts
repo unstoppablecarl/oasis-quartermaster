@@ -1,4 +1,11 @@
-import { computed, toRef, toValue } from 'vue'
+import {
+    computed,
+    type InjectionKey,
+    inject,
+    provide,
+    toRef,
+    toValue,
+} from 'vue'
 import type { Command } from '../../data/commands'
 import type { FactionId } from '../../data/factions'
 import { getArmyListFactionValidator } from '../lib/faction-validators'
@@ -82,7 +89,6 @@ export function useArmyList(armyList: LocalArmyList) {
         })
     })
 
-
     const validator = computed(() =>
         getArmyListFactionValidator(armyList.faction_id),
     )
@@ -110,6 +116,7 @@ export function useArmyList(armyList: LocalArmyList) {
     )
 
     return {
+        armyList,
         unitsInfo: unitsInfoFinal,
         valid,
         overPointLimit,
@@ -131,6 +138,31 @@ export function useArmyList(armyList: LocalArmyList) {
         commandCards: computed(() => getCommandCards(commands.value)),
         factionCards: computed(() => getFactionCards(armyList.faction_id)),
     }
+}
+
+export type ArmyListContext = ReturnType<typeof useArmyList>
+
+const armyListKey: InjectionKey<ArmyListContext> = Symbol('armyList')
+
+export function provideArmyList(armyList: LocalArmyList): ArmyListContext {
+    const context = useArmyList(armyList)
+    provide(armyListKey, context)
+
+    return context
+}
+
+/**
+ * Use the army list context provided by an ancestor page.
+ */
+export function injectArmyList(): ArmyListContext {
+    const context = inject(armyListKey)
+    if (!context) {
+        throw new Error(
+            'injectArmyList() must be used within a component that called provideArmyList()',
+        )
+    }
+
+    return context
 }
 
 export type CardSide = 'Front' | 'Back'
