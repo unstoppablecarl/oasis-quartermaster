@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
@@ -19,16 +20,28 @@ const {
     overPointLimit,
     factionRequirementMessages,
     unitsWithIssues,
+    commandCards,
 } = injectArmyList()
+
+const pointsValid = computed(() => !overPointLimit.value)
+const commandCardsValid = computed(() => commandCards.value.length === 2)
+const armyListValid = computed(() => pointsValid.value && commandCardsValid.value && valid.value)
+
 </script>
 <template>
-    <div class="card mb-3" v-if="!valid">
+    <div class="card mb-3" v-if="!armyListValid">
         <div class="card-body">
             <HazardTitle variant="danger"> Validation</HazardTitle>
-            <div v-if="overPointLimit" class="mb-3">
+            <div v-if="overPointLimit || !commandCardsValid" class="mb-3">
                 <div class="text-warning title">Invalid Army List</div>
-                <span class="text-danger-emphasis">Over Point Limit:</span>
-                <Fraction :a="totalCost" :b="maxPoints" />
+                <div v-if="overPointLimit">
+                    <span class="text-danger-emphasis">Over Point Limit: </span>
+                    <Fraction :a="totalCost" :b="maxPoints" />
+                </div>
+                <div v-if="!commandCardsValid">
+                    <span class="text-danger-emphasis">2 Command Cards must be selected: </span>
+                    <Fraction :a="commandCards.length" :b="2" />
+                </div>
             </div>
 
             <div v-if="factionRequirementMessages.length">

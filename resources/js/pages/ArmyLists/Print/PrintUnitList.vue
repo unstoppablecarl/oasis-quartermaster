@@ -2,6 +2,7 @@
 import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 import { getFactionName } from '../../../lib/static-data-helpers'
+import ArmyListValidationSummary from '../Components/ArmyListValidationSummary.vue'
 
 const { armyList, maxPoints, unitsInfo, totalCost, unitCount, commands } =
     injectArmyList()
@@ -33,43 +34,43 @@ const { armyList, maxPoints, unitsInfo, totalCost, unitCount, commands } =
 
         <table class="table">
             <thead>
-                <tr>
-                    <th class="expand">Name</th>
-                    <th class="number-cell px-1 shrink">Pts</th>
-                    <th class="px-0 text-muted shrink">
-                        <span class="text-muted">&times;</span>
-                    </th>
-                    <th class="number-cell px-1 shrink">Qty</th>
-                    <th class="px-0 text-muted shrink">
-                        <span class="text-muted">=</span>
-                    </th>
-                    <th class="number-cell ps-1 shrink">Cost</th>
-                </tr>
+            <tr>
+                <th class="expand">Name</th>
+                <th class="number-cell px-1 shrink">Pts</th>
+                <th class="px-0 text-muted shrink">
+                    <span class="text-muted">&times;</span>
+                </th>
+                <th class="number-cell px-1 shrink">Qty</th>
+                <th class="px-0 text-muted shrink">
+                    <span class="text-muted">=</span>
+                </th>
+                <th class="number-cell ps-1 shrink">Cost</th>
+            </tr>
             </thead>
             <tbody>
-                <tr v-for="unit in unitsInfo">
-                    <td class="expand">
-                        <span class="name-prefix"> {{ unit.prefix }}</span>
-                        {{ unit.display_name }}
-                        <ValidationMessages
-                            :messages="unit.validationMessages"
-                            :faction-messages="
+            <tr v-for="unit in unitsInfo">
+                <td class="expand">
+                    <span class="name-prefix"> {{ unit.prefix }}</span>
+                    {{ unit.display_name }}
+                    <ValidationMessages
+                        :messages="unit.validationMessages"
+                        :faction-messages="
                                 unit.factionValidation?.validationMessages
                             "
-                            :faction-id="armyList.faction_id"
-                            heading-class="text-danger fw-bold"
-                            text-class="text-danger"
-                        />
-                    </td>
+                        :faction-id="armyList.faction_id"
+                        heading-class="text-danger fw-bold"
+                        text-class="text-danger"
+                    />
+                </td>
 
-                    <td class="number-cell px-1 shrink">{{ unit.cost }}</td>
-                    <td class="px-0 text-muted shrink">&times;</td>
-                    <td class="number-cell px-1 shrink">{{ unit.quantity }}</td>
-                    <td class="px-0 text-muted shrink">=</td>
-                    <td class="number-cell fw-bold ps-1 shrink">
-                        {{ unit.quantity * unit.cost }}
-                    </td>
-                </tr>
+                <td class="number-cell px-1 shrink">{{ unit.cost }}</td>
+                <td class="px-0 text-muted shrink">&times;</td>
+                <td class="number-cell px-1 shrink">{{ unit.quantity }}</td>
+                <td class="px-0 text-muted shrink">=</td>
+                <td class="number-cell fw-bold ps-1 shrink">
+                    {{ unit.quantity * unit.cost }}
+                </td>
+            </tr>
             </tbody>
             <caption>
                 <div class="px-2 pb-0 text-end">
@@ -78,6 +79,7 @@ const { armyList, maxPoints, unitsInfo, totalCost, unitCount, commands } =
                 </div>
             </caption>
         </table>
+        <ArmyListValidationSummary />
     </div>
 </template>
 <style lang="scss">
@@ -86,6 +88,7 @@ body .print-unit-list {
     --bs-body-font-size: 0.5rem;
 
     font-size: 0.6rem;
+
     table {
         width: 100%;
     }
@@ -103,6 +106,14 @@ body .print-unit-list {
 
     .name-prefix {
         opacity: 0.66;
+    }
+
+    .card {
+        .card-body {
+            padding: 0;
+        }
+
+        border: 0;
     }
 }
 </style>

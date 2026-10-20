@@ -7,20 +7,22 @@ import { injectArmyList } from '../../../composables/useArmyList'
 const { unitCards, commandCards, factionCards } = injectArmyList()
 </script>
 <template>
-    <h4 class="title text-primary">Faction Cards</h4>
-    <div class="row">
-        <div
-            v-for="faction in factionCards.filter((c) => c.side === 'Front')"
-            class="col-3"
-        >
-            <FactionCard
-                :display-name="faction.display_name"
-                :side="faction.side"
-                :card-image="faction.cardImage"
-                class="w-100"
-            />
+    <template v-if="factionCards.length">
+        <h4 class="title text-primary">Faction Cards</h4>
+        <div class="row">
+            <div
+                v-for="faction in factionCards.filter((c) => c.side === 'Front')"
+                class="col-3"
+            >
+                <FactionCard
+                    :display-name="faction.display_name"
+                    :side="faction.side"
+                    :card-image="faction.cardImage"
+                    class="w-100"
+                />
+            </div>
         </div>
-    </div>
+    </template>
 
     <h4 class="title text-primary">Command Cards</h4>
     <div class="row">
