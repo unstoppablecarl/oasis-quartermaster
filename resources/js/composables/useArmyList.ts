@@ -1,27 +1,10 @@
-import {
-    computed,
-    type InjectionKey,
-    inject,
-    provide,
-    toRef,
-    toValue,
-} from 'vue'
+import { computed, inject, type InjectionKey, provide, toRef, toValue } from 'vue'
 import type { Command } from '../../data/commands'
-import type { FactionId } from '../../data/factions'
+import { type FactionId, FACTIONS } from '../../data/factions'
 import { getArmyListFactionValidator } from '../lib/faction-validators'
-import {
-    ARMY_LIST_TYPES_BY_ID,
-    COMMANDS_BY_ID,
-    FACTIONS_BY_ID,
-    UNITS_BY_ID,
-} from '../lib/static-data-helpers'
+import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
 import type { ArmyList } from '../types/army-list'
-import {
-    type LocalArmyList,
-    type UnitEntry,
-    type UnitEntryInfo,
-    useUnitsInfo,
-} from './useUnitsInfo'
+import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 
 export type { UnitEntry }
 
@@ -231,6 +214,9 @@ export function getCommandCards(commands: Command[]): Card[] {
 }
 
 export function getFactionCards(factionId: FactionId): Card[] {
+    if (factionId === FACTIONS.UNAFFILIATED.id) {
+        return []
+    }
     const faction = FACTIONS_BY_ID[factionId]
     return [
         {
