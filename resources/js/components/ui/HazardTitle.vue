@@ -4,7 +4,7 @@ const { variant } = defineProps<{
 }>()
 </script>
 <template>
-    <div class="d-flex">
+    <div class="hazard-container">
         <div class="title pb-2 hazard-title" :class="`text-${variant}`">
             <slot />
         </div>
@@ -15,4 +15,13 @@ const { variant } = defineProps<{
         <slot name="after" />
     </div>
 </template>
-<style lang="scss"></style>
+<style lang="scss">
+.hazard-container {
+    display: flex;
+}
+.page-preview {
+    .hazard-container {
+        display: none;
+    }
+}
+</style>
