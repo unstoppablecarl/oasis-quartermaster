@@ -7,7 +7,7 @@ import type { CommandId } from '../../../../data/commands'
 import CommandSelectModal from '../../../components/army-lists/CommandSelectModal.vue'
 import FactionSelectModal from '../../../components/army-lists/FactionSelectModal.vue'
 import InputError from '../../../components/InputError.vue'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
+import type { LocalArmyList } from '../../../types/army-list'
 import BtnCopyLink from './BtnCopyLink.vue'
 
 const {

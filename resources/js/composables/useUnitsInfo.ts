@@ -1,86 +1,25 @@
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
-import type { ArmyListTypeId } from '../../data/army-list-types'
-import type { CommandId } from '../../data/commands'
-import { type FactionId } from '../../data/factions'
-import { type Unit, type UnitId } from '../../data/units'
+import { type Unit } from '../../data/units'
 import { UNITS_BY_ID } from '../lib/static-data-helpers'
-import { ARMY_LIST_UNIT_VALIDATOR, type UnitValidationResult } from '../lib/unit-validators'
+import type { UnitEntry } from '../types/army-list'
 
-export type UnitEntry = {
-    id: UnitId
-    quantity: number
-}
+export type UnitEntryInfo = UnitEntry & Unit
 
-export type UnitEntryInfo = UnitEntry &
-    Unit & {
-    coreRulesValidationMessages: string[]
-    unitValidation: UnitValidationResult | undefined
-}
-
-export type LocalArmyList = {
-    uuid?: string
-    created_at?: string
-    updated_at?: string
-    display_name: string
-    faction_id: FactionId
-    commands: { id: CommandId }[]
-    units: UnitEntry[]
-    army_list_type_id: ArmyListTypeId | null
-    custom_max_points: number | null
-    public: boolean
-}
-
-export function useUnitsInfo(
-    armyList: LocalArmyList,
-    units: MaybeRefOrGetter<UnitEntry[]>,
-    maxPoints: MaybeRefOrGetter<number | null>,
-) {
-    const baseUnits = computed(() => {
+export function useUnitsInfo(units: MaybeRefOrGetter<UnitEntry[]>) {
+    const unitsInfo = computed((): UnitEntryInfo[] => {
         return toValue(units).map((u) => {
             return {
                 ...u,
                 ...UNITS_BY_ID[u.id],
-            } as UnitEntry & Unit
-        })
-    })
-
-    const unitsInfo = computed((): UnitEntryInfo[] => {
-        return baseUnits.value.map((u) => {
-            const cost = u.quantity * u.cost
-            const count = u.quantity
-
-            const resolvedMaxPoints = toValue(maxPoints)
-
-            const coreRulesValidationMessages = []
-            if (resolvedMaxPoints !== null) {
-                const halfPoints = Math.ceil(resolvedMaxPoints * 0.5)
-                if (cost > halfPoints) {
-                    coreRulesValidationMessages.push(
-                        `Unit cost cannot be greater than 50% of Total Points. (${cost} / ${halfPoints})`,
-                    )
-                }
-            }
-            const halfCount = Math.ceil(unitCount.value * 0.5)
-
-            if (count > halfCount) {
-                coreRulesValidationMessages.push(
-                    `Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`,
-                )
-            }
-
-            return {
-                ...u,
-                coreRulesValidationMessages,
-                unitValidation: ARMY_LIST_UNIT_VALIDATOR.validateUnitInList(armyList, u as UnitEntry),
-            }
+            } as UnitEntryInfo
         })
     })
 
     const totals = computed(() => {
         let cost = 0
         let count = 0
-        for (let i = 0; i < baseUnits.value.length; i++) {
-            const item = baseUnits.value[i]
+        for (let i = 0; i < unitsInfo.value.length; i++) {
+            const item = unitsInfo.value[i]
             cost += item.quantity * item.cost
             count += item.quantity
         }

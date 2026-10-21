@@ -34,3 +34,7 @@ export function sort<T>(getter: (v: T) => number) {
         return getter(a) - getter(b)
     }
 }
+
+export function half(value: number) {
+    return Math.ceil(value * 0.5)
+}

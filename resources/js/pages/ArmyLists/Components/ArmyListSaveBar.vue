@@ -3,10 +3,7 @@ import { computed, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import type { CommandId } from '../../../../data/commands'
 import type { FactionId } from '../../../../data/factions'
 import Fraction from '../../../components/Fraction.vue'
-import {
-    COMMANDS_BY_ID,
-    getFactionName,
-} from '../../../lib/static-data-helpers'
+import { COMMANDS_BY_ID, getFactionName } from '../../../lib/static-data-helpers'
 
 const {
     name,
@@ -83,32 +80,21 @@ const saveStatusText = computed(() => {
                 <div class="hstack save-bar-info">
                     <div class="hstack me-auto save-bar-fields">
                         <div class="save-bar-name">
-                            <strong class="text-body-emphasis"
-                                >Name:&nbsp;</strong
+                            <strong class="text-body-emphasis">Name:&nbsp;</strong
                             >
-                            <span v-if="name" class="text-truncate">{{
-                                name
-                            }}</span>
-                            <span v-else class="text-danger-emphasis"
-                                >Unnamed</span
-                            >
+                            <span v-if="name" class="text-truncate">{{ name }}</span>
+                            <span v-else class="text-danger-emphasis">Unnamed</span>
                         </div>
                         <div>
-                            <strong class="text-body-emphasis"
-                                >Faction:
-                            </strong>
+                            <strong class="text-body-emphasis">Faction: </strong>
                             <span>{{ faction }}</span>
                         </div>
                         <div>
-                            <strong class="text-body-emphasis"
-                                >Commands:
-                            </strong>
+                            <strong class="text-body-emphasis">Commands: </strong>
                             <span v-if="commands.length">{{
-                                commands.join(', ')
-                            }}</span>
-                            <span v-else class="text-danger-emphasis"
-                                >None Selected</span
-                            >
+                                    commands.join(', ')
+                                }}</span>
+                            <span v-else class="text-danger-emphasis">None Selected</span>
                         </div>
 
                         <div>

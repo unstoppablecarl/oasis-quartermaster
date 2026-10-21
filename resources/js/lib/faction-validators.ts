@@ -1,170 +1,96 @@
-import { ABILITIES, TRAITS } from '../../data/abilities-and-traits'
+import { TRAITS } from '../../data/abilities-and-traits'
 import { type FactionId, FACTIONS } from '../../data/factions'
-import type { UnitId } from '../../data/units'
-import { getArmyListMaxPoints, type UnitEntry } from '../composables/useArmyList'
-import type { LocalArmyList } from '../composables/useUnitsInfo'
-import { UNITS_BY_ID } from './static-data-helpers'
+import type { Unit, UnitId } from '../../data/units'
+import type { LocalArmyList, UnitEntry } from '../types/army-list'
+import { getArmyListMaxPoints, getArmyListUnitCount, UNITS_BY_ID } from './static-data-helpers'
+import { half } from './utils'
+
+type FactionValidator = {
+    validateUnitAllowed?: (unit: Unit) => string[]
+    validateUnitInList?: (armyList: LocalArmyList, entry: UnitEntry) => string[]
+    validateArmyList?: (armyList: LocalArmyList) => string[]
+}
 
 const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
-    [FACTIONS.UNAFFILIATED.id]: {
-        validateArmyList: () => [],
-        validateUnitInList: () => undefined,
-        validateUnitCandidate: () => undefined,
-    },
+    [FACTIONS.UNAFFILIATED.id]: {},
     [FACTIONS.IRON_RAIN.id]: (() => {
         const traits = [
             TRAITS.GRAV_DRIVE.display_name,
             TRAITS.AIRCRAFT_HEAVY_GRAV_DRIVE.display_name,
         ]
 
-        function validateUnitCandidate(armyList: LocalArmyList, id: UnitId) {
-            const unit = UNITS_BY_ID[id]
-            const valid = unit.traits.find((v) => traits.includes(v))
-            if (!valid) {
-                return {
-                    id,
-                    alwaysInvalid: true,
-                    validationMessages: [
-                        `All Units must have the ${traits.join(' or ')} Trait`,
-                    ],
-                }
-            }
-        }
-
-        function validateUnitInList(armyList: LocalArmyList, unit: UnitEntry) {
-            const result = validateUnitCandidate(armyList, unit.id)
-            if (result) {
-                return {
-                    ...result,
-                    quantity: unit.quantity,
-                }
-            }
-        }
-
         return {
-            validateArmyList: () => [],
-            validateUnitInList,
-            validateUnitCandidate,
-        }
-    })(),
-    [FACTIONS.FREELANCE.id]: (() => {
-        function validateUnitInList(armyList: LocalArmyList, u: UnitEntry) {
-            if (u.quantity > 1) {
-                return {
-                    id: u.id,
-                    quantity: u.quantity,
-                    alwaysInvalid: false,
-                    validationMessages: [
-                        `You may not have more than 2 units of any type (veterans still count as the same unit type)`,
-                    ],
-                }
-            }
-        }
-
-        return {
-            validateArmyList: () => [],
-            validateUnitInList,
-            validateUnitCandidate: () => undefined,
-        }
-    })(),
-    [FACTIONS.SURVEYFI.id]: (() => {
-        function validateUnitCandidate(armyList: LocalArmyList, id: UnitId) {
-            const unit = UNITS_BY_ID[id]
-            const hp = unit.hp ?? 0
-
-            if (hp > 4) {
-                return {
-                    id,
-                    alwaysInvalid: true,
-                    validationMessages: [
-                        `You may not have any Units with more than 4 HP`,
-                    ],
-                }
-            }
-        }
-
-        function validateUnitInList(armyList: LocalArmyList, unit: UnitEntry) {
-            const result = validateUnitCandidate(armyList, unit.id)
-            if (result) {
-                return {
-                    ...result,
-                    quantity: unit.quantity,
-                }
-            }
-        }
-
-        return {
-            validateArmyList: (armyList: LocalArmyList) => {
-                const unitCount = armyList.units.reduce(
-                    (c, v) => c + v.quantity,
-                    0,
-                )
-                let surveyorUnitCount = 0
-                const maxPoints = getArmyListMaxPoints(armyList)
-                let surveyorUnitTotalCost = 0
-
-                for (const u of armyList.units) {
-                    const unit = UNITS_BY_ID[u.id]
-                    const isSurveyor = unit.abilities.includes(
-                        ABILITIES.SURVEYOR.display_name,
-                    )
-                    if (isSurveyor) {
-                        surveyorUnitCount += u.quantity
-                        surveyorUnitTotalCost += u.quantity * unit.cost
-                    }
+            validateUnitAllowed: (unit: Unit) => {
+                const hasRequiredTrait = unit.traits.some((trait) => traits.includes(trait))
+                if (hasRequiredTrait) {
+                    return []
                 }
 
-                let validationMessages: string[] = []
-                let halfPointsValid = false
-                let halfPoints: number | null = null
-                if (maxPoints !== null) {
-                    halfPoints = Math.ceil(maxPoints * 0.5)
-                    halfPointsValid = surveyorUnitTotalCost >= halfPoints
-                }
-
-                const halfCount = Math.ceil(unitCount * 0.5)
-                const halfCountValid = surveyorUnitCount >= halfCount
-
-                if (!halfPointsValid && !halfCountValid) {
-                    validationMessages = [
-                        `At least 50% of the total Units cost or Units count must be Units with the Surveyor Trait.`,
-                        `Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${halfPoints})`,
-                        `Required Surveyor Trait Unit count. (${surveyorUnitCount} / ${halfCount})`,
-                    ]
-                }
-
-                return validationMessages
+                return [`All Units must have the ${traits.join(' or ')} Trait`]
             },
-            validateUnitInList,
-            validateUnitCandidate,
         }
     })(),
+    [FACTIONS.FREELANCE.id]: {
+        validateUnitInList: (armyList: LocalArmyList, entry: UnitEntry) => {
+            if (entry.quantity <= 2) {
+                return []
+            }
+
+            return [`You may not have more than 2 units of any type (veterans still count as the same unit type)`]
+        },
+    },
+    [FACTIONS.SURVEYFI.id]: {
+        validateUnitAllowed: (unit: Unit) => {
+            if ((unit.hp ?? 0) <= 4) {
+                return []
+            }
+
+            return [`You may not have any Units with more than 4 HP`]
+        },
+        validateArmyList: (armyList: LocalArmyList) => {
+            let surveyorUnitCount = 0
+            let surveyorUnitTotalCost = 0
+
+            for (const entry of armyList.units) {
+                const unit = UNITS_BY_ID[entry.id]
+                if (unit.traits.includes(TRAITS.SURVEYOR.display_name)) {
+                    surveyorUnitCount += entry.quantity
+                    surveyorUnitTotalCost += entry.quantity * unit.cost
+                }
+            }
+
+            const maxPoints = getArmyListMaxPoints(armyList)
+            const halfPoints = maxPoints === null ? null : half(maxPoints)
+            const halfCount = half(getArmyListUnitCount(armyList))
+
+            const pointsValid = halfPoints !== null && surveyorUnitTotalCost >= halfPoints
+            const countValid = surveyorUnitCount >= halfCount
+            if (pointsValid || countValid) {
+                return []
+            }
+
+            return [
+                `At least 50% of the total Units cost or Units count must be Units with the Surveyor Trait.`,
+                `Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${halfPoints ?? '–'})`,
+                `Required Surveyor Trait Unit count. (${surveyorUnitCount} / ${halfCount})`,
+            ]
+        },
+    },
 }
 
-type FactionUnitEntry = {
-    id: UnitId
-    quantity: number
-    alwaysInvalid: boolean
-    validationMessages: string[]
-}
+export const FACTION_VALIDATOR = {
+    validateUnitAllowed(factionId: FactionId, unitId: UnitId): string[] {
+        return FACTION_VALIDATORS_BY_ID[factionId].validateUnitAllowed?.(UNITS_BY_ID[unitId]) ?? []
+    },
+    validateUnitInList(armyList: LocalArmyList, entry: UnitEntry): string[] {
+        const validator = FACTION_VALIDATORS_BY_ID[armyList.faction_id]
 
-export type UnitInListValidationResult = Exclude<
-    ReturnType<FactionValidator['validateUnitInList']>,
-    undefined
->
-
-type FactionValidator = {
-    validateArmyList: (armyList: LocalArmyList) => string[]
-    validateUnitInList: (
-        armyList: LocalArmyList,
-        unit: UnitEntry,
-    ) => FactionUnitEntry | undefined
-    validateUnitCandidate: (
-        armyList: LocalArmyList,
-        unitId: UnitId,
-    ) => Omit<FactionUnitEntry, 'quantity'> | undefined
-}
-
-export function getArmyListFactionValidator(factionId: FactionId) {
-    return FACTION_VALIDATORS_BY_ID[factionId ?? FACTIONS.UNAFFILIATED.id]
+        return [
+            ...(validator.validateUnitAllowed?.(UNITS_BY_ID[entry.id]) ?? []),
+            ...(validator.validateUnitInList?.(armyList, entry) ?? []),
+        ]
+    },
+    validateArmyList(armyList: LocalArmyList): string[] {
+        return FACTION_VALIDATORS_BY_ID[armyList.faction_id].validateArmyList?.(armyList) ?? []
+    },
 }

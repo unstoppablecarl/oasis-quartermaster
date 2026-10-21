@@ -1,19 +1,22 @@
-import { computed, inject, type InjectionKey, provide, toRef, toValue } from 'vue'
+import { computed, inject, type InjectionKey, provide, toRef } from 'vue'
 import type { Command } from '../../data/commands'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { UnitId } from '../../data/units'
-import { getArmyListFactionValidator } from '../lib/faction-validators'
-import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
-import type { ArmyList } from '../types/army-list'
-import { type LocalArmyList, type UnitEntry, type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
-
-export type { UnitEntry }
+import { hasValidationMessages, validateArmyList, validateUnitInList } from '../lib/army-list-validation'
+import {
+    ARMY_LIST_TYPES_BY_ID,
+    COMMANDS_BY_ID,
+    FACTIONS_BY_ID,
+    getArmyListMaxPoints,
+} from '../lib/static-data-helpers'
+import type { LocalArmyList } from '../types/army-list'
+import { type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 
 export function useArmyList(armyList: LocalArmyList) {
     const units = toRef(armyList, 'units')
-    const maxPoints = computed(() => getArmyListMaxPoints(toValue(armyList)))
+    const maxPoints = computed(() => getArmyListMaxPoints(armyList))
 
-    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(armyList, units, maxPoints)
+    const { unitsInfo: baseUnitsInfo, totalCost, unitCount } = useUnitsInfo(units)
 
     const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
     const commands = computed(() =>
@@ -63,53 +66,38 @@ export function useArmyList(armyList: LocalArmyList) {
             .filter((unit) => unit !== undefined)
     }
 
-    const unitsInfoFinal = computed(() => {
-        const factionValidator = getArmyListFactionValidator(armyList.faction_id)
-        return unitsInfo.value.map((u) => {
-            const factionValidation = factionValidator.validateUnitInList(armyList, u)
-            const hasAnyValidationMessages = !!(
-                u.coreRulesValidationMessages.length ||
-                factionValidation?.validationMessages.length ||
-                u.unitValidation?.validationMessages.length
-            )
+    const unitsInfo = computed(() =>
+        baseUnitsInfo.value.map((u) => {
+            const validation = validateUnitInList(armyList, u)
 
             return {
                 ...u,
-                hasAnyValidationMessages,
-                factionValidation,
+                validation,
+                isValid: !hasValidationMessages(validation),
             }
-        })
-    })
-
-    const validator = computed(() =>
-        getArmyListFactionValidator(armyList.faction_id),
-    )
-    const factionRequirementMessages = computed(() =>
-        validator.value.validateArmyList(armyList),
+        }),
     )
 
     const unitsWithIssues = computed(() =>
-        unitsInfoFinal.value.filter((u) => u.hasAnyValidationMessages),
+        unitsInfo.value.filter((u) => !u.isValid),
     )
 
-    const overPointLimit = computed(
-        () => maxPoints.value != null && totalCost.value > maxPoints.value,
-    )
+    const validation = computed(() => validateArmyList(armyList))
 
     const valid = computed(
         () =>
-            !overPointLimit.value &&
-            !factionRequirementMessages.value.length &&
+            !validation.value.core.overPointLimit &&
+            validation.value.core.commandCardsValid &&
+            !validation.value.faction.length &&
             !unitsWithIssues.value.length,
     )
 
     return {
         armyList,
-        unitsInfo: unitsInfoFinal,
+        unitsInfo,
+        validation,
         valid,
-        overPointLimit,
         unitsWithIssues,
-        factionRequirementMessages,
         totalCost,
         unitCount,
         add,
@@ -122,7 +110,7 @@ export function useArmyList(armyList: LocalArmyList) {
         armyListTypeName,
         createdAt,
         updatedAt,
-        unitCards: computed(() => getUnitCards(unitsInfo.value)),
+        unitCards: computed(() => getUnitCards(baseUnitsInfo.value)),
         commandCards: computed(() => getCommandCards(commands.value)),
         factionCards: computed(() => getFactionCards(armyList.faction_id)),
     }
@@ -239,17 +227,6 @@ export function getFactionCards(factionId: FactionId): Card[] {
     ]
 }
 
-export function getArmyListMaxPoints(armyList: {
-    army_list_type_id: number | null
-    custom_max_points: number | null
-}): number | null {
-    if (armyList.army_list_type_id === null) {
-        return armyList.custom_max_points
-    }
-
-    return ARMY_LIST_TYPES_BY_ID[armyList.army_list_type_id]?.max_points ?? null
-}
-
 export function getArmyListTypeName(armyList: {
     army_list_type_id: number | null
 }) {
@@ -264,15 +241,4 @@ function toTimestamp(val: string | undefined) {
         return null
     }
     return new Date(val)
-}
-
-export function getArmyListTotalPoints(armyList: Pick<ArmyList, 'units'>) {
-    let total = 0
-    for (const u of armyList.units) {
-        const unit = UNITS_BY_ID[u.id]
-
-        total += u.quantity * unit.cost
-    }
-
-    return total
 }

@@ -2,6 +2,7 @@ import { ARMY_LIST_TYPES, type ArmyListType, type ArmyListTypeId } from '../../d
 import { type Command, type CommandId, COMMANDS } from '../../data/commands'
 import { type Faction, type FactionId, FACTIONS } from '../../data/factions'
 import { type Unit, type UnitId, UNITS } from '../../data/units'
+import type { UnitEntry } from '../types/army-list'
 
 export const FACTIONS_BY_ID = Object.values(FACTIONS).reduce(
     (acc, faction) => {
@@ -68,4 +69,30 @@ export function getUnitFullName(id: UnitId) {
     ]
         .filter(Boolean)
         .join(' ')
+}
+
+export function getArmyListMaxPoints(armyList: {
+    army_list_type_id: number | null
+    custom_max_points: number | null
+}): number | null {
+    if (armyList.army_list_type_id === null) {
+        return armyList.custom_max_points
+    }
+
+    return ARMY_LIST_TYPES_BY_ID[armyList.army_list_type_id]?.max_points ?? null
+}
+
+export function getArmyListTotalPoints(armyList: { units: UnitEntry[] }) {
+    let total = 0
+    for (const u of armyList.units) {
+        const unit = UNITS_BY_ID[u.id]
+
+        total += u.quantity * unit.cost
+    }
+
+    return total
+}
+
+export function getArmyListUnitCount(armyList: { units: UnitEntry[] }) {
+    return armyList.units.reduce((count, u) => count + u.quantity, 0)
 }

@@ -51,3 +51,7 @@ ol {
 @each $color, $value in $guide-colors {
     @include text-color-variant($color, $value);
 }
+
+.popover {
+    --teal: #{$teal};
+}

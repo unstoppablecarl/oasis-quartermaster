@@ -1,0 +1,46 @@
+import type { LocalArmyList, UnitEntry } from '../types/army-list'
+import {
+    getArmyListMaxPoints,
+    getArmyListTotalPoints,
+    getArmyListUnitCount,
+    UNITS_BY_ID,
+} from './static-data-helpers'
+import { half } from './utils'
+
+export const REQUIRED_COMMAND_CARD_COUNT = 2
+
+export type CoreArmyListValidation = {
+    overPointLimit: boolean
+    commandCardsValid: boolean
+}
+
+export const CORE_VALIDATOR = {
+    validateUnitInList(armyList: LocalArmyList, entry: UnitEntry): string[] {
+        const messages: string[] = []
+
+        const maxPoints = getArmyListMaxPoints(armyList)
+        const cost = entry.quantity * UNITS_BY_ID[entry.id].cost
+        if (maxPoints !== null && cost > half(maxPoints)) {
+            messages.push(
+                `Unit cost cannot be greater than 50% of Total Points. (${cost} / ${half(maxPoints)})`,
+            )
+        }
+
+        const halfCount = half(getArmyListUnitCount(armyList))
+        if (entry.quantity > halfCount) {
+            messages.push(
+                `Unit count cannot be greater than 50% of Total Unit Count. (${entry.quantity} / ${halfCount})`,
+            )
+        }
+
+        return messages
+    },
+    validateArmyList(armyList: LocalArmyList): CoreArmyListValidation {
+        const maxPoints = getArmyListMaxPoints(armyList)
+
+        return {
+            overPointLimit: maxPoints !== null && getArmyListTotalPoints(armyList) > maxPoints,
+            commandCardsValid: armyList.commands.length === REQUIRED_COMMAND_CARD_COUNT,
+        }
+    },
+}

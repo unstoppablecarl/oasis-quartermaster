@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
+import { REQUIRED_COMMAND_CARD_COUNT } from '../../../lib/core-validators'
 
 const { headingClass = 'text-teal', textClass = 'text-danger-emphasis' } =
     defineProps<{
@@ -17,42 +17,35 @@ const {
     maxPoints,
     totalCost,
     valid,
-    overPointLimit,
-    factionRequirementMessages,
+    validation,
     unitsWithIssues,
     commands,
-    commandCards,
 } = injectArmyList()
-
-const pointsValid = computed(() => !overPointLimit.value)
-const commandCardsValid = computed(() => commands.value.length === 2)
-const armyListValid = computed(() => pointsValid.value && commandCardsValid.value && valid.value)
-
 </script>
 <template>
-    <div class="card mb-3" v-if="!armyListValid">
+    <div class="card mb-3" v-if="!valid">
         <div class="card-body">
             <HazardTitle variant="danger"> Validation</HazardTitle>
-            <div v-if="overPointLimit || !commandCardsValid" class="mb-3">
+            <div v-if="validation.core.overPointLimit || !validation.core.commandCardsValid" class="mb-3">
                 <div class="text-warning title">Invalid Army List</div>
-                <div v-if="overPointLimit">
+                <div v-if="validation.core.overPointLimit">
                     <span class="text-danger-emphasis">Over Point Limit: </span>
                     <Fraction :a="totalCost" :b="maxPoints" />
                 </div>
-                <div v-if="!commandCardsValid">
-                    <span class="text-danger-emphasis">2 Command Cards must be selected: </span>
-                    <Fraction :a="commands.length" :b="2" />
+                <div v-if="!validation.core.commandCardsValid">
+                    <span class="text-danger-emphasis">{{ REQUIRED_COMMAND_CARD_COUNT }} Command Cards must be selected: </span>
+                    <Fraction :a="commands.length" :b="REQUIRED_COMMAND_CARD_COUNT" />
                 </div>
             </div>
 
-            <div v-if="factionRequirementMessages.length">
+            <div v-if="validation.faction.length">
                 <div class="text-warning fw-bold">
                     <span class="text-teal">{{ faction.display_name }}</span>
                     Faction Requirements
                 </div>
                 <ul>
                     <li
-                        v-for="message in factionRequirementMessages"
+                        v-for="message in validation.faction"
                         class="text-danger-emphasis"
                     >
                         {{ message }}
@@ -75,9 +68,7 @@ const armyListValid = computed(() => pointsValid.value && commandCardsValid.valu
                     <UnitValidationMessages
                         :unit-id="unit.id"
                         :faction-id="armyList.faction_id"
-                        :core-messages="unit.coreRulesValidationMessages"
-                        :faction-messages="unit.factionValidation?.validationMessages"
-                        :unit-messages="unit.unitValidation?.validationMessages"
+                        :validation="unit.validation"
                         :text-class="textClass"
                         :heading-class="headingClass"
                     />

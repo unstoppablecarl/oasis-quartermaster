@@ -54,9 +54,7 @@ const { armyList, maxPoints, unitsInfo, totalCost, unitCount, commands } =
                     {{ unit.display_name }}
                     <UnitValidationMessages
                         :unit-id="unit.id"
-                        :core-messages="unit.coreRulesValidationMessages"
-                        :faction-messages="unit.factionValidation?.validationMessages"
-                        :unit-messages="unit.unitValidation?.validationMessages"
+                        :validation="unit.validation"
                         :faction-id="armyList.faction_id"
                         heading-class="text-danger fw-bold"
                         text-class="text-danger"

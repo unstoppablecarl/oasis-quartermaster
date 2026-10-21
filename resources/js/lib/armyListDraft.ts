@@ -1,7 +1,6 @@
 import { ARMY_LIST_TYPES } from '../../data/army-list-types'
 import { FACTIONS } from '../../data/factions'
-import type { LocalArmyList } from '../composables/useUnitsInfo'
-import type { ArmyList } from '../types/army-list'
+import type { ArmyList, LocalArmyList } from '../types/army-list'
 
 const STORAGE_KEY = 'oasis-army-list-draft'
 

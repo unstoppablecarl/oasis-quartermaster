@@ -4,37 +4,29 @@ import { BPopover } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import type { UnitId } from '../../../data/units'
+import { hasValidationMessages, type UnitValidation } from '../../lib/army-list-validation'
 import UnitValidationMessages from './UnitValidationMessages.vue'
 
 const {
     unitId,
-    coreMessages,
-    factionMessages,
-    unitMessages,
+    validation,
     headingClass = 'text-danger fw-bold',
     textClass,
     factionId,
 } = defineProps<{
     unitId: UnitId,
-    coreMessages?: string[]
-    factionMessages?: string[]
-    unitMessages?: string[]
+    validation: UnitValidation
     headingClass?: string
     textClass?: string
     factionId: FactionId
 }>()
 
-const hasMessages = computed(() => !!(
-    coreMessages?.length ||
-    factionMessages?.length ||
-    unitMessages?.length
-))
+const hasMessages = computed(() => hasValidationMessages(validation))
 </script>
 <template>
-    <BPopover variant="light">
+    <BPopover v-if="hasMessages" variant="light">
         <template #target>
             <button
-                v-if="hasMessages"
                 role="button"
                 class="btn btn-danger btn-popover-validation"
             >
@@ -44,11 +36,9 @@ const hasMessages = computed(() => !!(
         <UnitValidationMessages
             :unit-id="unitId"
             :faction-id="factionId"
-            :faction-messages="factionMessages"
-            :core-messages="coreMessages"
+            :validation="validation"
             :heading-class="headingClass"
             :text-class="textClass"
-            :unit-messages="unitMessages"
         />
     </BPopover>
 </template>

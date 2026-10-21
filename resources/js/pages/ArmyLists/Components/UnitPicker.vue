@@ -16,12 +16,11 @@ import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
-import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
-import type { LocalArmyList } from '../../../composables/useUnitsInfo'
-import { getArmyListFactionValidator } from '../../../lib/faction-validators'
-import { ARMY_LIST_UNIT_VALIDATOR } from '../../../lib/unit-validators'
+import { hasValidationMessages, validateUnitCandidate } from '../../../lib/army-list-validation'
+import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../lib/static-data-helpers'
 import { sort } from '../../../lib/utils'
+import type { LocalArmyList } from '../../../types/army-list'
 import ButtonToggle from './ButtonToggle.vue'
 import UnitGridFilters from './UnitGridFilters.vue'
 
@@ -35,9 +34,6 @@ const emit = defineEmits<{
 
 type Row = (typeof allUnits)['value'][0]
 
-const validator = computed(() =>
-    getArmyListFactionValidator(armyList.faction_id),
-)
 const allUnits = computed(() => {
     const maxPoints = getArmyListMaxPoints(armyList) ?? 0
     const totalPoints = getArmyListTotalPoints(armyList)
@@ -76,16 +72,11 @@ const allUnits = computed(() => {
                 weapons: weapons.map((w) => ({ ...w })),
                 traits: [...traits],
                 abilities: [...abilities],
-                unit_validation: ARMY_LIST_UNIT_VALIDATOR.validateUnitCandidate(armyList, id),
-                faction_validation: validator.value.validateUnitCandidate(
-                    armyList,
-                    u.id,
-                ),
+                validation: validateUnitCandidate(armyList, id),
             }
         })
         .filter((row) => {
-            const valid = !row.faction_validation
-            if (filterFactionValidUnits.value && !valid) {
+            if (filterFactionValidUnits.value && !row.validation.allowed) {
                 return false
             }
 
@@ -103,7 +94,7 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
         label: 'Valid',
         sortable: true,
         sortCompare: sort((unit: Row) =>
-            unit.faction_validation || unit.unit_validation ? 1 : 0,
+            hasValidationMessages(unit.validation) ? 1 : 0,
         ),
     },
     {
@@ -192,7 +183,7 @@ const rowClass = (
     item: Row | null,
     type: TableRowType,
 ): TableStrictClassValue =>
-    type === 'row' && (item?.faction_validation || item?.unit_validation) ? 'row-invalid' : ''
+    type === 'row' && item && hasValidationMessages(item.validation) ? 'row-error' : ''
 
 function sortMode(key: string) {
     return sortBy.value.find((s) => s.key === key)?.order
@@ -276,8 +267,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                     <BtnPopoverValidation
                         :unit-id="data.item.id"
                         :faction-id="armyList.faction_id"
-                        :faction-messages="data.item.faction_validation?.validationMessages"
-                        :unit-messages="data.item.unit_validation?.validationMessages"
+                        :validation="data.item.validation"
                     />
                 </template>
 
@@ -306,7 +296,6 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         @click="emit('add', data.item.id)"
                         v-b-tooltip.hover.top
                         title="Add to List"
-                        :disabled="!!data.item.faction_validation"
                     >
                         <PhPlus weight="bold" :size="16" />
                     </button>
@@ -335,24 +324,27 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 }
 
 .table-unit-picker {
-    > tbody > tr.row-invalid {
-        &:nth-of-type(odd) > * {
-            --bs-table-bg-type: var(--bs-table-bg);
+    > tbody > tr.row-error > td {
+        --bs-table-bg: #{$table-bg-error};
+        border-color: var(--bs-danger);
+
+        &:first-child {
+            border-left-width: 1px;
         }
 
-        > td {
-            &:not(:has(.btn-popover-validation)) {
-                opacity: 0.25;
-            }
-
-            &:has(.btn-popover-validation) {
-                border-color: color-mix(
-                    in srgb,
-                    var(--bs-table-border-color) 25%,
-                    transparent
-                );
-            }
+        &:last-child {
+            border-right-width: 1px;
         }
+    }
+
+    /* The first row has no row above it to provide a top border */
+    > tbody > tr.row-error:first-child > td {
+        border-top-width: 1px;
+    }
+
+    /* Gives the .row-error a top border by coloring the bottom border of the row above it */
+    > tbody > tr:has(+ tr.row-error) > td {
+        border-bottom-color: var(--bs-danger);
     }
 }
 </style>

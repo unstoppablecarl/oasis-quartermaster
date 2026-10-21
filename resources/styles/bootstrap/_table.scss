@@ -26,13 +26,4 @@
             color: var(--bs-primary);
         }
     }
-
-    table.table-hover,
-    &.table-hover {
-        > tbody > tr.row-invalid {
-            > td {
-                --bs-table-bg-state: var(--bs-table-bg);
-            }
-        }
-    }
 }

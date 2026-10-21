@@ -11,7 +11,7 @@ import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
-import { type UnitEntry } from '../../../composables/useUnitsInfo'
+import type { UnitEntry } from '../../../types/army-list'
 import UnitGridFilters from './UnitGridFilters.vue'
 
 const {
@@ -24,8 +24,8 @@ const {
     unitCount,
     maxPoints,
     unitsInfo,
-    valid,
-    overPointLimit,
+    unitsWithIssues,
+    validation,
 } = injectArmyList()
 
 type SortKey =
@@ -179,7 +179,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     <div
         class="card mb-3"
         :class="{
-            'border-danger': !valid
+            'border-danger': unitsWithIssues.length
         }"
         :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px`, }"
     >
@@ -365,14 +365,14 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                     <div
                         class="grid-row"
                         :class="{
-                            'row-error': unit.hasAnyValidationMessages,
+                            'row-error': !unit.isValid,
                         }"
                     >
                         <div
                             class="p-0 drag-handle-cell"
                             :class="{
                                 'span-error-row':
-                                    unit.hasAnyValidationMessages,
+                                    !unit.isValid,
                             }"
                         >
                             <button
@@ -485,15 +485,13 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                             class="error-msg"
                             :class="{
                                 'error-msg-empty':
-                                    !unit.hasAnyValidationMessages,
+                                    unit.isValid,
                             }"
                         >
                             <UnitValidationMessages
                                 :unit-id="unit.id"
                                 :faction-id="armyList.faction_id"
-                                :core-messages="unit.coreRulesValidationMessages"
-                                :faction-messages="unit.factionValidation?.validationMessages"
-                                :unit-messages="unit.unitValidation?.validationMessages"
+                                :validation="unit.validation"
                                 heading-class="text-warning fw-bold"
                             />
                         </div>
@@ -510,7 +508,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         <div
             class="card-footer fs-5 text-end"
             :class="{
-                'card-footer-error': overPointLimit
+                'card-footer-error': validation.core.overPointLimit
             }"
         >
             <strong>Unit Count: </strong>
