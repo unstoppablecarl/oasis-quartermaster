@@ -26,6 +26,7 @@ const {
                         <strong class="text-body-emphasis">Faction: </strong>
                         {{ faction.display_name }}
                         <FactionCardViewModal
+                            v-if="faction.card_front"
                             :faction-id="armyList.faction_id"
                         />
                     </span>

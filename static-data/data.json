@@ -14,11 +14,11 @@
       "display_name": "Remote Surveyor"
     },
     "REPOSITION": {
-      "display_name": "Reposition [X]",
+      "display_name": "Reposition [X\"]",
       "matcher": {}
     },
     "REPOSITION_FIXED_WING": {
-      "display_name": "Reposition: Fixed Wing [X]",
+      "display_name": "Reposition: Fixed Wing [X\"]",
       "matcher": {}
     },
     "SMOKE_GRENADES": {
@@ -69,7 +69,11 @@
       "display_name": "Active Countermeasures"
     },
     "ESCORT": {
-      "display_name": "Escort [X]",
+      "display_name": "Escort [X\"]",
+      "matcher": {}
+    },
+    "ESCORT_POINT_DEFENSE": {
+      "display_name": "Escort [X\"]: Point Defense",
       "matcher": {}
     },
     "MODULAR_PAYLOAD": {
@@ -80,6 +84,9 @@
     },
     "SMART_BURST_ROUNDS": {
       "display_name": "Smartburst Rounds"
+    },
+    "LASER_DAZZLER": {
+      "display_name": "Laser Dazzler"
     }
   },
   "TRAITS": {
@@ -113,8 +120,8 @@
     "NETWORKED_AUTOMATION": {
       "display_name": "Networked Automation"
     },
-    "LARGE_CRAFT_DEGRADATION": {
-      "display_name": "Large Craft: Degradation"
+    "CAPITAL_SHIP_DEGRADATION": {
+      "display_name": "Capital Ship: Degradation"
     },
     "CLUMSY": {
       "display_name": "CLUMSY"
@@ -122,16 +129,13 @@
     "TRANSPORT_SALVAGE": {
       "display_name": "Transport [Salvage]"
     },
-    "HEAVY_LIFT_TRANSPORT": {
-      "display_name": "Heavy Lift Transport [X]",
-      "matcher": {}
-    },
     "TRANSPORT": {
       "display_name": "Transport [X]",
       "matcher": {}
     },
-    "LASER_DAZZLER": {
-      "display_name": "Laser Dazzler"
+    "CARRYALL": {
+      "display_name": "Carryall [X]",
+      "matcher": {}
     },
     "JUMP_PACKS": {
       "display_name": "Jump Packs"
@@ -148,58 +152,56 @@
     "FIREPOWER": {
       "id": 1,
       "display_name": "Firepower",
-      "card_front": "Firepower.png",
-      "card_back": "Command Card Back.png"
+      "card_front": "Firepower.jpg",
+      "card_back": "Command Card Back.jpg"
     },
     "GENERALIST": {
       "id": 2,
       "display_name": "Generalist",
-      "card_front": "Generalist.png",
-      "card_back": "Command Card Back.png"
+      "card_front": "Generalist.jpg",
+      "card_back": "Command Card Back.jpg"
     },
     "MOBILITY": {
       "id": 3,
       "display_name": "Mobility",
-      "card_front": "Mobility.png",
-      "card_back": "Command Card Back.png"
+      "card_front": "Mobility.jpg",
+      "card_back": "Command Card Back.jpg"
     },
     "SURVEYOR": {
       "id": 4,
       "display_name": "Surveyor",
-      "card_front": "Surveyor.png",
-      "card_back": "Command Card Back.png"
+      "card_front": "Surveyor.jpg",
+      "card_back": "Command Card Back.jpg"
     },
     "SURVIVE": {
       "id": 5,
       "display_name": "Survive",
-      "card_front": "Survive.png",
-      "card_back": "Command Card Back.png"
+      "card_front": "Survive.jpg",
+      "card_back": "Command Card Back.jpg"
     }
   },
   "FACTIONS": {
     "UNAFFILIATED": {
       "id": 1,
-      "display_name": "Unaffiliated (Default)",
-      "card_front": "Unaffiliated.png",
-      "card_back": "Faction Card Back.png"
+      "display_name": "Unaffiliated (Default)"
     },
     "IRON_RAIN": {
       "id": 2,
       "display_name": "Iron Rain",
-      "card_front": "IronRain.png",
-      "card_back": "Faction Card Back.png"
+      "card_front": "IronRain.jpg",
+      "card_back": "Faction Card Back.jpg"
     },
     "FREELANCE": {
       "id": 3,
       "display_name": "Freelance",
-      "card_front": "Freelance.png",
-      "card_back": "Faction Card Back.png"
+      "card_front": "Freelance.jpg",
+      "card_back": "Faction Card Back.jpg"
     },
     "SURVEYFI": {
       "id": 4,
       "display_name": "SurveyFI",
-      "card_front": "SurveyFi.png",
-      "card_back": "Faction Card Back.png"
+      "card_front": "SurveyFi.jpg",
+      "card_back": "Faction Card Back.jpg"
     }
   },
   "UNITS": {
@@ -234,7 +236,7 @@
           ]
         },
         {
-          "name": "30MM Autocannons",
+          "name": "30MM Autocannon",
           "range": "6",
           "accuracy": "6+1",
           "damage": "2",
@@ -244,15 +246,15 @@
       "abilities": [
         "Precision Support: Ground",
         "Weapon Cycling: 50mm Raillgun",
-        "Reposition: Fixed Wing [8]"
+        "Reposition: Fixed Wing [8\"]"
       ],
       "traits": [
         "Aircraft: Fixed Wing"
       ],
       "cards_front": [
-        "Albatross.png"
+        "Albatross.jpg"
       ],
-      "card_back": "Albatross Back.png"
+      "card_back": "Albatross Back.jpg"
     },
     "BANDIT_2": {
       "id": 2,
@@ -286,22 +288,22 @@
         }
       ],
       "abilities": [
-        "Reposition [8]"
+        "Laser Dazzler",
+        "Reposition [8\"]"
       ],
       "traits": [
         "Aircraft: VTOL",
-        "Laser Dazzler",
         "Transport [1]"
       ],
       "cards_front": [
-        "Bandit.png"
+        "Bandit.jpg"
       ],
-      "card_back": "Bandit Back.png"
+      "card_back": "Bandit Back.jpg"
     },
     "BUFFALO_3": {
       "id": 3,
       "display_name": "Buffalo",
-      "class": "Salvage Recovery Vehicle",
+      "class": "Recovery Vehicle",
       "prefix": "AEGV-18",
       "manufacturer": "General Kinetics-Keystone",
       "base_size": "175F",
@@ -312,7 +314,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 30,
+      "cost": 38,
       "init": 3,
       "dodge": 4,
       "defense": 3,
@@ -320,7 +322,7 @@
       "move": "8",
       "weapons": [],
       "abilities": [
-        "Reposition [6]"
+        "Reposition [6\"]"
       ],
       "traits": [
         "Grav Drive",
@@ -328,9 +330,9 @@
         "Transport [2]"
       ],
       "cards_front": [
-        "Buffalo.png"
+        "Buffalo.jpg"
       ],
-      "card_back": "Buffalo Back.png"
+      "card_back": "Buffalo Back.jpg"
     },
     "BUFFALO_4": {
       "id": 4,
@@ -346,7 +348,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 25,
+      "cost": 0,
       "init": 3,
       "dodge": 4,
       "defense": 3,
@@ -374,14 +376,16 @@
         }
       ],
       "abilities": [
-        "Reposition [6]"
+        "Reposition [6\"]"
       ],
       "traits": [
         "Grav Drive",
         "Q-Craft"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Buffalo - Q.jpg"
+      ],
+      "card_back": "Buffalo - Q Back.jpg"
     },
     "CHARIOT_5": {
       "id": 5,
@@ -413,14 +417,16 @@
         }
       ],
       "abilities": [
-        "Escort [8]",
+        "Escort [8\"]",
         "Smartburst Rounds"
       ],
       "traits": [
         "Transport [1]"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Chariot.jpg"
+      ],
+      "card_back": "Chariot Back.jpg"
     },
     "COYOTE_6": {
       "id": 6,
@@ -444,7 +450,7 @@
       "move": "12",
       "weapons": [
         {
-          "name": "Guided Missiles [AP]",
+          "name": "Semi-Guided Missiles [AP]",
           "range": "8",
           "accuracy": "3",
           "damage": "6",
@@ -454,16 +460,18 @@
         }
       ],
       "abilities": [
-        "Reposition [4]"
+        "Reposition [4\"]"
       ],
       "traits": [],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Coyote.jpg"
+      ],
+      "card_back": "Coyote Back.jpg"
     },
     "FOX_7": {
       "id": 7,
       "display_name": "Fox",
-      "class": "Fast Escort Vehicle",
+      "class": "Escort Vehicle",
       "prefix": "V217-A",
       "manufacturer": "Keystone Extraction",
       "base_size": "1",
@@ -474,7 +482,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 17,
+      "cost": 22,
       "init": 5,
       "dodge": 6,
       "defense": 3,
@@ -492,11 +500,13 @@
         }
       ],
       "abilities": [
-        "Escort [4]"
+        "Escort [4\"]"
       ],
       "traits": [],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Fox.jpg"
+      ],
+      "card_back": "Fox Back.jpg"
     },
     "HOUND_8": {
       "id": 8,
@@ -512,27 +522,29 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 0,
+      "cost": 22,
       "init": 5,
       "dodge": 6,
       "defense": 3,
       "hp": 1,
-      "move": "12",
+      "move": "10",
       "weapons": [],
       "abilities": [
-        "Reposition [4]",
+        "Reposition [6\"]",
         "Target Designator"
       ],
       "traits": [
         "Surveyor"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Hound.jpg"
+      ],
+      "card_back": "Hound Back.jpg"
     },
     "MAMMOTH_9": {
       "id": 9,
       "display_name": "Mammoth",
-      "class": "Expeditonary Platform",
+      "class": "Platform",
       "prefix": "V312",
       "manufacturer": "Keystone Extraction",
       "base_size": "25",
@@ -577,13 +589,15 @@
         "Armored",
         "Transport [2]"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Mammoth.jpg"
+      ],
+      "card_back": "Mammoth Back.jpg"
     },
     "MANTIS_10": {
       "id": 10,
       "display_name": "Mantis",
-      "class": "Defense Drones",
+      "class": "Drones",
       "prefix": "GH54",
       "manufacturer": "Sturmlanze AG",
       "base_size": "1S",
@@ -594,7 +608,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 13,
+      "cost": 18,
       "init": 3,
       "dodge": 6,
       "defense": 3,
@@ -602,11 +616,13 @@
       "move": "6",
       "weapons": [
         {
-          "name": "20MM Autocannon",
+          "name": "20MM Autocannon [2 ATKS]",
           "range": "8",
           "accuracy": "6",
           "damage": "3",
-          "keywords": []
+          "keywords": [
+            "2x"
+          ]
         }
       ],
       "abilities": [
@@ -616,8 +632,10 @@
         "Squad",
         "Networked Automation"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Mantis.jpg"
+      ],
+      "card_back": "Mantis Back.jpg"
     },
     "NYX_11": {
       "id": 11,
@@ -633,12 +651,12 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 34,
+      "cost": 36,
       "init": 3,
       "dodge": 4,
       "defense": 7,
       "hp": 2,
-      "move": "8",
+      "move": "10",
       "weapons": [
         {
           "name": "50MM Railgun [AP]",
@@ -665,9 +683,9 @@
         "Armored"
       ],
       "cards_front": [
-        "Nyx.png"
+        "Nyx.jpg"
       ],
-      "card_back": "Nyx Back.png"
+      "card_back": "Nyx Back.jpg"
     },
     "ONI_12": {
       "id": 12,
@@ -683,9 +701,9 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 22,
+      "cost": 20,
       "init": 4,
-      "dodge": 8,
+      "dodge": 7,
       "defense": 2,
       "hp": 1,
       "move": "8",
@@ -700,7 +718,7 @@
         {
           "name": "Tungsten Claws [AP] [GND]",
           "range": "0",
-          "accuracy": "6",
+          "accuracy": "6+1",
           "damage": "4",
           "keywords": [
             "AP",
@@ -717,9 +735,9 @@
         "Jump Packs"
       ],
       "cards_front": [
-        "Oni.png"
+        "Oni.jpg"
       ],
-      "card_back": "Oni Back.png"
+      "card_back": "Oni Back.jpg"
     },
     "RAVEN_13": {
       "id": 13,
@@ -761,15 +779,15 @@
       ],
       "abilities": [
         "Precision Support: Ground",
-        "Reposition [8]"
+        "Reposition [8\"]"
       ],
       "traits": [
         "Aircraft: VTOL"
       ],
       "cards_front": [
-        "Raven.png"
+        "Raven.jpg"
       ],
-      "card_back": "Raven Back.png"
+      "card_back": "Raven Back.jpg"
     },
     "RHINO_14": {
       "id": 14,
@@ -806,13 +824,15 @@
       "traits": [
         "Armored"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Rhino.jpg"
+      ],
+      "card_back": "Rhino Back.jpg"
     },
     "ROC_15": {
       "id": 15,
       "display_name": "Roc",
-      "class": "Assault Transport VTOL",
+      "class": "Assault Transport",
       "prefix": "V292",
       "manufacturer": "Keystone Extraction",
       "base_size": "25F",
@@ -823,7 +843,7 @@
       "flight_stand_diameter": "1.5mm",
       "flight_stand_length": "70mm",
       "flight_stand_connector": "Angled",
-      "cost": 82,
+      "cost": 90,
       "init": 3,
       "dodge": 7,
       "defense": 6,
@@ -832,7 +852,7 @@
       "weapons": [
         {
           "name": "Heavy Guided Missiles [2 ATKS] [AP]",
-          "range": "10",
+          "range": "12",
           "accuracy": "4",
           "damage": "6",
           "keywords": [
@@ -851,7 +871,7 @@
         }
       ],
       "abilities": [
-        "Reposition [6]"
+        "Reposition [6\"]"
       ],
       "traits": [
         "Aircraft: VTOL",
@@ -859,9 +879,9 @@
         "Transport [2]"
       ],
       "cards_front": [
-        "Roc.png"
+        "Roc.jpg"
       ],
-      "card_back": "Roc Back.png"
+      "card_back": "Roc Back.jpg"
     },
     "TIGERSHARK_16": {
       "id": 16,
@@ -877,7 +897,7 @@
       "flight_stand_diameter": "4mm",
       "flight_stand_length": "90mm",
       "flight_stand_connector": "n/a",
-      "cost": 190,
+      "cost": 180,
       "init": 2,
       "dodge": 2,
       "defense": 8,
@@ -904,7 +924,7 @@
           ]
         },
         {
-          "name": "VLS Battery [2 ATKS] [2\" SPLASH]",
+          "name": "VLS Battery [2 ATKS] [SPLASH 2\"/AP]",
           "range": "18",
           "accuracy": "4",
           "damage": "6+1",
@@ -926,20 +946,20 @@
       ],
       "abilities": [
         "Modular Payload",
-        "Escort [6]",
+        "Escort [6\"]: Point Defense",
         "Repair Systems",
         "Active Countermeasures"
       ],
       "traits": [
         "Aircraft: Heavy Grav Drive",
-        "Large Craft: Degradation",
+        "Capital Ship: Degradation",
         "Armored"
       ],
       "cards_front": [
-        "Tigershark.png",
-        "Tigershark 2.png"
+        "Tigershark.jpg",
+        "Tigershark 2.jpg"
       ],
-      "card_back": "Tigershark Back.png"
+      "card_back": "Tigershark Back.jpg"
     },
     "TITAN_17": {
       "id": 17,
@@ -958,20 +978,21 @@
       "cost": 65,
       "init": 3,
       "dodge": 5,
-      "defense": 6,
+      "defense": 5,
       "hp": 4,
       "move": "12",
       "weapons": [],
       "abilities": [
-        "Reposition [4]"
+        "Reposition [4\"]"
       ],
       "traits": [
         "Aircraft: VTOL",
-        "Armored",
-        "Heavy Lift Transport [1]"
+        "Carryall [1]"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Titan.jpg"
+      ],
+      "card_back": "Titan Back.jpg"
     },
     "ZEUS_18": {
       "id": 18,
@@ -987,7 +1008,7 @@
       "flight_stand_diameter": "n/a",
       "flight_stand_length": null,
       "flight_stand_connector": "n/a",
-      "cost": 77,
+      "cost": 80,
       "init": 2,
       "dodge": 4,
       "defense": 8,
@@ -1014,12 +1035,13 @@
           ]
         },
         {
-          "name": "30MM Autocannon [2 ATKS]",
+          "name": "30MM Autocannon [2 ATKS] [GND]",
           "range": "6",
           "accuracy": "6",
           "damage": "3",
           "keywords": [
-            "2x"
+            "2x",
+            "GND"
           ]
         }
       ],
@@ -1030,8 +1052,10 @@
         "Grav Drive",
         "Armored"
       ],
-      "cards_front": [],
-      "card_back": ""
+      "cards_front": [
+        "Zeus.jpg"
+      ],
+      "card_back": "Zeus Back.jpg"
     }
   }
 }

@@ -221,8 +221,8 @@ function parseUnit(row, id, columns) {
         ).filter(Boolean),
         abilities: ABILITY_COLS.map((col) => str(row[col])).filter(Boolean),
         traits: TRAIT_COLS.map((col) => str(row[col])).filter(Boolean),
-        cards_front: cardsFront.map((s) => s + '.png'),
-        card_back: cardsFront.length ? cardsFront[0] + ' Back.png' : '',
+        cards_front: cardsFront.map((s) => s + '.jpg'),
+        card_back: cardsFront.length ? cardsFront[0] + ' Back.jpg' : '',
     }
 }
 
@@ -323,18 +323,18 @@ main().catch((error) => {
 
 function generate(units) {
     return `export type Weapon = {
-    name: string,
+    name: string
     range: string
     accuracy: string
     damage: string
-    keywords: string[],
+    keywords: string[]
 }
 
 export type Unit = {
     id: number
     display_name: string
     class: string | null
-    prefix: string | null,
+    prefix: string | null
     manufacturer: string | null
     base_size: string | null
     base_qty: number | null
@@ -354,7 +354,7 @@ export type Unit = {
     abilities: string[]
     traits: string[]
     cards_front: string[]
-    card_back: string,
+    card_back: string
 }
 
 export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']

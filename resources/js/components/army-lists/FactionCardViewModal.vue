@@ -31,7 +31,7 @@ const visible = ref(false)
     >
         <div class="text-center">
             <FactionCard
-                :card-image="faction.card_front"
+                :card-image="faction.card_front ?? ''"
                 side="Front"
                 :display-name="faction.display_name"
                 width="400"

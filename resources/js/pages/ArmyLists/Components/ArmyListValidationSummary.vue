@@ -20,11 +20,12 @@ const {
     overPointLimit,
     factionRequirementMessages,
     unitsWithIssues,
+    commands,
     commandCards,
 } = injectArmyList()
 
 const pointsValid = computed(() => !overPointLimit.value)
-const commandCardsValid = computed(() => commandCards.value.length === 2)
+const commandCardsValid = computed(() => commands.value.length === 2)
 const armyListValid = computed(() => pointsValid.value && commandCardsValid.value && valid.value)
 
 </script>
@@ -40,7 +41,7 @@ const armyListValid = computed(() => pointsValid.value && commandCardsValid.valu
                 </div>
                 <div v-if="!commandCardsValid">
                     <span class="text-danger-emphasis">2 Command Cards must be selected: </span>
-                    <Fraction :a="commandCards.length" :b="2" />
+                    <Fraction :a="commands.length" :b="2" />
                 </div>
             </div>
 

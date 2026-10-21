@@ -3,7 +3,7 @@ import { BModal } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
 import type { FactionId } from '../../../data/factions'
 import { FACTIONS } from '../../../data/factions'
-import { FACTIONS_BY_ID } from '../../lib/static-data-helpers'
+import { CARD_DEFAULT_WIDTH, FACTIONS_BY_ID } from '../../lib/static-data-helpers'
 import FactionCard from '../ui/FactionCard.vue'
 
 const factionId = defineModel<FactionId>({ required: true })
@@ -12,6 +12,7 @@ const allFactions = computed(() => {
     return Object.values(FACTIONS).map((f) => {
         return {
             ...f,
+            card_front: 'card_front' in f ? f.card_front : undefined,
             selected: f.id === factionId.value,
         }
     })
@@ -66,10 +67,21 @@ function select(id: FactionId) {
                     @click="select(faction.id)"
                 >
                     <FactionCard
+                        v-if="faction.card_front"
                         :card-image="faction.card_front"
                         :display-name="faction.display_name"
                         side="Front"
                     />
+                    <div
+                        v-else
+                        class="d-flex align-items-center justify-content-center text-center p-3 fs-5"
+                        :style="{
+                            width: `${CARD_DEFAULT_WIDTH}px`,
+                            aspectRatio: '1241 / 2126',
+                        }"
+                    >
+                        {{ faction.display_name }}
+                    </div>
                 </div>
                 <button
                     type="button"

@@ -19,12 +19,12 @@ export const ABILITIES: Record<string, Ability> = {
         display_name: 'Remote Surveyor',
     },
     REPOSITION: {
-        display_name: 'Reposition [X]',
-        matcher: /^Reposition \[\d+]?$/i,
+        display_name: 'Reposition [X"]',
+        matcher: /^Reposition \[\d+"]?$/i,
     },
     REPOSITION_FIXED_WING: {
-        display_name: 'Reposition: Fixed Wing [X]',
-        matcher: /^Reposition: Fixed Wing \[\d+]?$/i,
+        display_name: 'Reposition: Fixed Wing [X"]',
+        matcher: /^Reposition: Fixed Wing \[\d+"]?$/i,
     },
     SMOKE_GRENADES: {
         display_name: 'Smoke Grenades [X]',
@@ -74,8 +74,12 @@ export const ABILITIES: Record<string, Ability> = {
         display_name: 'Active Countermeasures',
     },
     ESCORT: {
-        display_name: 'Escort [X]',
-        matcher: /^Escort \[\d+]?$/i,
+        display_name: 'Escort [X"]',
+        matcher: /^Escort \[\d+"]?$/i,
+    },
+    ESCORT_POINT_DEFENSE: {
+        display_name: 'Escort [X"]: Point Defense',
+        matcher: /^Escort \[\d+"]: Point Defense$/i,
     },
     MODULAR_PAYLOAD: {
         display_name: 'Modular Payload',
@@ -85,6 +89,9 @@ export const ABILITIES: Record<string, Ability> = {
     },
     SMART_BURST_ROUNDS: {
         display_name: 'Smartburst Rounds',
+    },
+    LASER_DAZZLER: {
+        display_name: 'Laser Dazzler',
     },
 }
 
@@ -123,8 +130,8 @@ export const TRAITS: Record<string, Trait> = {
     NETWORKED_AUTOMATION: {
         display_name: 'Networked Automation',
     },
-    LARGE_CRAFT_DEGRADATION: {
-        display_name: 'Large Craft: Degradation',
+    CAPITAL_SHIP_DEGRADATION: {
+        display_name: 'Capital Ship: Degradation',
     },
     CLUMSY: {
         display_name: 'CLUMSY',
@@ -132,16 +139,13 @@ export const TRAITS: Record<string, Trait> = {
     TRANSPORT_SALVAGE: {
         display_name: 'Transport [Salvage]',
     },
-    HEAVY_LIFT_TRANSPORT: {
-        display_name: 'Heavy Lift Transport [X]',
-        matcher: /^Heavy Lift Transport \[\d+]?$/i,
-    },
     TRANSPORT: {
         display_name: 'Transport [X]',
         matcher: /^Transport \[\d+]?$/i,
     },
-    LASER_DAZZLER: {
-        display_name: 'Laser Dazzler',
+    CARRYALL: {
+        display_name: 'Carryall [X]',
+        matcher: /^Carryall \[\d+]?$/i,
     },
     JUMP_PACKS: {
         display_name: 'Jump Packs',

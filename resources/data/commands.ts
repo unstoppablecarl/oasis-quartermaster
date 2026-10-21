@@ -9,32 +9,32 @@ export const COMMANDS = {
     FIREPOWER: {
         id: 1,
         display_name: 'Firepower',
-        card_front: 'Firepower.png',
-        card_back: 'Command Card Back.png',
+        card_front: 'Firepower.jpg',
+        card_back: 'Command Card Back.jpg',
     },
     GENERALIST: {
         id: 2,
         display_name: 'Generalist',
-        card_front: 'Generalist.png',
-        card_back: 'Command Card Back.png',
+        card_front: 'Generalist.jpg',
+        card_back: 'Command Card Back.jpg',
     },
     MOBILITY: {
         id: 3,
         display_name: 'Mobility',
-        card_front: 'Mobility.png',
-        card_back: 'Command Card Back.png',
+        card_front: 'Mobility.jpg',
+        card_back: 'Command Card Back.jpg',
     },
     SURVEYOR: {
         id: 4,
         display_name: 'Surveyor',
-        card_front: 'Surveyor.png',
-        card_back: 'Command Card Back.png',
+        card_front: 'Surveyor.jpg',
+        card_back: 'Command Card Back.jpg',
     },
     SURVIVE: {
         id: 5,
         display_name: 'Survive',
-        card_front: 'Survive.png',
-        card_back: 'Command Card Back.png',
+        card_front: 'Survive.jpg',
+        card_back: 'Command Card Back.jpg',
     },
 } as const satisfies Record<string, Command>
 
