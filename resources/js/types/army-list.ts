@@ -1,5 +1,6 @@
 import type { CommandId } from '../../data/commands'
 import type { FactionId } from '../../data/factions'
+import type { UnitId } from '../../data/units'
 
 type Command = {
     id: CommandId
@@ -16,7 +17,7 @@ export type ArmyList = {
     created_at: string
     updated_at: string
     units: {
-        id: number
+        id: UnitId
         quantity: number
     }[]
     can: {

@@ -359,6 +359,6 @@ export type Unit = {
 
 export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']
 
-export const UNITS: Record<string, Unit> = ${formatLiteral(units, 0)} satisfies Record<string, Unit>
+export const UNITS = ${formatLiteral(units, 0)} as const satisfies Record<string, Unit>
 `
 }

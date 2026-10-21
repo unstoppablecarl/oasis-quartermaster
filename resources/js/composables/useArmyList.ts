@@ -1,6 +1,7 @@
 import { computed, inject, type InjectionKey, provide, toRef, toValue } from 'vue'
 import type { Command } from '../../data/commands'
 import { type FactionId, FACTIONS } from '../../data/factions'
+import type { UnitId } from '../../data/units'
 import { getArmyListFactionValidator } from '../lib/faction-validators'
 import { ARMY_LIST_TYPES_BY_ID, COMMANDS_BY_ID, FACTIONS_BY_ID, UNITS_BY_ID } from '../lib/static-data-helpers'
 import type { ArmyList } from '../types/army-list'
@@ -12,7 +13,7 @@ export function useArmyList(armyList: LocalArmyList) {
     const units = toRef(armyList, 'units')
     const maxPoints = computed(() => getArmyListMaxPoints(toValue(armyList)))
 
-    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(units, maxPoints)
+    const { unitsInfo, totalCost, unitCount } = useUnitsInfo(armyList, units, maxPoints)
 
     const faction = computed(() => FACTIONS_BY_ID[armyList.faction_id])
     const commands = computed(() =>
@@ -23,7 +24,7 @@ export function useArmyList(armyList: LocalArmyList) {
     const createdAt = computed(() => toTimestamp(armyList.created_at))
     const updatedAt = computed(() => toTimestamp(armyList.updated_at))
 
-    function add(unitId: number, quantity = 1) {
+    function add(unitId: UnitId, quantity = 1) {
         const existing = units.value.find((v) => v.id === unitId)
         if (existing) {
             existing.quantity += quantity
@@ -54,7 +55,7 @@ export function useArmyList(armyList: LocalArmyList) {
         units.value = units.value.filter((v) => v.id !== unitId)
     }
 
-    function reorder(orderedUnitIds: number[]) {
+    function reorder(orderedUnitIds: UnitId[]) {
         const byId = new Map(units.value.map((unit) => [unit.id, unit]))
 
         units.value = orderedUnitIds
@@ -63,11 +64,19 @@ export function useArmyList(armyList: LocalArmyList) {
     }
 
     const unitsInfoFinal = computed(() => {
-        const validator = getArmyListFactionValidator(armyList.faction_id)
+        const factionValidator = getArmyListFactionValidator(armyList.faction_id)
         return unitsInfo.value.map((u) => {
+            const factionValidation = factionValidator.validateUnitInList(armyList, u)
+            const hasAnyValidationMessages = !!(
+                u.coreRulesValidationMessages.length ||
+                factionValidation?.validationMessages.length ||
+                u.unitValidation?.validationMessages.length
+            )
+
             return {
                 ...u,
-                factionValidation: validator.validateUnitInList(armyList, u),
+                hasAnyValidationMessages,
+                factionValidation,
             }
         })
     })
@@ -79,13 +88,9 @@ export function useArmyList(armyList: LocalArmyList) {
         validator.value.validateArmyList(armyList),
     )
 
-    const unitsWithIssues = computed(() => {
-        return unitsInfoFinal.value.filter(
-            (u) =>
-                u.validationMessages.length ||
-                u.factionValidation?.validationMessages?.length,
-        )
-    })
+    const unitsWithIssues = computed(() =>
+        unitsInfoFinal.value.filter((u) => u.hasAnyValidationMessages),
+    )
 
     const overPointLimit = computed(
         () => maxPoints.value != null && totalCost.value > maxPoints.value,

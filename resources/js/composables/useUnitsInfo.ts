@@ -4,6 +4,7 @@ import type { CommandId } from '../../data/commands'
 import { type FactionId } from '../../data/factions'
 import { type Unit, type UnitId } from '../../data/units'
 import { UNITS_BY_ID } from '../lib/static-data-helpers'
+import { ARMY_LIST_UNIT_VALIDATOR, type UnitValidationResult } from '../lib/unit-validators'
 
 export type UnitEntry = {
     id: UnitId
@@ -12,8 +13,9 @@ export type UnitEntry = {
 
 export type UnitEntryInfo = UnitEntry &
     Unit & {
-        validationMessages: string[]
-    }
+    coreRulesValidationMessages: string[]
+    unitValidation: UnitValidationResult | undefined
+}
 
 export type LocalArmyList = {
     uuid?: string
@@ -29,6 +31,7 @@ export type LocalArmyList = {
 }
 
 export function useUnitsInfo(
+    armyList: LocalArmyList,
     units: MaybeRefOrGetter<UnitEntry[]>,
     maxPoints: MaybeRefOrGetter<number | null>,
 ) {
@@ -37,7 +40,7 @@ export function useUnitsInfo(
             return {
                 ...u,
                 ...UNITS_BY_ID[u.id],
-            }
+            } as UnitEntry & Unit
         })
     })
 
@@ -48,11 +51,11 @@ export function useUnitsInfo(
 
             const resolvedMaxPoints = toValue(maxPoints)
 
-            const validationMessages = []
+            const coreRulesValidationMessages = []
             if (resolvedMaxPoints !== null) {
                 const halfPoints = Math.ceil(resolvedMaxPoints * 0.5)
                 if (cost > halfPoints) {
-                    validationMessages.push(
+                    coreRulesValidationMessages.push(
                         `Unit cost cannot be greater than 50% of Total Points. (${cost} / ${halfPoints})`,
                     )
                 }
@@ -60,14 +63,15 @@ export function useUnitsInfo(
             const halfCount = Math.ceil(unitCount.value * 0.5)
 
             if (count > halfCount) {
-                validationMessages.push(
+                coreRulesValidationMessages.push(
                     `Unit count cannot be greater than 50% of Total Unit Count. (${count} / ${halfCount})`,
                 )
             }
 
             return {
                 ...u,
-                validationMessages,
+                coreRulesValidationMessages,
+                unitValidation: ARMY_LIST_UNIT_VALIDATOR.validateUnitInList(armyList, u as UnitEntry),
             }
         })
     })

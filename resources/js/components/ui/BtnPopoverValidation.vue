@@ -3,23 +3,32 @@ import { PhWarning } from '@phosphor-icons/vue'
 import { BPopover } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 import type { FactionId } from '../../../data/factions'
-import ValidationMessages from './ValidationMessages.vue'
+import type { UnitId } from '../../../data/units'
+import UnitValidationMessages from './UnitValidationMessages.vue'
 
 const {
-    messages,
+    unitId,
+    coreMessages,
     factionMessages,
+    unitMessages,
     headingClass = 'text-danger fw-bold',
     textClass,
     factionId,
 } = defineProps<{
-    messages?: string[]
+    unitId: UnitId,
+    coreMessages?: string[]
     factionMessages?: string[]
+    unitMessages?: string[]
     headingClass?: string
     textClass?: string
     factionId: FactionId
 }>()
 
-const hasMessages = computed(() => messages?.length || factionMessages?.length)
+const hasMessages = computed(() => !!(
+    coreMessages?.length ||
+    factionMessages?.length ||
+    unitMessages?.length
+))
 </script>
 <template>
     <BPopover variant="light">
@@ -32,12 +41,14 @@ const hasMessages = computed(() => messages?.length || factionMessages?.length)
                 <PhWarning weight="fill" />
             </button>
         </template>
-        <ValidationMessages
+        <UnitValidationMessages
+            :unit-id="unitId"
             :faction-id="factionId"
             :faction-messages="factionMessages"
-            :messages="messages"
+            :core-messages="coreMessages"
             :heading-class="headingClass"
             :text-class="textClass"
+            :unit-messages="unitMessages"
         />
     </BPopover>
 </template>

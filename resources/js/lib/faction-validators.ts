@@ -1,15 +1,11 @@
 import { ABILITIES, TRAITS } from '../../data/abilities-and-traits'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { UnitId } from '../../data/units'
-import {
-    getArmyListMaxPoints,
-    type UnitEntry,
-} from '../composables/useArmyList'
+import { getArmyListMaxPoints, type UnitEntry } from '../composables/useArmyList'
 import type { LocalArmyList } from '../composables/useUnitsInfo'
-import type { ArmyList } from '../types/army-list'
 import { UNITS_BY_ID } from './static-data-helpers'
 
-export const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
+const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
     [FACTIONS.UNAFFILIATED.id]: {
         validateArmyList: () => [],
         validateUnitInList: () => undefined,
@@ -171,20 +167,4 @@ type FactionValidator = {
 
 export function getArmyListFactionValidator(factionId: FactionId) {
     return FACTION_VALIDATORS_BY_ID[factionId ?? FACTIONS.UNAFFILIATED.id]
-}
-
-export function validateArmyListFaction(armyList: ArmyList) {
-    return FACTION_VALIDATORS_BY_ID[armyList.faction_id].validateArmyList(
-        armyList,
-    )
-}
-
-export function validateArmyListFactionUnit(
-    armyList: ArmyList,
-    unit: UnitEntry,
-) {
-    return FACTION_VALIDATORS_BY_ID[armyList.faction_id].validateUnitInList(
-        armyList,
-        unit,
-    )
 }

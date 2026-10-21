@@ -1,8 +1,4 @@
-import {
-    ARMY_LIST_TYPES,
-    type ArmyListType,
-    type ArmyListTypeId,
-} from '../../data/army-list-types'
+import { ARMY_LIST_TYPES, type ArmyListType, type ArmyListTypeId } from '../../data/army-list-types'
 import { type Command, type CommandId, COMMANDS } from '../../data/commands'
 import { type Faction, type FactionId, FACTIONS } from '../../data/factions'
 import { type Unit, type UnitId, UNITS } from '../../data/units'
@@ -64,3 +60,12 @@ export const commandCardBlackWhite = (file: string) =>
     `/images/cards/commands-black-white/${file}`
 
 export const CARD_DEFAULT_WIDTH = 300
+
+export function getUnitFullName(id: UnitId) {
+    return [
+        UNITS_BY_ID[id].display_name,
+        UNITS_BY_ID[id].class,
+    ]
+        .filter(Boolean)
+        .join(' ')
+}

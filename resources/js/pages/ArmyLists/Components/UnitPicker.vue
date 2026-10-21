@@ -11,18 +11,16 @@ import {
 } from 'bootstrap-vue-next'
 import { computed, ref, useTemplateRef } from 'vue'
 import { FACTIONS } from '../../../../data/factions'
-import { UNITS } from '../../../../data/units'
+import { type UnitId, UNITS } from '../../../../data/units'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
-import {
-    getArmyListMaxPoints,
-    getArmyListTotalPoints,
-} from '../../../composables/useArmyList'
+import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
 import type { LocalArmyList } from '../../../composables/useUnitsInfo'
 import { getArmyListFactionValidator } from '../../../lib/faction-validators'
+import { ARMY_LIST_UNIT_VALIDATOR } from '../../../lib/unit-validators'
 import { sort } from '../../../lib/utils'
 import ButtonToggle from './ButtonToggle.vue'
 import UnitGridFilters from './UnitGridFilters.vue'
@@ -32,7 +30,7 @@ const { armyList } = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    add: [unitId: number]
+    add: [unitId: UnitId]
 }>()
 
 type Row = (typeof allUnits)['value'][0]
@@ -40,10 +38,6 @@ type Row = (typeof allUnits)['value'][0]
 const validator = computed(() =>
     getArmyListFactionValidator(armyList.faction_id),
 )
-const hasFaction = computed(
-    () => armyList.faction_id !== FACTIONS.UNAFFILIATED.id,
-)
-
 const allUnits = computed(() => {
     const maxPoints = getArmyListMaxPoints(armyList) ?? 0
     const totalPoints = getArmyListTotalPoints(armyList)
@@ -82,6 +76,7 @@ const allUnits = computed(() => {
                 weapons: weapons.map((w) => ({ ...w })),
                 traits: [...traits],
                 abilities: [...abilities],
+                unit_validation: ARMY_LIST_UNIT_VALIDATOR.validateUnitCandidate(armyList, id),
                 faction_validation: validator.value.validateUnitCandidate(
                     armyList,
                     u.id,
@@ -103,19 +98,14 @@ const allUnits = computed(() => {
 })
 
 const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
-    ...(hasFaction.value && !filterFactionValidUnits.value
-        ? [
-              {
-                  key: 'faction_validation',
-                  label: 'Valid',
-                  sortable: true,
-                  sortCompare: sort((unit: Row) =>
-                      unit.faction_validation ? 1 : 0,
-                  ),
-                  class: 'cell-faction-validation',
-              },
-          ]
-        : []),
+    {
+        key: 'validation',
+        label: 'Valid',
+        sortable: true,
+        sortCompare: sort((unit: Row) =>
+            unit.faction_validation || unit.unit_validation ? 1 : 0,
+        ),
+    },
     {
         key: 'display_name',
         label: 'Name',
@@ -124,19 +114,19 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     },
     ...(showClass.value
         ? [
-              {
-                  key: 'class',
-                  sortable: true,
-              },
-          ]
+            {
+                key: 'class',
+                sortable: true,
+            },
+        ]
         : []),
     ...(showManufacturer.value
         ? [
-              {
-                  key: 'manufacturer',
-                  sortable: true,
-              },
-          ]
+            {
+                key: 'manufacturer',
+                sortable: true,
+            },
+        ]
         : []),
     {
         key: 'init',
@@ -188,7 +178,7 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     },
 ])
 
-const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'desc' }])
+const sortBy = ref<BTableSortBy[]>([{ key: 'display_name', order: 'asc' }])
 
 const {
     showClass,
@@ -202,7 +192,7 @@ const rowClass = (
     item: Row | null,
     type: TableRowType,
 ): TableStrictClassValue =>
-    type === 'row' && item?.faction_validation ? 'row-faction-invalid' : ''
+    type === 'row' && (item?.faction_validation || item?.unit_validation) ? 'row-invalid' : ''
 
 function sortMode(key: string) {
     return sortBy.value.find((s) => s.key === key)?.order
@@ -282,12 +272,12 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                     />
                 </template>
 
-                <template #cell(faction_validation)="data">
+                <template #cell(validation)="data">
                     <BtnPopoverValidation
+                        :unit-id="data.item.id"
                         :faction-id="armyList.faction_id"
-                        :faction-messages="
-                            data.item.faction_validation?.validationMessages
-                        "
+                        :faction-messages="data.item.faction_validation?.validationMessages"
+                        :unit-messages="data.item.unit_validation?.validationMessages"
                     />
                 </template>
 
@@ -345,7 +335,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 }
 
 .table-unit-picker {
-    > tbody > tr.row-faction-invalid {
+    > tbody > tr.row-invalid {
         &:nth-of-type(odd) > * {
             --bs-table-bg-type: var(--bs-table-bg);
         }

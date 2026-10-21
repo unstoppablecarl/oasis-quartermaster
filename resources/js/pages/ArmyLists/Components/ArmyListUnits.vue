@@ -8,7 +8,7 @@ import draggable from 'vuedraggable'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
-import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
+import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 import { useFilterSettings } from '../../../composables/useFilterSettings'
 import { type UnitEntry } from '../../../composables/useUnitsInfo'
@@ -365,19 +365,14 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                     <div
                         class="grid-row"
                         :class="{
-                            'row-error':
-                                unit.validationMessages.length ||
-                                unit.factionValidation?.validationMessages
-                                    ?.length,
+                            'row-error': unit.hasAnyValidationMessages,
                         }"
                     >
                         <div
                             class="p-0 drag-handle-cell"
                             :class="{
                                 'span-error-row':
-                                    unit.validationMessages.length ||
-                                    unit.factionValidation?.validationMessages
-                                        ?.length,
+                                    unit.hasAnyValidationMessages,
                             }"
                         >
                             <button
@@ -490,17 +485,15 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                             class="error-msg"
                             :class="{
                                 'error-msg-empty':
-                                    !unit.validationMessages.length &&
-                                    !unit.factionValidation?.validationMessages
-                                        ?.length,
+                                    !unit.hasAnyValidationMessages,
                             }"
                         >
-                            <ValidationMessages
+                            <UnitValidationMessages
+                                :unit-id="unit.id"
                                 :faction-id="armyList.faction_id"
-                                :messages="unit.validationMessages"
-                                :faction-messages="
-                                    unit.factionValidation?.validationMessages
-                                "
+                                :core-messages="unit.coreRulesValidationMessages"
+                                :faction-messages="unit.factionValidation?.validationMessages"
+                                :unit-messages="unit.unitValidation?.validationMessages"
                                 heading-class="text-warning fw-bold"
                             />
                         </div>

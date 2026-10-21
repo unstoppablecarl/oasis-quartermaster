@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
+import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 import { getFactionName } from '../../../lib/static-data-helpers'
 import ArmyListValidationSummary from '../Components/ArmyListValidationSummary.vue'
@@ -52,11 +52,11 @@ const { armyList, maxPoints, unitsInfo, totalCost, unitCount, commands } =
                 <td class="expand">
                     <span class="name-prefix"> {{ unit.prefix }}</span>
                     {{ unit.display_name }}
-                    <ValidationMessages
-                        :messages="unit.validationMessages"
-                        :faction-messages="
-                                unit.factionValidation?.validationMessages
-                            "
+                    <UnitValidationMessages
+                        :unit-id="unit.id"
+                        :core-messages="unit.coreRulesValidationMessages"
+                        :faction-messages="unit.factionValidation?.validationMessages"
+                        :unit-messages="unit.unitValidation?.validationMessages"
                         :faction-id="armyList.faction_id"
                         heading-class="text-danger fw-bold"
                         text-class="text-danger"

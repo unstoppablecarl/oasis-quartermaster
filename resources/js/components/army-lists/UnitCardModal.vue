@@ -2,14 +2,14 @@
 import { Search } from '@lucide/vue'
 import { BModal, vBTooltip } from 'bootstrap-vue-next'
 import { computed, ref } from 'vue'
-
+import type { UnitId } from '../../../data/units'
 import { UNITS_BY_ID } from '../../lib/static-data-helpers'
 import UnitCard from '../ui/UnitCard.vue'
 
 defineOptions({ inheritAttrs: false })
 
 const { unitId } = defineProps<{
-    unitId: number
+    unitId: UnitId
 }>()
 
 const unitInfo = computed(() => UNITS_BY_ID[unitId])

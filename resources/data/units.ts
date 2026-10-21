@@ -35,7 +35,7 @@ export type Unit = {
 
 export type UnitId = (typeof UNITS)[keyof typeof UNITS]['id']
 
-export const UNITS: Record<string, Unit> = {
+export const UNITS = {
     ALBATROSS_1: {
         id: 1,
         display_name: 'Albatross',
@@ -888,4 +888,4 @@ export const UNITS: Record<string, Unit> = {
         ],
         card_back: 'Zeus Back.jpg',
     },
-} satisfies Record<string, Unit>
+} as const satisfies Record<string, Unit>

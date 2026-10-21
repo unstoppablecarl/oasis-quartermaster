@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
-import ValidationMessages from '../../../components/ui/ValidationMessages.vue'
+import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 
 const { headingClass = 'text-teal', textClass = 'text-danger-emphasis' } =
@@ -72,12 +72,12 @@ const armyListValid = computed(() => pointsValid.value && commandCardsValid.valu
                             &times; {{ unit.quantity }}
                         </template>
                     </div>
-                    <ValidationMessages
+                    <UnitValidationMessages
+                        :unit-id="unit.id"
                         :faction-id="armyList.faction_id"
-                        :messages="unit.validationMessages"
-                        :faction-messages="
-                            unit.factionValidation?.validationMessages
-                        "
+                        :core-messages="unit.coreRulesValidationMessages"
+                        :faction-messages="unit.factionValidation?.validationMessages"
+                        :unit-messages="unit.unitValidation?.validationMessages"
                         :text-class="textClass"
                         :heading-class="headingClass"
                     />
