@@ -3,14 +3,7 @@ import { create } from '@/routes/army-lists'
 import type { ArmyList } from '@/types/army-list'
 import { Head, Link } from '@inertiajs/vue3'
 import { Plus } from '@lucide/vue'
-import {
-    BTable,
-    type BTableSortBy,
-    BTooltip,
-    type TableFieldRaw,
-    type TableItem,
-    vBTooltip,
-} from 'bootstrap-vue-next'
+import { BTable, type BTableSortBy, BTooltip, type TableFieldRaw, type TableItem, vBTooltip } from 'bootstrap-vue-next'
 import { computed, ref, toValue } from 'vue'
 import Fraction from '../../components/Fraction.vue'
 import TableSortHeader from '../../components/ui/TableSortHeader.vue'
@@ -57,12 +50,12 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
         label: 'Name',
         sortable: true,
     },
-    {
-        key: 'type',
-        label: 'Game Mode',
-        sortable: true,
-        class: 'ws-nowrap',
-    },
+    // {
+    //     key: 'type',
+    //     label: 'Game Mode',
+    //     sortable: true,
+    //     class: 'ws-nowrap',
+    // },
     {
         key: 'faction',
         sortable: true,
@@ -132,6 +125,7 @@ function sortMode(key: string) {
                 responsive="sm"
                 no-border-collapse
                 no-sortable-icon
+                show-empty
             >
                 <template #head()="scope">
                     <TableSortHeader
@@ -180,6 +174,17 @@ function sortMode(key: string) {
                     </div>
                 </template>
             </BTable>
+            <div class="text-center" v-if="!armyListsInfo.length">
+
+                <Link
+                    :href="create()"
+                    class="btn btn-sm btn-primary"
+                >
+                    Create New Army List
+                </Link>
+
+
+            </div>
         </div>
     </Teleport>
 </template>
