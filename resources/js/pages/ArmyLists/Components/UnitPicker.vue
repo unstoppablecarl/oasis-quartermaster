@@ -324,9 +324,11 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 }
 
 .table-unit-picker {
+    $border-color: mix($danger, #000, 70%);
     > tbody > tr.row-error > td {
         --bs-table-bg: #{$table-bg-error};
-        border-color: var(--bs-danger);
+
+        border-color: $border-color;
 
         &:first-child {
             border-left-width: 1px;
@@ -344,7 +346,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 
     /* Gives the .row-error a top border by coloring the bottom border of the row above it */
     > tbody > tr:has(+ tr.row-error) > td {
-        border-bottom-color: var(--bs-danger);
+        border-bottom-color: $border-color;
     }
 }
 </style>
