@@ -508,7 +508,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         <div
             class="card-footer fs-5 text-end"
             :class="{
-                'card-footer-error': validation.core.overPointLimit
+                'card-footer-error': !validation.core.pointLimitValid
             }"
         >
             <strong>Unit Count: </strong>

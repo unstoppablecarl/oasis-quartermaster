@@ -19,27 +19,35 @@ function getQuantity(armyList: LocalArmyList, unitId: UnitId) {
 
 const UNIT_VALIDATORS_BY_ID: Partial<Record<UnitId, UnitValidator>> = {
     [UNITS.BUFFALO_4.id]: (() => {
-        function validate(armyList: LocalArmyList, isValid: (buffaloCount: number, buffaloQCount: number) => boolean) {
-            const buffaloCount = getQuantity(armyList, UNITS.BUFFALO_3.id)
-            const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_4.id)
 
-            if (isValid(buffaloCount, buffaloQCount)) {
-                return []
-            }
-
-            const buffaloName = getUnitFullName(UNITS.BUFFALO_3.id)
-            const buffaloQName = getUnitFullName(UNITS.BUFFALO_4.id)
-
-            return [
-                `You may not have more ${buffaloQName} (${buffaloQCount}) Units than ${buffaloName} (${buffaloCount}) Units.`,
-            ]
-        }
+        const buffaloName = getUnitFullName(UNITS.BUFFALO_3.id)
+        const buffaloQName = getUnitFullName(UNITS.BUFFALO_4.id)
 
         return {
-            validateUnitInList: (armyList: LocalArmyList) =>
-                validate(armyList, (buffaloCount, buffaloQCount) => buffaloQCount <= buffaloCount),
-            validateUnitCandidate: (armyList: LocalArmyList) =>
-                validate(armyList, (buffaloCount, buffaloQCount) => buffaloQCount < buffaloCount),
+            validateUnitInList(armyList: LocalArmyList) {
+                const buffaloCount = getQuantity(armyList, UNITS.BUFFALO_3.id)
+                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_4.id)
+
+                if (buffaloQCount <= buffaloCount) {
+                    return []
+                }
+
+                return [
+                    `You may not have more ${buffaloQName} (${buffaloQCount}) Units than ${buffaloName} (${buffaloCount}) Units.`,
+                ]
+            },
+            validateUnitCandidate(armyList: LocalArmyList) {
+                const buffaloCount = getQuantity(armyList, UNITS.BUFFALO_3.id)
+                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_4.id)
+
+                if (buffaloQCount < buffaloCount) {
+                    return []
+                }
+
+                return [
+                    `You may not have more ${buffaloQName} Units than ${buffaloName} (${buffaloCount}) Units.`,
+                ]
+            },
         }
     })(),
 }

@@ -2,7 +2,7 @@ import { TRAITS } from '../../data/abilities-and-traits'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { Unit, UnitId } from '../../data/units'
 import type { LocalArmyList, UnitEntry } from '../types/army-list'
-import { getArmyListMaxPoints, getArmyListUnitCount, UNITS_BY_ID } from './static-data-helpers'
+import { getArmyListMaxPoints, getArmyListUnitCount, unitHasTrait, UNITS_BY_ID } from './static-data-helpers'
 import { half } from './utils'
 
 type FactionValidator = {
@@ -52,8 +52,8 @@ const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
             let surveyorUnitTotalCost = 0
 
             for (const entry of armyList.units) {
-                const unit = UNITS_BY_ID[entry.id]
-                if (unit.traits.includes(TRAITS.SURVEYOR.display_name)) {
+                if (unitHasTrait(entry.id, 'SURVEYOR')) {
+                    const unit = UNITS_BY_ID[entry.id]
                     surveyorUnitCount += entry.quantity
                     surveyorUnitTotalCost += entry.quantity * unit.cost
                 }

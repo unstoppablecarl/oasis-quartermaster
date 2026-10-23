@@ -126,9 +126,6 @@
     "CLUMSY": {
       "display_name": "CLUMSY"
     },
-    "TRANSPORT_SALVAGE": {
-      "display_name": "Transport [Salvage]"
-    },
     "TRANSPORT": {
       "display_name": "Transport [X]",
       "matcher": {}

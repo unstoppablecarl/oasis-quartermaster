@@ -2,7 +2,7 @@ import { computed, inject, type InjectionKey, provide, toRef } from 'vue'
 import type { Command } from '../../data/commands'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { UnitId } from '../../data/units'
-import { hasValidationMessages, validateArmyList, validateUnitInList } from '../lib/army-list-validation'
+import { hasValidationMessages, isCoreArmyListValid, validateArmyList, validateUnitInList } from '../lib/army-list-validation'
 import {
     ARMY_LIST_TYPES_BY_ID,
     COMMANDS_BY_ID,
@@ -86,8 +86,7 @@ export function useArmyList(armyList: LocalArmyList) {
 
     const valid = computed(
         () =>
-            !validation.value.core.overPointLimit &&
-            validation.value.core.commandCardsValid &&
+            isCoreArmyListValid(validation.value.core) &&
             !validation.value.faction.length &&
             !unitsWithIssues.value.length,
     )

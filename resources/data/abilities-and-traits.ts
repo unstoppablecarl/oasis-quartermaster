@@ -99,7 +99,7 @@ export type Trait = {
     display_name: string
     matcher?: RegExp
 }
-export const TRAITS: Record<string, Trait> = {
+export const TRAITS = {
     ARMORED: {
         display_name: 'Armored',
     },
@@ -136,21 +136,20 @@ export const TRAITS: Record<string, Trait> = {
     CLUMSY: {
         display_name: 'CLUMSY',
     },
-    TRANSPORT_SALVAGE: {
-        display_name: 'Transport [Salvage]',
-    },
     TRANSPORT: {
         display_name: 'Transport [X]',
-        matcher: /^Transport \[\d+]?$/i,
+        matcher: /^Transport \[\d+]$/i,
     },
     CARRYALL: {
         display_name: 'Carryall [X]',
-        matcher: /^Carryall \[\d+]?$/i,
+        matcher: /^Carryall \[\d+]$/i,
     },
     JUMP_PACKS: {
         display_name: 'Jump Packs',
     },
-}
+} satisfies Record<string, Trait>
+
+export type TraitKey = keyof typeof TRAITS
 
 function matchesEntry(
     entry: { display_name: string; matcher?: RegExp },
@@ -246,4 +245,10 @@ function findUnmatched(
     }
 
     return unmatched
+}
+
+export function unitTraitsContain(unitTraits: string[], traitKey: TraitKey) {
+    const entry = TRAITS[traitKey]
+
+    return unitTraits.some(t => matchesEntry(entry, t))
 }

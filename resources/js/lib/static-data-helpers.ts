@@ -1,3 +1,4 @@
+import { type TraitKey, unitTraitsContain } from '../../data/abilities-and-traits'
 import { ARMY_LIST_TYPES, type ArmyListType, type ArmyListTypeId } from '../../data/army-list-types'
 import { type Command, type CommandId, COMMANDS } from '../../data/commands'
 import { type Faction, type FactionId, FACTIONS } from '../../data/factions'
@@ -95,4 +96,8 @@ export function getArmyListTotalPoints(armyList: { units: UnitEntry[] }) {
 
 export function getArmyListUnitCount(armyList: { units: UnitEntry[] }) {
     return armyList.units.reduce((count, u) => count + u.quantity, 0)
+}
+
+export function unitHasTrait(id: UnitId, traitKey: TraitKey) {
+    return unitTraitsContain(UNITS_BY_ID[id].traits, traitKey)
 }

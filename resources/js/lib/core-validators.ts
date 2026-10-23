@@ -3,6 +3,7 @@ import {
     getArmyListMaxPoints,
     getArmyListTotalPoints,
     getArmyListUnitCount,
+    unitHasTrait,
     UNITS_BY_ID,
 } from './static-data-helpers'
 import { half } from './utils'
@@ -10,8 +11,10 @@ import { half } from './utils'
 export const REQUIRED_COMMAND_CARD_COUNT = 2
 
 export type CoreArmyListValidation = {
-    overPointLimit: boolean
+    pointLimitValid: boolean
     commandCardsValid: boolean
+    hasAtLeastOneSurveyorUnit: boolean
+    hasAtLeastOneTransportUnit: boolean
 }
 
 export const CORE_VALIDATOR = {
@@ -39,7 +42,9 @@ export const CORE_VALIDATOR = {
         const maxPoints = getArmyListMaxPoints(armyList)
 
         return {
-            overPointLimit: maxPoints !== null && getArmyListTotalPoints(armyList) > maxPoints,
+            hasAtLeastOneSurveyorUnit: armyList.units.some(u => unitHasTrait(u.id, 'SURVEYOR')),
+            hasAtLeastOneTransportUnit: armyList.units.some(u => unitHasTrait(u.id, 'TRANSPORT')),
+            pointLimitValid: maxPoints === null || getArmyListTotalPoints(armyList) <= maxPoints,
             commandCardsValid: armyList.commands.length === REQUIRED_COMMAND_CARD_COUNT,
         }
     },

@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import Fraction from '../../../components/Fraction.vue'
 import HazardTitle from '../../../components/ui/HazardTitle.vue'
 import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
+import { isCoreArmyListValid } from '../../../lib/army-list-validation'
 import { REQUIRED_COMMAND_CARD_COUNT } from '../../../lib/core-validators'
 
 const { headingClass = 'text-teal', textClass = 'text-danger-emphasis' } =
@@ -21,20 +23,31 @@ const {
     unitsWithIssues,
     commands,
 } = injectArmyList()
+
+const coreValid = computed(() => isCoreArmyListValid(validation.value.core))
 </script>
 <template>
     <div class="card mb-3" v-if="!valid">
         <div class="card-body">
             <HazardTitle variant="danger"> Validation</HazardTitle>
-            <div v-if="validation.core.overPointLimit || !validation.core.commandCardsValid" class="mb-3">
+            <div v-if="!coreValid" class="mb-3">
                 <div class="text-warning title">Invalid Army List</div>
-                <div v-if="validation.core.overPointLimit">
+                <div v-if="!validation.core.pointLimitValid">
                     <span class="text-danger-emphasis">Over Point Limit: </span>
                     <Fraction :a="totalCost" :b="maxPoints" />
                 </div>
                 <div v-if="!validation.core.commandCardsValid">
-                    <span class="text-danger-emphasis">{{ REQUIRED_COMMAND_CARD_COUNT }} Command Cards must be selected: </span>
+                    <span class="text-danger-emphasis">{{ REQUIRED_COMMAND_CARD_COUNT }} Command Cards must be
+                        selected: </span>
                     <Fraction :a="commands.length" :b="REQUIRED_COMMAND_CARD_COUNT" />
+                </div>
+                <div v-if="!validation.core.hasAtLeastOneSurveyorUnit">
+                    <span class="text-danger-emphasis">At least 1 Unit with the <strong
+                        class="validate-text-trait">Surveyor</strong> Trait is Required</span>
+                </div>
+                <div v-if="!validation.core.hasAtLeastOneTransportUnit">
+                    <span class="text-danger-emphasis">At least 1 Unit with the <strong
+                        class="validate-text-trait">Transport</strong> Trait is Required</span>
                 </div>
             </div>
 
@@ -80,5 +93,15 @@ const {
 <style lang="scss">
 .invalid-unit:not(:last-child) {
     margin-bottom: 1rem;
+}
+
+.validate-text-trait {
+    color: #fff;
+}
+
+.page-preview {
+    .validate-text-trait {
+        color: #000;
+    }
 }
 </style>
