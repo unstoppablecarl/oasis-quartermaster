@@ -1,12 +1,21 @@
 <script setup lang="ts">
+import type { FormComponentRef } from '@inertiajs/core'
 import { Form } from '@inertiajs/vue3'
-import { useTemplateRef } from 'vue'
+import { BModal } from 'bootstrap-vue-next'
+import { ref, useTemplateRef } from 'vue'
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController'
 import Heading from '@/components/Heading.vue'
 import InputError from '@/components/InputError.vue'
 import PasswordInput from '@/components/PasswordInput.vue'
 
 const passwordInput = useTemplateRef('passwordInput')
+const deleteUserForm = useTemplateRef<FormComponentRef>('deleteUserForm')
+const isModalVisible = ref(false)
+
+function resetForm() {
+    deleteUserForm.value?.clearErrors()
+    deleteUserForm.value?.reset()
+}
 </script>
 
 <template>
@@ -25,95 +34,63 @@ const passwordInput = useTemplateRef('passwordInput')
                 type="button"
                 class="btn btn-danger"
                 data-test="delete-user-button"
-                data-bs-toggle="modal"
-                data-bs-target="#delete-user-modal"
+                @click="isModalVisible = true"
             >
                 Delete account
             </button>
         </div>
 
-        <div
-            id="delete-user-modal"
-            class="modal fade"
-            tabindex="-1"
-            aria-hidden="true"
+        <BModal
+            v-model="isModalVisible"
+            title="Are you sure you want to delete your account?"
+            @hidden="resetForm"
         >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <Form
-                        v-bind="ProfileController.destroy.form()"
-                        reset-on-success
-                        @error="() => passwordInput?.focus()"
-                        :options="{
-                            preserveScroll: true,
-                        }"
-                        v-slot="{ errors, processing, reset, clearErrors }"
-                    >
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                Are you sure you want to delete your account?
-                            </h5>
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                @click="
-                                    () => {
-                                        clearErrors()
-                                        reset()
-                                    }
-                                "
-                            ></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="mb-3">
-                                Once your account is deleted, all of its
-                                resources and data will also be permanently
-                                deleted. Please enter your password to confirm
-                                you would like to permanently delete your
-                                account.
-                            </p>
+            <Form
+                ref="deleteUserForm"
+                v-bind="ProfileController.destroy.form()"
+                reset-on-success
+                @error="() => passwordInput?.focus()"
+                :options="{
+                    preserveScroll: true,
+                }"
+                v-slot="{ errors }"
+            >
+                <p class="mb-3">
+                    Once your account is deleted, all of its resources and data
+                    will also be permanently deleted. Please enter your password
+                    to confirm you would like to permanently delete your
+                    account.
+                </p>
 
-                            <label for="password" class="visually-hidden"
-                                >Password</label
-                            >
-                            <PasswordInput
-                                id="password"
-                                name="password"
-                                ref="passwordInput"
-                                placeholder="Password"
-                            />
-                            <InputError :message="errors.password" />
-                        </div>
+                <label for="password" class="visually-hidden">Password</label>
+                <PasswordInput
+                    id="password"
+                    name="password"
+                    ref="passwordInput"
+                    placeholder="Password"
+                />
+                <InputError :message="errors.password" />
+            </Form>
 
-                        <div class="modal-footer">
-                            <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                                @click="
-                                    () => {
-                                        clearErrors()
-                                        reset()
-                                    }
-                                "
-                            >
-                                Cancel
-                            </button>
+            <template #footer>
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="isModalVisible = false"
+                >
+                    Cancel
+                </button>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger"
-                                :disabled="processing"
-                                data-test="confirm-delete-user-button"
-                            >
-                                Delete account
-                            </button>
-                        </div>
-                    </Form>
-                </div>
-            </div>
-        </div>
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    :disabled="deleteUserForm?.processing"
+                    data-test="confirm-delete-user-button"
+                    @click="deleteUserForm?.submit()"
+                >
+                    Delete account
+                </button>
+            </template>
+        </BModal>
     </div>
 </template>

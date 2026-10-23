@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import UserInfo from '@/components/UserInfo.vue'
-import UserMenuContent from '@/components/UserMenuContent.vue'
+import UserMenuDropdown from '@/components/UserMenuDropdown.vue'
 import { useCurrentUrl } from '@/composables/useCurrentUrl'
 import { diceRoller, home, login, register, rules } from '@/routes'
 import { create, index as armyLists } from '@/routes/army-lists'
 import type { NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
+import { breakpointsBootstrapV5, useBreakpoints } from '@vueuse/core'
+import { BCollapse, BNavbarToggle, BNavItemDropdown } from 'bootstrap-vue-next'
 import { computed } from 'vue'
 
 const page = usePage()
 const auth = computed(() => page.props.auth)
 const { isCurrentOrParentUrl, isCurrentUrl } = useCurrentUrl()
+const isDesktop = useBreakpoints(breakpointsBootstrapV5).greaterOrEqual('lg')
 
 const mainNavItems = computed<NavItem[]>(() => [
     {
@@ -57,22 +59,14 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                     </span>
                 </Link>
 
-                <div v-if="auth.user" class="dropdown">
-                    <button
-                        class="btn d-flex align-items-center gap-2 border-0 shadow-none"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <UserInfo :user="auth.user" />
-                    </button>
-                    <ul
-                        class="dropdown-menu dropdown-menu-end dropdown-user-context"
-                    >
-                        <UserMenuContent :user="auth.user" />
-                    </ul>
-                </div>
-                <div v-else class="d-flex align-items-center gap-2">
+                <UserMenuDropdown
+                    v-if="auth.user && isDesktop"
+                    :user="auth.user"
+                />
+                <div
+                    v-else-if="!auth.user"
+                    class="d-flex align-items-center gap-2"
+                >
                     <Link :href="login()" class="btn btn-outline-secondary">
                         Login
                     </Link>
@@ -83,70 +77,59 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
             </div>
         </div>
 
-        <nav class="navbar navbar-dark navbar-expand-lg border-bottom">
+        <nav
+            class="navbar navbar-dark navbar-expand-lg border-bottom pb-2 pb-sm-0"
+        >
             <div class="container">
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#app-navbar-collapse"
-                    aria-controls="app-navbar-collapse"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <BNavbarToggle target="app-navbar-collapse" />
 
-                <div id="app-navbar-collapse" class="collapse navbar-collapse">
+                <UserMenuDropdown
+                    v-if="auth.user && !isDesktop"
+                    :user="auth.user"
+                    class="ms-auto"
+                />
+
+                <BCollapse id="app-navbar-collapse" is-nav>
                     <ul class="navbar-nav me-auto">
-                        <li
+                        <template
                             v-for="item in mainNavItems.filter(isVisible)"
                             :key="item.title"
-                            class="nav-item position-relative"
                         >
-                            <template v-if="item.children?.length">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    :class="{
-                                        active: isCurrentOrParentUrl(item.href),
-                                    }"
-                                    href="#"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Army Lists
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li
-                                        v-for="child in item.children?.filter(
-                                            isVisible,
-                                        )"
-                                        :key="child.title"
-                                    >
-                                        <Link
-                                            :href="child.href"
-                                            class="dropdown-item"
-                                            :class="{
-                                                active: isCurrentUrl(
-                                                    child.href,
-                                                ),
-                                            }"
-                                        >
-                                            {{ child.title }}
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </template>
-                            <Link
-                                v-else
-                                :href="item.href"
-                                class="nav-link"
-                                :class="{ active: isCurrentUrl(item.href) }"
+                            <BNavItemDropdown
+                                v-if="item.children?.length"
+                                :text="item.title"
+                                class="position-relative"
+                                :toggle-class="{
+                                    active: isCurrentOrParentUrl(item.href),
+                                }"
                             >
-                                {{ item.title }}
-                            </Link>
-                        </li>
+                                <li
+                                    v-for="child in item.children?.filter(
+                                        isVisible,
+                                    )"
+                                    :key="child.title"
+                                >
+                                    <Link
+                                        :href="child.href"
+                                        class="dropdown-item"
+                                        :class="{
+                                            active: isCurrentUrl(child.href),
+                                        }"
+                                    >
+                                        {{ child.title }}
+                                    </Link>
+                                </li>
+                            </BNavItemDropdown>
+                            <li v-else class="nav-item position-relative">
+                                <Link
+                                    :href="item.href"
+                                    class="nav-link"
+                                    :class="{ active: isCurrentUrl(item.href) }"
+                                >
+                                    {{ item.title }}
+                                </Link>
+                            </li>
+                        </template>
                         <li class="nav-item position-relative">
                             <a
                                 class="nav-link"
@@ -156,7 +139,7 @@ const isVisible = (item: NavItem) => item.visible?.() ?? true
                             >
                         </li>
                     </ul>
-                </div>
+                </BCollapse>
             </div>
         </nav>
     </div>

@@ -44,10 +44,6 @@ void createInertiaApp({
 })
 
 if (typeof window !== 'undefined') {
-    // Bootstrap's JS touches `document` on import, so it must stay out of SSR...
-    // @ts-ignore
-    void import('bootstrap/dist/js/bootstrap.bundle.min.js')
-
     // This will listen for flash toast data from the server...
     initializeFlashToast()
 }

@@ -4,6 +4,7 @@
 
 .navbar .navbar-brand {
     $height: 24px;
+
     .logo-img {
         height: $height;
     }
@@ -23,6 +24,7 @@
     .nav-link {
         &.active {
             border-bottom: 2px solid $orange;
+            border-radius: 0;
 
             &:hover {
                 color: $bone;
@@ -32,6 +34,8 @@
 
     .dropdown-user-context {
         font-family: $font-family-base;
+        font-size: $font-size-base;
+        letter-spacing: normal;
         text-transform: none;
     }
 
