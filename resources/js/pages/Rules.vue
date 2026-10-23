@@ -9,7 +9,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
     <div class="card card-rules">
         <div class="card-body">
             <HazardTitle variant="sulfur" class="mb-1"> Rules </HazardTitle>
-            <p class="note" style="margin-top: 0">
+            <p class="note mt-0">
                 Condensed rules reference — mechanics only, no glossary or
                 diagrams. See the full rulebook for flavor text, examples, and
                 illustrations.
@@ -77,9 +77,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     <li>
                         Deploy units in the 6"×36" zones on opposite short
                         edges: highest
-                        <a class="rule-term" href="#rule-turn-structure"
-                            >initiative</a
-                        >
+                        <a class="rule-term" href="#rule-turn-structure">initiative</a>
                         value places first, all of a player's units at one value
                         before the opponent places theirs at that value, then
                         proceed to the next-lowest value.
