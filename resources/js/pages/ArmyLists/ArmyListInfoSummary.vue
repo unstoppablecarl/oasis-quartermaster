@@ -6,6 +6,7 @@ import { injectArmyList } from '../../composables/useArmyList'
 const {
     armyList,
     unitCount,
+    maxUnits,
     totalCost,
     maxPoints,
     faction,
@@ -44,7 +45,7 @@ const {
 
                     <span class="mx-3 ws-nowrap">
                         <strong class="text-body-emphasis"> Unit Count: </strong>
-                        {{ unitCount }}
+                        <Fraction :a="unitCount" :b="maxUnits" />
                     </span>
 
                     <span class="ws-nowrap">

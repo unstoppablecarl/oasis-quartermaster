@@ -33,6 +33,7 @@ export function hasValidationMessages(validation: UnitValidation): boolean {
 export function isCoreArmyListValid(core: CoreArmyListValidation): boolean {
     return (
         core.pointLimitValid &&
+        core.unitLimitValid &&
         core.commandCardsValid &&
         core.hasAtLeastOneSurveyorUnit &&
         core.hasAtLeastOneTransportUnit

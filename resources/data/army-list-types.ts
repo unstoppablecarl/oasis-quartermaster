@@ -2,6 +2,7 @@ export type ArmyListType = {
     id: number
     display_name: string
     max_points: number
+    max_units: number | null
 }
 
 export const ARMY_LIST_TYPES: Record<string, ArmyListType> = {
@@ -9,6 +10,7 @@ export const ARMY_LIST_TYPES: Record<string, ArmyListType> = {
         id: 1,
         display_name: 'Standard Salvage',
         max_points: 400,
+        max_units: 20,
     },
 }
 

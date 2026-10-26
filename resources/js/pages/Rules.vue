@@ -8,11 +8,11 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
 
     <div class="card card-rules">
         <div class="card-body">
-            <HazardTitle variant="sulfur" class="mb-1"> Rules </HazardTitle>
+            <HazardTitle variant="sulfur" class="mb-1"> Rules</HazardTitle>
             <p class="note mt-0">
-                Condensed rules reference — mechanics only, no glossary or
-                diagrams. See the full rulebook for flavor text, examples, and
-                illustrations.
+                Condensed rules reference: mechanics only, no glossary or
+                diagrams. Please see the full rulebook for full rules with examples
+                and more.
             </p>
 
             <div class="card" id="rules-menu">
@@ -28,14 +28,10 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                         <li><a href="#rule-terrain">Terrain</a></li>
                         <li><a href="#rule-attacking">Attacking</a></li>
                         <li>
-                            <a href="#rule-los-cover"
-                                >Line of Sight &amp; Cover</a
-                            >
+                            <a href="#rule-los-cover">Line of Sight &amp; Cover</a>
                         </li>
                         <li>
-                            <a href="#rule-damage"
-                                >Rolling Attacks &amp; Damage</a
-                            >
+                            <a href="#rule-damage">Rolling Attacks &amp; Damage</a>
                         </li>
                         <li><a href="#rule-commands">Commands</a></li>
                         <li><a href="#rule-salvage">Finding Salvage</a></li>
@@ -47,7 +43,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
             <div class="rule-section" id="rule-objective">
                 <h4>Objective</h4>
                 <p>
-                    Extract 3 Salvage tokens before your opponents, or eliminate
+                    Extract 3 Salvage tokens before your opponent, or eliminate
                     all opposing forces.
                 </p>
                 <a class="back-to-top" href="#rules-menu">↑ Contents</a>
@@ -57,17 +53,17 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                 <h4>Setup</h4>
                 <ul>
                     <li>
-                        400 points per force, 20 units max, no more than 10 of
-                        any one unit type.
+                        400 points per force, 20 units max, no more than half
+                        of your unit count or point value is the same unit type.
                     </li>
                     <li>
                         Must include at least one unit with the Surveyor trait
-                        and one with the Transport trait.
+                        and one with the Transport trait (can be the same unit).
                     </li>
                     <li>Each force gets 2 Command cards.</li>
                     <li>
                         Standard table: 36"×72", with 8+ pieces of stackable
-                        terrain.
+                        Terrain (1” height increments).
                     </li>
                     <li>
                         Place 1 Major Point of Interest at the table center,
@@ -76,9 +72,9 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     </li>
                     <li>
                         Deploy units in the 6"×36" zones on opposite short
-                        edges: highest
+                        edges: highest point value unit owner
                         <a class="rule-term" href="#rule-turn-structure">initiative</a>
-                        value places first, all of a player's units at one value
+                        places first, all of a player's units at one initiative value
                         before the opponent places theirs at that value, then
                         proceed to the next-lowest value.
                     </li>
@@ -104,10 +100,11 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     <b>Activation:</b> units activate in descending initiative
                     order. All units at a given value (both players combined)
                     activate before moving to the next-lowest value; the bid
-                    winner chooses activation order within each tied value.
+                    winner chooses activation order within each tied value
+                    (all of the winner’s units, then all of the loser's of that same value).
                     While active, a unit may Move once, Survey once, and use
                     every Weapon and Ability once (unless stated otherwise), in
-                    any order. Beacons may be declared active before the first
+                    any order. Beacons must be declared active before the first
                     unit activates each turn.
                 </p>
                 <p>
@@ -128,7 +125,9 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     </li>
                     <li>
                         May attack before moving, after moving, or split attacks
-                        across both if you have multiple weapons.
+                        across both if you have multiple weapons. Once you start moving,
+                        or start using a weapon, you have to finish doing so before your
+                        next action.
                     </li>
                     <li>After moving, face any direction.</li>
                     <li>
@@ -139,7 +138,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     <li>
                         Ground units can't cross sheer terrain (elevation change
                         over 1"), Large/Massive Terrain, Obstructions, or
-                        Blocking Features, unless a trait says otherwise.
+                        Blocking Features, unless a Trait says otherwise.
                     </li>
                     <li>
                         <b>Reposition</b> ability: moves exactly like a normal
@@ -147,7 +146,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     </li>
                     <li>
                         <b id="close-quarters">Close Quarters:</b> opposing
-                        ground units that end a Move in base contact are in
+                        ground units that end a Move or Reposition in base contact are in
                         Close Quarters (can be with multiple units at once).
                         Units in Close Quarters can't attack each other unless
                         stated otherwise. If an active unit tries to leave Close
@@ -171,7 +170,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                     <li>
                         Units can't move through
                         <a class="rule-term" href="#rule-los-cover"
-                            >Obstructions or Blocking Features</a
+                        >Obstructions or Blocking Features</a
                         >
                         unless noted on their card.
                     </li>
@@ -225,11 +224,11 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                 <ul>
                     <li>
                         <b id="blocking-feature">Blocking Feature:</b> solid, at
-                        least 1" higher than the taller unit's base, and at
+                        least 1" higher than the higher unit's base, and at
                         least 1" wide facing the attacker (structures, rocks,
                         hills, Major Points of Interest). Fully blocks
                         line-of-sight — the attack can't proceed — unless the
-                        attacker is Aircraft (Aircraft ignore Blocking Features
+                        attacker is an Aircraft (Aircraft ignore Blocking Features
                         unless they'd grant Cover).
                     </li>
                     <li>
@@ -259,7 +258,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                         <b>Large Terrain</b> (over 6" tall): blocks
                         line-of-sight between ground units, and between aircraft
                         and ground units. Does not block sight between two
-                        aircraft.
+                        aircraft. Blocks ground unit movement.
                     </li>
                     <li>
                         <b>Massive Terrain</b> (over 12" tall): blocks all
@@ -306,13 +305,13 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                 <h4>Commands</h4>
                 <ul>
                     <li>
-                        Each force has 2 Command cards, usable by spending
+                        Each force has 2 chosen Command cards, usable by spending
                         command points from the same 20-point pool used for the
                         initiative bid.
                     </li>
                     <li>
                         A command can only be used once per thing it affects
-                        (one roll, one weapon, one initiative value, etc.)
+                        (once per roll, once on weapon range, once on a unit's initiative value, etc.)
                         unless it states otherwise.
                     </li>
                     <li>
@@ -328,7 +327,7 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                 <ul>
                     <li>
                         Get a ground unit within 1" of a Point of Interest and
-                        Survey: roll 4 dice — 5 or more total places a Salvage
+                        Survey: roll 4 dice — 5 or more total Targets places a Salvage
                         token adjacent to the Point. Minor Points are removed
                         once successfully surveyed; the Major Point can be
                         surveyed once per turn per unit and is never removed
@@ -362,8 +361,8 @@ import HazardTitle from '../components/ui/HazardTitle.vue'
                 <ul>
                     <li>
                         Declare a Beacon active before your first unit activates
-                        each turn; at the same point next turn, that Beacon and
-                        any Salvage within 2" of it are extracted.
+                        each turn; at the same point (before the first unit activates)
+                        next turn, that Beacon and any Salvage within 2" of it are extracted.
                     </li>
                     <li>
                         3 or more extracted Salvage tokens: you may declare

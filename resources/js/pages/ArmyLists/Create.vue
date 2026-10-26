@@ -14,6 +14,7 @@ import ArmyListFields from './Components/ArmyListFields.vue'
 import ArmyListItemHeader from './Components/ArmyListItemHeader.vue'
 import ArmyListSaveBar from './Components/ArmyListSaveBar.vue'
 import ArmyListUnits from './Components/ArmyListUnits.vue'
+import ArmyListValidationSummary from './Components/ArmyListValidationSummary.vue'
 import DraftControls from './Components/DraftControls.vue'
 import UnitPicker from './Components/UnitPicker.vue'
 
@@ -23,7 +24,7 @@ const auth = computed(() => page.props.auth)
 const draft = loadArmyListDraft()
 const form = useForm(draft)
 
-const { add, totalCost, unitCount, maxPoints } = provideArmyList(form)
+const { add } = provideArmyList(form)
 
 watch(
     [
@@ -82,6 +83,8 @@ function save() {
         :errors="form.errors"
     />
 
+    <ArmyListValidationSummary />
+
     <Teleport to="#before-page-footer-teleport" defer>
         <div class="container-fluid">
             <ArmyListUnits />
@@ -90,14 +93,8 @@ function save() {
     </Teleport>
 
     <ArmyListSaveBar
-        :name="form.display_name"
-        :faction-id="form.faction_id"
-        :total-cost="totalCost"
-        :max-points="maxPoints"
         :processing="form.processing"
         :save-disabled="!auth.user"
-        :unit-count="unitCount"
-        :command-ids="form.commands.map(({ id }) => id)"
         @save="save"
         :autosave="false"
     >

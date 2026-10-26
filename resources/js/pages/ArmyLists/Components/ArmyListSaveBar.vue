@@ -1,40 +1,34 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
-import type { CommandId } from '../../../../data/commands'
-import type { FactionId } from '../../../../data/factions'
 import Fraction from '../../../components/Fraction.vue'
-import { COMMANDS_BY_ID, getFactionName } from '../../../lib/static-data-helpers'
+import { injectArmyList } from '../../../composables/useArmyList'
 
 const {
-    name,
-    factionId,
-    maxPoints = null,
     processing = false,
     saveDisabled = false,
     saveLabel = 'Save',
-    totalCost,
-    unitCount,
-    commandIds,
     saveStatus = 'idle',
 } = defineProps<{
-    name: string
-    factionId: FactionId
-    commandIds: CommandId[]
-    totalCost: number
-    maxPoints?: number | null
     processing?: boolean
     saveDisabled?: boolean
     saveLabel?: string
-    unitCount: number
     autosave?: boolean
     saveStatus?: 'idle' | 'saving' | 'saved' | 'error'
 }>()
 
+const {
+    armyList,
+    faction,
+    commands,
+    totalCost,
+    maxPoints,
+    unitCount,
+    maxUnits
+} = injectArmyList()
+
 const emit = defineEmits<{
     save: []
 }>()
-
-const faction = computed(() => getFactionName(factionId))
 
 const saveBarRef = useTemplateRef<HTMLElement>('saveBar')
 
@@ -57,8 +51,8 @@ onBeforeUnmount(() => {
     document.documentElement.style.removeProperty('--save-bar-height')
 })
 
-const commands = computed(() =>
-    commandIds.map((id) => COMMANDS_BY_ID[id].display_name),
+const commandNames = computed(() =>
+    commands.value.map((command) => command.display_name),
 )
 const saveStatusText = computed(() => {
     switch (saveStatus) {
@@ -82,17 +76,19 @@ const saveStatusText = computed(() => {
                         <div class="save-bar-name">
                             <strong class="text-body-emphasis">Name:&nbsp;</strong
                             >
-                            <span v-if="name" class="text-truncate">{{ name }}</span>
+                            <span v-if="armyList.display_name" class="text-truncate">{{
+                                    armyList.display_name
+                                }}</span>
                             <span v-else class="text-danger-emphasis">Unnamed</span>
                         </div>
                         <div>
                             <strong class="text-body-emphasis">Faction: </strong>
-                            <span>{{ faction }}</span>
+                            <span>{{ faction.display_name }}</span>
                         </div>
                         <div>
                             <strong class="text-body-emphasis">Commands: </strong>
-                            <span v-if="commands.length">{{
-                                    commands.join(', ')
+                            <span v-if="commandNames.length">{{
+                                    commandNames.join(', ')
                                 }}</span>
                             <span v-else class="text-danger-emphasis">None Selected</span>
                         </div>
@@ -102,7 +98,7 @@ const saveStatusText = computed(() => {
                                 Unit Count:
                             </strong>
                             <span>
-                                {{ unitCount }}
+                                <Fraction :a="unitCount" :b="maxUnits" less-than-or-equal-class="text-success-emphasis" />
                             </span>
                         </div>
 
@@ -110,7 +106,7 @@ const saveStatusText = computed(() => {
                             <strong class="text-body-emphasis">
                                 Total Points:
                             </strong>
-                            <Fraction :a="totalCost" :b="maxPoints" />
+                            <Fraction :a="totalCost" :b="maxPoints" less-than-or-equal-class="text-success-emphasis" />
                         </div>
                     </div>
 

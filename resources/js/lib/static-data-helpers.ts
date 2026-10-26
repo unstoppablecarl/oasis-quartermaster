@@ -83,6 +83,16 @@ export function getArmyListMaxPoints(armyList: {
     return ARMY_LIST_TYPES_BY_ID[armyList.army_list_type_id]?.max_points ?? null
 }
 
+export function getArmyListMaxUnits(armyList: {
+    army_list_type_id: number | null
+}): number | null {
+    if (armyList.army_list_type_id === null) {
+        return null
+    }
+
+    return ARMY_LIST_TYPES_BY_ID[armyList.army_list_type_id]?.max_units ?? null
+}
+
 export function getArmyListTotalPoints(armyList: { units: UnitEntry[] }) {
     let total = 0
     for (const u of armyList.units) {

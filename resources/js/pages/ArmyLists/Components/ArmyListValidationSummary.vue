@@ -18,6 +18,8 @@ const {
     faction,
     maxPoints,
     totalCost,
+    maxUnits,
+    unitCount,
     valid,
     validation,
     unitsWithIssues,
@@ -35,6 +37,10 @@ const coreValid = computed(() => isCoreArmyListValid(validation.value.core))
                 <div v-if="!validation.core.pointLimitValid">
                     <span class="text-danger-emphasis">Over Point Limit: </span>
                     <Fraction :a="totalCost" :b="maxPoints" />
+                </div>
+                <div v-if="!validation.core.unitLimitValid">
+                    <span class="text-danger-emphasis">Over Unit Limit: </span>
+                    <Fraction :a="unitCount" :b="maxUnits" />
                 </div>
                 <div v-if="!validation.core.commandCardsValid">
                     <span class="text-danger-emphasis">{{ REQUIRED_COMMAND_CARD_COUNT }} Command Cards must be

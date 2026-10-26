@@ -1,6 +1,7 @@
 import type { LocalArmyList, UnitEntry } from '../types/army-list'
 import {
     getArmyListMaxPoints,
+    getArmyListMaxUnits,
     getArmyListTotalPoints,
     getArmyListUnitCount,
     unitHasTrait,
@@ -12,6 +13,7 @@ export const REQUIRED_COMMAND_CARD_COUNT = 2
 
 export type CoreArmyListValidation = {
     pointLimitValid: boolean
+    unitLimitValid: boolean
     commandCardsValid: boolean
     hasAtLeastOneSurveyorUnit: boolean
     hasAtLeastOneTransportUnit: boolean
@@ -40,11 +42,13 @@ export const CORE_VALIDATOR = {
     },
     validateArmyList(armyList: LocalArmyList): CoreArmyListValidation {
         const maxPoints = getArmyListMaxPoints(armyList)
+        const maxUnits = getArmyListMaxUnits(armyList)
 
         return {
             hasAtLeastOneSurveyorUnit: armyList.units.some(u => unitHasTrait(u.id, 'SURVEYOR')),
             hasAtLeastOneTransportUnit: armyList.units.some(u => unitHasTrait(u.id, 'TRANSPORT')),
             pointLimitValid: maxPoints === null || getArmyListTotalPoints(armyList) <= maxPoints,
+            unitLimitValid: maxUnits === null || getArmyListUnitCount(armyList) <= maxUnits,
             commandCardsValid: armyList.commands.length === REQUIRED_COMMAND_CARD_COUNT,
         }
     },

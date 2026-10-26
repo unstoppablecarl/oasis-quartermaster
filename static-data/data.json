@@ -142,7 +142,8 @@
     "SALVAGE": {
       "id": 1,
       "display_name": "Standard Salvage",
-      "max_points": 400
+      "max_points": 400,
+      "max_units": 20
     }
   },
   "COMMANDS": {

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { a, b } = defineProps<{
+const { a, b, lessThanOrEqualClass = 'text-warning-emphasis' } = defineProps<{
     a: number
     b: number | null
+    lessThanOrEqualClass?: string
 }>()
 
 const containerClass = computed(() => {
@@ -13,7 +14,7 @@ const containerClass = computed(() => {
 
     return {
         'text-success-emphasis': a == b,
-        'text-warning-emphasis': a <= b,
+        [lessThanOrEqualClass]: a <= b,
         'text-danger-emphasis': a > b,
     }
 })

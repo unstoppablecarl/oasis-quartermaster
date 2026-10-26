@@ -23,6 +23,7 @@ const {
     totalCost,
     unitCount,
     maxPoints,
+    maxUnits,
     unitsInfo,
     unitsWithIssues,
     validation,
@@ -508,11 +509,11 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         <div
             class="card-footer fs-5 text-end"
             :class="{
-                'card-footer-error': !validation.core.pointLimitValid
+                'card-footer-error': !validation.core.pointLimitValid || !validation.core.unitLimitValid
             }"
         >
             <strong>Unit Count: </strong>
-            <span class="text-body-emphasis me-3">{{ unitCount }}</span>
+            <Fraction class="me-3" :a="unitCount" :b="maxUnits" />
             <strong>Total Cost: </strong>
             <Fraction :a="totalCost" :b="maxPoints" />
         </div>

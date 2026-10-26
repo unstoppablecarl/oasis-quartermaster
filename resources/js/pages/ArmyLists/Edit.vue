@@ -39,7 +39,7 @@ const http = useHttp<LocalArmyList & { uuid?: string }, UpdateResponse>({
     commands: armyList.commands,
 })
 
-const { add, totalCost, unitCount, maxPoints } = provideArmyList(http)
+const { add } = provideArmyList(http)
 
 function snapshot() {
     return JSON.stringify(http.data())
@@ -137,13 +137,7 @@ watch(
         </div>
     </Teleport>
     <ArmyListSaveBar
-        :name="armyList.display_name"
-        :faction-id="armyList.faction_id"
-        :command-ids="armyList.commands.map(({ id }) => id)"
-        :total-cost="totalCost"
-        :max-points="maxPoints"
         :processing="http.processing"
-        :unit-count="unitCount"
         :autosave="true"
         :save-status="saveStatus"
     />

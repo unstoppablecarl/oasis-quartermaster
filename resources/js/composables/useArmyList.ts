@@ -8,6 +8,7 @@ import {
     COMMANDS_BY_ID,
     FACTIONS_BY_ID,
     getArmyListMaxPoints,
+    getArmyListMaxUnits,
 } from '../lib/static-data-helpers'
 import type { LocalArmyList } from '../types/army-list'
 import { type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
@@ -15,6 +16,7 @@ import { type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
 export function useArmyList(armyList: LocalArmyList) {
     const units = toRef(armyList, 'units')
     const maxPoints = computed(() => getArmyListMaxPoints(armyList))
+    const maxUnits = computed(() => getArmyListMaxUnits(armyList))
 
     const { unitsInfo: baseUnitsInfo, totalCost, unitCount } = useUnitsInfo(units)
 
@@ -104,6 +106,7 @@ export function useArmyList(armyList: LocalArmyList) {
         remove,
         reorder,
         maxPoints,
+        maxUnits,
         faction,
         commands,
         armyListTypeName,
