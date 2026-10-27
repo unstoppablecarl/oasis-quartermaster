@@ -18,15 +18,15 @@ function getQuantity(armyList: LocalArmyList, unitId: UnitId) {
 }
 
 const UNIT_VALIDATORS_BY_ID: Partial<Record<UnitId, UnitValidator>> = {
-    [UNITS.BUFFALO_4.id]: (() => {
+    [UNITS.BUFFALO_Q_4.id]: (() => {
 
         const buffaloName = getUnitFullName(UNITS.BUFFALO_3.id)
-        const buffaloQName = getUnitFullName(UNITS.BUFFALO_4.id)
+        const buffaloQName = getUnitFullName(UNITS.BUFFALO_Q_4.id)
 
         return {
             validateUnitInList(armyList: LocalArmyList) {
                 const buffaloCount = getQuantity(armyList, UNITS.BUFFALO_3.id)
-                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_4.id)
+                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_Q_4.id)
 
                 if (buffaloQCount <= buffaloCount) {
                     return []
@@ -38,7 +38,7 @@ const UNIT_VALIDATORS_BY_ID: Partial<Record<UnitId, UnitValidator>> = {
             },
             validateUnitCandidate(armyList: LocalArmyList) {
                 const buffaloCount = getQuantity(armyList, UNITS.BUFFALO_3.id)
-                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_4.id)
+                const buffaloQCount = getQuantity(armyList, UNITS.BUFFALO_Q_4.id)
 
                 if (buffaloQCount < buffaloCount) {
                     return []
