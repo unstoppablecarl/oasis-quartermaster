@@ -220,12 +220,12 @@ export function getFactionCards(factionId: FactionId): Card[] {
             cardImage: faction.card_front!,
             type: 'Faction',
         },
-        {
-            display_name: faction.display_name,
-            side: 'Back',
-            cardImage: faction.card_back!,
-            type: 'Faction',
-        },
+        // {
+        //     display_name: faction.display_name,
+        //     side: 'Back',
+        //     cardImage: faction.card_back!,
+        //     type: 'Faction',
+        // },
     ]
 }
 
