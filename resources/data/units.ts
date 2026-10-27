@@ -165,11 +165,11 @@ export const UNITS = {
         ],
         card_back: 'Buffalo Back.jpg',
     },
-    BUFFALO_4: {
+    BUFFALO_Q_4: {
         id: 4,
-        display_name: 'Buffalo',
+        display_name: 'Buffalo Q',
         class: 'Q-Craft',
-        prefix: null,
+        prefix: 'Q-AGV',
         manufacturer: 'General Kinetics-Keystone',
         base_size: '175F',
         base_qty: 1,
@@ -179,7 +179,7 @@ export const UNITS = {
         flight_stand_diameter: 'n/a',
         flight_stand_length: null,
         flight_stand_connector: 'n/a',
-        cost: 0,
+        cost: 5,
         init: 3,
         dodge: 4,
         defense: 3,
@@ -818,7 +818,7 @@ export const UNITS = {
         ],
         traits: [
             'Aircraft: VTOL',
-            'Carryall [1]',
+            'Carryall',
         ],
         cards_front: [
             'Titan.jpg',

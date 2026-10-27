@@ -141,8 +141,7 @@ export const TRAITS = {
         matcher: /^Transport \[\d+]$/i,
     },
     CARRYALL: {
-        display_name: 'Carryall [X]',
-        matcher: /^Carryall \[\d+]$/i,
+        display_name: 'Carryall',
     },
     JUMP_PACKS: {
         display_name: 'Jump Packs',
