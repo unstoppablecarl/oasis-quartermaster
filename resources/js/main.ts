@@ -17,6 +17,7 @@ const bootstrap = createBootstrap({
     components: {
         BTooltip: {
             delay: { show: 300, hide: 0 },
+            teleportTo: 'body',
         },
     },
 })

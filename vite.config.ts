@@ -6,7 +6,6 @@ import laravel from 'laravel-vite-plugin'
 import { google } from 'laravel-vite-plugin/fonts'
 import { defineConfig, lazyPlugins } from 'vite-plus'
 import { staticDataPlugin } from './resources/js/lib/vite-static-data-plugin'
-import { vuedraggableSharedVuePlugin } from './resources/js/lib/vite-vuedraggable-shared-vue-plugin'
 
 const scssVariablesPath = path.resolve(
     import.meta.dirname,
@@ -16,7 +15,6 @@ const scssVariablesPath = path.resolve(
 export default defineConfig({
     plugins: lazyPlugins(() => [
         staticDataPlugin(),
-        vuedraggableSharedVuePlugin(),
         laravel({
             input: ['resources/styles/main.scss', 'resources/js/main.ts'],
             refresh: true,

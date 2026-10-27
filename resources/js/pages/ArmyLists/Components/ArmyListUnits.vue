@@ -4,7 +4,7 @@ import { PhEquals, PhX } from '@phosphor-icons/vue'
 import { useElementSize } from '@vueuse/core'
 import { BTooltip } from 'bootstrap-vue-next'
 import { computed, onBeforeUnmount, ref, useTemplateRef } from 'vue'
-import draggable from 'vuedraggable'
+import { VueDraggable } from 'vue-draggable-plus'
 import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import Fraction from '../../../components/Fraction.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
@@ -180,9 +180,9 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     <div
         class="card mb-3"
         :class="{
-            'border-danger': unitsWithIssues.length
+            'border-danger': unitsWithIssues.length,
         }"
-        :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px`, }"
+        :style="{ '--unit-list-toolbar-height': `${toolbarHeight}px` }"
     >
         <div class="card-body table-units pt-0">
             <div ref="toolbar" class="unit-list-toolbar sticky-top">
@@ -196,9 +196,9 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                 </CardHazardTitle>
             </div>
 
-            <draggable
+            <VueDraggable
                 v-model="draggableUnits"
-                item-key="id"
+                draggable=".grid-row"
                 handle=".drag-handle"
                 ghost-class="unit-row-ghost"
                 :animation="60"
@@ -211,294 +211,277 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                 @start="isDragging = true"
                 @end="onDragEnd"
             >
-                <template #header>
-                    <div class="grid-header border-bottom">
-                        <div class="px-0 text-center">
-                            <BTooltip>
-                                <template #target>
-                                    <button
-                                        type="button"
-                                        class="btn btn-sm btn-outline-secondary"
-                                        :class="{ invisible: !sortKey }"
-                                        :disabled="!sortKey"
-                                        @click="resetSort"
-                                    >
-                                        <RotateCcw :size="14" />
-                                    </button>
-                                </template>
-                                Reset Order
-                            </BTooltip>
-                        </div>
-                        <div
-                            class="sort-header"
-                            :class="{
-                                'sort-header-active':
-                                    sortKey === 'display_name',
-                            }"
-                            @click="toggleSort('display_name')"
+                <div class="grid-header border-bottom">
+                    <div class="px-0 text-center">
+
+
+                        <button
+                            id="reset-army-list-sort"
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            :class="{ invisible: !sortKey }"
+                            :disabled="!sortKey"
+                            @click="resetSort"
                         >
-                            Name
-                            <component
-                                :is="sortIconFor('display_name')"
-                                :size="14"
-                            />
-                        </div>
-                        <div
-                            v-if="showClass"
-                            class="sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'class',
-                            }"
-                            @click="toggleSort('class')"
-                        >
-                            Class
-                            <component :is="sortIconFor('class')" :size="14" />
-                        </div>
-                        <div
-                            v-if="showManufacturer"
-                            class="sort-header"
-                            :class="{
-                                'sort-header-active':
-                                    sortKey === 'manufacturer',
-                            }"
-                            @click="toggleSort('manufacturer')"
-                        >
-                            Manufacturer
-                            <component
-                                :is="sortIconFor('manufacturer')"
-                                :size="14"
-                            />
-                        </div>
-                        <div
-                            class="number-cell sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'init',
-                            }"
-                            @click="toggleSort('init')"
-                        >
-                            Init.
-                            <component :is="sortIconFor('init')" :size="14" />
-                        </div>
-                        <div
-                            class="number-cell sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'dodge',
-                            }"
-                            @click="toggleSort('dodge')"
-                        >
-                            Dodge
-                            <component :is="sortIconFor('dodge')" :size="14" />
-                        </div>
-                        <div
-                            class="number-cell sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'defense',
-                            }"
-                            @click="toggleSort('defense')"
-                        >
-                            Defense
-                            <component
-                                :is="sortIconFor('defense')"
-                                :size="14"
-                            />
-                        </div>
-                        <div
-                            class="number-cell sort-header"
-                            :class="{ 'sort-header-active': sortKey === 'hp' }"
-                            @click="toggleSort('hp')"
-                        >
-                            HP
-                            <component :is="sortIconFor('hp')" :size="14" />
-                        </div>
-                        <div
-                            class="number-cell sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'move',
-                            }"
-                            @click="toggleSort('move')"
-                        >
-                            Move
-                            <component :is="sortIconFor('move')" :size="14" />
-                        </div>
-                        <div>Weapons</div>
-                        <div>Traits</div>
-                        <div class="text-teal">Abilities</div>
-                        <div
-                            class="number-cell px-1 sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'cost',
-                            }"
-                            @click="toggleSort('cost')"
-                        >
-                            Pts
-                            <component :is="sortIconFor('cost')" :size="14" />
-                        </div>
-                        <div
-                            class="number-cell px-1 sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'quantity',
-                            }"
-                            @click="toggleSort('quantity')"
-                        >
-                            Qty
-                            <component
-                                :is="sortIconFor('quantity')"
-                                :size="14"
-                            />
-                        </div>
-                        <div
-                            class="number-cell ps-1 sort-header"
-                            :class="{
-                                'sort-header-active': sortKey === 'totalCost',
-                            }"
-                            @click="toggleSort('totalCost')"
-                        >
-                            Cost
-                            <component
-                                :is="sortIconFor('totalCost')"
-                                :size="14"
-                            />
-                        </div>
-                        <div class="px-0"></div>
+                            <RotateCcw :size="14" />
+                        </button>
+
+                        <BTooltip target="#reset-army-list-sort">
+                            Reset Order
+                        </BTooltip>
                     </div>
-                </template>
-                <template #item="{ element: unit }">
                     <div
-                        class="grid-row"
+                        class="sort-header"
                         :class="{
-                            'row-error': !unit.isValid,
+                            'sort-header-active': sortKey === 'display_name',
+                        }"
+                        @click="toggleSort('display_name')"
+                    >
+                        Name
+                        <component
+                            :is="sortIconFor('display_name')"
+                            :size="14"
+                        />
+                    </div>
+                    <div
+                        v-if="showClass"
+                        class="sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'class',
+                        }"
+                        @click="toggleSort('class')"
+                    >
+                        Class
+                        <component :is="sortIconFor('class')" :size="14" />
+                    </div>
+                    <div
+                        v-if="showManufacturer"
+                        class="sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'manufacturer',
+                        }"
+                        @click="toggleSort('manufacturer')"
+                    >
+                        Manufacturer
+                        <component
+                            :is="sortIconFor('manufacturer')"
+                            :size="14"
+                        />
+                    </div>
+                    <div
+                        class="number-cell sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'init',
+                        }"
+                        @click="toggleSort('init')"
+                    >
+                        Init.
+                        <component :is="sortIconFor('init')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'dodge',
+                        }"
+                        @click="toggleSort('dodge')"
+                    >
+                        Dodge
+                        <component :is="sortIconFor('dodge')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'defense',
+                        }"
+                        @click="toggleSort('defense')"
+                    >
+                        Defense
+                        <component :is="sortIconFor('defense')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell sort-header"
+                        :class="{ 'sort-header-active': sortKey === 'hp' }"
+                        @click="toggleSort('hp')"
+                    >
+                        HP
+                        <component :is="sortIconFor('hp')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'move',
+                        }"
+                        @click="toggleSort('move')"
+                    >
+                        Move
+                        <component :is="sortIconFor('move')" :size="14" />
+                    </div>
+                    <div>Weapons</div>
+                    <div>Traits</div>
+                    <div class="text-teal">Abilities</div>
+                    <div
+                        class="number-cell px-1 sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'cost',
+                        }"
+                        @click="toggleSort('cost')"
+                    >
+                        Pts
+                        <component :is="sortIconFor('cost')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell px-1 sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'quantity',
+                        }"
+                        @click="toggleSort('quantity')"
+                    >
+                        Qty
+                        <component :is="sortIconFor('quantity')" :size="14" />
+                    </div>
+                    <div
+                        class="number-cell ps-1 sort-header"
+                        :class="{
+                            'sort-header-active': sortKey === 'totalCost',
+                        }"
+                        @click="toggleSort('totalCost')"
+                    >
+                        Cost
+                        <component :is="sortIconFor('totalCost')" :size="14" />
+                    </div>
+                    <div class="px-0"></div>
+                </div>
+                <div
+                    v-for="unit in draggableUnits"
+                    :key="unit.id"
+                    class="grid-row"
+                    :class="{
+                        'row-error': !unit.isValid,
+                    }"
+                >
+                    <div
+                        class="p-0 drag-handle-cell"
+                        :class="{
+                            'span-error-row': !unit.isValid,
                         }"
                     >
-                        <div
-                            class="p-0 drag-handle-cell"
+                        <button
+                            role="button"
+                            class="btn btn-transparent drag-handle d-flex align-items-start"
                             :class="{
-                                'span-error-row':
-                                    !unit.isValid,
+                                'drag-handle-disabled': sortKey !== null,
                             }"
+                            :disabled="sortKey !== null"
                         >
-                            <button
-                                role="button"
-                                class="btn btn-transparent drag-handle d-flex align-items-start"
-                                :class="{
-                                    'drag-handle-disabled': sortKey !== null,
-                                }"
-                                :disabled="sortKey !== null"
-                            >
-                                <GripVertical weight="bold" :size="16" />
-                            </button>
-                        </div>
-                        <div>
-                            <span
-                                v-if="showPrefix"
-                                class="text-muted fw-light"
-                            >{{ unit.prefix }}</span
-                            >
-                            {{ unit.display_name }}
-                        </div>
-                        <div v-if="showClass">{{ unit.class }}</div>
-                        <div v-if="showManufacturer">
-                            {{ unit.manufacturer }}
-                        </div>
-                        <div class="number-cell-sortable">{{ unit.init }}</div>
-                        <div class="number-cell-sortable">{{ unit.dodge }}</div>
-                        <div class="number-cell-sortable">
-                            {{ unit.defense }}
-                        </div>
-                        <div class="number-cell-sortable">{{ unit.hp }}</div>
-                        <div class="number-cell-sortable ws-nowrap">
-                            {{ unit.move }}
-                        </div>
-                        <div>
-                            {{
-                                unit.weapons.map((w: any) => w.name).join(', ')
-                            }}
-                        </div>
-                        <div>{{ unit.traits.join(', ') }}</div>
-                        <div class="text-teal">
-                            {{ unit.abilities.join(', ') }}
-                        </div>
-
-                        <div class="number-cell px-1">
-                            {{ unit.cost }}
-                            <PhX :size="14" />
-                        </div>
-                        <div class="number-cell px-1">
-                            {{ unit.quantity }}
-                            <PhEquals :size="14" />
-                        </div>
-                        <div class="number-cell-sortable fw-bold ps-1">
-                            {{ unit.quantity * unit.cost }}
-                        </div>
-                        <div class="py-1">
-                            <div class="btn-group btn-group-sm me-1">
-                                <button
-                                    role="button"
-                                    class="btn btn-minus btn-sm"
-                                    :class="{
-                                        'btn-primary': unit.quantity !== 0,
-                                        'btn-danger': unit.quantity === 0,
-                                    }"
-                                    @click="minus(unit)"
-                                    :id="`btn-remove-1-${unit.id}`"
-                                >
-                                    <Minus
-                                        v-if="unit.quantity !== 0"
-                                        :strokeWidth="2.5"
-                                        :size="16"
-                                    />
-                                    <X v-else :strokeWidth="2.5" :size="16" />
-                                </button>
-                                <button
-                                    role="button"
-                                    class="btn btn-primary btn-sm"
-                                    @click="add(unit.id)"
-                                    :id="`btn-add-1-${unit.id}`"
-                                >
-                                    <Plus :strokeWidth="2.5" :size="16" />
-                                </button>
-                            </div>
-
-                            <button
-                                role="button"
-                                class="btn btn-danger btn-sm"
-                                @click="remove(unit.id)"
-                                :id="`btn-remove-all-${unit.id}`"
-                            >
-                                <X :strokeWidth="2.5" :size="16" />
-                            </button>
-
-                            <BTooltip
-                                :target="`#btn-remove-1-${unit.id}`"
-                                v-if="unit.quantity !== 0"
-                            >
-                                Remove 1
-                            </BTooltip>
-                            <BTooltip :target="`#btn-add-1-${unit.id}`">
-                                Add 1
-                            </BTooltip>
-                            <BTooltip :target="`#btn-remove-all-${unit.id}`">
-                                Remove All
-                            </BTooltip>
-
-                            <UnitCardModal :unit-id="unit.id" />
-                        </div>
-                        <div
-                            class="error-msg"
-                            :class="{
-                                'error-msg-empty':
-                                    unit.isValid,
-                            }"
-                        >
-                            <UnitValidationMessages
-                                :unit-id="unit.id"
-                                :faction-id="armyList.faction_id"
-                                :validation="unit.validation"
-                                heading-class="text-warning fw-bold"
-                            />
-                        </div>
+                            <GripVertical weight="bold" :size="16" />
+                        </button>
                     </div>
-                </template>
-            </draggable>
+                    <div>
+                        <span v-if="showPrefix" class="text-muted fw-light">{{
+                                unit.prefix
+                            }}</span>
+                        {{ unit.display_name }}
+                    </div>
+                    <div v-if="showClass">{{ unit.class }}</div>
+                    <div v-if="showManufacturer">
+                        {{ unit.manufacturer }}
+                    </div>
+                    <div class="number-cell-sortable">{{ unit.init }}</div>
+                    <div class="number-cell-sortable">{{ unit.dodge }}</div>
+                    <div class="number-cell-sortable">
+                        {{ unit.defense }}
+                    </div>
+                    <div class="number-cell-sortable">{{ unit.hp }}</div>
+                    <div class="number-cell-sortable ws-nowrap">
+                        {{ unit.move }}
+                    </div>
+                    <div>
+                        {{ unit.weapons.map((w: any) => w.name).join(', ') }}
+                    </div>
+                    <div>{{ unit.traits.join(', ') }}</div>
+                    <div class="text-teal">
+                        {{ unit.abilities.join(', ') }}
+                    </div>
+
+                    <div class="number-cell px-1">
+                        {{ unit.cost }}
+                        <PhX :size="14" />
+                    </div>
+                    <div class="number-cell px-1">
+                        {{ unit.quantity }}
+                        <PhEquals :size="14" />
+                    </div>
+                    <div class="number-cell-sortable fw-bold ps-1">
+                        {{ unit.quantity * unit.cost }}
+                    </div>
+                    <div class="py-1">
+                        <div class="btn-group btn-group-sm me-1">
+                            <button
+                                role="button"
+                                class="btn btn-minus btn-sm"
+                                :class="{
+                                    'btn-primary': unit.quantity !== 0,
+                                    'btn-danger': unit.quantity === 0,
+                                }"
+                                @click="minus(unit)"
+                                :id="`btn-remove-1-${unit.id}`"
+                            >
+                                <Minus
+                                    v-if="unit.quantity !== 0"
+                                    :strokeWidth="2.5"
+                                    :size="16"
+                                />
+                                <X v-else :strokeWidth="2.5" :size="16" />
+                            </button>
+                            <button
+                                role="button"
+                                class="btn btn-primary btn-sm"
+                                @click="add(unit.id)"
+                                :id="`btn-add-1-${unit.id}`"
+                            >
+                                <Plus :strokeWidth="2.5" :size="16" />
+                            </button>
+                        </div>
+
+                        <button
+                            role="button"
+                            class="btn btn-danger btn-sm"
+                            @click="remove(unit.id)"
+                            :id="`btn-remove-all-${unit.id}`"
+                        >
+                            <X :strokeWidth="2.5" :size="16" />
+                        </button>
+
+                        <BTooltip
+                            :target="`#btn-remove-1-${unit.id}`"
+                            v-if="unit.quantity !== 0"
+                        >
+                            Remove 1
+                        </BTooltip>
+                        <BTooltip :target="`#btn-add-1-${unit.id}`">
+                            Add 1
+                        </BTooltip>
+                        <BTooltip :target="`#btn-remove-all-${unit.id}`">
+                            Remove All
+                        </BTooltip>
+
+                        <UnitCardModal :unit-id="unit.id" />
+                    </div>
+                    <div
+                        class="error-msg"
+                        :class="{
+                            'error-msg-empty': unit.isValid,
+                        }"
+                    >
+                        <UnitValidationMessages
+                            :unit-id="unit.id"
+                            :faction-id="armyList.faction_id"
+                            :validation="unit.validation"
+                            heading-class="text-warning fw-bold"
+                        />
+                    </div>
+                </div>
+            </VueDraggable>
             <div
                 class="border-top border-bottom py-2 text-center text-teal text-uppercase"
                 v-if="!unitsInfo.length"
@@ -509,7 +492,9 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         <div
             class="card-footer fs-5 text-end"
             :class="{
-                'card-footer-error': !validation.core.pointLimitValid || !validation.core.unitLimitValid
+                'card-footer-error':
+                    !validation.core.pointLimitValid ||
+                    !validation.core.unitLimitValid,
             }"
         >
             <strong>Unit Count: </strong>
