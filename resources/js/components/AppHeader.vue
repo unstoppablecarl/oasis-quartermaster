@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UserMenuDropdown from '@/components/UserMenuDropdown.vue'
 import { useCurrentUrl } from '@/composables/useCurrentUrl'
-import { diceRoller, home, login, register, rules } from '@/routes'
+import { diceRoller, home, login, printCards, register, rules } from '@/routes'
 import { create, index as armyLists } from '@/routes/army-lists'
 import type { NavItem } from '@/types'
 import { Link, usePage } from '@inertiajs/vue3'
@@ -37,6 +37,10 @@ const mainNavItems = computed<NavItem[]>(() => [
     {
         title: 'Dice Roller',
         href: diceRoller(),
+    },
+    {
+        title: 'Print Cards',
+        href: printCards(),
     },
 ])
 

@@ -1,7 +1,7 @@
 import { computed, inject, type InjectionKey, provide, toRef } from 'vue'
 import type { Command } from '../../data/commands'
 import { type FactionId, FACTIONS } from '../../data/factions'
-import type { UnitId } from '../../data/units'
+import type { Unit, UnitId } from '../../data/units'
 import { hasValidationMessages, isCoreArmyListValid, validateArmyList, validateUnitInList } from '../lib/army-list-validation'
 import {
     ARMY_LIST_TYPES_BY_ID,
@@ -11,7 +11,7 @@ import {
     getArmyListMaxUnits,
 } from '../lib/static-data-helpers'
 import type { LocalArmyList } from '../types/army-list'
-import { type UnitEntryInfo, useUnitsInfo } from './useUnitsInfo'
+import { useUnitsInfo } from './useUnitsInfo'
 
 export function useArmyList(armyList: LocalArmyList) {
     const units = toRef(armyList, 'units')
@@ -152,7 +152,9 @@ export type Card = {
     type: CardType
 }
 
-export function getUnitCards(unitsInfo: UnitEntryInfo[]): Card[] {
+export function getUnitCards(
+    unitsInfo: Pick<Unit, 'display_name' | 'cards_front' | 'card_back'>[],
+): Card[] {
     const output: Card[] = []
 
     const type = 'Unit'

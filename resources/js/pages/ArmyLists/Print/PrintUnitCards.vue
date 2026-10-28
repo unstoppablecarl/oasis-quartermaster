@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import UnitCard from '../../../components/ui/UnitCard.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
 import { chunk } from '../../../lib/utils'
+import PrintCardPages from '../Components/PrintCardPages.vue'
 
 const { printCardBacks, printCardsInColor } = defineProps<{
     printCardBacks: boolean
@@ -22,29 +22,5 @@ const pages = computed(() => {
 </script>
 
 <template>
-    <div
-        v-for="(page, index) in pages"
-        class="page-preview page-letter"
-        style="background-color: white"
-    >
-        <div class="page-card-grid">
-            <div class="page-number">
-                Page {{ index + 1 }}/{{ pages.length }}
-            </div>
-            <div class="game-card" v-for="card in page">
-                <UnitCard
-                    :display-name="card.display_name"
-                    :side="card.side"
-                    :card-image="card.cardImage"
-                    :color="printCardsInColor"
-                    class="game-card-image"
-                />
-
-                <div class="game-card-bleed-outline-top"></div>
-                <div class="game-card-bleed-outline-right"></div>
-                <div class="game-card-bleed-outline-left"></div>
-                <div class="game-card-bleed-outline-bottom"></div>
-            </div>
-        </div>
-    </div>
+    <PrintCardPages :pages="pages" :print-cards-in-color="printCardsInColor" />
 </template>

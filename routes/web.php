@@ -7,6 +7,7 @@ Route::inertia('/', 'Home')->name('home');
 
 Route::inertia('rules', 'Rules')->name('rules');
 Route::inertia('dice-roller', 'DiceRoller')->name('dice-roller');
+Route::inertia('print-cards', 'PrintCards')->name('print-cards');
 
 Route::get('army-lists/create', [ArmyListController::class, 'create'])->name('army-lists.create');
 

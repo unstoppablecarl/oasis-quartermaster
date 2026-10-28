@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import CommandCard from '../../../components/ui/CommandCard.vue'
+import FactionCard from '../../../components/ui/FactionCard.vue'
+import UnitCard from '../../../components/ui/UnitCard.vue'
+import type { Card } from '../../../composables/useArmyList'
+
+const {
+    pages,
+    printCardsInColor,
+    showPageNumbers = true,
+} = defineProps<{
+    pages: Card[][]
+    printCardsInColor: boolean
+    showPageNumbers?: boolean
+}>()
+</script>
+<template>
+    <div
+        v-for="(page, index) in pages"
+        class="page-preview page-letter"
+        style="background-color: white"
+    >
+        <div class="page-card-grid">
+            <div v-if="showPageNumbers" class="page-number">
+                Page {{ index + 1 }}/{{ pages.length }}
+            </div>
+            <div class="game-card" v-for="card in page">
+                <UnitCard
+                    v-if="card.type === 'Unit'"
+                    :display-name="card.display_name"
+                    :side="card.side"
+                    :card-image="card.cardImage"
+                    :color="printCardsInColor"
+                    class="game-card-image"
+                />
+                <FactionCard
+                    v-if="card.type === 'Faction'"
+                    :display-name="card.display_name"
+                    :side="card.side"
+                    :card-image="card.cardImage"
+                    :color="printCardsInColor"
+                    class="game-card-image"
+                />
+                <CommandCard
+                    v-if="card.type === 'Command'"
+                    :display-name="card.display_name"
+                    :side="card.side"
+                    :card-image="card.cardImage"
+                    :color="printCardsInColor"
+                    class="game-card-image"
+                />
+
+                <div class="game-card-bleed-outline-top"></div>
+                <div class="game-card-bleed-outline-right"></div>
+                <div class="game-card-bleed-outline-left"></div>
+                <div class="game-card-bleed-outline-bottom"></div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -17,3 +17,9 @@ test('guests can view the rules page', function () {
 test('guests can view the dice roller page', function () {
     $this->get(route('dice-roller'))->assertOk();
 });
+
+test('guests can view the print cards page', function () {
+    $this->get(route('print-cards'))
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('PrintCards'));
+});
