@@ -32,7 +32,7 @@ export const COMMANDS = {
     },
     SURVIVE: {
         id: 5,
-        display_name: 'Survive',
+        display_name: 'Survivability',
         card_front: 'Survive.jpg',
         card_back: 'Command Card Back.jpg',
     },
