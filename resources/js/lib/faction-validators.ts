@@ -2,8 +2,7 @@ import { TRAITS } from '../../data/abilities-and-traits'
 import { type FactionId, FACTIONS } from '../../data/factions'
 import type { Unit, UnitId } from '../../data/units'
 import type { LocalArmyList, UnitEntry } from '../types/army-list'
-import { getArmyListMaxPoints, getArmyListUnitCount, unitHasTrait, UNITS_BY_ID } from './static-data-helpers'
-import { half } from './utils'
+import { unitHasTrait, UNITS_BY_ID } from './static-data-helpers'
 
 type FactionValidator = {
     validateUnitAllowed?: (unit: Unit) => string[]
@@ -48,31 +47,25 @@ const FACTION_VALIDATORS_BY_ID: Record<FactionId, FactionValidator> = {
             return [`You may not have any Units with more than 4 HP`]
         },
         validateArmyList: (armyList: LocalArmyList) => {
-            let surveyorUnitCount = 0
             let surveyorUnitTotalCost = 0
 
             for (const entry of armyList.units) {
                 if (unitHasTrait(entry.id, 'SURVEYOR')) {
                     const unit = UNITS_BY_ID[entry.id]
-                    surveyorUnitCount += entry.quantity
                     surveyorUnitTotalCost += entry.quantity * unit.cost
                 }
             }
 
-            const maxPoints = getArmyListMaxPoints(armyList)
-            const halfPoints = maxPoints === null ? null : half(maxPoints)
-            const halfCount = half(getArmyListUnitCount(armyList))
+            const requiredSurveyorPoints = 150
 
-            const pointsValid = halfPoints !== null && surveyorUnitTotalCost >= halfPoints
-            const countValid = surveyorUnitCount >= halfCount
-            if (pointsValid || countValid) {
+            const pointsValid = surveyorUnitTotalCost >= requiredSurveyorPoints
+            if (pointsValid) {
                 return []
             }
 
             return [
-                `At least 50% of the total Units cost or Units count must be Units with the Surveyor Trait.`,
-                `Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${halfPoints ?? '–'})`,
-                `Required Surveyor Trait Unit count. (${surveyorUnitCount} / ${halfCount})`,
+                `Units with the Surveyor Trait must total at least 150 points.`,
+                `Required Surveyor Trait Unit points: (${surveyorUnitTotalCost} / ${requiredSurveyorPoints})`,
             ]
         },
     },
