@@ -23,7 +23,7 @@ const {
     totalCost,
     maxPoints,
     unitCount,
-    maxUnits
+    maxUnits,
 } = injectArmyList()
 
 const emit = defineEmits<{
@@ -39,7 +39,7 @@ onMounted(() => {
         if (saveBarRef.value) {
             document.documentElement.style.setProperty(
                 '--save-bar-height',
-                `${saveBarRef.value.offsetHeight}px`,
+                `${Math.ceil(saveBarRef.value.getBoundingClientRect().height)}px`,
             )
         }
     })
@@ -76,35 +76,38 @@ const saveStatusText = computed(() => {
                         <div class="save-bar-name">
                             <strong class="text-body-emphasis">Name:&nbsp;</strong
                             >
-                            <span v-if="armyList.display_name" class="text-truncate">{{
-                                    armyList.display_name
-                                }}</span>
+                            <span v-if="armyList.display_name" class="text-truncate">
+                                {{ armyList.display_name }}
+                            </span>
                             <span v-else class="text-danger-emphasis">Unnamed</span>
                         </div>
-                        <div>
+                        <div class="d-none d-md-block">
                             <strong class="text-body-emphasis">Faction: </strong>
                             <span>{{ faction.display_name }}</span>
                         </div>
-                        <div>
+                        <div class="d-none d-md-block">
                             <strong class="text-body-emphasis">Commands: </strong>
-                            <span v-if="commandNames.length">{{
-                                    commandNames.join(', ')
-                                }}</span>
+                            <span v-if="commandNames.length">
+                                {{ commandNames.join(', ') }}
+                            </span>
                             <span v-else class="text-danger-emphasis">None Selected</span>
                         </div>
 
                         <div>
                             <strong class="text-body-emphasis">
-                                Unit Count:
+                                <span class="d-none d-md-inline">Unit Count: </span>
+                                <span class="d-md-none">Units: </span>
                             </strong>
                             <span>
-                                <Fraction :a="unitCount" :b="maxUnits" less-than-or-equal-class="text-success-emphasis" />
+                                <Fraction :a="unitCount" :b="maxUnits"
+                                          less-than-or-equal-class="text-success-emphasis" />
                             </span>
                         </div>
 
                         <div>
                             <strong class="text-body-emphasis">
-                                Total Points:
+                                <span class="d-none d-md-inline">Total Points: </span>
+                                <span class="d-md-none">Points: </span>
                             </strong>
                             <Fraction :a="totalCost" :b="maxPoints" less-than-or-equal-class="text-success-emphasis" />
                         </div>
@@ -166,5 +169,33 @@ const saveStatusText = computed(() => {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &:empty {
+        display: none;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .save-bar-info {
+        column-gap: $spacer * 0.75;
+        font-size: 0.85rem;
+        // Whole-pixel line height; 0.85rem * 1.5 creates a fractional height leaving 1 px gap
+        line-height: 1.25rem;
+    }
+
+    .save-bar-fields {
+        flex: 1 1 0;
+        column-gap: $spacer;
+        row-gap: 0;
+    }
+
+    .save-bar-name {
+        max-width: 100%;
+    }
+
+    .save-bar-note {
+        flex: 1 1 100%;
+        white-space: normal;
+    }
 }
 </style>

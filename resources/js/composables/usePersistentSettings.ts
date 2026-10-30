@@ -6,9 +6,11 @@ type Settings = {
     showClass: boolean
     filterWithinBudgetUnits: boolean
     filterFactionValidUnits: boolean
+    showUnitCardBacks: boolean
+    showCommandCardBacks: boolean
 }
 
-const STORAGE_KEY = 'oasis-army-list-filter-settings'
+const STORAGE_KEY = 'oasis-army-list-persistent-settings'
 
 function make(): Settings {
     return {
@@ -17,6 +19,8 @@ function make(): Settings {
         showClass: true,
         filterWithinBudgetUnits: false,
         filterFactionValidUnits: false,
+        showUnitCardBacks: true,
+        showCommandCardBacks: true,
     }
 }
 
@@ -69,6 +73,8 @@ export function toRawSettings(settings: MaybeRefOrGetter<Settings>): Settings {
         showClass: s.showClass,
         filterFactionValidUnits: s.filterFactionValidUnits,
         filterWithinBudgetUnits: s.filterWithinBudgetUnits,
+        showUnitCardBacks: s.showUnitCardBacks,
+        showCommandCardBacks: s.showCommandCardBacks,
     }
 }
 
@@ -78,12 +84,14 @@ watch(settings, (value) => {
     saveSettings(value)
 })
 
-export function useFilterSettings() {
+export function usePersistentSettings() {
     const showPrefix = toRef(settings, 'showPrefix')
     const showManufacturer = toRef(settings, 'showManufacturer')
     const showClass = toRef(settings, 'showClass')
     const filterWithinBudgetUnits = toRef(settings, 'filterWithinBudgetUnits')
     const filterFactionValidUnits = toRef(settings, 'filterFactionValidUnits')
+    const showUnitCardBacks = toRef(settings, 'showUnitCardBacks')
+    const showCommandCardBacks = toRef(settings, 'showCommandCardBacks')
 
     return {
         showPrefix,
@@ -91,5 +99,7 @@ export function useFilterSettings() {
         showClass,
         filterWithinBudgetUnits,
         filterFactionValidUnits,
+        showUnitCardBacks,
+        showCommandCardBacks,
     }
 }

@@ -35,6 +35,7 @@ const visible = ref(false)
                 side="Front"
                 :display-name="faction.display_name"
                 width="400"
+                class="img-fluid"
             />
         </div>
     </BModal>

@@ -65,7 +65,7 @@ function select(id: CommandId) {
         <template #cancel>&nbsp;</template>
         <div class="d-flex flex-wrap justify-content-center">
             <div
-                class="mx-2 my-2"
+                class="mx-2 my-2 modal-card-choice"
                 v-for="command in allCommands"
                 :key="command.id"
             >

@@ -54,7 +54,7 @@ function select(id: FactionId) {
     >
         <div class="d-flex flex-wrap justify-content-center">
             <div
-                class="mx-2 my-2"
+                class="mx-2 my-2 modal-card-choice"
                 v-for="faction in allFactions"
                 :key="faction.id"
             >
@@ -74,7 +74,7 @@ function select(id: FactionId) {
                     />
                     <div
                         v-else
-                        class="d-flex align-items-center justify-content-center text-center p-3 fs-5"
+                        class="d-flex align-items-center justify-content-center text-center p-3 fs-5 modal-card-choice-placeholder"
                         :style="{
                             width: `${CARD_DEFAULT_WIDTH}px`,
                             aspectRatio: '1241 / 2126',

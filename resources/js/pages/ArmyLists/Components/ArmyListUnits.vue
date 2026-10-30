@@ -10,7 +10,7 @@ import Fraction from '../../../components/Fraction.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import UnitValidationMessages from '../../../components/ui/UnitValidationMessages.vue'
 import { injectArmyList } from '../../../composables/useArmyList'
-import { useFilterSettings } from '../../../composables/useFilterSettings'
+import { usePersistentSettings } from '../../../composables/usePersistentSettings'
 import type { UnitEntry } from '../../../types/army-list'
 import UnitGridFilters from './UnitGridFilters.vue'
 
@@ -141,7 +141,7 @@ function minus(unit: UnitEntry) {
     }
 }
 
-const { showClass, showManufacturer, showPrefix } = useFilterSettings()
+const { showClass, showManufacturer, showPrefix } = usePersistentSettings()
 const gridTemplateColumns = computed(() => {
     const columns = ['40px', 'max-content']
 
@@ -316,9 +316,9 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         Move
                         <component :is="sortIconFor('move')" :size="14" />
                     </div>
-                    <div>Weapons</div>
-                    <div>Traits</div>
-                    <div class="text-teal">Abilities</div>
+                    <div class="d-none d-lg-flex">Weapons</div>
+                    <div class="d-none d-lg-flex">Traits</div>
+                    <div class="d-none d-lg-flex text-teal">Abilities</div>
                     <div
                         class="number-cell px-1 sort-header"
                         :class="{
@@ -349,7 +349,7 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         Cost
                         <component :is="sortIconFor('totalCost')" :size="14" />
                     </div>
-                    <div class="px-0"></div>
+                    <div class="d-none d-lg-flex px-0"></div>
                 </div>
                 <div
                     v-for="unit in draggableUnits"
@@ -376,45 +376,67 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                             <GripVertical weight="bold" :size="16" />
                         </button>
                     </div>
-                    <div>
+                    <div class="unit-name">
                         <span v-if="showPrefix" class="text-muted fw-light">{{
                                 unit.prefix
                             }}</span>
                         {{ unit.display_name }}
                     </div>
-                    <div v-if="showClass">{{ unit.class }}</div>
-                    <div v-if="showManufacturer">
+                    <div v-if="showClass" data-label="Class">
+                        {{ unit.class }}
+                    </div>
+                    <div v-if="showManufacturer" data-label="Manufacturer">
                         {{ unit.manufacturer }}
                     </div>
-                    <div class="number-cell-sortable">{{ unit.init }}</div>
-                    <div class="number-cell-sortable">{{ unit.dodge }}</div>
-                    <div class="number-cell-sortable">
+                    <div
+                        class="number-cell-sortable unit-stat"
+                        data-label="Init."
+                    >
+                        {{ unit.init }}
+                    </div>
+                    <div
+                        class="number-cell-sortable unit-stat"
+                        data-label="Dodge"
+                    >
+                        {{ unit.dodge }}
+                    </div>
+                    <div
+                        class="number-cell-sortable unit-stat"
+                        data-label="Defense"
+                    >
                         {{ unit.defense }}
                     </div>
-                    <div class="number-cell-sortable">{{ unit.hp }}</div>
-                    <div class="number-cell-sortable ws-nowrap">
+                    <div class="number-cell-sortable unit-stat" data-label="HP">
+                        {{ unit.hp }}
+                    </div>
+                    <div
+                        class="number-cell-sortable unit-stat ws-nowrap"
+                        data-label="Move"
+                    >
                         {{ unit.move }}
                     </div>
-                    <div>
+                    <div class="unit-detail" data-label="Weapons">
                         {{ unit.weapons.map((w: any) => w.name).join(', ') }}
                     </div>
-                    <div>{{ unit.traits.join(', ') }}</div>
-                    <div class="text-teal">
+                    <div class="unit-detail" data-label="Traits">
+                        {{ unit.traits.join(', ') }}
+                    </div>
+                    <div class="unit-detail text-teal" data-label="Abilities">
                         {{ unit.abilities.join(', ') }}
                     </div>
 
-                    <div class="number-cell px-1">
+                    <div class="number-cell px-1 unit-cost">
                         {{ unit.cost }}
                         <PhX :size="14" />
                     </div>
-                    <div class="number-cell px-1">
+                    <div class="number-cell px-1 unit-cost">
                         {{ unit.quantity }}
                         <PhEquals :size="14" />
                     </div>
-                    <div class="number-cell-sortable fw-bold ps-1">
+                    <div class="number-cell-sortable fw-bold ps-1 unit-cost">
                         {{ unit.quantity * unit.cost }}
                     </div>
-                    <div class="py-1">
+                    <div class="py-1 unit-controls">
                         <div class="btn-group btn-group-sm me-1">
                             <button
                                 role="button"
@@ -652,6 +674,99 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
         width: 14px;
         height: 14px;
         display: inline-block;
+    }
+
+    /* Mobile: the header becomes a wrapping sort bar, each row a compact card */
+    @include media-breakpoint-down(lg) {
+        .table-grid {
+            display: block;
+        }
+
+        .grid-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            padding: 0.25rem 0;
+
+            > * {
+                padding: 0.25rem 0.5rem;
+            }
+
+            .number-cell.sort-header {
+                justify-content: flex-start;
+            }
+        }
+
+        .grid-row {
+            position: relative;
+            grid-template-columns: repeat(30, minmax(0, 1fr));
+            padding-left: 2rem;
+
+            > * {
+                grid-column: span 15;
+                padding: 0.25rem 0.5rem;
+            }
+
+            > [data-label]::before {
+                content: attr(data-label);
+                padding-right: 0.25rem;
+                font-weight: bold;
+                color: var(--bs-secondary-color);
+            }
+
+            > .drag-handle-cell {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 2rem;
+                padding: 0;
+            }
+
+            > .unit-name {
+                grid-column: 1 / -1;
+                font-weight: bold;
+            }
+
+            > div.unit-stat {
+                grid-column: span 6;
+                padding-right: 0.5rem;
+                text-align: center;
+
+                &::before {
+                    display: block;
+                    font-size: 0.8em;
+                    padding-right: 0;
+                }
+
+                &:nth-child(1 of .unit-stat) {
+                    grid-column: 1 / span 6;
+                }
+            }
+
+            > .unit-detail {
+                grid-column: 1 / -1;
+            }
+
+            > .unit-cost {
+                grid-column: span 5;
+                align-self: center;
+                padding-right: 0;
+                text-align: left;
+
+                &:nth-child(1 of .unit-cost) {
+                    grid-column: 1 / span 5;
+                }
+            }
+
+            > .unit-controls {
+                justify-self: end;
+            }
+
+            > div.error-msg {
+                grid-column: 1 / -1;
+            }
+        }
     }
 }
 </style>

@@ -10,51 +10,53 @@ const showManufacturer = defineModel<boolean>('showManufacturer', {
 </script>
 
 <template>
-    <div class="d-flex gap-2">
-        <div class="btn-sm-py fw-bold">Columns:</div>
-        <div class="btn-group">
-            <ButtonToggle
-                v-model="showPrefix"
-                class-on="success"
-                class-off="info"
-                size="sm"
-            >
-                <template #icon-on>
-                    <PhEye weight="fill" />
-                </template>
-                <template #icon-off>
-                    <PhEyeSlash weight="fill" />
-                </template>
-                Prefix
-            </ButtonToggle>
-            <ButtonToggle
-                v-model="showClass"
-                class-on="success"
-                class-off="info"
-                size="sm"
-            >
-                <template #icon-on>
-                    <PhEye weight="fill" />
-                </template>
-                <template #icon-off>
-                    <PhEyeSlash weight="fill" />
-                </template>
-                Class
-            </ButtonToggle>
-            <ButtonToggle
-                v-model="showManufacturer"
-                class-on="success"
-                class-off="info"
-                size="sm"
-            >
-                <template #icon-on>
-                    <PhEye weight="fill" />
-                </template>
-                <template #icon-off>
-                    <PhEyeSlash weight="fill" />
-                </template>
-                Manufacturer
-            </ButtonToggle>
+    <div class="d-flex flex-wrap gap-2 column-gap-3">
+        <div class="d-flex flex-wrap gap-2">
+            <div class="btn-sm-py fw-bold">Columns:</div>
+            <div class="btn-group">
+                <ButtonToggle
+                    v-model="showPrefix"
+                    class-on="success"
+                    class-off="info"
+                    size="sm"
+                >
+                    <template #icon-on>
+                        <PhEye weight="fill" />
+                    </template>
+                    <template #icon-off>
+                        <PhEyeSlash weight="fill" />
+                    </template>
+                    Prefix
+                </ButtonToggle>
+                <ButtonToggle
+                    v-model="showClass"
+                    class-on="success"
+                    class-off="info"
+                    size="sm"
+                >
+                    <template #icon-on>
+                        <PhEye weight="fill" />
+                    </template>
+                    <template #icon-off>
+                        <PhEyeSlash weight="fill" />
+                    </template>
+                    Class
+                </ButtonToggle>
+                <ButtonToggle
+                    v-model="showManufacturer"
+                    class-on="success"
+                    class-off="info"
+                    size="sm"
+                >
+                    <template #icon-on>
+                        <PhEye weight="fill" />
+                    </template>
+                    <template #icon-off>
+                        <PhEyeSlash weight="fill" />
+                    </template>
+                    Manufacturer
+                </ButtonToggle>
+            </div>
         </div>
         <slot />
     </div>

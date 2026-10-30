@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import { provideArmyList } from '../../composables/useArmyList'
+import ArmyListItemLayout from '../../layouts/army-lists/ArmyListItemLayout.vue'
 import type { ArmyList } from '../../types/army-list'
 import ArmyListInfoSummary from './ArmyListInfoSummary.vue'
 import ArmyListCardsPreview from './Components/ArmyListCardsPreview.vue'

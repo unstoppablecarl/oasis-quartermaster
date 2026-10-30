@@ -21,6 +21,7 @@ function armyListRow(armyList: ArmyList) {
         maxPoints,
         totalCost,
         unitCount,
+        maxUnits,
         faction,
         commands,
         createdAt,
@@ -33,6 +34,7 @@ function armyListRow(armyList: ArmyList) {
         totalCost,
         maxPoints,
         unitCount,
+        maxUnits,
         createdAt,
         updatedAt,
         commands: commands.value.map((c) => c.display_name),
@@ -66,6 +68,7 @@ const fields: Exclude<TableFieldRaw<ArmyListRow>, string>[] = [
     {
         key: 'unitCount',
         class: 'number-cell',
+        label: 'Units',
         sortable: true,
         sortCompare: sort((r) => r.unitCount.value),
     },
@@ -122,7 +125,7 @@ function sortMode(key: string) {
                 :items="armyListsInfo"
                 :fields="fields"
                 v-model:sort-by="sortBy"
-                responsive="sm"
+                stacked="md"
                 no-border-collapse
                 no-sortable-icon
                 show-empty
@@ -139,10 +142,19 @@ function sortMode(key: string) {
                     {{ data.item.commands.join(', ') }}
                 </template>
 
+                <template #cell(unitCount)="data">
+                    <Fraction
+                        :a="toValue(data.item.unitCount)"
+                        :b="toValue(data.item.maxUnits)"
+                        less-than-or-equal-class="text-success"
+                    />
+                </template>
+
                 <template #cell(points)="data">
                     <Fraction
                         :a="toValue(data.item.totalCost)"
                         :b="toValue(data.item.maxPoints)"
+                        less-than-or-equal-class="text-success"
                     />
                 </template>
 
@@ -183,16 +195,21 @@ function sortMode(key: string) {
                     Create New Army List
                 </Link>
 
-
             </div>
         </div>
     </Teleport>
 </template>
 <style lang="scss">
 .table-army-lists {
-    table > thead > tr {
+    > thead > tr {
         > th {
             white-space: nowrap;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        > tbody > tr > td.number-cell {
+            text-align: left;
         }
     }
 }

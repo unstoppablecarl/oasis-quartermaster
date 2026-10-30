@@ -16,7 +16,7 @@ import UnitCardModal from '../../../components/army-lists/UnitCardModal.vue'
 import BtnPopoverValidation from '../../../components/ui/BtnPopoverValidation.vue'
 import CardHazardTitle from '../../../components/ui/CardHazardTitle.vue'
 import TableSortHeader from '../../../components/ui/TableSortHeader.vue'
-import { useFilterSettings } from '../../../composables/useFilterSettings'
+import { usePersistentSettings } from '../../../composables/usePersistentSettings'
 import { hasValidationMessages, validateUnitCandidate } from '../../../lib/army-list-validation'
 import { getArmyListMaxPoints, getArmyListTotalPoints } from '../../../lib/static-data-helpers'
 import { sort } from '../../../lib/utils'
@@ -92,6 +92,7 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     {
         key: 'validation',
         label: 'Valid',
+        class: 'stacked-unlabeled stacked-validation',
         sortable: true,
         sortCompare: sort((unit: Row) =>
             hasValidationMessages(unit.validation) ? 1 : 0,
@@ -101,7 +102,7 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
         key: 'display_name',
         label: 'Name',
         sortable: true,
-        class: 'ws-nowrap',
+        class: 'ws-nowrap stacked-unlabeled stacked-name',
     },
     ...(showClass.value
         ? [
@@ -122,50 +123,52 @@ const fields = computed<Exclude<TableFieldRaw<Row>, string>[]>(() => [
     {
         key: 'init',
         label: 'Init.',
-        class: 'number-cell',
+        class: 'number-cell stacked-stat',
         sortable: true,
     },
     {
         key: 'dodge',
-        class: 'number-cell',
+        class: 'number-cell stacked-stat',
         sortable: true,
     },
     {
         key: 'defense',
-        class: 'number-cell',
+        class: 'number-cell stacked-stat',
         sortable: true,
     },
     {
         key: 'hp',
         label: 'HP',
-        class: 'number-cell',
+        class: 'number-cell stacked-stat',
         sortable: true,
     },
     {
         key: 'move',
         label: 'Move',
         sortable: true,
-        class: 'ws-nowrap number-cell',
+        class: 'ws-nowrap number-cell stacked-stat',
     },
     {
         key: 'weapons',
+        class: 'stacked-full',
     },
     {
         key: 'traits',
+        class: 'stacked-full',
     },
     {
         key: 'abilities',
-        class: 'text-teal',
+        class: 'text-teal stacked-full',
     },
     {
         key: 'cost',
-        class: 'number-cell',
+        class: 'number-cell stacked-cost',
         sortable: true,
     },
     {
         key: 'controls',
         label: '',
-        class: 'ws-nowrap',
+        class: 'ws-nowrap stacked-unlabeled stacked-controls',
     },
 ])
 
@@ -177,7 +180,7 @@ const {
     showPrefix,
     filterFactionValidUnits,
     filterWithinBudgetUnits,
-} = useFilterSettings()
+} = usePersistentSettings()
 
 const rowClass = (
     item: Row | null,
@@ -208,36 +211,38 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                         v-model:show-manufacturer="showManufacturer"
                         v-model:show-prefix="showPrefix"
                     >
-                        <div class="btn-sm-py ms-2 fw-bold">Filters:</div>
-                        <ButtonToggle
-                            v-model="filterWithinBudgetUnits"
-                            class-off="secondary"
-                            size="sm"
-                        >
-                            <template #icon-on>
-                                <PhFunnel weight="fill" />
-                            </template>
-                            <template #icon-off>
-                                <PhFunnelX />
-                            </template>
-                            Within Available Points
-                        </ButtonToggle>
-                        <ButtonToggle
-                            v-model="filterFactionValidUnits"
-                            class-off="secondary"
-                            v-if="
-                                armyList.faction_id !== FACTIONS.UNAFFILIATED.id
-                            "
-                            size="sm"
-                        >
-                            <template #icon-on>
-                                <PhFunnel weight="fill" />
-                            </template>
-                            <template #icon-off>
-                                <PhFunnelX />
-                            </template>
-                            Faction Valid
-                        </ButtonToggle>
+                        <div class="d-flex flex-wrap gap-2">
+                            <div class="btn-sm-py fw-bold">Filters:</div>
+                            <ButtonToggle
+                                v-model="filterWithinBudgetUnits"
+                                class-off="secondary"
+                                size="sm"
+                            >
+                                <template #icon-on>
+                                    <PhFunnel weight="fill" />
+                                </template>
+                                <template #icon-off>
+                                    <PhFunnelX />
+                                </template>
+                                Within Available Points
+                            </ButtonToggle>
+                            <ButtonToggle
+                                v-model="filterFactionValidUnits"
+                                class-off="secondary"
+                                v-if="
+                                    armyList.faction_id !== FACTIONS.UNAFFILIATED.id
+                                "
+                                size="sm"
+                            >
+                                <template #icon-on>
+                                    <PhFunnel weight="fill" />
+                                </template>
+                                <template #icon-off>
+                                    <PhFunnelX />
+                                </template>
+                                Faction Valid
+                            </ButtonToggle>
+                        </div>
                     </UnitGridFilters>
                 </CardHazardTitle>
             </div>
@@ -250,11 +255,19 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                 :items="allUnits"
                 :fields="fields"
                 v-model:sort-by="sortBy"
+                stacked="lg"
                 head-variant="dark"
                 no-border-collapse
                 :tbody-tr-class="rowClass"
                 no-sortable-icon
+                show-empty
             >
+                <template #empty>
+                    <div class="py-2 text-center text-teal text-uppercase">
+                        No units match the selected filters
+                    </div>
+                </template>
+
                 <template #head()="scope">
                     <TableSortHeader
                         :mode="sortMode(scope.field.key)"
@@ -272,9 +285,9 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
                 </template>
 
                 <template #cell(display_name)="data">
-                    <span class="text-muted fw-light" v-if="showPrefix">{{
-                        data.item.prefix
-                    }}</span>
+                    <span class="text-muted fw-light" v-if="showPrefix">
+                        {{ data.item.prefix }}
+                    </span>
                     {{ data.item.display_name }}
                 </template>
 
@@ -325,17 +338,22 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
 
 .table-unit-picker {
     $border-color: mix($danger, #000, 70%);
-    > tbody > tr.row-error > td {
+
+    > tbody > tr.row-error {
         --bs-table-bg: #{$table-bg-error};
 
-        border-color: $border-color;
+        > td {
+            --bs-table-bg: #{$table-bg-error};
 
-        &:first-child {
-            border-left-width: 1px;
-        }
+            border-color: $border-color;
 
-        &:last-child {
-            border-right-width: 1px;
+            &:first-child {
+                border-left-width: 1px;
+            }
+
+            &:last-child {
+                border-right-width: 1px;
+            }
         }
     }
 
@@ -347,6 +365,114 @@ const { height: toolbarHeight } = useElementSize(toolbarRef, undefined, {
     /* Gives the .row-error a top border by coloring the bottom border of the row above it */
     > tbody > tr:has(+ tr.row-error) > td {
         border-bottom-color: $border-color;
+    }
+
+    /* Stacked (mobile) layout: each row becomes a compact card */
+    @include media-breakpoint-down(lg) {
+        &.table.b-table.b-table-stacked-lg > tbody > tr {
+            display: grid;
+            grid-template-columns: repeat(30, minmax(0, 1fr));
+            border-bottom: 1px solid var(--bs-border-color);
+
+            /* Paint the row (not the cells) so gaps between grid cells share the stripe/hover colors */
+            background-color: var(--bs-table-bg);
+            box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
+
+            &:nth-of-type(#{$table-striped-order}) {
+                --bs-table-bg-type: var(--bs-table-striped-bg);
+            }
+
+            &:hover {
+                --bs-table-bg-state: var(--bs-table-hover-bg);
+            }
+
+            &.row-error {
+                border: 1px solid $border-color;
+            }
+
+            > td {
+                background-color: transparent;
+                box-shadow: none;
+                grid-column: span 15;
+                border: 0;
+                padding: 0.25rem 0.5rem;
+                text-align: left;
+
+                &::before {
+                    float: none;
+                    width: auto;
+                    text-align: center;
+                    padding-right: 0.25rem;
+                    color: var(--bs-secondary-color);
+                }
+
+                &::after {
+                    content: none;
+                }
+
+                > div {
+                    width: auto;
+                    padding: 0;
+                }
+            }
+
+            > td.stacked-unlabeled::before {
+                content: none;
+            }
+
+            > td:first-child {
+                grid-column: span 4;
+            }
+
+            /* Must follow td:first-child, which has equal specificity */
+            &.b-table-empty-row > td {
+                grid-column: 1 / -1;
+            }
+
+            > td.stacked-name {
+                grid-column: span 26;
+                align-self: center;
+                font-weight: bold;
+                white-space: normal;
+            }
+
+            /* Valid units render no validation button; let the name take the full row */
+            > td.stacked-validation:not(:has(.btn-popover-validation)) {
+                display: none;
+
+                + td.stacked-name {
+                    grid-column: 1 / -1;
+                }
+            }
+
+            > td.stacked-stat {
+                grid-column: span 6;
+                text-align: center;
+
+                &::before {
+                    display: block;
+                    font-size: 0.8em;
+                    padding-right: 0;
+                }
+
+                &:nth-child(1 of .stacked-stat) {
+                    grid-column: 1 / span 6;
+                }
+            }
+
+            > td.stacked-full {
+                grid-column: 1 / -1;
+            }
+
+            > td.stacked-cost {
+                grid-column: 1 / span 15;
+                align-self: center;
+            }
+
+            > td.stacked-controls {
+                text-align: right;
+            }
+        }
     }
 }
 </style>

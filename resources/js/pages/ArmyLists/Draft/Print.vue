@@ -25,7 +25,7 @@ provideArmyList(armyList)
     </ArmyListItemHeader>
 
     <ArmyListInfoSummary />
-    <ArmyListValidationSummary heading-class="text-teal" />
+    <ArmyListValidationSummary />
 
     <ArmyListPrintPreview :print-mode="printMode" />
 </template>

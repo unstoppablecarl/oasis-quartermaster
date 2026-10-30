@@ -44,6 +44,26 @@ $heading-border-color: #7d8ba2;
     }
 }
 
+@media screen {
+    @media (max-width: ($page-letter-width + 32px - 0.02px)) {
+        .page-previews-container .page-preview {
+            zoom: 0.85;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .page-previews-container .page-preview {
+            zoom: 0.65;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .page-previews-container .page-preview {
+            zoom: 0.4;
+        }
+    }
+}
+
 .print-settings-container {
     width: $page-letter-width;
 }

@@ -18,12 +18,12 @@ const {
     <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex">
-                <div class="me-3 me-auto">
+                <div class="d-flex flex-wrap column-gap-4 row-gap-1 me-auto">
                     <span class="ws-nowrap">
                         <strong class="text-body-emphasis">Game Mode: </strong>
                         {{ armyListTypeName }}
                     </span>
-                    <span class="ms-4 ws-nowrap">
+                    <span class="ws-nowrap">
                         <strong class="text-body-emphasis">Faction: </strong>
                         {{ faction.display_name }}
                         <FactionCardViewModal
@@ -32,7 +32,7 @@ const {
                         />
                     </span>
 
-                    <span class="ms-4 ws-nowrap">
+                    <span>
                         <strong class="text-body-emphasis">Commands: </strong>
                         {{ commands.map((c) => c.display_name).join(', ') }}
                         <span
@@ -43,7 +43,7 @@ const {
                         </span>
                     </span>
 
-                    <span class="mx-3 ws-nowrap">
+                    <span class="ws-nowrap">
                         <strong class="text-body-emphasis"> Unit Count: </strong>
                         <Fraction :a="unitCount" :b="maxUnits" />
                     </span>

@@ -11,12 +11,12 @@ const hasFooter = computed(() => {
 <template>
     <div class="card my-3">
         <div class="card-body">
-            <div class="d-flex">
+            <div class="d-flex flex-wrap gap-2">
                 <div class="flex-grow-1 py-1 title text-sulfur">
                     Print Settings
                 </div>
-                <div class="flex-shrink-1">
-                    <div class="btn-group ms-1" role="group">
+                <div class="flex-shrink-1 mw-100">
+                    <div class="btn-group flex-wrap" role="group">
                         <slot name="nav"></slot>
                     </div>
                 </div>
