@@ -2,7 +2,7 @@
 import { PhClipboard } from '@phosphor-icons/vue'
 import { vBTooltip } from 'bootstrap-vue-next'
 import { toast } from 'vue-sonner'
-import { show } from '../../../routes/army-lists'
+import { print } from '../../../routes/army-lists'
 
 const { armyListUuid } = defineProps<{
     armyListUuid: string
@@ -10,7 +10,7 @@ const { armyListUuid } = defineProps<{
 
 async function copy() {
     try {
-        let url = window.location.origin + show(armyListUuid).url
+        let url = window.location.origin + print({ army_list: { uuid: armyListUuid } }).url
         await navigator.clipboard.writeText(url)
 
         toast.success('Army List Coppied')
