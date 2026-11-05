@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { PhCopy } from '@phosphor-icons/vue'
+import { PhClipboard } from '@phosphor-icons/vue'
+import { vBTooltip } from 'bootstrap-vue-next'
 import { toast } from 'vue-sonner'
 import { show } from '../../../routes/army-lists'
 
@@ -20,7 +21,12 @@ async function copy() {
 }
 </script>
 <template>
-    <button role="button" class="btn btn-outline-info" @click="copy">
-        <PhCopy :size="16" />
+    <button
+        role="button"
+        class="btn btn-outline-info"
+        @click="copy"
+        v-b-tooltip="'Copy Army List URL to Clipboard'"
+    >
+        <PhClipboard :size="16" />
     </button>
 </template>
